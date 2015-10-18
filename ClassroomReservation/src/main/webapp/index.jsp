@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
 	<%
-		response.sendRedirect("/ClassroomReservation/LoginController/redirectLogin.do");
+		response.sendRedirect("/ClassroomReservation/ClassManage/redirectClassManage.do");
 	%>
 </body>
