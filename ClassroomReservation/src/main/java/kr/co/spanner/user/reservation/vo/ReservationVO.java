@@ -10,7 +10,14 @@ public class ReservationVO {
 	private int usingTime; //사용시간
 	private String resFor; // 이용목적
 	private int status; //상태
+	private String rsvDay;
 	
+	public String getRsvDay() {
+		return rsvDay;
+	}
+	public void setRsvDay(String rsvDay) {
+		this.rsvDay = rsvDay;
+	}
 	public int getResNo() {
 		return resNo;
 	}

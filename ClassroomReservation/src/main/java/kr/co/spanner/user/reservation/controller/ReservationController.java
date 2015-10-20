@@ -23,18 +23,19 @@ public class ReservationController {
 	@RequestMapping("/reservation.json")
 	@ResponseBody
 	public List<ReservationVO> insertRes(ReservationVO reservation) throws Exception{		
-			
+		String [] searchArr = reservation.getRegDate().split("/");
+		String searchDay = searchArr[0];
 		service.insertRes(reservation);
 
-		return service.selectReservation();	
+		return service.selectReservation(searchDay);	
 	}
 	
-	@RequestMapping("/rsvList.json")
+/*	@RequestMapping("/rsvList.json")
 	public List<ReservationVO> rsvList() throws Exception{
 		
 		return service.selectReservation();
 	}
-	
+	*/
 }
 
 

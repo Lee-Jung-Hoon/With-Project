@@ -20,9 +20,10 @@
 			#{resFor}
 		)
 	</insert>
-	<select id="selectReservation" resultType="reservation">
+	<select id="selectReservation" parameterType="String" resultType="reservation">
 		select res_no resNo, start_time startTime, using_time usingTime
 		  from t_class_reservation
+		 where startTime = #{}
 		 order by resNo desc
 	</select>
 <!-- 	<select id="selectRes" parameterType="String" resultType="reservation"> -->

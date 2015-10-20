@@ -12,14 +12,36 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script>
+	
 $(document).ready(function(){
+  
+  $("#search").on("click",function(){
+    
+   var isCheck = confirm($("#sDate").val()+" 예약상황 조회하시겠습니까 ?");
+   if(isCheck == false){
+    return false;
+   }
+   else{
+     var searchDate = $("#sDate").val();
+     $.ajax({
+       url:"${pageContext.request.contextPath}/reservation/searchReservation.json";
+       type:"POST",
+			 datatype:"JSON",
+			 data:{startTime:searchDate},
+			 success:function(data, status){
+			 list(data);
+			}
+     })
+   }
+  });
   $("input[type='button']").on('click', function(){
 	var result = confirm("예약하시겠습니까?");
 	var startTime = $('#startTime').val();
 	var usingTime = $('#rsvTime').val();
+	var rsvDay = $('#rsvDay').val();
 	var using = $('#using').val();
   if ($(this).val() == '예약') {
-        if ($('#using').val() == "") {
+    if ($('#using').val() == "") {
           alert("사용목적을 적어주세욥");
         }
         else {
@@ -28,7 +50,7 @@ $(document).ready(function(){
 							url:"${pageContext.request.contextPath}/reservation/reservation.json",
 							type:"POST",
 							datatype:"JSON",
-							data:{ startTime:startTime, usingTime:usingTime, resFor:using },
+							data:{ startTime:startTime, usingTime:usingTime, resFor:using, rsvDay:rsvDay },
 							success:function(data, status){
 							list(data);
 							}
@@ -38,6 +60,7 @@ $(document).ready(function(){
 					}
         }
       }
+
     })
   });
   function list(data){
@@ -56,6 +79,7 @@ $(document).ready(function(){
     var d = new Date();
     var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); //현재 날짜
     document.getElementById("sDate").value = date;
+    document.getElementById("rsvDay").value = date;
   }
 </script>
 </head>
@@ -82,14 +106,16 @@ $(document).ready(function(){
 					<hr />
 				</div>
 				<div style="width: 100%">
-					<form name="searchClassInfo">
-						<input type="date" id="sDate" name="sDate" min="2015-01-01"
-							max="2015-12-31" /> <input type="submit" value="조회" />
-					</form>
-					<hr />	
+					<input type="date" id="sDate" name="sDate" min="2015-01-01"
+						max="2050-12-31" /> <input type="submit" id="search" value="조회" />
+					<hr />
 				</div>
 				<div style="width: 100%; overflow:hidden;">
 					<div style="width: 30%; float: left; border-right:1px solid gray">
+					
+						<div>
+								<input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2050-12-31" />
+						</div>
 						<div style="margin-bottom: 30px">
 							시작시간 <select id="startTime">
 								<option selected="selected">08</option>
