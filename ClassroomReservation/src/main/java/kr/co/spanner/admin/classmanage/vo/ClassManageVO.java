@@ -12,7 +12,7 @@ public class ClassManageVO {
 	public int getClassNo() {
 		return classNo;
 	}
-
+ 
 	public void setClassNo(int classNo) {
 		this.classNo = classNo;
 	}

@@ -17,7 +17,7 @@ import kr.co.spanner.admin.classmanage.vo.ClassManageVO;
 @Controller
 @RequestMapping("/ClassManage")
 public class ClassManageController {
-	
+	 
 	@Autowired
 	private ClassManageService service;
 
