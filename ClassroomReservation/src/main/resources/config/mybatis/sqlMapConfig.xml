@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		<typeAlias type="kr.co.spanner.admin.classmanage.vo.ClassManageVO" alias="class"/>		
 		<typeAlias type="kr.co.spanner.user.reservation.vo.ReservationVO" alias="reservation" />
 	</typeAliases>
 </configuration>
