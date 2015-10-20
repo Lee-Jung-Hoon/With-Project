@@ -18,6 +18,8 @@ public class ReservationController {
 	private ReservationService service;
 
 	
+	
+	
 	@RequestMapping("/reservation.json")
 	@ResponseBody
 	public List<ReservationVO> insertRes(ReservationVO reservation) throws Exception{		
@@ -27,7 +29,7 @@ public class ReservationController {
 		return service.selectReservation();	
 	}
 	
-	@RequestMapping("/rsvList.do")
+	@RequestMapping("/rsvList.json")
 	public List<ReservationVO> rsvList() throws Exception{
 		
 		return service.selectReservation();

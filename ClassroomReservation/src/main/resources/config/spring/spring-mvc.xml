@@ -69,6 +69,7 @@
 	<mvc:default-servlet-handler />
 	<mvc:view-controller path="/makegroups/MakeGroup.do" view-name="admin/groupmaker/MakeGroup"/>
 	<mvc:view-controller path="/admin/studentSeat/arrangeSeat.do" view-name="admin/studentSeat/arrangeSeat"/>
+	<mvc:view-controller path="/user/reservation/rsvList.do" view-name="user/classReservation"/>
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp" />
 	</mvc:view-resolvers>
