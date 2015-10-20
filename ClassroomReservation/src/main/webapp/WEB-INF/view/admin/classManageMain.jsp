@@ -16,11 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 <script src="${pageContext.request.contextPath}/js/jquery.colorbox.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/colorbox.css" />
-
-
-
 </head>
-
 <style>
 .content {
 	overflow: hidden;
@@ -54,13 +50,13 @@
 <script>  
   var cnt = 0;
   $(document).ready(function() {
-   	classList("${floor}");
+    classList("${floor}");
     // 강의실 등록 컬러박스
     $(".insertClass").colorbox({
       iframe : true,
       title : "강의실 등록",
-      width : "60%",
-      height : "60%"
+      width : "50%",
+      height : "65%"
     });
     
     // 강의실 정보 저장을 위한 이벤트 수행
@@ -154,22 +150,25 @@
 </script>
 <body>
 	<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
-	<div class="content-wrapper" style="position: static; margin-top: 62px;">
-		<h1>강의실 관리 메뉴</h1>
+	<div class="content-wrapper" style="position: static;">
+	<div style="width: 90%; margin: 0 auto;"><h1>강의실 관리 메뉴</h1>
 		<!-- 층수 선택 버튼 -->
-		<input type="button" value="1층" onclick="location.href='ClassManage.do?floor=1'">
-		<input type="button" value="2층" onclick="location.href='ClassManage.do?floor=2'">
-		<input type="button" value="3층" onclick="location.href='ClassManage.do?floor=3'">
-		<input type="button" value="4층" onclick="location.href='ClassManage.do?floor=4'">
-		<input type="button" value="5층" onclick="location.href='ClassManage.do?floor=5'">
-		<input type="button" value="6층" onclick="location.href='ClassManage.do?floor=6'">
-		<input type="button" value="7층" onclick="location.href='ClassManage.do?floor=7'">
-		<input type="button" value="8층" onclick="location.href='ClassManage.do?floor=8'">
-		
-		<div class="content" style="background: tomato; height: 600px; border: 1px solid black;">
+		<ul class="pagination">
+  		<li><a href="ClassManage.do?floor=1">1층</a></li>
+  		<li><a href="ClassManage.do?floor=2">2층</a></li>
+			<!-- class="active" -->
+  		<li><a href="ClassManage.do?floor=3">3층</a></li>
+  		<li><a href="ClassManage.do?floor=4">4층</a></li>
+  		<li><a href="ClassManage.do?floor=5">5층</a></li>
+  		<li><a href="ClassManage.do?floor=6">6층</a></li>
+  		<li><a href="ClassManage.do?floor=7">7층</a></li>
+  		<li><a href="ClassManage.do?floor=8">8층</a></li>
+		</ul>
+		</div> 
+		<div class="content" style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
 		<button><a class="insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'>강의실 생성</a></button>
 		</div>
-		<div class="footer l-box is-center">열심히 해봅시다!</div>
+		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
 	</div>
 </body>
 </html>

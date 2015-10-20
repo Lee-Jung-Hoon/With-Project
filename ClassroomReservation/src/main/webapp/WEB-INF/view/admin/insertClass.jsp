@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <script>
 	// 강의실 등록
@@ -29,27 +31,36 @@
 </script>
 </head>
 <body>
-	<form id="classForm">
-		<table>
-			<tr>
-				<th>강의실 이름</th>
-				<td><input type="number" step="1" id="className" name="className" value="${floor}01" required="required">호</td>
-			</tr>
-
-			<tr>
-				<th>강의실 수용인원</th>
-				<td><input type="number" min="1" max="500" value="1" id="classPerson" name="classPerson" required="required">명</td>
-				<td><input type="hidden" name="classLeft" value="10" ></td>
-				<td><input type="hidden" name="classTop" value="60" ></td>
-				<td><input type="hidden" name="floor" value="${floor}" ></td>
-			</tr>
-
-			<tr>
-				<th>강의실 상세 내용</th>
-				<td><textarea cols="50" rows="10" id="classDetail" name="classDetail" required="required"></textarea>
-			</tr>
-		</table>
-		<input type="button" onclick="registClass_submit()" value="글등록">
-	</form>
+	<div class="container">
+  <h2>강의실 등록</h2>
+  <form class="form-horizontal" id="classForm" role="form">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">강의실 이름:</label>
+      <div class="col-sm-10">
+        <input type="number" step="1" id="className" name="className" class="form-control" value="${floor}01" required="required" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">수용 인원:</label>
+      <div class="col-sm-10">          
+     		<input type="hidden" name="classLeft" value="10" >
+				<input type="hidden" name="classTop" value="60" >
+				<input type="hidden" name="floor" value="${floor}" >
+        <input type="number" min="1" max="500" value="1" id="classPerson"  class="form-control" name="classPerson" required="required">
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="control-label col-sm-2" for="email">상세 내용:</label>
+      <div class="col-sm-10">
+        <textarea cols="50" rows="10" id="classDetail"  class="form-control" name="classDetail" required="required"></textarea>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+				<input type="button" onclick="registClass_submit()" class="btn btn-default" value="글등록">
+      </div>
+    </div>
+  </form>
+</div>
 </body>
 </html>
