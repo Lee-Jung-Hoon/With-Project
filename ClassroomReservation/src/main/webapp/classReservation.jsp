@@ -1,24 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>레이아웃</title>
+  <title>레이아웃</title>
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script>
+	<script>
 $(document).ready(function(){
   $("input[type='button']").on('click', function(){
 	var result = confirm("예약하시겠습니까?");
 	var startTime = $('#startTime').val();
-	var rsvTime = $('#rsvTime').val();
-	var using = $('$using').val();
+	var usingTime = $('#rsvTime').val();
+	var using = $('#using').val();
   if ($(this).val() == '예약') {
         if ($('#using').val() == "") {
           alert("사용목적을 적어주세욥");
@@ -26,12 +25,12 @@ $(document).ready(function(){
         else {
 					if(result){
 					  $.ajax({
-							url:"",
+							url:"${pageContext.request.contextPath}/reservation/reservation.json",
 							type:"POST",
 							datatype:"JSON",
-							data:{},
+							data:{ startTime:startTime, usingTime:usingTime, resFor:using },
 							success:function(data, status){
-							  
+							list(data);
 							}
 					  })
 					}
@@ -41,7 +40,18 @@ $(document).ready(function(){
       }
     })
   });
-  
+  function list(data){
+    $("#reservationList").html("");
+    $.each(data, function(index, value){
+      $("#reservationList").append(
+          "<p>시작시간 : "+parseInt(data[index].startTime)+":00시 &nbsp;&nbsp;종료시간"
+                          +((parseInt(data[index].startTime))+(parseInt(data[index].usingTime)))+":00시"
+                          +
+           "</p>"
+           
+      );
+    })
+  };
   window.onload = function() {
     var d = new Date();
     var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); //현재 날짜
@@ -82,20 +92,20 @@ $(document).ready(function(){
 					<div style="width: 30%; float: left; border-right:1px solid gray">
 						<div style="margin-bottom: 30px">
 							시작시간 <select id="startTime">
-								<option selected="selected">08:00</option>
-								<option>09:00</option>
-								<option>10:00</option>
-								<option>11:00</option>
-								<option>12:00</option>
-								<option>13:00</option>
-								<option>14:00</option>
-								<option>15:00</option>
-								<option>16:00</option>
-								<option>17:00</option>
-								<option>18:00</option>
-								<option>19:00</option>
-								<option>20:00</option>
-								<option>21:00</option>
+								<option selected="selected">08</option>
+								<option>09</option>
+								<option>10</option>
+								<option>11</option>
+								<option>12</option>
+								<option>13</option>
+								<option>14</option>
+								<option>15</option>
+								<option>16</option>
+								<option>17</option>
+								<option>18</option>
+								<option>19</option>
+								<option>20</option>
+								<option>21</option>
 							</select> 시
 						</div>
 						<div style="margin-bottom: 30px">
@@ -116,9 +126,7 @@ $(document).ready(function(){
 
 					</div>
 					<div style="width: 70%; float:left;">
-							<div>asd</div>
-							<div>asd</div>
-							<div>asd</div>
+							<div id="reservationList"></div>
 					</div>
 				</div>
 				
