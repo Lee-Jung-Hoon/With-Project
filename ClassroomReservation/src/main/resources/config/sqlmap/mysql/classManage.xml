@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="admin.classmanage.dao">
+	<resultMap type="class" id="classResult">
+		<result column="class_no" property="classNo"/>
+		<result column="floor" property="floor"/>
+		<result column="class_name" property="className"/>
+		<result column="class_top" property="classTop"/>
+		<result column="class_left" property="classLeft"/>
+		<result column="class_person" property="classPerson"/>
+		<result column="class_detail" property="classDetail"/>
+	</resultMap>
+
+	<select id="selectClassInfo" parameterType="int" resultMap="classResult">
+		select class_no, floor, class_name, class_top, class_left, class_person, class_detail
+		  from T_CLASS_CLASSROOMINFO
+		 where floor = #{floor}
+	</select>
+	
+	
+	<update id="updateClassLocation" parameterType="class">
+		update T_CLASS_CLASSROOMINFO
+		   set class_left = #{classLeft}, class_top = #{classTop}
+		 where class_no = #{classNo}
+	</update>
+	
+	<insert id="insertClass" parameterType="class">
+		insert into T_CLASS_CLASSROOMINFO (floor, class_name, class_top, class_left, class_person, class_detail)
+		values(#{floor}, #{className}, #{classTop}, #{classLeft}, #{classPerson}, #{classDetail})
+	</insert>
+	
+	<delete id="deleteClass" parameterType="int">
+		delete from T_CLASS_CLASSROOMINFO
+		 where class_no = #{classNo}
+	</delete>
+	
+</mapper>
