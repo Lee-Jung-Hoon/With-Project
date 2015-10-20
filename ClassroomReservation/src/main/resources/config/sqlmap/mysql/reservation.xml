@@ -10,36 +10,39 @@
 			class_no,
 			start_time,
 			using_time,
-			res_for,
-			status
+			res_for
 		) values (
-			#{id},
-			#{member_no},
-			#{class_no},
-			#{start_time},
-			#{using_time},
-			#{res_for},
-			#{status}
+			'calabace',
+			1,
+			302,
+			#{startTime},
+			#{usingTime},
+			#{resFor}
 		)
 	</insert>
-	<select id="selectRes" parameterType="String" resultType="reservation">
-		select 
-		res_no,
-		id,
-		member_no,
-		class_no,
-		date_format(reg_date, '%Y-%m-%d') as regDate,
-		start_time,
-		using_time,
-		res_for,
-		status
-		from t_class_resercation
-		where id = #{id} 
+	<select id="selectReservation" resultType="reservation">
+		select res_no resNo, start_time startTime, using_time usingTime
+		  from t_class_reservation
+		 order by resNo desc
 	</select>
-	<update id="updateRes" parameterType="Int">
-		update t_class_reservation
-		set
-		status = #{status}
-		where res_no = #{res_no}
-	</update>
+<!-- 	<select id="selectRes" parameterType="String" resultType="reservation"> -->
+<!-- 		select  -->
+<!-- 		res_no, -->
+<!-- 		id, -->
+<!-- 		member_no, -->
+<!-- 		class_no, -->
+<!-- 		date_format(reg_date, '%Y-%m-%d') as regDate, -->
+<!-- 		start_time, -->
+<!-- 		using_time, -->
+<!-- 		res_for, -->
+<!-- 		status -->
+<!-- 		from t_class_resercation -->
+<!-- 		where id = #{id}  -->
+<!-- 	</select> -->
+<!-- 	<update id="updateRes" parameterType="Int"> -->
+<!-- 		update t_class_reservation -->
+<!-- 		set -->
+<!-- 		status = #{status} -->
+<!-- 		where res_no = #{res_no} -->
+<!-- 	</update> -->
 </mapper>
