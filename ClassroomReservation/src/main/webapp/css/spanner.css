@@ -92,7 +92,9 @@
 	box-sizing:border-box;
 }
 .schedule.blue {
-	background:blue;
+	background:#CCFFFF;
+	border: 1px solid gray;
+	text-align: center;
 }
 .schedule.red {
 	background:red;
