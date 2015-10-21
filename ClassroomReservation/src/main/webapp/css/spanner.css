@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+.page-login form {
+	width:400px; 
+	margin:0 auto;
+}
+.page-login label {
+	text-align:left !important;
+	width:8em !important;
+}
+
+.page-reservation .content {
+	border:1px solid black;
+	color:#000;
+}
+
+.page-reservation .content h1 {
+	font-size:25px;
+	border:2px solid gray; 
+	border-left:0;
+	border-right:0;
+	line-height:40px;
+}
+.page-reservation .content .time-table {
+	width:60%; 
+	float:left;
+	border-left:1px solid #000;
+}
+.page-reservation .content .time-table p {
+	width:80%;
+	margin:0 auto;
+}
+.page-reservation .content .time-table ul {
+	width:80%;
+	margin:0 auto;
+	padding:0;
+}
+.page-reservation .content .time-table li:first-child .time {
+	border-top:1px solid #ddd;	
+}
+.page-reservation .content .time-table li {
+	position:relative;
+	list-style:none;
+	box-sizing:border-box;
+}
+.page-reservation .content .time-table .time, .page-reservation .content .time-table .color-block {
+	height:100%;
+}
+.page-reservation .content .time-table .time {
+	width:100%;
+	height:45px;
+	border-bottom:1px solid #ddd;
+	line-height:45px;
+	font-size:15px;
+	text-indent:20px;
+	box-sizing:border-box;
+}
+.page-reservation .content .time-table .color-block {
+	position:absolute;
+	top:0;
+	right:0;
+	width:60%;
+	box-sizing:border-box;
+}
+.page-reservation .content .time-table .color-block .schedule div {
+	display:table-cell;
+	font-size:14px;
+	vertical-align:middle;
+}
+.red {
+	background:red;
+}
+.schedule {
+	display:table;
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	z-index:3;
+	box-sizing:border-box;
+}
+.schedule.blue {
+	background:blue;
+}
+.schedule.red {
+	background:red;
+}
+.schedule::before, .schedule::after {
+	content:"";
+	position:absolute;
+	left:0;
+	display:block;
+	width:100%;
+	height:2px;
+	background:#fff;
+}
+.schedule::before {
+	top:0;
+}
+.page-reservation .content .time-table li:first-child .schedule::before {
+	border-top:1px solid #ddd;
+}
+.schedule::after {
+	bottom:0;
+	border-bottom:1px solid #ddd;
+}
