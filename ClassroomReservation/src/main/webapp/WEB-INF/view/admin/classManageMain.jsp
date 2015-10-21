@@ -23,6 +23,12 @@
 	position: relative;
 }
 
+.insertButton {
+position: absolute;
+    top: 107px;
+    left: 400px;
+}
+
 .content > div {
 	width: 150px;
 	height: 150px;
@@ -151,7 +157,8 @@
 <body>
 	<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
 	<div class="content-wrapper" style="position: static;">
-	<div style="width: 90%; margin: 0 auto;"><h1>강의실 관리 메뉴</h1>
+	<div class="content" style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
+	<h1>강의실 관리 메뉴</h1>
 		<!-- 층수 선택 버튼 -->
 		<ul class="pagination">
   		<li><a href="ClassManage.do?floor=1">1층</a></li>
@@ -164,9 +171,7 @@
   		<li><a href="ClassManage.do?floor=7">7층</a></li>
   		<li><a href="ClassManage.do?floor=8">8층</a></li>
 		</ul>
-		</div> 
-		<div class="content" style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
-		<button><a class="insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'>강의실 생성</a></button>
+		<button class="insertButton"><a class="insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'>강의실 생성</a></button>
 		</div>
 		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
 	</div>
