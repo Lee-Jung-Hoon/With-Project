@@ -3,6 +3,48 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="reservation.dao">
+
+	<resultMap type="reservation" id="reservationResult">
+		<result column="res_no" property="resNo"/>
+		<result column="id" property="id"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="start_time" property="startTime"/>
+		<result column="using_time" property="usingTime"/>
+		<result column="res_for" property="resFor"/>
+		<result column="status" property="status"/>
+		<result column="rsv_day" property="rsvDay"/>
+		
+		
+		<!-- private int resNo; //예약번호
+	private String id; //회원 id
+	private int memberNo; // 회원 번호
+	private int classNo; // 강의실번호
+	private String regDate; 
+	private String startTime; // 시작시간
+	private int usingTime; //사용시간
+	private String resFor; // 이용목적
+	private int status; //상태
+	private String rsvDay;]
+	
+	create table t_class_reservation(
+    res_no int auto_increment primary key not null,
+    id varchar(100) not null,
+    member_no int not null,
+    class_no int not null,
+    reg_date datetime default now() not null,
+    start_time varchar(50) not null,
+    rsv_day varchar(50) not null,
+    using_time int not null,
+    res_for varchar(100),
+    status int default '1' not null
+);
+	
+	
+	 -->
+	</resultMap>
+
 	<insert id="insertRes" parameterType="reservation">
 		insert t_class_reservation (
 			id,
@@ -22,11 +64,13 @@
 			#{rsvDay}
 		)
 	</insert>
-	<select id="selectReservation" parameterType="String" resultType="reservation">
-		select res_no resNo, start_time startTime, using_time usingTime, rsv_day rsvDay
+	<select id="selectReservation" parameterType="String" resultMap="reservationResult">
+		select 
+				res_no, id, member_no, class_no, date_format(reg_date, '%Y-%m-%d') as reg_date,
+				start_time, using_time, res_for, rsv_day ,status
 		  from t_class_reservation
-		 where rsvDay = #{rsvDay}
-		 order by resNo desc
+		 where rsv_day = #{rsvDay}
+		 order by res_no desc
 	</select>
 <!-- 	<select id="selectRes" parameterType="String" resultType="reservation"> -->
 <!-- 		select  -->

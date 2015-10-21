@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="kr.co.spanner.admin.classmanage.vo.ClassManageVO" alias="class"/>		
 		<typeAlias type="kr.co.spanner.user.reservation.vo.ReservationVO" alias="reservation" />
+		<typeAlias type="kr.co.spanner.member.vo.MemberVO" alias="member" />
 	</typeAliases>
 </configuration>
 

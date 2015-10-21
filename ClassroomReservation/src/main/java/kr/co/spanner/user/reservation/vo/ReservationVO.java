@@ -72,6 +72,12 @@ public class ReservationVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "ReservationVO [resNo=" + resNo + ", id=" + id + ", memberNo=" + memberNo + ", classNo=" + classNo
+				+ ", regDate=" + regDate + ", startTime=" + startTime + ", usingTime=" + usingTime + ", resFor="
+				+ resFor + ", status=" + status + ", rsvDay=" + rsvDay + "]";
+	}
 	
 	
 

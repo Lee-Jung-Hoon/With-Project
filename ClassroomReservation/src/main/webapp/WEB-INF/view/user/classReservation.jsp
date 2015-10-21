@@ -4,30 +4,32 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레이아웃</title>
-<link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-<link rel="stylesheet"
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/layouts/marketing.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이아웃</title>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
+   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
 	
 $(document).ready(function(){
+  var d = new Date();
+  var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); //현재 날짜
+  $("#rsvDay").val(date);
+  console.log(date);
+  list(date);
   
   $("#search").on("click",function(){
     
-   var isCheck = confirm($("#sDate").val()+" 예약상황 조회하시겠습니까 ?");
+   var isCheck = confirm($("#rsvDay").val()+" 예약상황 조회하시겠습니까 ?");
    if(isCheck == false){
     return false;
    }
    else{
-     var searchDate = $("#sDate").val();
+     var searchDate = $("#rsvDay").val();
      $.ajax({
        url:"${pageContext.request.contextPath}/reservation/searchReservation.json",
        type:"POST",
@@ -39,129 +41,174 @@ $(document).ready(function(){
      })
    }
   });
-  $("input[type='button']").on('click', function(){
-	var result = confirm("예약하시겠습니까?");
-	var startTime = $('#startTime').val();
-	var usingTime = $('#rsvTime').val();
-	var rsvDay = $('#rsvDay').val();
-	var using = $('#using').val();
-  if ($(this).val() == '예약') {
-    if ($('#using').val() == "") {
-          alert("사용목적을 적어주세욥");
-        }
-        else {
-					if(result){
-					  $.ajax({
-							url:"${pageContext.request.contextPath}/reservation/reservation.json",
-							type:"POST",
-							datatype:"JSON",
-							data:{ startTime:startTime, usingTime:usingTime, resFor:using, rsvDay:rsvDay },
-							success:function(data, status){
-							list(data);
-							}
-					  })
-					}
-					else{
-					}
-        }
-      }
-
-    })
-  });
+	
+ });
+	
   function list(data){
-    $("#reservationList").html("");
-    $.each(data, function(index, value){
-      $("#reservationList").append(
-          "<p>시작시간 : "+parseInt(data[index].startTime)+":00시 &nbsp;&nbsp;종료시간"
-                          +((parseInt(data[index].startTime))+(parseInt(data[index].usingTime)))+":00시"
-                          +
-           "</p>"
-           
-      );
+    $.ajax({
+      url:"/ClassroomReservation/reservation/rsvList.json",
+      datatype: "json",
+      data: "rsvDay="+data
+    })
+    .done(function(response){
+    	var divHTML = "";
+      response.forEach(function (ReservationVO, index){
+      	divHTML ="";
+        divHTML += "<div class='schedule blue' style=' height:" + (ReservationVO.usingTime*100) + "%'>"
+        +"<div>"+ReservationVO.resFor+"</div></div>";
+      	$("#time_"+ReservationVO.startTime).append(divHTML);
+    	})  
     })
   };
-  window.onload = function() {
-    var d = new Date();
-    var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); //현재 날짜
-    document.getElementById("sDate").value = date;
-    document.getElementById("rsvDay").value = date;
-  }
+  function regReservation(){
+  	$.ajax({
+  	  url:"/ClassroomReservation/reservation/reservation.json",
+  	  type:"POST",
+  	  datatype:"JSON",
+  	  data:$("#rsvForm").serialize(),
+  	  success: function(data, status){
+  	    list(data);
+  	  }
+  	})  	  
+ 	};
+
 </script>
 </head>
-<body>
 
-	<%@ include file="/WEB-INF/view/include/topBar.jsp"%>
-	<div class="content-wrapper"
-		style="position: static; margin-top: 62px;">
-		<div class="content"
-			style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
+<body class="page-reservation">
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">Your Site</a>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tour</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-wrapper" style="position:static; margin-top:62px;">
+    <div class="content">
 
 
+         <div style="width:80%; margin:0 auto">
+         
+            <h1>302호 강의장 정보</h1>
+            <div style="width: 100%; overflow:hidden;">
+					<div style="width: 40%; float: left;">
+						<form id="rsvForm">
+							<div style="margin-bottom: 30px">
+								<input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2015-12-31" /> 
+								<input type="button" class="pure-button pure-button-primary" value="조회" /> 
+			 시작시간 <select id="startTime" name="startTime">
+									<option value="08">08:00</option>
+									<option value="09">09:00</option>
+									<option value="10">10:00</option>
+									<option value="11">11:00</option>
+									<option value="12">12:00</option>
+									<option value="13">13:00</option>
+									<option value="14">14:00</option>
+									<option value="15">15:00</option>
+									<option value="16">16:00</option>
+									<option value="17">17:00</option>
+									<option value="18">18:00</option>
+									<option value="19">19:00</option>
+									<option value="20">20:00</option>
+									<option value="21">21:00</option>
+								</select> 시
+							</div>
+							<div style="margin-bottom: 30px">
+								사용시간 <select id="usingTime" name="usingTime">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select> 시간
+							</div>
 
-			<div style="width: 100%">
+							<div style="margin-bottom: 30px">
+				예약목적 <input type="text" id="resFor" name="resFor" style="width: 400px" placeholder="예약 목적을 적어주세요." />
+							</div>
 
-				<div style="width: 100%">
-					<h1>302호 강의장 정보</h1>
-					<hr />
-				</div>
-				<div style="width: 100%">
-					<input type="date" id="sDate" name="sDate" min="2015-01-01"
-						max="2050-12-31" /> <input type="submit" id="search" value="조회" />
-					<hr />
-				</div>
-				<div style="width: 100%; overflow: hidden;">
-					<div style="width: 30%; float: left; border-right: 1px solid gray">
-
-						<div>
-							<input type="date" id="rsvDay" name="rsvDay" min="2015-01-01"
-								max="2050-12-31" />
-						</div>
-						<div style="margin-bottom: 30px">
-							시작시간 <select id="startTime">
-								<option selected="selected">08</option>
-								<option>09</option>
-								<option>10</option>
-								<option>11</option>
-								<option>12</option>
-								<option>13</option>
-								<option>14</option>
-								<option>15</option>
-								<option>16</option>
-								<option>17</option>
-								<option>18</option>
-								<option>19</option>
-								<option>20</option>
-								<option>21</option>
-							</select> 시
-						</div>
-						<div style="margin-bottom: 30px">
-							사용시간 <select id="rsvTime">
-								<option selected="selected">2</option>
-								<option>3</option>
-								<option>4</option>
-							</select> 시간
-						</div>
-
-						<div style="margin-bottom: 30px">
-							예약목적 <input type="text" id="using" style="width: 400px"
-								placeholder="예약 목적을 적어주세요." />
-						</div>
-
-						<div style="margin-bottom: 30px">
-							<input type="button" value="예약" />
-						</div>
-
+							<div style="margin-bottom: 30px">
+								<input type="button" onclick="regReservation();" class="pure-button pure-button-primary" value="예약" />
+							</div>
+						</form>
 					</div>
-					<div style="width: 70%; float: left;">
-						<div id="reservationList"></div>
-					</div>
-				</div>
+					<div class="time-table">
+                  <p>2015년 10월 20일</p>
+                  <ul>
+                     <li>
+                        <div class="time">08시</div>
+                        <div id="time_08" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">09시</div>
+                        <div id="time_09" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">10시</div>
+                        <div id="time_10" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">11시</div>
+                        <div id="time_11" class="color-block">
+                        </div>
+                     </li>
+                     <li>
+                        <div class="time">12시</div>
+                        <div id="time_12" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">13시</div>
+                        <div id="time_13" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">14시</div>
+                        <div id="time_14" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">15시</div>
+                        <div id="time_15" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">16시</div>
+                        <div id="time_16" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">17시</div>
+                        <div id="time_17" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">18시</div>
+                        <div id="time_18" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">19시</div>
+                        <div id="time_19" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">20시</div>
+                        <div id="time_20" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">21시</div>
+                        <div id="time_21" class="color-block"></div>
+                     </li>
+                     <li>
+                        <div class="time">22시</div>
+                        <div id="time_22" class="color-block"></div>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            
+         </div>
 
-			</div>
 
-
-		</div>
-		<%@ include file="/WEB-INF/view/include/bottom.jsp"%>
-	</div>
+      </div>
+    <div class="footer l-box is-center">
+        View the source of this layout to learn more. Made with love by the YUI Team.
+    </div>
+</div>
 </body>
 </html>
