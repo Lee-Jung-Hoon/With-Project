@@ -10,20 +10,22 @@
 			class_no,
 			start_time,
 			using_time,
-			res_for
+			res_for,
+			rsv_day
 		) values (
 			'calabace',
 			1,
 			302,
 			#{startTime},
 			#{usingTime},
-			#{resFor}
+			#{resFor},
+			#{rsvDay}
 		)
 	</insert>
 	<select id="selectReservation" parameterType="String" resultType="reservation">
-		select res_no resNo, start_time startTime, using_time usingTime
+		select res_no resNo, start_time startTime, using_time usingTime, rsv_day rsvDay
 		  from t_class_reservation
-		 where startTime = #{}
+		 where rsvDay = #{rsvDay}
 		 order by resNo desc
 	</select>
 <!-- 	<select id="selectRes" parameterType="String" resultType="reservation"> -->
