@@ -13,11 +13,13 @@ import kr.co.spanner.user.reservation.vo.ReservationVO;
  
 public class SendMail {
 	
+	// 관리자 지메일 아이디 / 비밀번호 Fix
 	private static final String HOST = "smtp.gmail.com";
 	private static final String USERNAME = "creator898@gmail.com";
 	private static final  String PASSWORD = "jyq075103";
 	
     public void SendMailForReserve(ReservationVO res) throws MessagingException{
+
         // 메일 내용
     	String recipient = res.getId();
     	String subject = "";
@@ -29,9 +31,11 @@ public class SendMail {
     		subject = res.getId()+"의 예약취소 정보 입니다.";
     		body = "시작 시간 :" + res.getStartTime() + ":00 종료시간 : "+Integer.parseInt(res.getStartTime())+res.getUsingTime() +":00";
     	}
-        //properties 설정
+        
+    	//properties 설정
         Properties props = new Properties();
         props.put("mail.smtps.auth", "true");
+        
         // 메일 세션
         Session session = Session.getDefaultInstance(props);
         MimeMessage msg = new MimeMessage(session);
