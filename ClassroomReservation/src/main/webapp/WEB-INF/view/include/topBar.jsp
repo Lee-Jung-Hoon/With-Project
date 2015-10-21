@@ -35,10 +35,10 @@
 						</button>
 					</c:when>
 					<c:otherwise>
-						<button type="button" class="btn btn-default btn-sm">
+						<button onclick="location.href='${pageContext.request.contextPath}/login/logout.do'" type="button" class="btn btn-default btn-sm">
 							<span class="glyphicon glyphicon-log-out"></span> Log out
 						</button>
-						<button type="button" class="btn btn-default btn-sm">
+						<button onclick="location.href='${pageContext.request.contextPath}/login/mypage.do'"type="button" class="btn btn-default btn-sm">
 							<span class="glyphicon glyphicon-user"></span> MyPage
 						</button>
 					</c:otherwise>

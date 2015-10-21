@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import kr.co.spanner.member.service.MemberService;
 import kr.co.spanner.member.vo.MemberVO;
@@ -14,7 +15,7 @@ import kr.co.spanner.member.vo.MemberVO;
 public class MemberController {
 	@Autowired
 	private MemberService service;
-	
+	private HttpSession session;
 	
 	@RequestMapping("/RedirectLogin.do")
 	public String RedirectLogin() throws Exception {
@@ -23,19 +24,24 @@ public class MemberController {
 	
 	@RequestMapping("/login.do")
 	public ModelAndView loginCheck(MemberVO member, HttpServletRequest req) throws Exception {
-		System.out.println(member.getId());
 		ModelAndView mav = new ModelAndView();
 		MemberVO memberVO = service.selectLogin(member);
-		System.out.println(memberVO.getName());
-		HttpSession session = req.getSession();
+		session = req.getSession();
 		if (memberVO.getId() != null ) {
 			session.setAttribute("userInfo", memberVO.getId());
-			mav.setViewName("/ClassManage/RedirectMain.do");
+			session.setAttribute("userInfo", memberVO.getMemberNo());
+			mav.setViewName("main");
 		} else {
 			mav.addObject("msg", "아이디 혹은 비밀번호를 다시 확인해 주세요");
 			mav.setViewName("/RedirectLogin.do");
 	
 		}
 		return mav;
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout() throws Exception {
+		session.invalidate();
+		return "main";
 	}
 }
