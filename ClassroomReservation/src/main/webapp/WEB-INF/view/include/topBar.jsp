@@ -29,7 +29,7 @@
 						<button type="button" class="btn btn-default btn-sm"  onclick="location.href='${pageContext.request.contextPath}/ClassManage/RedirectMemberJoin.do'">
 							<span class="glyphicon glyphicon-plus"></span> Join
 						</button>
-						<button type="button" class="btn btn-default btn-sm"
+						<button onclick="location.href='${pageContext.request.contextPath}/login/RedirectLogin.do'" type="button" class="btn btn-default btn-sm"
 							style="vertical-align: middle;">
 							<span class="glyphicon glyphicon-log-in"></span> Log in
 						</button>
