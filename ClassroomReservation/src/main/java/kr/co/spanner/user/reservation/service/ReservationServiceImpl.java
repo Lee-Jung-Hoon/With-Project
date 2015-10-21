@@ -18,7 +18,9 @@ public class ReservationServiceImpl implements ReservationService{
 		dao.insertRes(reservation);
 	}
 
-	public List<ReservationVO> selectReservation(String rsvDay) {
-		return dao.selectResertion(rsvDay);
+	
+	// 예약 현황 출력
+	public List<ReservationVO> selectReservation(ReservationVO resv) throws Exception {
+		return dao.selectResertion(resv);
 	}
 }

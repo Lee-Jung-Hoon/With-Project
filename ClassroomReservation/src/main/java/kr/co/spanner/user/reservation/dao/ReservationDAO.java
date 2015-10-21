@@ -18,8 +18,8 @@ public class ReservationDAO {
 		session.insert("reservation.dao.insertRes", reservation);
 	}
 
-	public List<ReservationVO> selectResertion(String rsvDay) {
-		return session.selectList("reservation.dao.selectReservation", rsvDay);
+	public List<ReservationVO> selectResertion(ReservationVO resv) {
+		return session.selectList("reservation.dao.selectReservation", resv);
 	}
 	
 }

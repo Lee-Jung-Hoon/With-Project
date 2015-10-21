@@ -15,21 +15,13 @@
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body class="page-login">
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">Your Site</a>
 
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tour</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-        </ul>
-    </div>
-</div>
+	<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
 <div class="content-wrapper" style="position:static; margin-top:62px">
-    <div class="content">
+    <div class="content" style="padding: 80px; text-align: center;">
+		<img src="${pageContext.request.contextPath}/img/bit_login.jpg" alt="bit_login" style="padding-bottom: 30px; width: 50%;">
 		<form class="pure-form pure-form-aligned" action="${pageContext.request.contextPath}/login/login.do" method="post">
-			<fieldset>
+			<fieldset  style="border: 2px gray solid; padding: 40px; border-radius: 10px;">
 				<div class="pure-control-group">
 					<label for="id">아이디</label>
 					<input id="id" type="text" placeholder="아이디 입력" name="id" style="width:50%" required autofocus />
@@ -42,9 +34,7 @@
 			</fieldset>
 		</form>
 	</div>
-    <div class="footer l-box is-center">
-        View the source of this layout to learn more. Made with love by the YUI Team.
-    </div>
+		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
 </div>
 </body>
 </html>

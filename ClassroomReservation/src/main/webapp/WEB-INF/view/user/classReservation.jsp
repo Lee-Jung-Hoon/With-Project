@@ -13,13 +13,24 @@
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+   <style>
+   
+   #nowDate {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+   }
+   
+   </style>
 <script>
 	
 $(document).ready(function(){
+  $(".ClassName").text("${className}호 예약 현황");
   var d = new Date();
   var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); //현재 날짜
   $("#rsvDay").val(date);
   console.log(date);
+  $("#nowDate").text($("#rsvDay").val() + " 예약 현황");
   list(date);
   
   $("#search").on("click",function(){
@@ -41,21 +52,24 @@ $(document).ready(function(){
      })
    }
   });
-	
  });
 	
   function list(data){
+    var today = new Date();
+    var hour = today.getHours();
+    var classNo = "${classNo}";
+    $("#time_"+hour).parent().addClass("occupy");
     $.ajax({
       url:"/ClassroomReservation/reservation/rsvList.json",
       datatype: "json",
-      data: "rsvDay="+data
+      data: {rsvDay:data, classNo:classNo}
     })
     .done(function(response){
     	var divHTML = "";
       response.forEach(function (ReservationVO, index){
       	divHTML ="";
         divHTML += "<div class='schedule blue' style=' height:" + (ReservationVO.usingTime*100) + "%'>"
-        +"<div>"+ReservationVO.resFor+"</div></div>";
+        +"<div>"+ReservationVO.resFor+"</div><div>" + ReservationVO.id + "</div></div>";
       	$("#time_"+ReservationVO.startTime).append(divHTML);
     	})  
     })
@@ -66,41 +80,57 @@ $(document).ready(function(){
   	  type:"POST",
   	  datatype:"JSON",
   	  data:$("#rsvForm").serialize(),
-  	  success: function(data, status){
-  	    list(data);
-  	  }
-  	})  	  
+  	}).done(function(response) {
+  	  divHTML ="";
+      divHTML += "<div class='schedule blue' style=' height:" + (response.usingTime*100) + "%'>"
+      +"<div>"+response.resFor+"</div><div>" + response.id + "</div></div>";
+    	$("#time_"+response.startTime).append(divHTML);
+    	$('#resFor').val("");
+    })  	  
  	};
+ 	
+ 	function changeDate() {
+    for(var i=8; i<=22; i++) {
+ 	    if(i<10) {
+ 	      $("#time_0"+i).empty(); 
+ 	    }
+ 	    else {
+ 	      $("#time_"+i).empty();
+ 	    }
+ 	  }
+    list($("#rsvDay").val());
+    $("#nowDate").text($("#rsvDay").val() + " 예약 현황");
+  }
+ 	
+ 
 
 </script>
 </head>
 
 <body class="page-reservation">
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">Your Site</a>
+<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
 
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tour</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-        </ul>
-    </div>
-</div>
 <div class="content-wrapper" style="position:static; margin-top:62px;">
     <div class="content">
 
 
          <div style="width:80%; margin:0 auto">
          
-            <h1>302호 강의장 정보</h1>
+            <h1 class="ClassName"></h1>
             <div style="width: 100%; overflow:hidden;">
 					<div style="width: 40%; float: left;">
+					  <button onclick="location.href='${pageContext.request.contextPath}/reservation/classReservation.do'" value="이동"></button>
+  
 						<form id="rsvForm">
+<%--             <input type="hidden" name="id" value="${userInfo}"/> --%>
+<!-- 									히든으로 세션의 아이디 값 전달해줘야함 -->
+								<input type="hidden" name="id" value="ijhoon4327"/> 
 							<div style="margin-bottom: 30px">
-								<input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2015-12-31" /> 
-								<input type="button" class="pure-button pure-button-primary" value="조회" /> 
-			 시작시간 <select id="startTime" name="startTime">
+							<input type="hidden" name="classNo" value="${classNo}"/>
+
+
+								<input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2015-12-31" onchange="changeDate();" /> 
+			 				<br/><br/>시작시간 <select id="startTime" name="startTime">
 									<option value="08">08:00</option>
 									<option value="09">09:00</option>
 									<option value="10">10:00</option>
@@ -124,7 +154,7 @@ $(document).ready(function(){
 									<option value="4">4</option>
 								</select> 시간
 							</div>
-
+        
 							<div style="margin-bottom: 30px">
 				예약목적 <input type="text" id="resFor" name="resFor" style="width: 400px" placeholder="예약 목적을 적어주세요." />
 							</div>
@@ -135,7 +165,7 @@ $(document).ready(function(){
 						</form>
 					</div>
 					<div class="time-table">
-                  <p>2015년 10월 20일</p>
+                  <p style="font-size: 30px;" id="nowDate"></p>
                   <ul>
                      <li>
                         <div class="time">08시</div>
@@ -201,7 +231,6 @@ $(document).ready(function(){
                   </ul>
                </div>
             </div>
-            
          </div>
 
 

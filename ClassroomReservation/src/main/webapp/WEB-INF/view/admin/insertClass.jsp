@@ -43,8 +43,8 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">수용 인원:</label>
       <div class="col-sm-10">          
-     		<input type="hidden" name="classLeft" value="10" >
-				<input type="hidden" name="classTop" value="60" >
+     		<input type="hidden" name="classLeft" value="12" >
+				<input type="hidden" name="classTop" value="150" >
 				<input type="hidden" name="floor" value="${floor}" >
         <input type="number" min="1" max="500" value="1" id="classPerson"  class="form-control" name="classPerson" required="required">
       </div>

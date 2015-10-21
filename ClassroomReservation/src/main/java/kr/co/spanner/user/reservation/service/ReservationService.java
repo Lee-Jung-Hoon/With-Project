@@ -8,6 +8,6 @@ public interface ReservationService {
 	
 	public void insertRes(ReservationVO reservation) throws Exception;
 
-	public List<ReservationVO> selectReservation(String rsvDay)throws Exception;
+	public List<ReservationVO> selectReservation(ReservationVO resv)throws Exception;
 
 }

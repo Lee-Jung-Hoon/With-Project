@@ -26,14 +26,9 @@ public class ClassManageController {
 	public String RedirectMain() throws Exception {
 		return "main";
 	}
-	// 메인으로 이동
-	@RequestMapping("/RedirectMemberJoin.do")
-	public String RedirectMemberJoin() throws Exception {
-		return "memberJoin";
-	}
 	
 	// 강의실 관리 메인으로 이동
-	@RequestMapping("ClassManage.do")
+	@RequestMapping("/ClassManage.do")
 	public ModelAndView ClassManage(@RequestParam(required=false, defaultValue="1")int floor) throws Exception {
 		ModelAndView mav = new ModelAndView("admin/classManageMain");
 		mav.addObject("floor", floor);
