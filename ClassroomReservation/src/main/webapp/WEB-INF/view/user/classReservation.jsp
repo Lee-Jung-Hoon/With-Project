@@ -29,7 +29,7 @@ $(document).ready(function(){
    else{
      var searchDate = $("#sDate").val();
      $.ajax({
-       url:"${pageContext.request.contextPath}/reservation/searchReservation.json";
+       url:"${pageContext.request.contextPath}/reservation/searchReservation.json",
        type:"POST",
 			 datatype:"JSON",
 			 data:{startTime:searchDate},
