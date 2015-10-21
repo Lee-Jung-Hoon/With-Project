@@ -22,16 +22,18 @@ public class SendMail {
 
         // 메일 내용
     	String recipient = res.getId();
+    	int endTime = Integer.parseInt(res.getStartTime())+res.getUsingTime(); 
     	String subject = "";
-    	String body = "시작 시간 :" + res.getStartTime() + ":00 종료시간 : "+Integer.parseInt(res.getStartTime())+res.getUsingTime() +":00"
-						  + "사용 목적 : "+ res.getResFor();
+    	String body = "";    	
     	
-    	if(res.getStatus() == 1) {
-	        subject = res.getId()+"의 예약 정보 입니다.";
-	        body.toString();
-    	} else {
+    	if(res.getStatus() != 0) {
     		subject = res.getId()+"의 예약취소 정보 입니다.";
-    		body.toString();
+	    	body = "시작 시간 :" + res.getStartTime() + ":00 종료시간 : "+ endTime +":00 \n"
+					+ "사용 목적 : "+ res.getResFor();
+    	} else {
+    		subject = res.getId()+"의 예약 정보 입니다.";
+        	body = "시작 시간 :" + res.getStartTime() + ":00 종료시간 : "+ endTime +":00 \n"
+					 + "사용 목적 : "+ res.getResFor();
     	}
         
     	//properties 설정
