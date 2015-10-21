@@ -29,7 +29,7 @@ public class MemberController {
 		session = req.getSession();
 		if (memberVO.getId() != null ) {
 			session.setAttribute("userInfo", memberVO.getId());
-			session.setAttribute("userInfo", memberVO.getMemberNo());
+			session.setAttribute("userNo", memberVO.getMemberNo());
 			mav.setViewName("main");
 		} else {
 			mav.addObject("msg", "아이디 혹은 비밀번호를 다시 확인해 주세요");
