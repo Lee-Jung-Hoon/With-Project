@@ -13,6 +13,6 @@ public class MemberDAO {
 	private SqlSessionTemplate session;
 	
 	public MemberVO selectLogin(MemberVO member) {
-		return session.selectOne("", member);
+		return session.selectOne("member.dao.LoginCheck", member);
 	}
 }

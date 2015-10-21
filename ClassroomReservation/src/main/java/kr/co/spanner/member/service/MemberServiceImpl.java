@@ -10,6 +10,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberDAO dao;
+	
 	public MemberVO selectLogin(MemberVO member) throws Exception {
 		return dao.selectLogin(member);
 	}

@@ -15,19 +15,26 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	
+	@RequestMapping("/RedirectLogin.do")
+	public String RedirectLogin() throws Exception {
+		return "login/login";
+	}
+	
 	@RequestMapping("/login.do")
 	public ModelAndView loginCheck(MemberVO member, HttpServletRequest req) throws Exception {
+		System.out.println(member.getId());
 		ModelAndView mav = new ModelAndView();
 		MemberVO memberVO = service.selectLogin(member);
+		System.out.println(memberVO.getName());
 		HttpSession session = req.getSession();
-		if (memberVO.getId() != null && memberVO.getGrade() == 1) {
-			session.setAttribute("admin", memberVO.getId());
-			System.out.println("관리자 로그인");
-		} else if (memberVO.getId() != null && memberVO.getGrade() == 0) {
-			session.setAttribute("user", memberVO.getId());
-			System.out.println("유저 로그인");
+		if (memberVO.getId() != null ) {
+			session.setAttribute("userInfo", memberVO.getId());
+			mav.setViewName("/ClassManage/RedirectMain.do");
 		} else {
 			mav.addObject("msg", "아이디 혹은 비밀번호를 다시 확인해 주세요");
+			mav.setViewName("/RedirectLogin.do");
+	
 		}
 		return mav;
 	}
