@@ -14,11 +14,11 @@
 <title>레이아웃</title>
 <style>
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
-	width: 70%;
+	width: 100%;
 	margin: auto;
 }
 .carousel {
-	height: 100%;
+	height: 50%;
 	overflow: hidden;
 }
 .carousel-inner .item {
@@ -45,15 +45,15 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img src="${pageContext.request.contextPath}/img/bit_img1.jpg" alt="bit_img1" style="width: 100%;">
+						<img src="${pageContext.request.contextPath}/img/bit_img1.jpg" alt="bit_img1" style="width: 80%;">
 					</div>
 
 					<div class="item">
-						<img src="${pageContext.request.contextPath}/img/bit_img2.jpg" alt="bit_img2" style="width: 100%;">
+						<img src="${pageContext.request.contextPath}/img/bit_img04.jpg" alt="bit_img04" style="width: 80%;">
 					</div>
 
 					<div class="item">
-						<img src="${pageContext.request.contextPath}/img/bit_img3.jpg" alt="bit_img3" style="width: 100%;">
+						<img src="${pageContext.request.contextPath}/img/bit_img3.jpg" alt="bit_img3" style="width: 80%;">
 					</div>
 				</div>
 
