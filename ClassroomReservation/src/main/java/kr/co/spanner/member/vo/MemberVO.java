@@ -43,5 +43,12 @@ public class MemberVO {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", memberNo=" + memberNo + ", password=" + password + ", email=" + email
+				+ ", name=" + name + ", grade=" + grade + "]";
+	}
+	
+	
 	
 }

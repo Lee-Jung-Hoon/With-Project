@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,5 +44,30 @@ public class MemberController {
 	public String logout() throws Exception {
 		session.invalidate();
 		return "main";
+	}
+	
+	@RequestMapping("/mypage.do")
+	public ModelAndView mypage() throws Exception {
+		String id = (String)session.getAttribute("userInfo");
+		MemberVO member = service.selectMember(id);
+		ModelAndView mav = new ModelAndView("login/mypage");
+		mav.addObject("member",member);
+		return mav;
+	}
+	
+	@RequestMapping("/modify.do")
+	public ModelAndView modify(MemberVO member) throws Exception {
+		service.updateMember(member);
+		ModelAndView mav = new ModelAndView("redirect:/login/mypage.do");
+		return mav;
+	}
+	
+	@RequestMapping("/modifyForm.do")
+	public ModelAndView modifyForm() throws Exception {
+		String id = (String)session.getAttribute("userInfo");
+		MemberVO member = service.selectMember(id);
+		ModelAndView mav = new ModelAndView("/login/modifyForm");
+		mav.addObject("member",member);
+		return mav;
 	}
 }
