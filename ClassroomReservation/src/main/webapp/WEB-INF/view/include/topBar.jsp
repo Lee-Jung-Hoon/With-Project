@@ -17,8 +17,8 @@
 		<div style="height: 50px">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">실시간 예약</a></li>
-				<li><a href="#">강의실 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/reservation/rsvList.do">실시간 예약</a></li>
+				<li><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
 				<li><a href="#">예약 내역</a></li>
 				<li><a href="#">멤버 관리</a></li>
 			</ul>
