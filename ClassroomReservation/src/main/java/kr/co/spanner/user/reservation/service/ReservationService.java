@@ -10,4 +10,6 @@ public interface ReservationService {
 
 	public List<ReservationVO> selectReservation(ReservationVO resv)throws Exception;
 
+	public List<ReservationVO> reservationCheck(ReservationVO reservation);
+
 }

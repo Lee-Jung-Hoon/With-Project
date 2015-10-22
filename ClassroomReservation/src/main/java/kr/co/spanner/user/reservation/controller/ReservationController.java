@@ -46,12 +46,45 @@ public class ReservationController {
 	
 	@RequestMapping("/reservation.json")
 	@ResponseBody
-	public ReservationVO insertRes(ReservationVO reservation) throws Exception{		
+	public ReservationVO insertRes(ReservationVO reservation) throws Exception{	
 		service.insertRes(reservation);
-		System.out.println(reservation.toString());
-		return reservation;	
+		return reservation;
 	}
 	 
+	@RequestMapping("/reservationCheck.json")
+	@ResponseBody
+	public String reservationCheck(ReservationVO reservation) throws Exception {
+		int time = Integer.parseInt(reservation.getStartTime());
+		int cnt = 0;
+		for(int i = 0; i<reservation.getUsingTime(); i++){
+			int srtTime = (time+i);
+			
+			if(srtTime < 10){
+				reservation.setStartTime("0"+(time+i));
+				List<ReservationVO> list = service.reservationCheck(reservation);		
+				if(list.size() != 0){
+					cnt++;
+				}				
+			}
+			else{
+				reservation.setStartTime((time+i)+"");
+				List<ReservationVO> list = service.reservationCheck(reservation);	
+				if(list.size() != 0){
+					cnt++;
+				}				
+			}
+			//System.out.println("time"+reservation.getStartTime());
+			//System.out.println("list size"+ list.size());
+		}
+		System.out.println("cnt:" + cnt);
+		if(cnt ==0 ){
+		System.out.println(reservation.toString());
+			return "false";
+		}
+		return "true";
+		
+	}
+	
 	@ResponseBody
 	@RequestMapping("/rsvList.json")
 	public List<ReservationVO> rsvList(String rsvDay, String classNo) throws Exception{
