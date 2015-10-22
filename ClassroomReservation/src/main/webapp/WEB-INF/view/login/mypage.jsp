@@ -4,11 +4,11 @@
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이페이지</title>
+  <title>마이페이지</title>
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
@@ -17,7 +17,7 @@
 <body class="page-mypage">
 <%@ include file="/WEB-INF/view/include/topBar.jsp"%>
 <div class="content-wrapper" style="position:static; margin-top:62px;">
-    <div class="content">
+	<div class="content">
 		<div class="mypage">
 			<h2>마이페이지</h2>
 			<a href="${pageContext.request.contextPath}/login/modifyForm.do" class="pure-button btn-modify">회원정보 수정</a>
@@ -41,7 +41,7 @@
 					</tr>
 				</tbody>
 			</table> 
-			<input style="margin:10px 0 0 10px;" type="button" onclick="location.href='${pageContext.request.contextPath}/login/reserve.do'" class="pure-button pure-button-primary" value="예약 이력 보기" />
+			<input style="margin:10px 0 0 10px;" type="button" onclick="location.href='${pageContext.request.contextPath}/login/reserve.do?memberNo=${member.memberNo}'" class="pure-button pure-button-primary" value="예약 이력 보기" />
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/view/include/bottom.jsp" %>
