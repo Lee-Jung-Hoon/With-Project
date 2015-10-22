@@ -19,7 +19,7 @@
 				<li class="active"><a href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">Home</a></li>
 				<li><a href="${pageContext.request.contextPath}/reservation/classReservation.do">실시간 예약</a></li>
 				<li><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
-				<li><a href="#">예약 내역</a></li>
+				<li><a href="${pageContext.request.contextPath}/ClassManage/reservationList.do">예약 내역</a></li>
 				<li><a href="#">멤버 관리</a></li>
 			</ul>
 			<div align="right"

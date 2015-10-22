@@ -80,4 +80,10 @@ public class ClassManageController {
 		service.deleteClass(classNo);
 		return "성공";
 	}
+	
+	// 관리자의 예약 내역으로 이동
+	@RequestMapping("/reservationList.do")
+	public String reservationList() throws Exception {
+		return "admin/adminReservationList";
+	}
 }

@@ -86,6 +86,29 @@ $(document).ready(function(){
       +"<div>"+response.resFor+"</div><div>" + response.id + "</div></div>";
     	$("#time_"+response.startTime).append(divHTML);
     	$('#resFor').val("");
+      Notification.requestPermission(function (result) {
+
+        // 요청을 무조건 승락        
+  if (result === 'granted') {
+    
+    var massage = "아이디 : " + response.id +"\n"
+                                 + "사용목적 : " +response.resFor +"\n"
+                                 + "시작시간 : " + response.startTime +":00시 \n" 
+                                  + "사용시간 : " + response.usingTime +":00시간";
+    var iconDataURI = "${pageContext.request.contextPath}/img/img_flower2.jpg";
+    var options = {
+        body: massage,
+        icon: iconDataURI
+    }
+    //데스크탑 알림 요청
+    var notification = new Notification("예약되었습니다.", options);
+  }
+        
+   setTimeout(function () {
+     notification.close(); 
+     }, 50000);
+   });
+    	
     })  	  
  	};
  	
