@@ -1,5 +1,7 @@
 package kr.co.spanner.member.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,5 +25,13 @@ public class MemberDAO {
 
 	public void updateMember(MemberVO member) {
 		session.update("member.dao.updateMember", member);
+	}
+
+	public List<ReservationVO> selectRes(int memberNo) {
+		return session.selectList("reservation.dao.selectRes",memberNo);
+	}
+
+	public void updateRes(int resNo) {
+		session.update("reservation.dao.cancelRes", resNo);
 	}
 }

@@ -1,5 +1,7 @@
 package kr.co.spanner.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import kr.co.spanner.member.service.MemberService;
 import kr.co.spanner.member.vo.MemberVO;
+import kr.co.spanner.user.reservation.vo.ReservationVO;
 
 @Controller
 @RequestMapping("/login")
@@ -69,5 +73,19 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView("/login/modifyForm");
 		mav.addObject("member",member);
 		return mav;
+	}
+	
+	@RequestMapping("/reserve.do")
+	public ModelAndView reserve(@RequestParam(value="memberNo", required=false) int memberNo) throws Exception {
+		List<ReservationVO> res = service.selectRes(memberNo);
+		ModelAndView mav = new ModelAndView("/login/resList");
+		mav.addObject("res",res);
+		return mav;
+	}
+	
+	@RequestMapping("/resCancel.json")
+	@ResponseBody
+	public void resCancel(@RequestParam(value="resNo",required=false) int resNo) throws Exception {
+		service.cancelRes(resNo);
 	}
 }
