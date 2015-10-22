@@ -61,17 +61,21 @@ public class ReservationController {
 			
 			if(srtTime < 10){
 				reservation.setStartTime("0"+(time+i));
+				System.out.println(reservation.getStartTime());
 				List<ReservationVO> list = service.reservationCheck(reservation);		
 				if(list.size() != 0){
 					cnt++;
-				}				
+				}
+				
 			}
 			else{
 				reservation.setStartTime((time+i)+"");
+				System.out.println(reservation.getStartTime());
 				List<ReservationVO> list = service.reservationCheck(reservation);	
 				if(list.size() != 0){
 					cnt++;
-				}				
+				}
+				
 			}
 			//System.out.println("time"+reservation.getStartTime());
 			//System.out.println("list size"+ list.size());
