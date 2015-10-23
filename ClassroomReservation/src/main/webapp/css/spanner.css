@@ -177,3 +177,26 @@
 .page-reservation .mypage td a {
 	color:#000;
 }
+.footer {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0 20px;
+    color: #474747;
+    font-size: 12px;
+    float: left;
+    background: #232323;
+    color: silver;
+}
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+	width: 70%;
+	margin: auto;
+}
+.carousel {
+	height: 100%;
+	overflow: hidden;
+}
+.carousel-inner .item {
+	width: 80%;
+	margin: 0 auto;
+	overflow: hidden;
+}
