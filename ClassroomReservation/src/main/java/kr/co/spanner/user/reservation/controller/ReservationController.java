@@ -64,6 +64,7 @@ public class ReservationController {
 		if(Integer.parseInt(nowTime) > Integer.parseInt(resTime))
 			return "true";
 		int checkCnt = 0;
+		reservation.setStatus(1);
 		List<ReservationVO> list = service.reservationCheck(reservation);
 		for (int k = 0; k < reservation.getUsingTime(); k++) {
 			int time = Integer.parseInt(reservation.getStartTime())+k;
@@ -88,6 +89,7 @@ public class ReservationController {
 		ReservationVO resv = new ReservationVO();
 		resv.setRsvDay(rsvDay);
 		resv.setClassNo(Integer.parseInt(classNo));
+		resv.setStatus(1);
 		List<ReservationVO> list = service.selectReservation(resv);
 		return list;
 	}
@@ -108,5 +110,11 @@ public class ReservationController {
 		mav.addObject("resv", resv);
 		return mav;		
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("/rsvCancel.json") 
+	public String rsvCancel(int resNo) throws Exception {
+		service.CancleResv(resNo);
+		return "취소 성공";
+	}
 }

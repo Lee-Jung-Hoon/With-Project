@@ -16,4 +16,6 @@ public interface ReservationService {
 
 	public void updateReservation(ReservationVO reservation) throws Exception;
 
+	public void CancleResv(int resNo) throws Exception;
+
 }

@@ -38,4 +38,7 @@ public class ReservationServiceImpl implements ReservationService{
 		dao.updateReservation(reservation);
 	}
 
+	public void CancleResv(int resNo) throws Exception {
+		dao.CancleResv(resNo);
+	}
 }

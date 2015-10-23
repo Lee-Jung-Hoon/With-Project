@@ -52,14 +52,14 @@
 	<select id="selectReservation" parameterType="reservation" resultMap="reservationResult">
 		select res_no, id, member_no, class_no, date_format(reg_date, '%Y-%m-%d') as reg_date, start_time, using_time, res_for, rsv_day ,status
 		  from t_class_reservation
-		 where rsv_day = #{rsvDay} and class_no = #{classNo}
+		 where rsv_day = #{rsvDay} and class_no = #{classNo} and status = #{status}
 		 order by res_no desc
 	</select>
 
 	<select id="reservationCheck" parameterType="reservation" resultMap="reservationResult">
 		select res_no, id, member_no, class_no, date_format(reg_date, '%Y-%m-%d') as reg_date, start_time, using_time, res_for, rsv_day ,status
 		  from t_class_reservation
-		 where rsv_day = #{rsvDay} and class_no = #{classNo}
+		 where rsv_day = #{rsvDay} and class_no = #{classNo} and status = #{status}
 	</select>
 	
 	 <select id="selectRes" parameterType="Integer" resultMap="resResult">
@@ -88,5 +88,11 @@
    	update t_class_reservation
    	   set start_time=#{startTime}, using_time=#{usingTime}, res_for=#{resFor}, rsv_day=#{rsvDay}
       where res_no = #{resNo}  
+   </update>
+   
+   <update id="cancleResv" parameterType="int">
+   	update t_class_reservation
+   	   set status = 0
+   	 where res_no = #{resNo} 
    </update>
 </mapper>

@@ -33,5 +33,8 @@ public class ReservationDAO {
 	public void updateReservation(ReservationVO reservation) {
 		session.update("reservation.dao.updateReservation", reservation);
 	}
-	
+
+	public void CancleResv(int resNo) {
+		session.update("reservation.dao.cancleResv", resNo);
+	}
 }
