@@ -123,8 +123,7 @@ position: absolute;
   			  divHtml += "<a href='#' onclick='showMenu(" + ClassManageVO.classNo + ")'>"+ClassManageVO.className+"</a>"
   			  
   			  divHtml += "<table style='display:none; background:#fff; border:1px solid #ddd; width:70%;' class='classMenu_" + ClassManageVO.classNo + "' style=' display:none; left:"+(ClassManageVO.classLeft+75)+"px; top:"+(ClassManageVO.classTop+75)+"px;' >"
-  			  divHtml += "<tr><td style='height:50px; text-align:center; border-bottom:1px solid #ddd'>수정</td></tr>"
- 			    divHtml += "<tr><td style='height:50px; text-align:center'><a href='#' onclick='classDel("+ClassManageVO.classNo+")'>삭제</a></td></tr>"
+  			  divHtml += "<tr><td style='height:50px; text-align:center'><a href='#' onclick='classDel("+ClassManageVO.classNo+")'>삭제</a></td></tr>"
   			  divHtml += "</table>"
   			  divHtml += "</div>";
   			  $(".content").append(divHtml).find(".class_" +ClassManageVO.classNo).draggable();
