@@ -195,6 +195,7 @@
 }
 .carousel {
 	height: 100%;
+	padding:0 20%;
 	overflow: hidden;
 }
 .carousel-inner .item {
@@ -224,12 +225,12 @@ body {
 	padding-left:10px;
 }
 .navbar {
-	position:absolute;
+	position:absolute !important;
 	top:0;
 	left:0;
 	width:100%;
 }
 .content-wrapper {
 	height:100%;
-	padding-top:50px;
+	padding-top:100px;
 }
