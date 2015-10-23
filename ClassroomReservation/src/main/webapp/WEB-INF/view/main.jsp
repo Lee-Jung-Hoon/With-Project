@@ -4,29 +4,15 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레이아웃</title>
-<style>
-.carousel-inner>.item>img, .carousel-inner>.item>a>img {
-	width: 100%;
-	margin: auto;
-}
-.carousel {
-	height: 50%;
-	overflow: hidden;
-}
-.carousel-inner .item {
-	width: 80%;
-	margin: 0 auto;
-	overflow: hidden;
-}
-</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>비트 교육센터 강의 예약</title>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
+	<script>
+		$(document).ready(function(){
+		  $(".nav .home").addClass("active");
+		});
+	</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/view/include/topBar.jsp"%>
@@ -70,7 +56,7 @@
 			</div>
 
 		</div>
-		<%@ include file="/WEB-INF/view/include/bottom.jsp"%>
+		<script type="text/javascript">footer()</script>
 	</div>
 </body>
 </html>

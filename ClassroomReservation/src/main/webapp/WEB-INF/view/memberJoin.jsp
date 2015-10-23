@@ -4,28 +4,31 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>회원가입</title>
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
+	<script src="${pageContext.request.contextPath}/js/common.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>레이아웃</title>
-<style>
-	form {
-    width: 400px;
-    margin: 0 auto 40px;
-    margin-bottom: 20px;
+	<script	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<style>
+		form {
+	    width: 400px;
+	    margin: 0 auto 40px;
+	    margin-bottom: 20px;
+		}
+		.pure-form fieldset {
+	    margin: 0;
+	    padding: .35em 25px .75em;
+	    border: 2px solid gray;
+	    border-radius: 15px;
 	}
-	.pure-form fieldset {
-    margin: 0;
-    padding: .35em 25px .75em;
-    border: 2px solid gray;
-    border-radius: 15px;
-}
-</style>
+	</style>
 </head>
 <body class="page-login">
 <%@ include file="/WEB-INF/view/include/topBar.jsp"%>
@@ -55,7 +58,7 @@
 			</fieldset>
 		</form>
 	</div>
-  <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
+  <script type="text/javascript">footer()</script>
 </div>
 </body>
 </html>

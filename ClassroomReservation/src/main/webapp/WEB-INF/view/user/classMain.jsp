@@ -1,17 +1,14 @@
-<!doctype html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강의실 예약</title>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-</head>
-<style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>강의실 예약</title>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
+	<style>
 .content {
 	overflow: hidden;
 	position: relative;
@@ -73,14 +70,18 @@ position: absolute;
   			response.forEach(function (classReservationVO, index){
   			  divHtml = "";
   			  divHtml += "<div class='class_"+classReservationVO.classNo+"' style='left:"+classReservationVO.classLeft+"px; top:"+classReservationVO.classTop+"px;' >" 
-  			  divHtml += "<a href='/ClassroomReservation/reservation/dateReservation.do?classNo="+classReservationVO.classNo+"&floor=" + classReservationVO.floor +"&className=" +classReservationVO.className+"'>"+classReservationVO.className+"</a></div>"
+  			  divHtml += "<a href='/ClassroomReservation/reservation/dateReservation.do?classNo="+classReservationVO.classNo+"&floor=" + classReservationVO.floor +"&className=" +classReservationVO.className+"&classDetail="+classReservationVO.classDetail+"&classPerson="+classReservationVO.classPerson+"'>"+classReservationVO.className+"</a></div>"
   			    $(".content").append(divHtml);
   			});
   		});
     }
+    
+    $(".nav .res").addClass("active");
+    
   });
   
 </script>
+</head>
 <body>
 	<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
 	<div class="content-wrapper" style="position: static;">
@@ -99,7 +100,7 @@ position: absolute;
   		<li><a href="classReservation.do?floor=8">8층</a></li>
 		</ul>
 	</div>
-		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
+		<script type="text/javascript">footer()</script>	
 	</div>
 </body>
 </html>

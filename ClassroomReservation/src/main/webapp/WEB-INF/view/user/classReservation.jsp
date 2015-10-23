@@ -4,31 +4,20 @@
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>레이아웃</title>
-   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.colorbox.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/colorbox.css" />
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
-	<script src="${pageContext.request.contextPath}/js/common.js"></script>
-   <style>
-   
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>레이아웃</title>
+  <%@ include file="/WEB-INF/view/include/common.jsp"%>
+	<style>
    #nowDate {
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
    }
-   
-   </style>
+	</style>
 <script>
 
-$(document).ready(function(){	
+$(document).ready(function(){   
   
   $(".ClassName").text("${className}호 예약 현황");
   var d = new Date();
@@ -74,8 +63,15 @@ $(document).ready(function(){
       response.forEach(function (ReservationVO, index){
          divHTML ="";
         divHTML += "<div class='schedule blue' style='height:" + (ReservationVO.usingTime*100) + "%'>"
-        divHTML += "<div>f</div></div>"
-           $("#time_"+ReservationVO.startTime).append(divHTML);
+        +"<div id='schedule_"+ReservationVO.resNo+"'><a href='#' onclick='showMenu(" + ReservationVO.resNo + ")'>"+ReservationVO.resFor+"</a>" + ReservationVO.id + "</div>";
+        
+        divHTML += "<div id='scheduleMenu_"+ReservationVO.resNo+"' style='display:none;'><a class='modifyForm' href='/ClassroomReservation/reservation/rsvModify.do?resNo="+ReservationVO.resNo+"'>예약 수정</a>" 
+        divHTML += "<a href='#' onclick='resCancle("+ReservationVO.resNo+")'>예약 취소</a></div>"
+             
+        divHTML += "</div>"
+        
+        
+        $("#time_"+ReservationVO.startTime).append(divHTML);
        });
        $(".modifyForm").colorbox({
          iframe : true,
@@ -85,6 +81,31 @@ $(document).ready(function(){
        });
     })
   };
+  
+  function resCancle(no) {
+    $.ajax({
+    url : "/ClassroomReservation/reservation/rsvCancel.json",
+    type:"POST",
+    datatype : "JSON",
+    data : "resNo="+no
+    })
+    .done(function () {
+      alert("취소 완료");
+         changeDate();
+    })
+  }
+  
+  function showMenu(no) {
+    if($("#scheduleMenu_"+no).css("display") == "none") {
+      $("#scheduleMenu_"+no).show();
+      $("#schedule_"+no).hide();
+    }
+    else {
+      $("#schedule_"+no).show();
+      $("#scheduleMenu_"+no).hide();
+    }
+    return false;
+  }
   
   function regReservation(){
     $.ajax({
@@ -103,7 +124,7 @@ $(document).ready(function(){
          }).done(function(response) {
            divHTML ="";
           divHTML += "<div class='schedule blue' style='height:" + (response.usingTime*100) + "%'>"
-          +"<div>"+response.resFor+"</div><div>" + response.id + "</div></div>";
+          +"<div><a href='#' onclick='showMenu(" + response.classNo + ")'>"+response.resFor+"</a></div><div>" + response.id + "</div></div>";
            $("#time_"+response.startTime).append(divHTML);
            $('#resFor').val("");
            
@@ -134,7 +155,7 @@ $(document).ready(function(){
           iframe : true,
           title : "예약 수정",
           width : "50%",
-          height : "50%"
+          height : "500px"
         }); 
       }
       else {
@@ -159,7 +180,6 @@ $(document).ready(function(){
   }
 </script>
 </head>
-
 <body class="page-reservation">
 <%@ include file="/WEB-INF/view/include/topBar.jsp" %>   
 
@@ -179,8 +199,8 @@ $(document).ready(function(){
                      <input type="hidden" name="classNo" value="${classNo}"/>
 
 
-                        <input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2015-12-31" onchange="changeDate();" /> 
-                      <br/><br/>시작시간 <select id="startTime" name="startTime">
+                        날짜선택 &nbsp;:&nbsp; <input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" max="2015-12-31" onchange="changeDate();" /> 
+                      <br/><br/>시작시간 &nbsp;:&nbsp; <select id="startTime" name="startTime">
                            <option value="08">08:00</option>
                            <option value="09">09:00</option>
                            <option value="10">10:00</option>
@@ -198,23 +218,30 @@ $(document).ready(function(){
                         </select> 시
                      </div>
                      <div style="margin-bottom: 30px">
-                        사용시간 <select id="usingTime" name="usingTime">
+                        사용시간 &nbsp;:&nbsp; <select id="usingTime" name="usingTime">
                            <option value="2">2</option>
                            <option value="3">3</option>
                            <option value="4">4</option>
                         </select> 시간
                      </div>
         
-                     <div style="margin-bottom: 30px">
-            예약목적 <input type="text" id="resFor" name="resFor" style="width: 400px" placeholder="예약 목적을 적어주세요." />
+                     <div class="pure-control-group" style="margin-bottom: 30px">
+            예약목적 &nbsp;:&nbsp; <input type="text" id="resFor" name="resFor" style="width: 400px" placeholder="예약 목적을 적어주세요." />
                      </div>
+								
+									<div style="padding-right:22px">
+										<p style="margin-bottom:30px;">강의실 상세내용 &nbsp;:&nbsp; ${classDetail}</p>
+										<p style="margin-bottom:30px;">강의실 수용인원 &nbsp;:&nbsp; ${classPerson}</p>
+									</div>
 
-                     <div style="margin-bottom: 30px">
-                        <input type="button" onclick="regReservation();" class="pure-button pure-button-primary" value="예약" />
-                     </div>
-                  </form>
+                    <div style="margin-bottom: 30px">
+                       <input type="button" onclick="regReservation();" class="pure-button pure-button-primary" value="예약" />
+                    </div>
+                 </form>
                </div>
-               <div class="time-table">
+               <div>
+               
+               	<div class="time-table">
                   <p style="font-size: 30px;" id="nowDate"></p>
                   <ul>
                      <li>
@@ -285,7 +312,6 @@ $(document).ready(function(){
 
 
       </div>
-   
   <script type="text/javascript">footer()</script>
 </div>
 </body>

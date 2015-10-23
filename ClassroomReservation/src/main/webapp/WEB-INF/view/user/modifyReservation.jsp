@@ -1,48 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
-<script>
-  function modifyReservation() {
-    $.ajax({
-      url : "/ClassroomReservation/reservation/reservationCheck.json",
-      type : "POST",
-      datatype : "JSON",
-      data : $("#rsvForm").serialize()
-    }).done(
-        function(msg) {
-          if (msg == "false") {
-            $.ajax({
-              url : "/ClassroomReservation/reservation/updateReservation.json",
-              type : "POST",
-              datatype : "JSON",
-              data : $("#rsvForm").serialize()
-            }).done(
-                function() {
-              			alert("수정 성공");
-             	   	 jsClose();
-                });
-          } else {
-            alert("같은 시간에 예약 내역이 존재하거나 이미 지난 시간입니다.");
-     	   	 jsClose();
-          }
-        })
-
-  };
-  
-	function jsClose() {
-    parent.$.fn.colorbox.close();
-    parent.location.reload();
-  }
-</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예약내용수정</title>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
+	<script>
+	  function modifyReservation() {
+	    $.ajax({
+	      url : "/ClassroomReservation/reservation/reservationCheck.json",
+	      type : "POST",
+	      datatype : "JSON",
+	      data : $("#rsvForm").serialize()
+	    }).done(
+	        function(msg) {
+	          if (msg == "false") {
+	            $.ajax({
+	              url : "/ClassroomReservation/reservation/updateReservation.json",
+	              type : "POST",
+	              datatype : "JSON",
+	              data : $("#rsvForm").serialize()
+	            }).done(
+	                function() {
+	              			alert("수정 성공");
+	             	   	 jsClose();
+	                });
+	          } else {
+	            alert("같은 시간에 예약 내역이 존재하거나 이미 지난 시간입니다.");
+	     	   	 jsClose();
+	          }
+	        })
+	
+	  };
+		function jsClose() {
+	    parent.$.fn.colorbox.close();
+	    parent.location.reload();
+	  }
+	</script>
 </head>
 <body>
 	<form class="form-horizontal" id="rsvForm" >

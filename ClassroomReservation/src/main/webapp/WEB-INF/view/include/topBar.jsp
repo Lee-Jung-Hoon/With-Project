@@ -1,31 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
-	<div class="navbar-header">
-		<a class="navbar-brand"
-			href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">WebSiteName</a>
+	<div class="navbar-header" style="height:50px; line-height:50px" >
+		<img src="${pageContext.request.contextPath}/img/logo.png" alt="비트 교육센터" />
 	</div>
 	<div style="height: 50px">
-		<ul class="nav navbar-nav">
-			<li class="active">
-				<a href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">Home</a></li>
-			<li>
-				<a href="${pageContext.request.contextPath}/reservation/classReservation.do">실시간 예약</a></li>
-			<li>
-				<a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
-			<li><a href="${pageContext.request.contextPath}/ClassManage/reservationList.do">예약 내역</a></li>
-			<li><a href="#">멤버 관리</a></li>
+		<ul class="nav navbar-nav" style="margin-left:30px;">
+			<li class="home"><a href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">Home</a></li>
+			<li class="res"><a href="${pageContext.request.contextPath}/reservation/classReservation.do">실시간 예약</a></li>
+			<li class="room"><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
 		</ul>
 		<div align="right"
 			style="text-align: right; height: 50px; line-height: 50px;">

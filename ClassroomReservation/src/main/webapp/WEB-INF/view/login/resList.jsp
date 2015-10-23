@@ -7,13 +7,7 @@
   <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>예약내역</title>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
-	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/common.js"></script>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
 	<script type="text/javascript">
 		$(document).ready(function(){
 		  	$(".btn-cancel").on("click", function(){
@@ -53,7 +47,7 @@
 </head>
 <body class="page-reservation">
 <%@ include file="/WEB-INF/view/include/topBar.jsp"%>
-<div class="content-wrapper" style="position:static; margin-top:62px;">
+<div class="content-wrapper" style="position:static;">
     <div class="content">
 		<div class="mypage">
 			<h2>나의 예약내역</h2>

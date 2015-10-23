@@ -7,17 +7,11 @@
   <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원 정보 수정</title>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
-	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/common.js"></script>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
 </head>
 <body class="page-modifyForm">
 <%@ include file="/WEB-INF/view/include/topBar.jsp"%>
-<div class="content-wrapper" style="position:static; margin-top:62px;">
+<div class="content-wrapper" style="position:static;">
     <div class="content">
 		<div class="mypage">
 			<h2>회원 정보 수정</h2>
@@ -31,19 +25,25 @@
 					<tbody>
 						<tr>
 							<th>아이디</th>
-							<td><input type="text" name="id"  value="${member.id}" required autofocus /></td>
+							<td>
+								${member.id}	
+								<input type="hidden" name="id"  value="${member.id}" />
+							</td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input type="password" name="password"  value="${member.password}" required autofocus /></td>
+							<td><input type="password" name="password" style="width:250px" value="${member.password}" required autofocus /></td>
 						</tr>
 						<tr>
 							<th>회원이름</th>
-							<td><input type="text" name="name" value="${member.name}" required autofocus /></td>
+							<td>
+								${member.name}
+								<input type="hidden" name="name" value="${member.name}" />
+							</td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td><input type="text" name="email" value="${member.email}" required autofocus /></td>
+							<td><input type="text" name="email" style="width:250px;" value="${member.email}" required autofocus /></td>
 						</tr>
 					</tbody>
 				</table>

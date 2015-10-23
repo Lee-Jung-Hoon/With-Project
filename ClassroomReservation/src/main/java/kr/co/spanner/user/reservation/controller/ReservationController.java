@@ -37,11 +37,14 @@ public class ReservationController {
 
 	// 강의실 선택 후 예약 화면으로 이동
 	@RequestMapping("/dateReservation.do")
-	public ModelAndView DateReservation(int classNo, int floor, String className) throws Exception {
+	public ModelAndView DateReservation(int classNo, int floor, String className, String classDetail, int classPerson) throws Exception {
 		ModelAndView mav = new ModelAndView("user/classReservation");
 		mav.addObject("classNo", classNo);
 		mav.addObject("floor", floor);
 		mav.addObject("className", className);
+		mav.addObject("classDetail", classDetail);
+		mav.addObject("classPerson", classPerson);
+		
 		return mav;
 	}
 

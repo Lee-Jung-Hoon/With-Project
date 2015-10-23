@@ -4,20 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강의실 관리</title>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
-<script src="${pageContext.request.contextPath}/js/jquery.colorbox.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/colorbox.css" />
-</head>
-<style>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>강의실 관리</title>
+	<%@ include file="/WEB-INF/view/include/common.jsp"%>
+	<style>
 .content {
 	overflow: hidden;
 	position: relative;
@@ -65,6 +57,8 @@ position: absolute;
 <script>  
   var cnt = 0;
   $(document).ready(function() {
+    $(".nav .room").addClass("active");
+    
     classList("${floor}");
     // 강의실 등록 컬러박스
     $(".insertClass").colorbox({
@@ -138,6 +132,9 @@ position: absolute;
   			});
   		});
     }
+    
+    $(".nav room").addClass("active");
+    
   });
   
 	
@@ -165,8 +162,9 @@ position: absolute;
   }
   
 </script>
+</head>
 <body>
-	<%@ include file="/WEB-INF/view/include/topBar.jsp" %>	
+	<%@ include file="/WEB-INF/view/include/topBar.jsp"%>	
 	<div class="content-wrapper" style="position: static;">
 	<div class="content" style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
 	<h1>강의실 관리 메뉴</h1>
@@ -186,7 +184,7 @@ position: absolute;
           <a class="glyphicon glyphicon-home insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'> 강의실등록</a> 
         </button>
 		</div>
-		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
+		<script type="text/javascript">footer()</script>	
 	</div>
 </body>
 </html>
