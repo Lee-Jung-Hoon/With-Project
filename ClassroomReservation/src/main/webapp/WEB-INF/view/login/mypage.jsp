@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/common.js"></script>
 </head>
 <body class="page-mypage">
 <%@ include file="/WEB-INF/view/include/topBar.jsp"%>
@@ -44,7 +45,7 @@
 			<input style="margin:10px 0 0 10px;" type="button" onclick="location.href='${pageContext.request.contextPath}/login/reserve.do?memberNo=${member.memberNo}'" class="pure-button pure-button-primary" value="예약 이력 보기" />
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/view/include/bottom.jsp" %>
+	<script type="text/javascript">footer()</script>
 </div>
 </body>
 </html>

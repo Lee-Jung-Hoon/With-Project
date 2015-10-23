@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 		  	$(".btn-cancel").on("click", function(){
@@ -109,7 +110,7 @@
 			</table> 
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/view/include/bottom.jsp" %>
+	<script type="text/javascript">footer()</script>
 </div>
 </body>
 </html>
