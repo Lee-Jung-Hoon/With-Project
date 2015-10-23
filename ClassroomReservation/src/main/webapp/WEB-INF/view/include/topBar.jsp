@@ -9,8 +9,13 @@
 	<div style="height: 50px">
 		<ul class="nav navbar-nav" style="margin-left:30px;">
 			<li class="home"><a href="${pageContext.request.contextPath}/ClassManage/RedirectMain.do">Home</a></li>
-			<li class="res"><a href="${pageContext.request.contextPath}/reservation/classReservation.do">실시간 예약</a></li>
-			<li class="room"><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
+				<c:if test="${grade eq 0}">
+					<li class="res"><a href="${pageContext.request.contextPath}/reservation/classReservation.do">실시간 예약</a></li>
+				</c:if>
+				
+				<c:if test="${grade eq 1}">
+					<li class="room"><a href="${pageContext.request.contextPath}/ClassManage/ClassManage.do">강의실 관리</a></li>
+				</c:if>
 		</ul>
 		<div align="right"
 			style="text-align: right; height: 50px; line-height: 50px;">

@@ -15,4 +15,6 @@ public interface MemberService {
 	public List<ReservationVO> selectRes(int memberNo) throws Exception;
 
 	public void cancelRes(int resNo) throws Exception;
+
+	public void insertMember(MemberVO member) throws Exception;
 }

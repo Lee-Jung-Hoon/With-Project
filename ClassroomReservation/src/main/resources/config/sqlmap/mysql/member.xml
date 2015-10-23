@@ -35,4 +35,9 @@
 				name = #{name}
 		where member_no = #{memberNo}
 	</update>
+	
+	<insert id="insertMember" parameterType="member">
+		insert into t_class_member(id, password, email, name, grade)
+		values(#{id}, #{password}, #{id}, #{name}, 0)
+	</insert>
 </mapper>

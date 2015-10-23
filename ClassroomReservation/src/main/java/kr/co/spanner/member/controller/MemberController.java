@@ -35,6 +35,8 @@ public class MemberController {
 		if (memberVO.getId() != null ) {
 			session.setAttribute("userInfo", memberVO.getId());
 			session.setAttribute("userNo", memberVO.getMemberNo());
+			session.setAttribute("grade", memberVO.getGrade());
+			System.out.println(memberVO.getGrade());
 			mav.setViewName("main");
 		} else {
 			mav.addObject("msg", "아이디 혹은 비밀번호를 다시 확인해 주세요");
@@ -87,5 +89,11 @@ public class MemberController {
 	@ResponseBody
 	public void resCancel(@RequestParam(value="resNo",required=false) int resNo) throws Exception {
 		service.cancelRes(resNo);
+	}
+	
+	@RequestMapping("/memberJoin.do")
+	public String MemberJoin(MemberVO member) throws Exception {
+		service.insertMember(member);
+		return "main";
 	}
 }

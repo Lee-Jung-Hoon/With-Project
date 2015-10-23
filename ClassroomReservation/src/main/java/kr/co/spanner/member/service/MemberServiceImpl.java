@@ -33,6 +33,10 @@ public class MemberServiceImpl implements MemberService {
 	public void cancelRes(int resNo) throws Exception {
 		dao.updateRes(resNo);
 	}
+
+	public void insertMember(MemberVO member) throws Exception {
+		dao.insertMember(member);
+	}
 }
 
 

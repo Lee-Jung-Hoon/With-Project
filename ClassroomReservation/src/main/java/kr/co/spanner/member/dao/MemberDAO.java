@@ -34,4 +34,8 @@ public class MemberDAO {
 	public void updateRes(int resNo) {
 		session.update("reservation.dao.cancelRes", resNo);
 	}
+
+	public void insertMember(MemberVO member) {
+		session.insert("member.dao.insertMember", member);
+	}
 }
