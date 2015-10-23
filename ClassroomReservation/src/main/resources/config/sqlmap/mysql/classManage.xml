@@ -15,7 +15,7 @@
  
 	<select id="selectClassInfo" parameterType="int" resultMap="classResult">
 		select class_no, floor, class_name, class_top, class_left, class_person, class_detail
-		  from T_CLASS_CLASSROOMINFO
+		  from T_CLASS_CLASSROOMINFO 
 		 where floor = #{floor}
 	</select>
 	
