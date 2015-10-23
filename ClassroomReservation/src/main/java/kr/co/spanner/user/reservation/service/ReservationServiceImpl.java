@@ -24,9 +24,18 @@ public class ReservationServiceImpl implements ReservationService{
 		return dao.selectResertion(resv);
 	}
 
-	@Override
 	public List<ReservationVO> reservationCheck(ReservationVO reservation) {
 		return dao.reservationCheck(reservation);
+	}
+
+
+	public ReservationVO selectModifyResv(int resNo) throws Exception {
+		return dao.selectModifyResv(resNo);
+	}
+
+
+	public void updateReservation(ReservationVO reservation) throws Exception {
+		dao.updateReservation(reservation);
 	}
 
 }

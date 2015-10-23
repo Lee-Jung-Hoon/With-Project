@@ -12,4 +12,8 @@ public interface ReservationService {
 
 	public List<ReservationVO> reservationCheck(ReservationVO reservation);
 
+	public ReservationVO selectModifyResv(int resNo) throws Exception;
+
+	public void updateReservation(ReservationVO reservation) throws Exception;
+
 }

@@ -1,7 +1,5 @@
 package kr.co.spanner.user.reservation.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,6 +24,14 @@ public class ReservationDAO {
 
 	public List<ReservationVO> reservationCheck(ReservationVO reservation) {
 		return session.selectList("reservation.dao.reservationCheck", reservation);
+	}
+
+	public ReservationVO selectModifyResv(int resNo) {
+		return session.selectOne("reservation.dao.selectModifyResv", resNo);
+	}
+
+	public void updateReservation(ReservationVO reservation) {
+		session.update("reservation.dao.updateReservation", reservation);
 	}
 	
 }

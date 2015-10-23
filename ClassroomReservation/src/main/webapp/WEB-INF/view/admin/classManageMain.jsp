@@ -185,8 +185,6 @@ position: absolute;
 		     <button type="button" class="btn btn-default btn-sm insertButton">
           <a class="glyphicon glyphicon-home insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'> 강의실등록</a> 
         </button>
-		
-<%-- 		<button class="insertButton"><a class="insertClass" href='/ClassroomReservation/ClassManage/classInsertForm.do?floor=${floor}'>강의실 생성</a></button> --%>
 		</div>
 		<%@ include file="/WEB-INF/view/include/bottom.jsp" %>	
 	</div>

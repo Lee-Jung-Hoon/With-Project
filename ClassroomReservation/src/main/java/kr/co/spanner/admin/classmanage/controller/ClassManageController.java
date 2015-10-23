@@ -21,6 +21,12 @@ public class ClassManageController {
 	@Autowired
 	private ClassManageService service;
 
+	// 회원가입 폼으로 이동
+	@RequestMapping("/RedirectMemberJoin.do")
+	public String RedirectMemberJoin() throws Exception {
+		return "memberJoin";
+	}
+	
 	// 메인으로 이동
 	@RequestMapping("/RedirectMain.do")
 	public String RedirectMain() throws Exception {

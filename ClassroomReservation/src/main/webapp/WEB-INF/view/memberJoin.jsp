@@ -5,59 +5,57 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/layouts/marketing.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/spanner.css">
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>레이아웃</title>
+<style>
+	form {
+    width: 400px;
+    margin: 0 auto 40px;
+    margin-bottom: 20px;
+	}
+	.pure-form fieldset {
+    margin: 0;
+    padding: .35em 25px .75em;
+    border: 2px solid gray;
+    border-radius: 15px;
+}
+</style>
 </head>
-<body>
-	<%@ include file="/WEB-INF/view/include/topBar.jsp"%>
-	<div class="content-wrapper"
-		style="position: static; margin-top: 40px;">
-		<div class="content"
-			style="height: 600px; width: 90%; margin: 0 auto; border: 1px solid black; margin-bottom: 40px;">
-			<h2>강의실 등록</h2>
-			<form class="form-horizontal" id="classForm" role="form">
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="email">강의실 이름:</label>
-					<div class="col-sm-10">
-						<input type="number" step="1" id="className" name="className"
-							class="form-control" value="${floor}01" required="required"
-							class="form-control">
-					</div>
+<body class="page-login">
+<%@ include file="/WEB-INF/view/include/topBar.jsp"%>
+<div class="content-wrapper" style="position:static; margin-top:62px">
+    <div class="content">
+		<form class="pure-form pure-form-aligned" action="${pageContext.request.contextPath}/login/login.do" method="post">
+			<fieldset>
+				<h1>회원가입</h1>				
+				<div class="pure-control-group">
+					<label for="id">아이디(이메일)</label>
+					<input id="id" type="email" placeholder="아이디 입력" name="id" style="width:90%" required autofocus />
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pwd">수용 인원:</label>
-					<div class="col-sm-10">
-						<input type="hidden" name="classLeft" value="10"> <input
-							type="hidden" name="classTop" value="60"> <input
-							type="hidden" name="floor" value="${floor}"> <input
-							type="number" min="1" max="500" value="1" id="classPerson"
-							class="form-control" name="classPerson" required="required">
-					</div>
+				<div class="pure-control-group">
+					<label for="password">비밀번호</label>
+					<input id="password" type="password" name="password" placeholder="비밀번호 입력" style="width:90%" required autofocus />
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="email">상세 내용:</label>
-					<div class="col-sm-10">
-						<textarea cols="50" rows="10" id="classDetail"
-							class="form-control" name="classDetail" required="required"></textarea>
-					</div>
+				
+				<div class="pure-control-group">
+					<label for="password">비밀번호 확인</label>
+					<input id="password" type="password" name="rePassword" placeholder="비밀번호 입력" style="width:90%" required autofocus />
 				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<input type="button" onclick="registClass_submit()"
-							class="btn btn-default" value="글등록">
-					</div>
+				<div class="pure-control-group">
+					<label for="name">이름</label>
+					<input id="name" type="text" name="name" placeholder="이름 입력" style="width:90%" required autofocus />
 				</div>
-			</form>
-		</div>
-		<%@ include file="/WEB-INF/view/include/bottom.jsp"%>
+				<input type="submit" id="loginBtn" class="pure-button pure-button-primary" value="가입"  style="width:100%; margin:0 auto; border:0;" />
+			</fieldset>
+		</form>
 	</div>
+  <%@ include file="/WEB-INF/view/include/bottom.jsp" %>
+</div>
 </body>
 </html>

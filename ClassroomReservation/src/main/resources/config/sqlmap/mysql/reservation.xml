@@ -16,6 +16,18 @@
 		<result column="status" property="status"/>
 		<result column="rsv_day" property="rsvDay"/>
 	</resultMap>
+	
+	  <resultMap type="reservation" id="resResult">
+      <result column="res_no" property="resNo"/>
+      <result column="member_no" property="memberNo"/>
+      <result column="class_no" property="classNo"/>
+      <result column="reg_date" property="regDate"/>
+      <result column="start_time" property="startTime"/>
+      <result column="rsv_day" property="rsvDay"/>
+      <result column="using_time" property="usingTime"/>
+      <result column="res_for" property="resFor"/>
+      <result column="status" property="status"/>
+   </resultMap>
 
 	<insert id="insertRes" parameterType="reservation">
 		insert t_class_reservation (
@@ -47,6 +59,34 @@
 	<select id="reservationCheck" parameterType="reservation" resultMap="reservationResult">
 		select res_no, id, member_no, class_no, date_format(reg_date, '%Y-%m-%d') as reg_date, start_time, using_time, res_for, rsv_day ,status
 		  from t_class_reservation
-		 where rsv_day = #{rsvDay} and start_time = #{startTime} and class_no = #{classNo}
+		 where rsv_day = #{rsvDay} and class_no = #{classNo}
 	</select>
+	
+	 <select id="selectRes" parameterType="Integer" resultMap="resResult">
+      select
+      res_no, id, member_no, class_no,
+      date_format(reg_date,'%Y-%m-%d') as reg_date,
+      start_time, rsv_day, using_time, res_for, status
+      from t_class_reservation
+      where member_no = #{memberNo} 
+   </select>
+   
+   <update id="cancelRes" parameterType="Integer">
+      update t_class_reservation
+      set
+      status = 0
+      where res_no = #{resNo}       
+   </update>
+   
+   <select id="selectModifyResv" parameterType="int" resultMap="reservationResult">
+   		select res_no, id, member_no, class_no, date_format(reg_date, '%Y-%m-%d') as reg_date, start_time, using_time, res_for, rsv_day ,status
+		  from t_class_reservation
+		 where res_no = #{resNo}
+   </select>
+   
+   <update id="updateReservation" parameterType="reservation">
+   	update t_class_reservation
+   	   set start_time=#{startTime}, using_time=#{usingTime}, res_for=#{resFor}, rsv_day=#{rsvDay}
+      where res_no = #{resNo}  
+   </update>
 </mapper>

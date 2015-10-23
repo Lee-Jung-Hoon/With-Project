@@ -14,104 +14,99 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.spanner.user.reservation.service.ReservationService;
 import kr.co.spanner.user.reservation.vo.ReservationVO;
+import kr.co.spanner.user.sendMail.SendMail;
 
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
-	
+
 	@Autowired
 	private ReservationService service;
 
-	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String date = sdf.format(new Date());
 
 	// 강의실 예약 메인으로 이동
 	@RequestMapping("/classReservation.do")
-	public ModelAndView ClassReservation(@RequestParam(required=false, defaultValue="1")int floor) throws Exception {
+	public ModelAndView ClassReservation(@RequestParam(required = false, defaultValue = "1") int floor)
+			throws Exception {
 		ModelAndView mav = new ModelAndView("user/classMain");
 		mav.addObject("floor", floor);
 		return mav;
 	}
-	
+
 	// 강의실 선택 후 예약 화면으로 이동
 	@RequestMapping("/dateReservation.do")
-	public ModelAndView DateReservation(int classNo, int floor, String className) throws Exception{		
+	public ModelAndView DateReservation(int classNo, int floor, String className) throws Exception {
 		ModelAndView mav = new ModelAndView("user/classReservation");
 		mav.addObject("classNo", classNo);
 		mav.addObject("floor", floor);
 		mav.addObject("className", className);
 		return mav;
 	}
-	
+
 	@RequestMapping("/reservation.json")
 	@ResponseBody
-	public ReservationVO insertRes(ReservationVO reservation) throws Exception{	
+	public ReservationVO insertRes(ReservationVO reservation) throws Exception {
 		service.insertRes(reservation);
+		SendMail sendMail = new SendMail();
+	    sendMail.SendMailForReserve(reservation);
 		return reservation;
 	}
-	 
+
 	@RequestMapping("/reservationCheck.json")
 	@ResponseBody
 	public String reservationCheck(ReservationVO reservation) throws Exception {
-		int time = Integer.parseInt(reservation.getStartTime());
-		int cnt = 0;
-		for(int i = 0; i<reservation.getUsingTime(); i++){
-			int srtTime = (time+i);
-			
-			if(srtTime < 10){
-				reservation.setStartTime("0"+(time+i));
-				System.out.println(reservation.getStartTime());
-				List<ReservationVO> list = service.reservationCheck(reservation);		
-				if(list.size() != 0){
-					cnt++;
+		String resTime = (reservation.getRsvDay()+"-"+reservation.getStartTime()).replace("-", "");
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
+		String nowTime = sdf.format(cal.getTime());
+		if(Integer.parseInt(nowTime) > Integer.parseInt(resTime))
+			return "true";
+		int checkCnt = 0;
+		List<ReservationVO> list = service.reservationCheck(reservation);
+		for (int k = 0; k < reservation.getUsingTime(); k++) {
+			int time = Integer.parseInt(reservation.getStartTime())+k;
+			for (int i = 0; i < list.size(); i++) {
+				ReservationVO reserv = list.get(i);
+				for (int j = 0; j < reserv.getUsingTime(); j++) {
+					int listTime = Integer.parseInt(reserv.getStartTime())+j;
+					if(listTime == time)
+						checkCnt++;
 				}
-				
 			}
-			else{
-				reservation.setStartTime((time+i)+"");
-				System.out.println(reservation.getStartTime());
-				List<ReservationVO> list = service.reservationCheck(reservation);	
-				if(list.size() != 0){
-					cnt++;
-				}
-				
-			}
-			//System.out.println("time"+reservation.getStartTime());
-			//System.out.println("list size"+ list.size());
 		}
-		System.out.println("cnt:" + cnt);
-		if(cnt ==0 ){
-		System.out.println(reservation.toString());
+		if(checkCnt==0) {
 			return "false";
 		}
-		return "true";
-		
+ 		return "true";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/rsvList.json")
-	public List<ReservationVO> rsvList(String rsvDay, String classNo) throws Exception{
-		System.out.println(rsvDay);
-		System.out.println(classNo);
+	public List<ReservationVO> rsvList(String rsvDay, String classNo) throws Exception {
 		ReservationVO resv = new ReservationVO();
 		resv.setRsvDay(rsvDay);
 		resv.setClassNo(Integer.parseInt(classNo));
-		List<ReservationVO> list =  service.selectReservation(resv);
-		System.out.println(list.size());
+		List<ReservationVO> list = service.selectReservation(resv);
 		return list;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/updateReservation.json")
+	public String updateReservation(ReservationVO reservation) throws Exception {
+		System.out.println(reservation.toString());
+		service.updateReservation(reservation);
+		return "성공";
+	}
+	
+	
+	@RequestMapping("/rsvModify.do") 
+	public ModelAndView rsvModify(int resNo) throws Exception {
+		ModelAndView mav = new ModelAndView("user/modifyReservation");
+		ReservationVO resv = service.selectModifyResv(resNo);
+		mav.addObject("resv", resv);
+		return mav;		
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
