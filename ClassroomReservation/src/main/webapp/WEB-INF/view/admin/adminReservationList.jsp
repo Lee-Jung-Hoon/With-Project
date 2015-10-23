@@ -29,6 +29,11 @@
 	  }
 	});
 	</script>
+	<style>
+		.footer {
+			position:static;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/view/include/topBar.jsp"%>

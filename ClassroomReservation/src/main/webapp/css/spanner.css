@@ -92,7 +92,7 @@
 	box-sizing:border-box;
 }
 .schedule.blue {
-	background:blue;
+	background:#1f8dd6;
 }
 .schedule.red {
 	background:red;
@@ -233,4 +233,8 @@ body {
 .content-wrapper {
 	height:100%;
 	padding-top:100px;
+}
+.time-table a {
+	color:#fff;
+	padding:0 5px;
 }

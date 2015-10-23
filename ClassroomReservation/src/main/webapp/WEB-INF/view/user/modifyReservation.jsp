@@ -47,12 +47,12 @@
 	<h1>예약 내용 수정</h1>
 	<br/>
   <div class="form-group">
-	예약일자 <input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" 
+	예약일자 &nbsp;:&nbsp; <input type="date" id="rsvDay" name="rsvDay" min="2015-01-01" 
 		max="2015-12-31" value="${resv.rsvDay}" />
 		<input type="hidden" name="resNo" value="${resv.resNo}"/>
 		</div>
 	<div class="form-group">
-	시작시간
+	시작시간 &nbsp;:&nbsp;
 	<select id="startTime" name="startTime">
 		<option value="08">08:00</option>
 		<option value="09">09:00</option>
@@ -71,7 +71,7 @@
 	</select> 시
 	</div>
 	<div class="form-group" style="margin-bottom: 30px">
-		사용시간 <select id="usingTime" name="usingTime">
+		사용시간 &nbsp;:&nbsp; <select id="usingTime" name="usingTime">
 			<option value="2">2</option>
 			<option value="3">3</option>
 			<option value="4">4</option>
@@ -79,13 +79,13 @@
 	</div>
 
 	<div class="form-group" style="margin-bottom: 30px">
-		예약목적 <input type="text" id="resFor" name="resFor" style="width: 400px"
+		예약목적 &nbsp;:&nbsp; <input type="text" id="resFor" name="resFor" style="width: 400px"
 			placeholder="예약 목적을 적어주세요." value="${resv.resFor}" />
 	</div>
 	</div>
 </form>
 <div align="right">
-<input align="right" onclick="modifyReservation();" type="button" value="수정">
+<input align="right" class="pure-button pure-button-primary" onclick="modifyReservation();" type="button" value="수정">
 </div>
 </body>
 </html>

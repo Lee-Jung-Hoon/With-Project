@@ -6,13 +6,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>레이아웃</title>
+	<title>예약현황</title>
   <%@ include file="/WEB-INF/view/include/common.jsp"%>
 	<style>
    #nowDate {
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
+   }
+   .footer {
+   		position:static;
+   		margin-top:30px;
    }
 	</style>
 <script>
@@ -124,7 +128,7 @@ $(document).ready(function(){
          }).done(function(response) {
            divHTML ="";
           divHTML += "<div class='schedule blue' style='height:" + (response.usingTime*100) + "%'>"
-          +"<div><a href='#' onclick='showMenu(" + response.classNo + ")'>"+response.resFor+"</a></div><div>" + response.id + "</div></div>";
+          +"<div><a href='#' onclick='showMenu_(" + response.classNo + ")'>"+response.resFor+"</a></div><div>" + response.id + "</div></div>";
            $("#time_"+response.startTime).append(divHTML);
            $('#resFor').val("");
            
@@ -183,7 +187,7 @@ $(document).ready(function(){
 <body class="page-reservation">
 <%@ include file="/WEB-INF/view/include/topBar.jsp" %>   
 
-<div class="content-wrapper" style="position:static; margin-top:62px;">
+<div class="content-wrapper" style="position:static;">
     <div class="content">
 
 
@@ -312,7 +316,8 @@ $(document).ready(function(){
 
 
       </div>
-  <script type="text/javascript">footer()</script>
+  
 </div>
+<script type="text/javascript">footer()</script>
 </body>
 </html>

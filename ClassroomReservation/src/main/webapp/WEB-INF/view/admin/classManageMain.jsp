@@ -23,6 +23,10 @@ font-size: 25px;
     line-height: 40px;
     margin: .67em 0;
 }
+		.footer {
+			position:static;
+		}
+	
 
 .insertButton {
 position: absolute;
