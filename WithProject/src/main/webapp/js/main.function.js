@@ -1,4 +1,54 @@
 $(document).ready(function(){
+  $.ajax({
+    url : "/WithProject/studygroup/groupList.json",
+    dataType : "json"      
+  })
+  .done(function(response){
+    //console.log(response);
+   
+    
+    var data = JSON.stringify(response);
+    $.each(response, function(StudyGroupVO ,index) {
+     alert(11);
+      var divHTML = "";
+        divHTML = '<div class="img-wrap">'
+        +' <div class="img-content">'
+        +'<div class="img-inner">'
+        +'<span class="img"><img src="/WithProject/images/sample.jpg" alt="" /></span>'
+        +'<span class="txt"><br /></span>'
+        +'</div>'
+        +'<div class="spine"><a href="#">상세보기</a></div>'
+        +'</div></div>';
+      $("#container").append(divHTML);
+    });
+    $('#container').pinto({
+        itemWidth:180,
+        gapX:10,
+        gapY:10,
+        onItemLayout: function($item, column, position) {
+        }
+    });
+    //response.foreach(function(StudyGroupVO, index){
+    
+    //}); 
+  });
+  
+  /*
+   * 
+   * <div class="img-wrap">
+        <div class="img-content">         
+          <div class="img-inner">
+            <span class="img"><img src="${pageContext.request.contextPath}/images/sample.jpg" alt="" /></span>
+            <span class="txt">테스트 글입니다테스트 글입니다테스트 글입니다테스트 글입니다</span>
+          </div>
+          <div class="spine">
+            <a href="#">상세보기</a>
+          </div>
+        </div>
+      </div>
+   * 
+   * 
+   * */
 	var top, left, temp, drop, tempIndex, dropIndex;
 	isDrop = false;
 	$('.img-wrap').draggable( {
