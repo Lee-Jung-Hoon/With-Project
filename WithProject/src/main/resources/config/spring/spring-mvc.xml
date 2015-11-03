@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="kr.co.with" />
+	
+	
+	<!-- 데이터베이스 연계 관련 내용 추가 -->
+   	<context:property-placeholder 
+		location="classpath:config/mybatis/db.properties"/>
+		
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close"
+      	  p:driverClassName="${jdbc.mysql.driver}"
+          p:url="${jdbc.mysql.url}"
+          p:username="${jdbc.mysql.username}" 
+          p:password="${jdbc.mysql.password}" />
+              
+    <bean id="sqlSessionFactory"    
+      	  class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation"    
+	            value="classpath:config/mybatis/sqlMapConfig.xml" />
+	  <property name="mapperLocations"    
+	            value="classpath*:config/sqlmap/mysql/**/*.xml" />
+	</bean>
+	
+	<bean id="sqlSessionTemplate"   
+	      class="org.mybatis.spring.SqlSessionTemplate">
+	  <constructor-arg ref="sqlSessionFactory" />
+	</bean>
+		
+	
+    <mvc:annotation-driven>
+        <!-- @ResponseBody로 String 처리할때 한글처리 -->
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	            <property name="supportedMediaTypes">
+	                <list>
+	                    <value>text/html; charset=UTF-8</value>
+	                </list>
+	            </property>
+	        </bean>
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	            <property name="supportedMediaTypes">
+	                <list>
+	                    <value>text/html; charset=UTF-8</value>
+	                    <value>application/json; charset=UTF-8</value>
+	                </list>
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+	<!-- 최대 업로드 파일 사이즈 : 10MB -->
+    <bean id="multipartResolver" 
+   	      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
+    
+	<mvc:default-servlet-handler />
+	<mvc:view-controller path="/makegroups/MakeGroup.do" view-name="admin/groupmaker/MakeGroup"/>
+	<mvc:view-controller path="/admin/studentSeat/arrangeSeat.do" view-name="admin/studentSeat/arrangeSeat"/>
+	<mvc:view-controller path="/user/reservation/rsvList.do" view-name="user/classReservation"/>
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+</beans>
