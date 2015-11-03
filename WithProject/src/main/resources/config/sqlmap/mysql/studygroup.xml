@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="with.studygroup.dao">
+	<resultMap type="study" id="studyGroup">
+		<result column="group_no" property="groupNo" />
+		<result column="group_name" property="groupName" />
+		<result column="group_detail" property="groupDetail" />
+		<result column="group_maxperson" property="groupMaxPerson" />
+		<result column="group_nowperson" property="groupNowPerson" />
+		<result column="group_activelongitude" property="groupActiveLongitude" />
+		<result column="group_activelatitude" property="groupActiveLatitude" />
+		<result column="group_activeplace" property="groupActivePlace" />
+		<result column="group_tel" property="groupTel" />
+		<result column="group_regdate" property="groupRegDate" />
+	</resultMap>
+	
+	<select id="studyList" resultMap="studyGroup">
+		select * from bit73.t_with_studygroup;
+	</select>
+</mapper>
