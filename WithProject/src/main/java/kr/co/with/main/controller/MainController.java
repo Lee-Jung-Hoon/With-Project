@@ -34,4 +34,14 @@ public class MainController {
 	public String login() throws Exception {
 		return "login";
 	}
+	
+	@RequestMapping("/d3jsTest.do")
+	public String d3jsTest() throws Exception {
+		return "d3jsTest";
+	}
+	
+	@RequestMapping("/WebRTC.do")
+	public String WebRTC() throws Exception {
+		return "WebRTC";
+	}
 }
