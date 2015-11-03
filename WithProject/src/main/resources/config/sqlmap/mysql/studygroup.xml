@@ -14,15 +14,17 @@
 		<result column="group_activeplace" property="groupActivePlace" />
 		<result column="group_tel" property="groupTel" />
 		<result column="group_regdate" property="groupRegDate" />
+		<result column="group_imagepath" property="groupImgPath" />
 	</resultMap>
 	
 	<select id="studyList" resultMap="studyGroup">
 		select 
-		group_no, group_name, group_detail, 
-		group_maxperson, group_nowperson, 
-		group_activelongitude, group_activelatitude, 
-		group_activeplace, group_tel
+		gr.group_no, gr.group_name, gr.group_detail, 
+		gr.group_maxperson, gr.group_nowperson, 
+		gr.group_activelongitude, gr.group_activelatitude, 
+		gr.group_activeplace, gr.group_tel, image.group_imagepath
 		<!--date_format(group_regdate, '%Y-%m-%d') as groupRegDate  -->
-		from bit73.t_with_studygroup
+		from t_with_studygroup gr, t_with_studygroup_image image
+		where gr.group_no = image.group_no
 	</select>
 </mapper>

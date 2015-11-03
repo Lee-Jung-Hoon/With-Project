@@ -12,7 +12,7 @@ $(document).ready(function(){
         divHTML = '<div class="img-wrap">'
         +' <div class="img-content">'
         +'<div class="img-inner">'
-        +'<span class="img"><img src="/WithProject/images/sample.jpg" alt="" /></span>'
+        +'<span class="img"><img src="/WithProject/images/'+response[index].groupImgPath+'" alt="" /></span>'
         +'<span class="txt">'+response[index].groupName+'<br /></span>'
         +'</div>'
         +'<div class="spine"><a href="#">상세보기</a></div>'

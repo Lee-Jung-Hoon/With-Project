@@ -11,6 +11,7 @@ public class StudyGroupVO {
 	private String groupActivePlace;
 	private String groupTel;
 	private String groupRegDate;
+	private String groupImgPath;
 	public int getGroupNo() {
 		return groupNo;
 	}
@@ -70,5 +71,11 @@ public class StudyGroupVO {
 	}
 	public void setGroupRegDate(String groupRegDate) {
 		this.groupRegDate = groupRegDate;
+	}
+	public String getGroupImgPath() {
+		return groupImgPath;
+	}
+	public void setGroupImgPath(String groupImgPath) {
+		this.groupImgPath = groupImgPath;
 	}
 }
