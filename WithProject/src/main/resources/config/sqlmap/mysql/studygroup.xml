@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="with.studygroup.dao">
-	<resultMap type="study" id="studyGroup">
+	<resultMap type="studygroup" id="studyGroup">
 		<result column="group_no" property="groupNo" />
 		<result column="group_name" property="groupName" />
 		<result column="group_detail" property="groupDetail" />
@@ -17,6 +17,12 @@
 	</resultMap>
 	
 	<select id="studyList" resultMap="studyGroup">
-		select * from bit73.t_with_studygroup;
+		select 
+		group_no, group_name, group_detail, 
+		group_maxperson, group_nowperson, 
+		group_activelongitude, group_activelatitude, 
+		group_activeplace, group_tel
+		<!--date_format(group_regdate, '%Y-%m-%d') as groupRegDate  -->
+		from bit73.t_with_studygroup
 	</select>
 </mapper>
