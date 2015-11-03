@@ -233,17 +233,21 @@
 				
 
 
-                $item.css({
-                    position: "absolute",
+                //$item.css({
+                   
                     //top: colsH[i] + "px",
                     //left: (itemWidth + gapX) * i + offset + "px",
-                    width: itemWidth - ($item.outerWidth() - $item.width()) // control padding and border
-                }).animate({
+                    //width: itemWidth - ($item.outerWidth() - $item.width()) // control padding and border
+                //});
+				$item.animate({
 					top: colsH[i] + "px",
                     left: (itemWidth + gapX) * i + offset + "px",
-					opacity:1,
+					opacity:1
+					//position: "absolute"
                     //width: itemWidth - ($item.outerWidth() - $item.width()) // control padding and border
-				},1500);
+				},1000,function(){
+					isDrop = false;
+				});
                 
                 colsH[i] += $item.outerHeight() + gapY;
 

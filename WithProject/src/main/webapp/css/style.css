@@ -88,8 +88,10 @@ main {
 	font-size:14px;
 	line-height:20px;
 	display:block;
+	color:#fff;
 }
 .img-wrap {
+	position:absolute;
 	width:192px;
 	opacity:0;			
 	perspective:1000px;
@@ -98,7 +100,7 @@ main {
 	transform-style: preserve-3d;
 	transform-origin: 125px 0;
 	transition: 0.75s;
-	background:#ddd;
+	background:#105a8b;
 	border-radius:0 5px 5px 0;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -247,6 +249,10 @@ main {
 	-webkit-transition:0.7s;
 	transition:0.7s;
 }
+.box.open .btn-close {
+	 -webkit-animation: spinnerH 5s linear infinite;
+    animation: spinnerH 5s linear infinite;
+}
 .tile::before, .tile::after {
 	content:"";
 	position:absolute;
@@ -272,84 +278,112 @@ main {
 	-webkit-transition-delay:0.7s;
 	transition-delay:0.7s;
 }
+.box.open .btn-close {
+	background:transparent;
+}
 .box .btn-close {
 	display:block;
-	width:0;
-	height:50px;
-	position:absolute;
-	top:0;
-	right:0;
+	width:100%;
+	height:100%;
+	background:none;
+	position:relative;
 	-webkit-transition:0.2s;
 	transition:0.2s;
 	-webkit-transition-delay:0.8;
 	transition-delay:0.8s;
-	animation: spin 5s infinite linear;
-	transform-style: preserve-3d;
-	transform: translateZ( -100px );
-	perspective: 1000px;
-	perspective-origin:50%; 
-
-}
-@keyframes spin {
-	from { transform: rotateY(0); }
-	to { transform: rotateY(360deg); }
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 100px;
+    transform-origin: 50% 100px;
+	 -webkit-animation: spinnerH 5s linear infinite;
+    animation: spinnerH 5s linear infinite;
 }
 .box .btn-close span {
 	display:block;
 	position:absolute;
 	width:100%;
 	height:100%;
+	top:0;
 	border: 2px solid #000;
 	box-sizing:border-box;
-}
-.box .btn-close span::before, .box .btn-close span::after {
-	content:"";
-	position:absolute;
-	top:0;
-	width:4px;
-	height:50px;
-	background:#000;
-}
-.btn-close .front{ 
-  transform: rotateY(0deg) translateZ( 20px );
-}
-
-.btn-close .back{
-  transform: rotateX(180deg) translateZ( 20px );
-}
-
-.btn-close .right{
-  transform: rotateY(90deg) translateZ( 20px );
-}
-
-.btn-close .left{
-  transform: rotateY(-90deg) translateZ( 20px );
-}
-
-.btn-close .top{
-  transform: rotateX(90deg) translateZ( 100px );
-}
-
-.btn-close .bottom{
-  transform: rotateX(-90deg) translateZ( 100px );
-}
-.box .btn-close span::before {
-	right:23px;
-	transform:rotate(45deg);
-}
-
-.box .btn-close span::after {
-	left:23px;
-	transform:rotate(-45deg);
-}
-
-.box.open .btn-close {
-	width:50px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.2);
+	background:none;
 	-webkit-transition:0.2s;
 	transition:0.2s;
 	-webkit-transition-delay:0.8;
 	transition-delay:0.8s;
 }
+.box.open .btn-close span {
+	background:#fff;
+	-webkit-transition:0.2s;
+	transition:0.2s;
+	-webkit-transition-delay:0.8;
+	transition-delay:0.8s;
+}
+.box .btn-close span::before, .box .btn-close span::after {
+	content:"";
+	position:absolute;
+	top:-1px;
+	width:4px;
+	height:50px;
+	background:#000;
+}
+.box-close {
+	position:absolute;
+	top:0;
+	right:0;
+	width:50px;
+	height:50px;
+    -webkit-perspective: 800px;
+    perspective: 800px;
+    -webkit-perspective-origin: 50% 100px;
+    perspective-origin: 50% 100px;
+	z-index:99;
+}
+@keyframes spinnerH{
+    to{
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    from{
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
+    }
+}
+
+.btn-close .back{
+    transform: translateZ(-25px) rotateY(180deg);
+}
+.btn-close .right{
+    transform: rotateY(-270deg) translateX(25px);
+    transform-origin: top right;
+}
+.btn-close .left{
+    transform: rotateY(270deg) translateX(-25px);
+    transform-origin: center left;
+}
+.btn-close .top{
+    transform: rotateX(-90deg) translateY(-25px);
+    transform-origin: top center;
+}
+.btn-close .bottom{
+    transform: rotateX(90deg) translateY(25px);
+    transform-origin: bottom center;
+}
+.btn-close .front{
+    transform: translateZ(25px);
+}
+.box .btn-close span::before {
+	right:22px;
+	transform:rotate(45deg);
+}
+
+.box .btn-close span::after {
+	left:22px;
+	transform:rotate(-45deg);
+}
+
+
 
 /* Shine */
 /*
