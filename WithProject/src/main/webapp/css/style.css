@@ -46,9 +46,11 @@ header {
 	position:fixed;
 	z-index:50;
 	background:#105a8b;
+	line-height: 80px;
 }
 .search input[type="text"] {
 	height:25px;
+	
 }
 main {
 	width:100%;
