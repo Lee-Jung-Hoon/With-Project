@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="studygroup" alias="kr.co.with.studygroup.vo.StudyGroupVO"/>
 	</typeAliases>
 </configuration>
 
