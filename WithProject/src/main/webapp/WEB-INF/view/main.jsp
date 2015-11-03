@@ -30,7 +30,7 @@
 				<button type="button">버튼1</button>
 				<button type="button">버튼2</button>
 			</div>
-			
+			<!--
 			<div class="img-wrap">
 				<div class="img-content">					
 					<div class="img-inner">
@@ -42,6 +42,9 @@
 					</div>
 				</div>
 			</div>
+			
+			  -->
+			
 		</div>
 			
 		</div>
@@ -117,6 +120,6 @@
 
 	</script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+
 </body>
 </html>
