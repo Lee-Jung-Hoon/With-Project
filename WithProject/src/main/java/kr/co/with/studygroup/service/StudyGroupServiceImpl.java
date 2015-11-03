@@ -18,5 +18,4 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 		return dao.selectNewList(sort);
 	}
 	
-
 }
