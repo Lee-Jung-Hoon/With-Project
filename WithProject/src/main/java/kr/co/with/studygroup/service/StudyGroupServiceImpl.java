@@ -17,5 +17,6 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public List<StudyGroupVO> selectNewList(String sort) throws Exception {
 		return dao.selectNewList(sort);
 	}
+	
 
 }
