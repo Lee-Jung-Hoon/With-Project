@@ -19,16 +19,33 @@ $(document).ready(function(){
         +'</div></div>';
       $("#container").append(divHTML);
     });
-    $('#container').pinto({
-        itemWidth:180,
-        gapX:10,
-        gapY:10,
-        onItemLayout: function($item, column, position) {
+    showLetter();
+    setTimeout(function(){
+      $('#container').pinto({
+          itemWidth:180,
+          gapX:10,
+          gapY:10,
+          onItemLayout: function($item, column, position) {
         }
-    });
+      });
+    },400);
     ready();
   });
   
+
+});
+function generateRandom() {
+    var num = Math.floor(Math.random() * 1000);
+    return num;
+    
+  }
+  function showLetter() {
+    $(".img-wrap").first().siblings().each(function(){
+      var left = generateRandom();
+      var top = generateRandom();
+      $(this).css({"top": top + "px", "left": left + "px"});
+    });
+  }
 
   function ready() {
     
@@ -48,7 +65,7 @@ $(document).ready(function(){
         if (isDrop == false) {
           $(this).animate({
             'top':top, 
-            'left':left 						
+            'left':left             
           },'slow',
           function(){
             $(this).removeClass('z-index');
@@ -84,7 +101,7 @@ $(document).ready(function(){
     });
     
     $('.box .btn-close').on('click', function(){
-      $('.box').removeClass('open', callbackClose);			
+      $('.box').removeClass('open', callbackClose);     
       $('.list-content').removeClass('scroll');
     }); 
     
@@ -136,24 +153,22 @@ $(document).ready(function(){
     
     /* 큰 이미지 효과 */
     $('.img-rolling > ul').css('width', W*rLen + 'px');
-    rollBtn.on('click', function(){			
+    rollBtn.on('click', function(){     
       if ($(this).hasClass('roll-btn-right')) {
         if (cnt == rLen-1) {
           cnt = 0;
         } else {
           cnt++;
-        }			
+        }     
       } else {
         if (cnt == 0) {
           cnt = rLen-1;
         } else {
           cnt--;
-        }			
+        }     
       }
       $('.img-rolling > ul').css('transform','translateX(-' + W * cnt + 'px)');
       imageS(current, size, cnt);
     });
     
   }
-
-});
