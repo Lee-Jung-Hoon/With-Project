@@ -103,23 +103,6 @@
 			</div>
 		</div>
 	</main>
-	<script type="text/javascript">
-	function generateRandom() {
-		var num = Math.floor(Math.random() * 1000);
-		return num;
-		
-	}
-	function showLetter() {
-		$(".img-wrap").first().siblings().each(function(){
-			var left = generateRandom();
-			var top = generateRandom();
-			$(this).css({"top": top + "px", "left": left + "px"});
-		});
-	}
-	showLetter();
-
-	</script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
-
+  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
 </body>
 </html>
