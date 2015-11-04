@@ -45,7 +45,7 @@ header {
 	height:80px;
 	position:fixed;
 	z-index:50;
-	background:#105a8b;
+	background:#333;
 	line-height: 80px;
 }
 .search input[type="text"] {
@@ -109,9 +109,14 @@ main {
 .img-wrap:hover {
 	z-index:50;
 }
-.img-wrap:hover .img-content, .img-wrap.on .img-content {
+.img-wrap.position-right:hover .img-content, .img-wrap.on.position-right .img-content {
 	transform:translateX(-10px) translateZ(40px) translateX(40px) rotateY(50deg);
 }
+
+.img-wrap.position-left:hover .img-content, .img-wrap.on.position-left .img-content {
+	transform:translateX(-10px) translateZ(40px) translateX(-40px) rotateY(-50deg);
+}
+
 .img-inner {
 
 }
@@ -127,13 +132,21 @@ main {
 	z-index: 5;
 	overflow: hidden;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-	background: #ddd;
+	background: #105a8b;
 	background-size: auto 100%;
+}
+.spine-left {
 	-webkit-transform: rotateY(-90deg) translateX(-49px);
 	transform: rotateY(-90deg) translateX(-49px);
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
-
+}
+.spine-right {
+	right:0;
+	-webkit-transform: rotateY(90deg) translateX(49px);
+	transform: rotateY(90deg) translateX(49px);
+	-webkit-transform-origin: 100% 0;
+	transform-origin: 100% 0;
 }
 .spine a {
 	font-size:20px;
@@ -151,7 +164,6 @@ main {
 	font-weight:bold;
 	padding:0 15%;
 }
-
 
 .spine::before {
 	position: absolute;

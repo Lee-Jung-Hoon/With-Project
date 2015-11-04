@@ -15,7 +15,8 @@ $(document).ready(function(){
         +'<span class="img"><img src="/WithProject/images/'+response[index].groupImgPath+'" alt="" /></span>'
         +'<span class="txt">'+response[index].groupName+'<br /></span>'
         +'</div>'
-        +'<div class="spine"><a href="#">상세보기</a></div>'
+        +'<div class="spine spine-left"><a href="#">왼쪽</a></div>'
+        +'<div class="spine spine-right"><a href="#">오른쪽</a></div>'
         +'</div></div>';
       $("#container").append(divHTML);
     });
@@ -51,7 +52,7 @@ function generateRandom() {
     
     var top, left, temp, drop, tempIndex, dropIndex;
     isDrop = false;
-    $('.img-wrap').draggable( {
+    $('.img-wrap:not(:eq(0))').draggable( {
       'start' : function(event, ui) {
         top = ui.position.top;
         left = ui.position.left;
@@ -64,12 +65,12 @@ function generateRandom() {
       'stop' : function(event, ui) {
         if (isDrop == false) {
           $(this).animate({
-            'top':top, 
-            'left':left             
+              'top':top, 
+              'left':left             
           },'slow',
-          function(){
-            $(this).removeClass('z-index');
-          }
+            function(){
+              $(this).removeClass('z-index');
+            }
           );
         } else {
           $(this).removeClass('z-index');
@@ -83,7 +84,9 @@ function generateRandom() {
         isDrop = true;
         dropIndex = $(this).index();
         num = tempIndex - dropIndex;
-        if (num == -1) {
+        if (dropIndex == 0) {
+          isDrop = false;
+        } else if (num == -1) {
           $(this).after(temp);
         } else {
           $(this).before(temp);
@@ -91,7 +94,29 @@ function generateRandom() {
         $('#container').pinto();
       }
     });
+    var isClick = false;
+    $('.img-wrap').on('mousemove', function(event){
+      
+      var position = $(this).offset();
+      var spot = event.pageX - position.left;
+    
+      var standard = 91;
+      var rest = 10;
+      if (spot < standard - rest) {
+        $(this).removeClass('position-left').addClass('position-right');
+      } else if (spot > standard + rest ) {
+        $(this).removeClass('position-right').addClass('position-left');
+      } else {
+        $(this).removeClass('position-right').removeClass('position-left');
+      }
+    }).on('mouseleave', function(){
+      if (isClick == false) {
+        $(this).removeClass('position-right').removeClass('position-left');
+      }
+    });
+
     $('.img-wrap a').on('click',function(){
+      isClick = true;
       $(this).parents('.img-wrap').addClass('on');
       $('body').addClass('view');
       var scroll = $(window).scrollTop();
@@ -99,15 +124,16 @@ function generateRandom() {
       $('.box').addClass('open', callbackOpen).css('top', 30 + scroll + 'px');
       return false;
     });
-    
+
     $('.box .btn-close').on('click', function(){
       $('.box').removeClass('open', callbackClose);     
       $('.list-content').removeClass('scroll');
+      isClick = false;
     }); 
     
     
     var slide, slideAction, isOver;
-    
+
     function callbackOpen() {
       setTimeout(function() {
         $('.list-content').addClass('scroll');
