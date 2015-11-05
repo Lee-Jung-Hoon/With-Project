@@ -159,9 +159,10 @@ header {
 .login-area {
 	position:absolute;
 	right:100px;
-	bottom:27px;
+	top:50%;
 	width:270px;
 	height:50px;
+	margin-top:-25px;
 }
 /*
 .login-area .show-login {
@@ -1055,11 +1056,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    
     text-transform: uppercase;
-    position: absolute;
-    margin-left: -140px;
-    top: 20%;
 }
 
 .list a {
@@ -1077,7 +1074,6 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
     text-indent: 10px;
     line-height: 55px;
-    background: #E0FBAC;
     margin: 0;
     height: 55px;
     width: 270px;
@@ -1094,10 +1090,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	position:relative;
 	z-index:99;
 }
-.list .toggle {
-	font-size:20px;
-	font-weight:bold;
-}
+
 
 
 .list dd {
@@ -1136,30 +1129,24 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	text-align:left;
 }
 /* UI */
-
-.toggle {
-  
+.list .toggle {
+	font-size:20px;
+	font-weight:bold;
+	display:block;
+	width:100%;
+	height:100%;
     -webkit-transform: translateZ(100px);
     transform: translateZ(100px);
-
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     border-radius: 3px;
-
-    text-transform: uppercase;
-    letter-spacing: -1px;
     line-height: 50px;
-    margin-left: -70px;
-    margin-top: -20px;
-    background: #2b2b2b;
     text-align: center;
-    font-size: 12px;
-    position: absolute;
-    z-index: 1;
-    height: 50px;
-    bottom: 10%;
-    width: 140px;
+    z-index:1;
     color: #fff;
-    left: 50%;
+}
+.toggle {
+  
+
 }
 
 .toggle:hover {
