@@ -51,7 +51,7 @@
 			<canvas id="c"></canvas>
 		  <canvas id="demo-canvas"></canvas>
 			<span class="title">
-				<em>Make</em> <em>your</em> <em>Dream </em>
+				<strong>Make <em>your</em> <em>Dream</em></strong>
 				<input type="text" id="keyword"  name="keyword" />
 				<button class="searchIcon" type="button"><img src="${pageContext.request.contextPath}/images/icon_search.png" alt="" /></button>
 			</span>
