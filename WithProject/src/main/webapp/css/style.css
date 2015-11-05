@@ -94,15 +94,28 @@ header {
 
 }
 .search .title {
-   font-family:'Lobster', cursive;
-   text-shadow:1px 1px gray, 2px 2px gray, 3px 3px gray, 4px 4px gray, 5px 5px gray, 6px 6px gray;
-   font-size:85px;
-   color:#fff;
    display:table-cell;
     vertical-align:middle;
 }
-.search .title em:first-child {
+.search .title strong {
+	position:absolute;
+	top:130px;
+	left:50%;
+	margin-left:-500px;
+	width:1000px;
+	font-family:'Lobster', cursive;
+	text-shadow:1px 1px gray, 2px 2px gray, 3px 3px gray, 4px 4px gray, 5px 5px gray, 6px 6px gray;
+	font-size:85px;
+	color:#fff;
+}
+.search strong em {
 	position:relative;
+}
+.search strong em {
+	z-index:4;
+}
+.search strong em:last-child {
+	z-index:2;
 }
 .search #keyword{
    font-family:'MalgunGothic';
@@ -113,11 +126,10 @@ header {
     border:0;
     border-bottom:4px solid #fff;
     font-size:70px;
-    width:300px;
+    width:600px;
     color:#fff;
 }
 .searchIcon {
-   margin-left : -20px;
    background:none;
    border:0;
    width: 120px;
@@ -133,8 +145,8 @@ header {
 	position:absolute;
 	top:50%;
 	left:50%;
-	margin-top:-170px;
-	margin-left:-500px;
+	margin:-330px 0 0 -100px;
+	z-index:3;
 }
 #demo-canvas {
   position: absolute;
