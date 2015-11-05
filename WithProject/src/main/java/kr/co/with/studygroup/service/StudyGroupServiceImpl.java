@@ -13,9 +13,9 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	
 	@Autowired
 	private StudyGroupDAO dao;
-	
+
+	// 메인 리스트를 출력하기 위한 Service
 	public List<StudyGroupVO> selectNewList(String sort) throws Exception {
 		return dao.selectNewList(sort);
 	}
-	
 }

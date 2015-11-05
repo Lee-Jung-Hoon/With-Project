@@ -13,9 +13,9 @@ public class StudyGroupDAO {
 	
 	@Autowired
 	private SqlSessionTemplate session;
-	
+
+	// 메인 리스트를 출력하기 위한 DAO
 	public List<StudyGroupVO> selectNewList(String sort) {
 		return session.selectList("with.studygroup.dao.studyList", sort);
 	}
-
 }

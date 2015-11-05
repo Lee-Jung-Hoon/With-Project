@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main")
 public class MainController {
 	
-	// 테스트
-	// 메인 테스트
+	// 메인으로 이동
 	@RequestMapping("/main.do")
 	public String Main() throws Exception {
 		return "main";
@@ -35,11 +34,15 @@ public class MainController {
 		return "login";
 	}
 	
+	// 테스트
+	// D3.js 테스트
 	@RequestMapping("/d3jsTest.do")
 	public String d3jsTest() throws Exception {
 		return "d3jsTest";
 	}
 	
+	// 테스트
+	// WebRTC 테스트
 	@RequestMapping("/WebRTC.do")
 	public String WebRTC() throws Exception {
 		return "WebRTC";
