@@ -1,211 +1,463 @@
-$(document).ready(function(){
-  showLetter();
-  setTimeout(function(){
-      $('#container').pinto({
-          itemWidth:180,
-          gapX:10,
-          gapY:10,
-          onItemLayout: function($item, column, position) {
+
+/**
+ * Copyright (C) 2012 by Justin Windle
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+(function($) {
+
+    // Global initialisation flag
+    var initialized = false;
+
+    // For detecting browser prefix and capabilities
+    var el = document.createElement( 'div' );
+    var re = /^(Moz|(w|W)ebkit|O|ms)(?=[A-Z])/;
+
+    // Establish vendor prefix and CSS 3D support
+    var vendor = (function() { for ( var p in el.style ) if( re.test(p) ) return p.match(re)[0]; })() || '';
+    var canRun = vendor + 'Perspective' in el.style;
+    var prefix = '-' + vendor.toLowerCase() + '-';
+
+    var $this, $root, $base, $kids, $node, $item, $over, $back;
+    var wait, anim, last;
+
+    // Public API
+    var api = {
+
+        // Toggle open / closed
+        toggle: function() {
+
+            $this = $( this );
+            $this.makisu( $this.hasClass( 'open' ) ? 'close' : 'open' );
+        },
+
+        // Trigger the unfold animation
+        open: function( speed, overlap, easing ) {
+
+            // Cache DOM references
+            $this = $(this);
+            $root = $this.find( '.root' );
+            $kids = $this.find( '.node' ).not( $root );
+
+            // Establish values or fallbacks
+            speed = utils.resolve( $this, 'speed', speed );
+            easing = utils.resolve( $this, 'easing', easing );
+            overlap = utils.resolve( $this, 'overlap', overlap );
+
+            $kids.each( function( index, el ) {
+
+                // Establish settings for this iteration
+                anim = 'unfold' + ( !index ? '-first' : '' );
+                last = index === $kids.length - 1;
+                time = speed * ( 1 - overlap );
+                wait = index * time;
+
+                // Cache DOM references
+                $item = $( el );
+                $over = $item.find( '.over' );
+
+                // Element animation
+                $item.css(utils.prefix({
+                    'transform': 'rotateX(180deg)',
+                    'animation': anim + ' ' + speed + 's ' + easing + ' ' + wait + 's 1 normal forwards'
+                }));
+
+                // Shading animation happens when the next item starts
+                if ( !last ) wait = ( index + 1 ) * time;
+
+                // Shading animation
+                $over.css(utils.prefix({
+                    'animation': 'unfold-over ' + (speed * 0.45) + 's ' + easing + ' ' + wait + 's 1 normal forwards'
+                }));
+            });
+
+            // Add momentum to the container
+            $root.css(utils.prefix({
+                'animation': 'swing-out ' + ( $kids.length * time * 1.4 ) + 's ease-in-out 0s 1 normal forwards'
+            }));
+
+            $this.addClass( 'open' );
+        },
+
+        // Trigger the fold animation
+        close: function( speed, overlap, easing ) {
+
+            // Cache DOM references
+            $this = $(this);
+            $root = $this.find( '.root' );
+            $kids = $this.find( '.node' ).not( $root );
+
+            // Establish values or fallbacks
+            speed = utils.resolve( $this, 'speed', speed ) * 0.66;
+            easing = utils.resolve( $this, 'easing', easing );
+            overlap = utils.resolve( $this, 'overlap', overlap );
+
+            $kids.each( function( index, el ) {
+
+                // Establish settings for this iteration
+                anim = 'fold' + ( !index ? '-first' : '' );
+                last = index === 0;
+                time = speed * ( 1 - overlap );
+                wait = ( $kids.length - index - 1 ) * time;
+
+                // Cache DOM references
+                $item = $( el );
+                $over = $item.find( '.over' );
+
+                // Element animation
+                $item.css(utils.prefix({
+                    'transform': 'rotateX(0deg)',
+                    'animation': anim + ' ' + speed + 's ' + easing + ' ' + wait + 's 1 normal forwards'
+                }));
+
+                // Adjust delay for shading
+                if ( !last ) wait = ( ( $kids.length - index - 2 ) * time ) + ( speed * 0.35 );
+
+                // Shading animation
+                $over.css(utils.prefix({
+                    'animation': 'fold-over ' + (speed * 0.45) + 's ' + easing + ' ' + wait + 's 1 normal forwards'
+                }));
+            });
+
+            // Add momentum to the container
+            $root.css(utils.prefix({
+                'animation': 'swing-in ' + ( $kids.length * time * 1.0 ) + 's ease-in-out 0s 1 normal forwards'
+            }));
+
+            $this.removeClass( 'open' );
         }
-      });
-    },400);
-    ready();
-});
-function generateRandom() {
-  var num = Math.floor(Math.random() * 1000);
-  return num;
-  
-}
-function showLetter() {
-  $(".img-wrap").first().siblings().each(function(){
-    var left = generateRandom();
-    var top = generateRandom();
-    $(this).css({"top": top + "px", "left": left + "px"});
-  });
-}
+    };
 
-function ready() {
-    var top, left, temp, drop, tempIndex, dropIndex;
-  isDrop = false;
-  $('.img-wrap:not(:eq(0))').draggable( {
-    'start' : function(event, ui) {
-      top = ui.position.top;
-      left = ui.position.left;
-      temp = $(this);
-      tempIndex = temp.index();
-    },
-    'drag' : function(event, ui) {
-      $(this).addClass('z-index');
-    },
-    'stop' : function(event, ui) {
-      if (isDrop == false) {
-        $(this).animate({
-            'top':top, 
-            'left':left             
-        },'slow',
-          function(){
-            $(this).removeClass('z-index');
-          }
-        );
-      } else {
-        $(this).removeClass('z-index');
-      }
-    }
-  }).droppable({
-    'drag' : function (event, ui) {
-      
-    },
-    'drop': function(event, ui ) {
-      isDrop = true;
-      dropIndex = $(this).index();
-      num = tempIndex - dropIndex;
-      if (dropIndex == 0) {
-        isDrop = false;
-      } else if (num == -1) {
-        $(this).after(temp);
-      } else {
-        $(this).before(temp);
-      }
-      $('#container').pinto();
-    }
-  });
-  var isClick = false;
-  $('.img-wrap').on('mousemove', function(event){
+    // Utils
+    var utils = {
+
+        // Resolves argument values to defaults
+        resolve: function( $el, key, val ) {
+            return typeof val === 'undefined' ? $el.data( key ) : val;
+        },
+
+        // Prefixes a hash of styles with the current vendor
+        prefix: function( style ) {
+            
+            for ( var key in style ) {
+                style[ prefix + key ] = style[ key ];
+            }
+
+            return style;
+        },
+
+        // Inserts rules into the document styles
+        inject: function( rule ) {
+
+            try {
+
+                var style = document.createElement( 'style' );
+                style.innerHTML = rule;
+                document.getElementsByTagName( 'head' )[0].appendChild( style );
+
+            } catch ( error ) {}
+        }
+    };
+
+    // Element templates
+    var markup = {
+        node: '<span class="node"/>',
+        back: '<span class="face back"/>',
+        over: '<span class="face over"/>'
+    };
+
+    // Plugin definition
+    $.fn.makisu = function( options ) {
+
+        // Notify if 3D isn't available
+        if ( !canRun ) {
+
+            var message = 'Failed to detect CSS 3D support';
+
+            if( console && console.warn ) {
+                
+                // Print warning to the console
+                console.warn( message );
+
+                // Trigger errors on elements
+                this.each( function() {
+                    $( this ).trigger( 'error', message );
+                });
+            }
+
+            return;
+        }
+
+        // Fires only once
+        if ( !initialized ) {
+
+            initialized = true;
+
+            // Unfold
+            utils.inject( '@' + prefix + 'keyframes unfold        {' +
+
+                '0%   {' + prefix + 'transform: rotateX(180deg);  }' +
+                '50%  {' + prefix + 'transform: rotateX(-30deg);  }' +
+                '100% {' + prefix + 'transform: rotateX(0deg);    }' +
+
+                '}');
+
+            // Unfold (first item)
+            utils.inject( '@' + prefix + 'keyframes unfold-first  {' +
+
+                '0%   {' + prefix + 'transform: rotateX(-90deg);  }' +
+                '50%  {' + prefix + 'transform: rotateX(60deg);   }' +
+                '100% {' + prefix + 'transform: rotateX(0deg);    }' +
+
+                '}');
+
+            // Fold
+            utils.inject( '@' + prefix + 'keyframes fold          {' +
+
+                '0%   {' + prefix + 'transform: rotateX(0deg);    }' +
+                '100% {' + prefix + 'transform: rotateX(180deg);  }' +
+
+                '}');
+
+            // Fold (first item)
+            utils.inject( '@' + prefix + 'keyframes fold-first    {' +
+
+                '0%   {' + prefix + 'transform: rotateX(0deg);    }' +
+                '100% {' + prefix + 'transform: rotateX(-180deg); }' +
+
+                '}');
+
+            // Swing out
+            utils.inject( '@' + prefix + 'keyframes swing-out     {' +
+
+                '0%   {' + prefix + 'transform: rotateX(0deg);    }' +
+                '30%  {' + prefix + 'transform: rotateX(-30deg);  }' +
+                '60%  {' + prefix + 'transform: rotateX(15deg);   }' +
+                '100% {' + prefix + 'transform: rotateX(0deg);    }' +
+
+                '}');
+
+            // Swing in
+            utils.inject( '@' + prefix + 'keyframes swing-in      {' +
+
+                '0%   {' + prefix + 'transform: rotateX(0deg);    }' +
+                '50%  {' + prefix + 'transform: rotateX(-10deg);  }' +
+                '90%  {' + prefix + 'transform: rotateX(15deg);   }' +
+                '100% {' + prefix + 'transform: rotateX(0deg);    }' +
+
+                '}');
+
+            // Shading (unfold)
+            utils.inject( '@' + prefix + 'keyframes unfold-over   {' +
+                '0%   { opacity: 1.0; }' +
+                '100% { opacity: 0.0; }' +
+                '}');
+
+            // Shading (fold)
+            utils.inject( '@' + prefix + 'keyframes fold-over     {' +
+                '0%   { opacity: 0.0; }' +
+                '100% { opacity: 1.0; }' +
+                '}');
+
+            // Node styles
+            utils.inject( '.node {' +
+                'position: relative;' +
+                'display: block;' +
+                '}');
+
+            // Face styles
+            utils.inject( '.face {' +
+                'pointer-events: none;' +
+                'position: absolute;' +
+                'display: block;' +
+                'height: 100%;' +
+                'width: 100%;' +
+                'left: 0;' +
+                'top: 0;' +
+                '}');
+        }
+
+        // Merge options & defaults
+        var opts = $.extend( {}, $.fn.makisu.defaults, options );
+
+        // Extract api method arguments
+        var args = Array.prototype.slice.call( arguments, 1 );
+
+        // Main plugin loop
+        return this.each( function () {
+
+            // If the user is calling a method...
+            if ( api[ options ] ) {
+                return api[ options ].apply( this, args );
+            }
+
+            // Store options in view
+            $this = $( this ).data( opts );
+
+            // Only proceed if the scene hierarchy isn't already built
+            if ( !$this.data( 'initialized' ) ) {
+
+                $this.data( 'initialized', true );
+
+                // Select the first level of matching child elements
+                $kids = $this.children( opts.selector );
+
+                // Build a scene graph for elements
+                $root = $( markup.node ).addClass( 'root' );
+                $base = $root;
+                
+                // Process each element and insert into hierarchy
+                $kids.each( function( index, el ) {
+
+                    $item = $( el );
+
+                    // Which animation should this node use?
+                    anim = 'fold' + ( !index ? '-first' : '' );
+
+                    // Since we're adding absolutely positioned children
+                    $item.css( 'position', 'relative' );
+
+                    // Give the item some depth to avoid clipping artefacts
+                    $item.css(utils.prefix({
+                        'transform-style': 'preserve-3d',
+                        'transform': 'translateZ(-0.1px)'
+                    }));
+
+                    // Create back face
+                    $back = $( markup.back );
+                    $back.css( 'background', $item.css( 'background' ) );
+                    $back.css(utils.prefix({ 'transform': 'translateZ(-0.1px)' }));
+
+                    // Create shading
+                    $over = $( markup.over );
+                    $over.css(utils.prefix({ 'transform': 'translateZ(0.1px)' }));
+                    $over.css({
+                        'background': opts.shading,
+                        'opacity': 0.0
+                    });
+                    
+                    // Begin folded
+                    $node = $( markup.node ).append( $item );
+                    $node.css(utils.prefix({
+                        'transform-origin': '50% 0%',
+                        'transform-style': 'preserve-3d',
+                        'animation': anim + ' 1ms linear 0s 1 normal forwards'
+                    }));
+
+                    // Build display list
+                    $item.append( $over );
+                    $item.append( $back );
+                    $base.append( $node );
+
+                    // Use as parent in next iteration
+                    $base = $node;
+                });
+
+                // Set root transform settings
+                $root.css(utils.prefix({
+                    'transform-origin': '50% 0%',
+                    'transform-style': 'preserve-3d'
+                }));
+
+                // Apply perspective
+                $this.css(utils.prefix({
+                    'transform': 'perspective(' + opts.perspective + 'px)'
+                }));
+
+                // Display the scene
+                $this.append( $root );
+            }
+        });
+    };
+
+    // Default options
+    $.fn.makisu.defaults = {
+
+        // Perspective to apply to rotating elements
+        perspective: 1200,
+
+        // Default shading to apply (null => no shading)
+        shading: 'rgba(0,0,0,0.12)',
+
+        // Area of rotation (fraction or pixel value)
+        selector: null,
+
+        // Fraction of speed (0-1)
+        overlap: 0.6,
+
+        // Duration per element
+        speed: 0.8,
+
+        // Animation curve
+        easing: 'ease-in-out'
+    };
+
+    $.fn.makisu.enabled = canRun;
+
+})( jQuery );
+
+// The `enabled` flag will be `false` if CSS 3D isn't available
+
+if ( $.fn.makisu.enabled ) {
+
+    var $sashimi = $( '.sashimi' );
+    var $nigiri = $( '.nigiri' );
+    var $maki = $( '.maki' );
+
+    // Create Makisus
+
+    $nigiri.makisu({
+        selector: 'dd',
+        overlap: 0.85,
+        speed: 1.7
+    });
+
+    $maki.makisu({
+        selector: 'dd',
+        overlap: 0.6,
+        speed: 0.85
+    });
+
+    $sashimi.makisu({
+        selector: 'dd',
+        overlap: 0.2,
+        speed: 0.5
+    });
+
+    // Open all
     
-    var position = $(this).offset();
-    var spot = event.pageX - position.left;
-  
-    var standard = 91;
-    var rest = 10;
-    if (spot < standard - rest) {
-      $(this).removeClass('position-left').addClass('position-right');
-    } else if (spot > standard + rest ) {
-      $(this).removeClass('position-right').addClass('position-left');
-    } else {
-      $(this).removeClass('position-right').removeClass('position-left');
-    }
-  }).on('mouseleave', function(){
-    if (isClick == false) {
-      $(this).removeClass('position-right').removeClass('position-left');
-    }
-  });
+ //  $( '.list' ).makisu( 'open' );
+$( '.list dd' ).show();
+    // Toggle on click
 
-  $('.img-wrap a').on('click',function(){
-    isClick = true;
-    $(this).parents('.img-wrap').addClass('on');
-    $('body').addClass('view');
-    var scroll = $(window).scrollTop();
-    var boxTop = parseInt($('.box').css('top'));
-    $('.box').addClass('open', callbackOpen).css('top', 30 + scroll + 'px');
-    return false;
-  });
+    $( '.toggle' ).on( 'click', function() {
+        $( '.list' ).makisu( 'toggle' );
+    });
 
-  $('.box .btn-close').on('click', function(){
-    $('.box').removeClass('open', callbackClose);     
-    $('.list-content').removeClass('scroll');
-    isClick = false;
-  }); 
-  
-  
-  var slide, slideAction, isOver;
+    // Disable all links
 
-  function callbackOpen() {
-    setTimeout(function() {
-    $('.list-content').addClass('scroll');
-    //isOver = false;
-    
-    //setTimeout(slideAction,5000);
-    }, 1000 );
-  }
-  function callbackClose() {
-    setTimeout(function() {
-    //$('.max').removeClass('show');
-    $('body').removeClass('view');
-    $('.img-wrap').removeClass('on');
-    //isOver = true;
-    
-    //clearTimeout(slide);
-    }, 1000 );
-  }
-  /*
-  $('.roll-btn, .img-rolling-s > ul > li > a').on('mouseenter', function(){
-    isOver = true;
-    
-    clearTimeout(slide);
-  })
-  .on('mouseleave', function(){
-    isOver = false;
-    
-    setTimeout(slideAction,5000);
-  });
-  
-  function slideAction() {
-    slide = setTimeout(slideAction, 5000);
-    
-    if (isOver == false) {
-      $('.roll-btn-right').click();
-    } 
-  }
-  */
-  /* 작은 이미지 효과 */
-  
+    $( '.demo a' ).click( function( event ) {
+        event.preventDefault();
+    });
 
-  //var rsLen = $('.img-rolling-s > ul > li').length;
-  //$('.img-rolling-s > ul').css('width', 200 * rsLen + 'px');
-  var rollBtnS = $('.img-rolling-s > ul > li > a').on('click', function(){
-    index = $(this).parent().index();
-    cnt = index-1;
-    $('.roll-btn-right').click();
-    imageS(current, size, index);
-    return false;
-  });
-  function imageS(current, size, index) {
-      current.stop().css('z-index',999).animate({'top':size*index+'px'},300,function(){
-        $(this).css('z-index',0);
-      });
-      $('.img-rolling-s').stop().animate({
-        scrollTop : index * size
-      },500);
-  }
+} else {
 
-  /* 롤링 */
-
-  /* 큰 이미지 선언 */ 
-  var rLen = $('.img-rolling > ul > li').length;
-  var W = parseInt($('.img-rolling > ul > li').css('width'));
-  var rollBtn = $('.roll-btn');
-  var cnt = 0;
-
-  /* 작은 이미지 선언 */
-  var current = $('.current');
-  var size = 116;
-
-  /* 큰 이미지 효과 */
-  $('.img-rolling > ul').css('width', W*rLen + 'px');
-  rollBtn.on('click', function(){     
-    if ($(this).hasClass('roll-btn-right')) {
-      if (cnt == rLen-1) {
-        cnt = 0;
-      } else {
-        cnt++;
-      }     
-    } else {
-      if (cnt == 0) {
-        cnt = rLen-1;
-      } else {
-        cnt--;
-      }     
-    }
-    $('.img-rolling > ul').css('transform','translateX(-' + W * cnt + 'px)');
-    imageS(current, size, cnt);
-    
-  });
-  
-  $('.show-login').on('click', function(){
-    $(this).next().fadeIn('fast');
-  });
-
-  $('.close-login').on('click', function(){
-    $(this).parent().fadeOut('fast');
-  });
+    $( '.warning' ).show();
 }

@@ -20,29 +20,16 @@
 	<div class="dark-layer"></div>
 	<header>
 		<div class="login-area">
-			<button type="button" class="show-login">로그인</button>
 			<div class="login">
-				<button type="button" class="close-login">닫기</button>
 				<form action="#" method="post">
-					<a href="#">페이스북 로그인</a>
-					<span class="id-line"><label for="">아이디 : </label><input type="text" placeholder="ID" /></span>
-					<span class="pass-line"></span><label for="">비밀번호 : <input type="password" placeholder="PASSWORD" /></label>
-					<input type="submit" class="btn-login" value="로그인" />
+					<dl class="list maki">
+						<dt><a href="#" class="toggle">로그인</a></dt>
+						<dd class="fb-login"><em><a href="">페이스 북 로그인</a></em></dd>
+						<dd class="input-login"><em><input type="text" id="id" placeholder="ID" /></em></dd>
+						<dd class="input-login"><em><input type="password" id="pw" placeholder="password" /></em></dd>
+						<dd class="btn-login"><em><input type="submit" value="로그인"  /></em></dd>
+					</dl>
 				</form>
-				<dl class="list maki">
-					<dt>Maki</dt>
-					<dd><a href="#">Ana-kyu</a></dd>
-					<dd><a href="#">Chutoro</a></dd>
-					<dd><a href="#">Kaiware</a></dd>
-					<dd><a href="#">Kampyo</a></dd>
-					<dd><a href="#">Kappa</a></dd>
-					<dd><a href="#">Natto</a></dd>
-					<dd><a href="#">Negitoro</a></dd>
-					<dd><a href="#">Oshinko</a></dd>
-					<dd><a href="#">Otoro</a></dd>
-					<dd><a href="#">Tekka</a></dd>
-				</dl>
-				<a href="#" class="toggle">Toggle</a>
 			</div>
 		</div>
 	</header>
@@ -59,11 +46,8 @@
 		</div>
 		<div id="container" class="img-layer">
 
-			<div class="img-wrap" style="height:200px;">
-				<span class="img">로그인</span>
-				<span class="txt"><input type="text" /></span>
-				<button type="button">버튼1</button>
-				<button type="button">버튼2</button>
+			<div class="img-wrap" style="height:200px; background:red;">
+				
 			</div>
 			
 		</div>
