@@ -17,7 +17,8 @@ public class StudyGroupController {
 	
 	@Autowired
 	private StudyGroupService service;
-	
+
+	// 메인 리스트를 출력하기 위한 JSON Method
 	@RequestMapping("/groupList.json")
 	@ResponseBody
 	public List<StudyGroupVO> GroupList(@RequestParam(value="sort",required=false, defaultValue="new") String sort) throws Exception {
