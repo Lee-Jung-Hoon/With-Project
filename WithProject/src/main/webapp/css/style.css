@@ -117,8 +117,8 @@ header {
 .search strong em:last-child {
 	z-index:2;
 }
-.search #keyword{
-   font-family:'MalgunGothic';
+.search #keyword {
+   font-family:'Malgun Gothic';
    font-weight:bold;
    letter-spacing:-1px;
     margin-left:20px;
@@ -158,9 +158,12 @@ header {
 
 .login-area {
 	position:absolute;
-	right:30px;
+	right:200px;
 	bottom:20px;
+	width:100px;
+	height:50px;
 }
+/*
 .login-area .show-login {
 	color:#fff;
 	font-weight:bold;
@@ -198,24 +201,17 @@ header {
 	border-radius:5px;
 	display:none;
 }
+*/
 .login-area input[type="text"], .login-area input[type="password"] {
 	padding:0 5px;
 	height:30px;
-	margin-bottom:15px;
-}
-.login-area .id-line, .login-area .pass-line {
-	display:block;
-	width:100%;
-}
-.login-area .id-line {
-	margin-bottom:20px;
 }
 .login-area label {
 	font-size:15px;
 	width:30%;
-	vertical-align:middle;
+	vertical-align:top;
 }
-
+/*
 .login-area .btn-login {
 	position:absolute;
 	bottom:30px;
@@ -235,6 +231,7 @@ header {
 	letter-spacing:-1px;
 	border-radius:5px;
 }
+*/
 /*
 .search input[type="text"] {
 	height:25px;
@@ -297,11 +294,11 @@ main {
 	
 }
 .img-wrap.position-right:hover .img-content, .img-wrap.on.position-right .img-content {
-	transform:translateX(-10px) translateZ(40px) translateX(40px) rotateY(50deg);
+	transform:translateX(-10px) translateZ(40px) translateX(-40px) rotateY(-50deg);
 }
 
 .img-wrap.position-left:hover .img-content, .img-wrap.on.position-left .img-content {
-	transform:translateX(-10px) translateZ(40px) translateX(-40px) rotateY(-50deg);
+	transform:translateX(-10px) translateZ(40px) translateX(40px) rotateY(50deg);
 }
 
 .img-inner {
@@ -615,9 +612,10 @@ main {
 .tile	{
 	position:relative;
 	perspective:1000px;
-	width:1200px;
-	height:600px;
+	width:1208px;
+	height:608px;
 	border:4px solid #000;
+	box-sizing:border-box;
 }
 .tile, .tile span {
 	-webkit-transition: all 0.6s ease-in-out, height 0s;
@@ -652,7 +650,6 @@ main {
 	transition-delay:0.7s;
 }
 .tile span:nth-child(4) {
-
 	transform-origin:100% 100%;
 	-webkit-transition-delay:0.6s;
 	transition-delay:0.6s;
@@ -868,7 +865,6 @@ main {
 .img-rolling-s li a {
 	display:block;
 	position:relative;
-
 }
 .img-rolling-s li img {
 	width:100%;
@@ -880,13 +876,13 @@ main {
 	left:100px;
 }
 .roll-btn-wrap {
-	display: inline-block;
+	display:inline-block;
 	vertical-align: middle;
 	position:absolute;
 	top:209px;
 }
 .roll-btn-wrap .roll-btn {
-	display: inline-block;
+	display:inline-block;
 	border-radius: 50%;
 }
 .roll-btn-wrap:nth-child(1) {
@@ -896,44 +892,42 @@ main {
 	left:785.5px;
 }
 .roll-btn .left {
-  display: inline-block;
-  width: 4em;
-  height: 4em;
-  border: 0.5em solid #000;
+  display:inline-block;
+  width:65px;
+  height:65px;
+  border:5px solid #333;
   border-radius: 50%;
 }
 
 .roll-btn .left:after {
   content:"";
-  display: inline-block;
-  margin-top: 1.05em;
-  margin-left: 0.6em;
-  width: 1.4em;
-  height: 1.4em;
-  border-top: 0.5em solid #333;
-  border-right: 0.5em solid #333;
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
+  display:inline-block;
+  margin:14px 0 0 12px;
+  width:26px;
+  height:26px;
+  border-top:5px solid #333;
+  border-right:5px solid #333;
+  -webkit-transform:rotate(-135deg);
+  transform:rotate(-135deg);
 }
 .roll-btn .right {
-  display: inline-block;
-  width: 4em;
-  height: 4em;
-  border: 0.5em solid #333;
+  display:inline-block;
+  width:65px;
+  height:65px;
+  border:5px solid #333;
   border-radius: 50%;
 }
 
 .roll-btn .right:after {
   content:"";
   display:inline-block;
-  margin-top: 1.05em;
-  margin-left: -0.6em;
-  width: 1.4em;
-  height: 1.4em;
-  border-top: 0.5em solid #333;
-  border-right: 0.5em solid #333;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+  margin:14px 12px 0 0;
+  width:26px;
+  height:26px;
+  border-top:5px solid #333;
+  border-right:5px solid #333;
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
 }
 .roll-btn span {
 
@@ -1060,9 +1054,6 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .list {
 
     -webkit-transform-style: preserve-3d;
-    -moz-transform-stle: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
     
     text-transform: uppercase;
@@ -1075,10 +1066,11 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
     
     display: block;
     color: #fff;
+	text-decoration:none;
 }
 
 .list a:hover {
-    text-indent: 20px;
+
 }
 
 .list dt, .list dd {
@@ -1096,32 +1088,58 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
     /* Since we're hiding elements behind here, we need it in 3d */
     -webkit-transform: translateZ(0.3px);
-    -moz-transform: translateZ(0.3px);
-    -ms-transform: translateZ(0.3px);
-    -o-transform: translateZ(0.3px);
     transform: translateZ(0.3px);
 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    font-size: 15px;
+	position:relative;
+	z-index:99;
 }
+.list .toggle {
+	font-size:20px;
+	font-weight:bold;
+}
+
 
 .list dd {
-
+	display:none;
     border-top: 1px dashed rgba(255,255,255,0.3);
-    line-height: 35px;
-    font-size: 11px;
-    height: 35px;
+    line-height:50px;
+    font-size:15px;
+    height:50px;
     margin: 0;
 }
+.list dt em, .list dd em {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:99;
+	width:100%;
+}
+.list dd em input{
+	width:93%;
+}
+.list .btn-login input {
+	width:80px;
+	height:30px;
+	background:#fff;
+	border:0;
+	color:#105a8b;
+	font-weight:bold;
+	display:inline-block;
+	font-size:14px;
+}
 
+.login {
+	text-align:center;
+}
+.login .input-login {
+	text-align:left;
+}
 /* UI */
 
 .toggle {
   
     -webkit-transform: translateZ(100px);
-    -moz-transform: translateZ(100px);
-    -ms-transform: translateZ(100px);
-    -o-transform: translateZ(100px);
     transform: translateZ(100px);
 
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
@@ -1146,7 +1164,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
 .toggle:hover {
     
-    background: #E42692;
+
 }
 
 /* No CSS 3D support warning */
@@ -1202,11 +1220,11 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
 .sashimi dt, .sashimi dd, .sashimi a { background: #73C8A9; }
 .nigiri dt, .nigiri dd, .nigiri a { background: #E32551; }
-.maki dt, .maki dd, .maki a { background: #FFC219; }
+.maki dt, .maki dd, .maki a { background: #105a8b; }
 
-.sashimi a:hover { background: #61c19e; }
-.nigiri a:hover { background: #d31b46; }
-.maki a:hover { background: #ffbb00; }
+.sashimi a:hover {}
+.nigiri a:hover {}
+.maki a:hover {}
 
 .nigiri {
 
@@ -1271,6 +1289,6 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .term-cloud-7 {font-size: 59px; color: #F6CEF5; }
 .term-cloud-8 {font-size: 65px; color: #81BEF7; }
 .term-cloud-9 {font-size: 78px; color: #F5D0A9; }
-.term-cloud-error {font-family: arial; font-size:10px; color:red; }
+.term-cloud-error {font-family:Arial; font-size:10px; color:red; }
 .term-cloud-link {text-decoration:none; }
 .term-cloud-link:hover {text-decoration:none;}
