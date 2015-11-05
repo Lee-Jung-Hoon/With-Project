@@ -12,16 +12,51 @@
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.function.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script src="${pageContext.request.contextPath}/js/tag.cloud.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.tag.js"></script>
 </head>
 <body>
 	<div class="dark-layer"></div>
 	<header>
-		<div class="search" style="text-align: center;">
-			<input type="text" size="50px" placeholder="  검색어를 입력해주세요" />
-			<input type="button" value="검색">
+		<div class="login-area">
+			<button type="button" class="show-login">로그인</button>
+			<div class="login">
+				<button type="button" class="close-login">닫기</button>
+				<form action="#" method="post">
+					<a href="#">페이스북 로그인</a>
+					<span class="id-line"><label for="">아이디 : </label><input type="text" placeholder="ID" /></span>
+					<span class="pass-line"></span><label for="">비밀번호 : <input type="password" placeholder="PASSWORD" /></label>
+					<input type="submit" class="btn-login" value="로그인" />
+				</form>
+				<dl class="list maki">
+					<dt>Maki</dt>
+					<dd><a href="#">Ana-kyu</a></dd>
+					<dd><a href="#">Chutoro</a></dd>
+					<dd><a href="#">Kaiware</a></dd>
+					<dd><a href="#">Kampyo</a></dd>
+					<dd><a href="#">Kappa</a></dd>
+					<dd><a href="#">Natto</a></dd>
+					<dd><a href="#">Negitoro</a></dd>
+					<dd><a href="#">Oshinko</a></dd>
+					<dd><a href="#">Otoro</a></dd>
+					<dd><a href="#">Tekka</a></dd>
+				</dl>
+				<a href="#" class="toggle">Toggle</a>
+			</div>
 		</div>
 	</header>
 	<main>
+		<div class="search">
+			<canvas id="c"></canvas>
+		  <canvas id="demo-canvas"></canvas>
+			<span class="title">
+				<em>Make</em> <em>your</em> <em>Dream </em>
+				<input type="text" id="keyword"  name="keyword" />
+				<button class="searchIcon" type="button"><img src="${pageContext.request.contextPath}/images/icon_search.png" alt="" /></button>
+			</span>
+			<div id="tcdiv"></div>
+		</div>
 		<div id="container" class="img-layer">
 
 			<div class="img-wrap" style="height:200px;">
@@ -30,20 +65,6 @@
 				<button type="button">버튼1</button>
 				<button type="button">버튼2</button>
 			</div>
-			<!--
-			<div class="img-wrap">
-				<div class="img-content">					
-					<div class="img-inner">
-						<span class="img"><img src="${pageContext.request.contextPath}/images/sample.jpg" alt="" /></span>
-						<span class="txt">테스트 글입니다테스트 글입니다테스트 글입니다테스트 글입니다</span>
-					</div>
-					<div class="spine">
-						<a href="#">상세보기</a>
-					</div>
-				</div>
-			</div>
-			
-			  -->
 			
 		</div>
 			
@@ -103,6 +124,8 @@
 			</div>
 		</div>
 	</main>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/circle.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.action.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  // ajax 리스트 호출
   $.ajax({
     url : "/WithProject/studygroup/groupList.json",
     dataType : "json"      
@@ -29,11 +30,17 @@ $(document).ready(function(){
           onItemLayout: function($item, column, position) {
         }
       });
-    },400);
+    },500);
     ready();
   });
-  
+  $('.show-login').on('click', function(){
+    $(this).next().fadeIn('fast');
+  });
 
+  $('.close-login').on('click', function(){
+    $(this).parent().fadeOut('fast');
+  });
+  
 });
 function generateRandom() {
     var num = Math.floor(Math.random() * 1000);
