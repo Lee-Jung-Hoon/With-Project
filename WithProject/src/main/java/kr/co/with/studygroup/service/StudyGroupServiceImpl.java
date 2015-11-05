@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.with.studygroup.dao.StudyGroupDAO;
+import kr.co.with.studygroup.vo.StudyGroupPagingVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 
 @Service
@@ -15,7 +16,7 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	private StudyGroupDAO dao;
 
 	// 메인 리스트를 출력하기 위한 Service
-	public List<StudyGroupVO> selectNewList(String sort) throws Exception {
-		return dao.selectNewList(sort);
+	public List<StudyGroupVO> selectNewList(StudyGroupPagingVO page) throws Exception {
+		return dao.selectNewList(page);
 	}
 }
