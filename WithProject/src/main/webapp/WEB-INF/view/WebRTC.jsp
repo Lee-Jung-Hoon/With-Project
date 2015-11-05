@@ -87,7 +87,7 @@
       // 다른 이벤트 실행을 방지
       e.preventDefault();
       // 채널을 생성
-     	playrtc.createChannel();asdf
+     	playrtc.createChannel();
     });
 
     playrtc.on("connectChannel", function(channelId) {
