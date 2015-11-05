@@ -1,12 +1,41 @@
 $(document).ready(function(){
+  var startPage = 1;
+  var endPage = 20;
+  MainList(startPage, endPage);
+  
+  $(document).scroll(function () {
+     var documentHeight = $(document).height();
+     var scrollBottom = $(window).scrollTop() + $(window).height();
+     console.log(documentHeight);
+     console.log(scrollBottom);
+     if(documentHeight<scrollBottom+100) {
+       startPage = startPage +20;
+       endPage = endPage +20;
+       MainList(startPage, endPage);
+     }
+  });
+
+  $('.show-login').on('click', function(){
+    $(this).next().fadeIn('fast');
+  });
+
+  $('.close-login').on('click', function(){
+    $(this).parent().fadeOut('fast');
+  });
+  
+});
+
+function MainList(startPage, endPage) {
   // ajax 리스트 호출
   $.ajax({
-    url : "/WithProject/studygroup/groupList.json",
+    url : "/WithProject/studygroup/groupList.json?startPage="+startPage+"&endPage="+endPage,
     dataType : "json"      
   })
   .done(function(response){
-   
-    
+    ListCallback(response, startPage);
+  });
+}
+  function ListCallback (response, startPage){
     var data = JSON.stringify(response);
     $.each(response, function(index ,value) {
       var divHTML = "";
@@ -21,6 +50,7 @@ $(document).ready(function(){
         +'</div></div>';
       $("#container").append(divHTML);
     });
+    if(startPage==1)
     showLetter();
     setTimeout(function(){
       $('#container').pinto({
@@ -32,16 +62,8 @@ $(document).ready(function(){
       });
     },500);
     ready();
-  });
-  $('.show-login').on('click', function(){
-    $(this).next().fadeIn('fast');
-  });
+  }; 
 
-  $('.close-login').on('click', function(){
-    $(this).parent().fadeOut('fast');
-  });
-  
-});
 function generateRandom() {
     var num = Math.floor(Math.random() * 1000);
     return num;
@@ -110,9 +132,9 @@ function generateRandom() {
       var standard = 91;
       var rest = 10;
       if (spot < standard - rest) {
-        $(this).removeClass('position-left').addClass('position-right');
-      } else if (spot > standard + rest ) {
         $(this).removeClass('position-right').addClass('position-left');
+      } else if (spot > standard + rest ) {
+        $(this).removeClass('position-left').addClass('position-right');
       } else {
         $(this).removeClass('position-right').removeClass('position-left');
       }
@@ -203,5 +225,4 @@ function generateRandom() {
       $('.img-rolling > ul').css('transform','translateX(-' + W * cnt + 'px)');
       imageS(current, size, cnt);
     });
-    
-  }
+}

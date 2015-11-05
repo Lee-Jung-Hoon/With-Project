@@ -17,14 +17,18 @@
 		<result column="group_imagepath" property="groupImgPath" />
 	</resultMap>
 	
+	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
 	<select id="studyList" resultMap="studyGroup">
 		select 
-		gr.group_no, gr.group_name, gr.group_detail, 
-		gr.group_maxperson, gr.group_nowperson, 
-		gr.group_activelongitude, gr.group_activelatitude, 
-		gr.group_activeplace, gr.group_tel, image.group_imagepath
+			gr.group_no, gr.group_name, gr.group_detail, 
+			gr.group_maxperson, gr.group_nowperson, 
+			gr.group_activelongitude, gr.group_activelatitude, 
+			gr.group_activeplace, gr.group_tel, image.group_imagepath
 		<!--date_format(group_regdate, '%Y-%m-%d') as groupRegDate  -->
-		from t_with_studygroup gr, t_with_studygroup_image image
-		where gr.group_no = image.group_no
+		from 
+			t_with_studygroup gr, t_with_studygroup_image image
+		where 
+			gr.group_no = image.group_no
+		limit #{startPage}, #{endPage}
 	</select>
 </mapper>
