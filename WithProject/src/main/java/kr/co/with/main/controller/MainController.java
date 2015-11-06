@@ -47,4 +47,10 @@ public class MainController {
 	public String WebRTC() throws Exception {
 		return "WebRTC";
 	}
+	
+	// 스터디 그룹 개설
+	@RequestMapping("/createGroup.do")
+	public String CreateGroup() throws Exception {
+		return "createGroup";
+	}
 }
