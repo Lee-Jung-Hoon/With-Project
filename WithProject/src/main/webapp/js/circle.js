@@ -1,5 +1,6 @@
 /* super inefficient right now, could be improved */
-var c = document.getElementById('c'),
+$(document).ready(function(){
+  var c = document.getElementById('c'),
     ctx = c.getContext('2d'),
     cw = c.width = 400,
     ch = c.height = 300,
@@ -154,3 +155,4 @@ gradient2.addColorStop(1, 'hsla('+circle.hue+', 100%, 50%, 0)');
 
 /* Loop It, Loop It Good */
 setInterval(loop, 16);
+});

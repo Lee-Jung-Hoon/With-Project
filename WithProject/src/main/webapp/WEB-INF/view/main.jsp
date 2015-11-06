@@ -12,9 +12,14 @@
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.function.js"></script>
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script src="http://www.google.com/jsapi"></script>
 	<script src="${pageContext.request.contextPath}/js/tag.cloud.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.tag.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
+	<script src="${pageContext.request.contextPath}/js/circle.js"></script>
+	<script src="${pageContext.request.contextPath}/js/menu.action.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/node.action.js"></script>
 </head>
 <body>
 	<div class="dark-layer"></div>
@@ -37,6 +42,7 @@
 		<div class="search">
 			<canvas id="c"></canvas>
 		  <canvas id="demo-canvas"></canvas>
+		  <canvas id="canvas"></canvas>
 			<span class="title">
 				<strong>Make <em>your</em> <em>Dream</em></strong>
 				<input type="text" id="keyword"  name="keyword" />
@@ -108,8 +114,5 @@
 			</div>
 		</div>
 	</main>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.pinto.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/circle.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/menu.action.js"></script>
 </body>
 </html>

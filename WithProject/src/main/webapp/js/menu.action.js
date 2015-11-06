@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2012 by Justin Windle
  *
@@ -21,7 +20,10 @@
  * THE SOFTWARE.
  */
 
-(function($) {
+
+
+
+
 
     // Global initialisation flag
     var initialized = false;
@@ -411,8 +413,9 @@
 
     $.fn.makisu.enabled = canRun;
 
-})( jQuery );
 
+
+$(document).ready(function(){
 // The `enabled` flag will be `false` if CSS 3D isn't available
 
 if ( $.fn.makisu.enabled ) {
@@ -443,12 +446,12 @@ if ( $.fn.makisu.enabled ) {
 
     // Open all
     
- //  $( '.list' ).makisu( 'open' );
-$( '.list dd' ).show();
+   $( '.list' ).makisu( 'close' );
+  //$( '.list dd' ).show();
     // Toggle on click
 
     $( '.toggle' ).on( 'click', function() {
-        $( '.list' ).makisu( 'toggle' );
+        $( '.login .list' ).makisu( 'toggle' );
     });
 
     // Disable all links
@@ -461,3 +464,5 @@ $( '.list dd' ).show();
 
     $( '.warning' ).show();
 }
+
+});
