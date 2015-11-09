@@ -4,31 +4,47 @@
 	
 <mapper namespace="with.studygroup.dao">
 	<resultMap type="studygroup" id="studyGroup">
-		<result column="group_no" property="groupNo" />
-		<result column="group_name" property="groupName" />
-		<result column="group_detail" property="groupDetail" />
-		<result column="group_maxperson" property="groupMaxPerson" />
-		<result column="group_nowperson" property="groupNowPerson" />
-		<result column="group_activelongitude" property="groupActiveLongitude" />
-		<result column="group_activelatitude" property="groupActiveLatitude" />
-		<result column="group_activeplace" property="groupActivePlace" />
-		<result column="group_tel" property="groupTel" />
-		<result column="group_regdate" property="groupRegDate" />
-		<result column="group_imagepath" property="groupImgPath" />
+		<result column="group_no" property="groupNo"/>
+		<result column="group_name" property="groupName"/>
+		<result column="group_detail" property="groupDetail"/>
+		<result column="group_maxperson" property="groupMaxPerson"/>
+		<result column="group_nowperson" property="groupNowPerson"/>
+		<result column="GROUP_ACTIVELONGITUDE" property="groupActiveLongitude"/>
+		<result column="GROUP_ACTIVELATITUDE" property="groupActiveLatitude"/>
+		<result column="GROUP_ACTIVEPLACE" property="groupActivePlace"/>
+		<result column="group_email" property="groupEmail"/>
+		<result column="GROUP_TEL" property="groupTel"/>
+		<result column="GROUP_CONFIRMTYPE" property="groupConfirmType"/>
+		<result column="GROUP_REPIMAGEPATH" property="groupRepImagePath"/>
+		<result column="GROUP_RECRUITSTARTDATE" property="groupRecruitStartDate"/>
+		<result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
+		<result column="GROUP_REGDATE" property="groupRegDate"/>
 	</resultMap>
 	
 	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
 	<select id="studyList" resultMap="studyGroup">
 		select 
-			gr.group_no, gr.group_name, gr.group_detail, 
-			gr.group_maxperson, gr.group_nowperson, 
-			gr.group_activelongitude, gr.group_activelatitude, 
-			gr.group_activeplace, gr.group_tel, image.group_imagepath
-		<!--date_format(group_regdate, '%Y-%m-%d') as groupRegDate  -->
-		from 
-			t_with_studygroup gr, t_with_studygroup_image image
-		where 
-			gr.group_no = image.group_no
+			group_name, group_detail, group_maxperson, 
+			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE
+		from t_with_studygroup
 		limit #{startPage}, #{endPage}
 	</select>
+	
+	 
+	<insert id="insertStudyGroup">
+		insert into t_with_studygroup(
+			group_name, group_detail, group_maxperson, 
+			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE
+		)
+		values(
+			#{groupName}, #{groupDetail}, #{groupMaxPerson},
+			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
+			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
+			'/WithProject/images/01.jpg', #{groupRecruitStartDate}, #{groupRecruitEndDate}
+		)
+	</insert>
 </mapper>

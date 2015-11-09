@@ -19,4 +19,10 @@ public class StudyGroupDAO {
 	public List<StudyGroupVO> selectNewList(StudyGroupPagingVO page) {
 		return session.selectList("with.studygroup.dao.studyList", page);
 	}
+
+	// 스터디 그룹 생성을 위한 DAO
+	public int insertStudyGroup(StudyGroupVO studyGroup) {
+		session.insert("with.studygroup.dao.insertStudyGroup", studyGroup);
+		return 1;
+	}
 }

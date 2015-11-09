@@ -8,4 +8,6 @@ import kr.co.with.studygroup.vo.StudyGroupVO;
 public interface StudyGroupService {
 
 	public List<StudyGroupVO> selectNewList(StudyGroupPagingVO page) throws Exception;
+
+	public int insertStudyGroup(StudyGroupVO studyGroup) throws Exception;
 }
