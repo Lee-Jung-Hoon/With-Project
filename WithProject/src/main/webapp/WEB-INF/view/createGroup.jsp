@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/reset.css" />
+	href="/WithProject/css/reset.css" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css" />
+	href="/WithProject/css/style.css" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/create-group.css" />
+	href="/WithProject/css/create-group.css" />
 <link rel="stylesheet" href="/WithProject/css/jquery.tag-editor.css">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -19,7 +19,7 @@
 <script type="text/javascript"
 	src="/WithProject/js/jquery.uploadPreview.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/plugin/SE2/js/HuskyEZCreator.js"
+	src="/WithProject/plugin/SE2/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -92,7 +92,7 @@
                   oAppRef : oEditors,
                   elPlaceHolder : "groupDetail", //textarea에서 지정한 id와 일치해야 합니다. 
                   //SmartEditor2Skin.html 파일이 존재하는 경로
-                  sSkinURI : "${pageContext.request.contextPath}/plugin/SE2/SmartEditor2Skin.html",
+                  sSkinURI : "/WithProject/plugin/SE2/SmartEditor2Skin.html",
                   htParams : {
                     // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
                     bUseToolbar : true,
@@ -151,9 +151,7 @@
 	</header>
 	<main>
 	<div class="content">
-		<form
-			action="${pageContext.request.contextPath}/studygroup/saveGroup.do"
-			id="WriteForm">
+		<form action="${pageContext.request.contextPath}/studygroup/saveGroup.do" method="post" id="WriteForm">
 			<h1 class="title">개설하기</h1>
 			<div class="registDIV">
 
@@ -180,8 +178,7 @@
 						</div>
 						<div class="input">
 							<h2>상세내용 입력</h2>
-							<textarea rows="10" cols="40" id="groupDetail" name="groupDetail"
-								style="width: 70%; height: 300px;"></textarea>
+							<textarea rows="10" cols="40" id="groupDetail" name="groupDetail"	style="width: 70%; height: 300px;"></textarea>
 						</div>
 					</div>
 
@@ -336,9 +333,9 @@
 							</div>
 							<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
 							<script
-								src="${pageContext.request.contextPath}/js/jquery.caret.min.js"></script>
+								src="/WithProject/js/jquery.caret.min.js"></script>
 							<script
-								src="${pageContext.request.contextPath}/js/jquery.tag-editor.js"></script>
+								src="/WithProject/js/jquery.tag-editor.js"></script>
 							<script>
                 // jQuery UI autocomplete extension - suggest labels may contain HTML tags
                 // github.com/scottgonzalez/jquery-ui-extensions/blob/master/src/autocomplete/jquery.ui.autocomplete.html.js
@@ -530,7 +527,8 @@
                     s.parentNode.insertBefore(po, s);
                   })();
              
-                  $('#github_social').html(
+                  $('#github_social')
+                      .html(
                           '\
                 <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-tagEditor&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
                 <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-tagEditor&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
@@ -586,10 +584,10 @@
 						<input type="button" class="prevStep_Thrid" value="이전 단계" /> <input
 							type="button" class="create_Group" value="작성 완료" />
 					</div>
-				</div>
+			</div>
 			</div>
 		</form>
-	</div>
+		</div>
 	</main>
 </body>
 </html>
