@@ -32,7 +32,7 @@
 		limit #{startPage}, #{endPage}
 	</select>
 	
-	 
+	<!-- 	스터디그룹 개설을 위한 쿼리문 -->
 	<insert id="insertStudyGroup">
 		insert into t_with_studygroup(
 			group_name, group_detail, group_maxperson, 
