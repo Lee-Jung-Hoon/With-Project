@@ -9,9 +9,13 @@ public class StudyGroupVO {
 	private double groupActiveLongitude;
 	private double groupActiveLatitude;
 	private String groupActivePlace;
+	private String groupEmail;
 	private String groupTel;
+	private String groupConfirmType;
+	private String groupRepImagePath;
+	private String groupRecruitStartDate;
+	private String groupRecruitEndDate;
 	private String groupRegDate;
-	private String groupImgPath;
 
 	public int getGroupNo() {
 		return groupNo;
@@ -77,12 +81,52 @@ public class StudyGroupVO {
 		this.groupActivePlace = groupActivePlace;
 	}
 
+	public String getGroupEmail() {
+		return groupEmail;
+	}
+
+	public void setGroupEmail(String groupEmail) {
+		this.groupEmail = groupEmail;
+	}
+
 	public String getGroupTel() {
 		return groupTel;
 	}
 
 	public void setGroupTel(String groupTel) {
 		this.groupTel = groupTel;
+	}
+
+	public String getGroupConfirmType() {
+		return groupConfirmType;
+	}
+
+	public void setGroupConfirmType(String groupConfirmType) {
+		this.groupConfirmType = groupConfirmType;
+	}
+
+	public String getGroupRepImagePath() {
+		return groupRepImagePath;
+	}
+
+	public void setGroupRepImagePath(String groupRepImagePath) {
+		this.groupRepImagePath = groupRepImagePath;
+	}
+
+	public String getGroupRecruitStartDate() {
+		return groupRecruitStartDate;
+	}
+
+	public void setGroupRecruitStartDate(String groupRecruitStartDate) {
+		this.groupRecruitStartDate = groupRecruitStartDate;
+	}
+
+	public String getGroupRecruitEndDate() {
+		return groupRecruitEndDate;
+	}
+
+	public void setGroupRecruitEndDate(String groupRecruitEndDate) {
+		this.groupRecruitEndDate = groupRecruitEndDate;
 	}
 
 	public String getGroupRegDate() {
@@ -93,11 +137,17 @@ public class StudyGroupVO {
 		this.groupRegDate = groupRegDate;
 	}
 
-	public String getGroupImgPath() {
-		return groupImgPath;
+	@Override
+	public String toString() {
+		return "StudyGroupVO [groupNo=" + groupNo + ", groupName=" + groupName + ", groupDetail=" + groupDetail
+				+ ", groupMaxPerson=" + groupMaxPerson + ", groupNowPerson=" + groupNowPerson
+				+ ", groupActiveLongitude=" + groupActiveLongitude + ", groupActiveLatitude=" + groupActiveLatitude
+				+ ", groupActivePlace=" + groupActivePlace + ", groupEmail=" + groupEmail + ", groupTel=" + groupTel
+				+ ", groupConfirmType=" + groupConfirmType + ", groupRepImagePath=" + groupRepImagePath
+				+ ", groupRecruitStartDate=" + groupRecruitStartDate + ", groupRecruitEndDate=" + groupRecruitEndDate
+				+ ", groupRegDate=" + groupRegDate + "]";
 	}
+	
+	
 
-	public void setGroupImgPath(String groupImgPath) {
-		this.groupImgPath = groupImgPath;
-	}
 }

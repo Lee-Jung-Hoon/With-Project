@@ -42,7 +42,7 @@ function MainList(startPage, endPage) {
         divHTML = '<div class="img-wrap">'
         +' <div class="img-content">'
         +'<div class="img-inner">'
-        +'<span class="img"><img src="/WithProject/images/'+response[index].groupImgPath+'" alt="" /></span>'
+        +'<span class="img"><img src="/WithProject/images/'+response[index].groupRepImagePath+'" alt="" /></span>'
         +'<span class="txt">'+response[index].groupName+'<br /></span>'
         +'</div>'
         +'<div class="spine spine-left"><a href="#">왼쪽</a></div>'

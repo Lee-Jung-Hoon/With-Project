@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.with.studygroup.service.StudyGroupService;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
@@ -29,5 +30,15 @@ public class StudyGroupController {
 		page.setStartPage(startPage);
 		page.setEndPage(endPage);
 		return service.selectNewList(page);
+	}
+	
+	// 스터디그룹 생성을 위한 Method
+	@RequestMapping("/saveGroup.do")
+	public ModelAndView SaveGroup(StudyGroupVO studyGroup) throws Exception {
+		System.out.println(studyGroup.toString());
+		ModelAndView mav = new ModelAndView("main");
+		int groupNo = service.insertStudyGroup(studyGroup);
+		mav.addObject("등록 완료");
+		return mav;
 	}
 }

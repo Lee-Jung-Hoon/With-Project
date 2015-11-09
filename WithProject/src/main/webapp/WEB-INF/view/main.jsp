@@ -51,14 +51,11 @@
 			<div id="tcdiv"></div>
 		</div>
 		<div id="container" class="img-layer">
-
 			<div class="img-wrap" style="height:200px; background:red;">
-				
+			<button onclick="location.href='${pageContext.request.contextPath}/main/createGroup.do'">스터디 개설</button>
 			</div>
-			
 		</div>
 			
-		</div>
 		<div class="box">
 			<div class="box-close">
 				<button type="button" class="btn-close">

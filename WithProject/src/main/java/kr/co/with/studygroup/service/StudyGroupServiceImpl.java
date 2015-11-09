@@ -19,4 +19,9 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public List<StudyGroupVO> selectNewList(StudyGroupPagingVO page) throws Exception {
 		return dao.selectNewList(page);
 	}
+
+	// 스터디그룹 생성을 위한 service
+	public int insertStudyGroup(StudyGroupVO studyGroup) throws Exception {
+		return dao.insertStudyGroup(studyGroup);
+	}
 }
