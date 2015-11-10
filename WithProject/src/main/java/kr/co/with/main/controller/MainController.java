@@ -48,6 +48,18 @@ public class MainController {
 		return "WebRTC";
 	}
 	
+	// 테스트
+	// 시험 만들기 폼 테스트
+	@RequestMapping("/examList.do")
+	public String ExamList() throws Exception {
+		return "examList";
+	}
+	
+	@RequestMapping("/createExamForm.do")
+	public String CreateExamForm() throws Exception {
+		return "createExamForm";
+	}
+	
 	// 스터디 그룹 개설
 	@RequestMapping("/createGroup.do")
 	public String CreateGroup() throws Exception {

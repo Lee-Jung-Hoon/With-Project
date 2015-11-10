@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
+import kr.co.with.studygroup.vo.StudyGroupTagVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 
 @Repository
@@ -23,6 +24,13 @@ public class StudyGroupDAO {
 	// 스터디 그룹 생성을 위한 DAO
 	public int insertStudyGroup(StudyGroupVO studyGroup) {
 		session.insert("with.studygroup.dao.insertStudyGroup", studyGroup);
-		return 1;
+		return session.selectOne("with.studygroup.dao.selectAutoIncrement");
+	}
+
+	// 스터디 그룹 태그 생성을 위한 DAO
+	public void insertStudygroupTag(StudyGroupTagVO tagVO) {
+		String StudyName = session.selectOne("with.studygroup.dao.studyName", tagVO.getGroupNo());
+		tagVO.setGroupName(StudyName);
+		session.insert("with.studygroup.dao.insertStudyGroupTag", tagVO);
 	}
 }

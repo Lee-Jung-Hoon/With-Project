@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.with.studygroup.dao.StudyGroupDAO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
+import kr.co.with.studygroup.vo.StudyGroupTagVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 
 @Service
@@ -23,5 +24,10 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	// 스터디그룹 생성을 위한 service
 	public int insertStudyGroup(StudyGroupVO studyGroup) throws Exception {
 		return dao.insertStudyGroup(studyGroup);
+	}
+
+	// 스터디그룹 태그 생성을 위한 service
+	public void insertStudygroupTag(StudyGroupTagVO tagVO) throws Exception {
+		dao.insertStudygroupTag(tagVO);
 	}
 }
