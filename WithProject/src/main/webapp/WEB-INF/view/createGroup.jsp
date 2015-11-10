@@ -5,22 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/WithProject/css/reset.css" />
-<link rel="stylesheet" type="text/css"
-	href="/WithProject/css/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="/WithProject/css/create-group.css" />
+<link rel="stylesheet" type="text/css" href="/WithProject/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="/WithProject/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/WithProject/css/create-group.css" />
 <link rel="stylesheet" href="/WithProject/css/jquery.tag-editor.css">
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script type="text/javascript"
-	src="http://apis.daum.net/maps/maps3.js?apikey=ed9f2771750f83351d39d6973594a653"></script>
-<script type="text/javascript"
-	src="/WithProject/js/jquery.uploadPreview.js"></script>
-<script type="text/javascript"
-	src="/WithProject/plugin/SE2/js/HuskyEZCreator.js"
-	charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/WithProject/js/jquery.uploadPreview.js"></script>
+<script type="text/javascript" src="/WithProject/plugin/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=ed9f2771750f83351d39d6973594a653"></script>
 <script type="text/javascript">
   $(document).ready(function() {
             $.uploadPreview({
@@ -140,6 +132,7 @@
                   oEditors.getById["groupDetail"].exec("UPDATE_CONTENTS_FIELD", []);
                   $("#groupTel").val($("#firstTel").val() + $("#secondTel").val() + $("#thirdTel").val());
                   $("#groupEmail").val($("#email").val() + "@" + $("#domain").val());
+                  $("#tag").val($("#hero-demo").val());
                   $("#WriteForm").submit();
             });
     });
@@ -151,7 +144,7 @@
 	</header>
 	<main>
 	<div class="content">
-		<form action="${pageContext.request.contextPath}/studygroup/saveGroup.do" method="post" id="WriteForm">
+		<form action="${pageContext.request.contextPath}/studygroup/saveGroup.do" method="post" id="WriteForm" enctype="multipart/form-data">
 			<h1 class="title">개설하기</h1>
 			<div class="registDIV">
 
@@ -329,6 +322,7 @@
 								<div
 									style="padding: 0 7px 0 5px; max-width: 900px; margin: auto">
 									<textarea id="hero-demo"></textarea>
+									<input type="hidden" id="tag" name="tag">
 								</div>
 							</div>
 							<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>

@@ -33,7 +33,7 @@
 	</select>
 	
 	<!-- 	스터디그룹 개설을 위한 쿼리문 -->
-	<insert id="insertStudyGroup">
+	<insert id="insertStudyGroup" parameterType="studygroup">
 		insert into t_with_studygroup(
 			group_name, group_detail, group_maxperson, 
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
@@ -44,7 +44,35 @@
 			#{groupName}, #{groupDetail}, #{groupMaxPerson},
 			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
 			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
-			'/WithProject/images/01.jpg', #{groupRecruitStartDate}, #{groupRecruitEndDate}
+			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}
+		)
+	</insert>
+	
+	<!-- 	가장 최근 증가값 가져오기 위한 쿼리문-->
+	<select id="selectAutoIncrement" resultType="int">
+		select max(group_no) from t_with_studygroup;
+	</select>
+	
+	
+	<!-- 	스터디그룹 이름 가져오기 위한 쿼리문 -->
+	<select id="studyName" parameterType="int" resultType="String">
+		select 
+			group_name 
+		from 
+			t_with_studygroup
+		where group_no = #{no};
+	</select>
+	
+	<!-- 	스터디그룹 태그를 입력하기 위한 쿼리문 -->
+	<insert id="insertStudyGroupTag" parameterType="studygrouptag">
+		insert into T_WITH_STUDYGROUP_TAG(
+			TAG_NAME, 
+			GROUP_NO,
+			GROUP_NAME)
+		values(
+			#{tagName},
+			#{groupNo},
+			#{groupName}
 		)
 	</insert>
 </mapper>
