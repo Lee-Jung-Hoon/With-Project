@@ -22,11 +22,12 @@ public class TestDAO {
 		return session.selectList("with.test.dao.selectSch");
 	}
 
-	public void updateSch(int no) {
-		session.update("with.test.dao.updateSch",no);
+	public void updateSch(TestVO test) {
+		session.update("with.test.dao.updateSch",test);
 	}
 
 	public void deleteSch(int no) {
 		session.delete("with.test.dao.deleteSch", no);
 	}
+
 }

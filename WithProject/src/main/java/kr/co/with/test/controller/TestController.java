@@ -39,8 +39,8 @@ public class TestController {
 	
 	@RequestMapping("/update_sch.json")
 	@ResponseBody
-	public List<TestVO> updateSch(int no) throws Exception {
-		service.updateSch(no);
+	public List<TestVO> updateSch(TestVO test) throws Exception {
+		service.updateSch(test);
 		return service.selectList();
 	}
 	@RequestMapping("/delete_sch.json")

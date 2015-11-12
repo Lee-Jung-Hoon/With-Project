@@ -22,8 +22,8 @@ public class TestServiceImpl implements TestService {
 		return dao.selectList();
 	}
 
-	public void updateSch(int no) throws Exception {
-		dao.updateSch(no);
+	public void updateSch(TestVO test) throws Exception {
+		dao.updateSch(test);
 	}
 
 	public void deleteSch(int no) throws Exception {

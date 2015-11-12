@@ -10,7 +10,7 @@ public interface TestService {
 
 	public List<TestVO> selectList() throws Exception;
 
-	public void updateSch(int no) throws Exception;
+	public void updateSch(TestVO test) throws Exception;
 
 	public void deleteSch(int no) throws Exception; 
 }
