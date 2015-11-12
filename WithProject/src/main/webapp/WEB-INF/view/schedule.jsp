@@ -12,59 +12,104 @@
 <script>
 
 	$(document).ready(function() {
-	  var currentLangCode = 'ko';
+		//var currentLangCode = 'ko';
 		var today = moment().format('YYYY-MM-DD');
-		$.ajax({
-	    type : "GET",
-	    url : "${pageContext.request.contextPath}/test/select_sch.json",
-	    datatype : "JSON"
-	    //data : {resNo:resNo}
-	  })
-	  .done(function(response){
-	    var json = "";
-	    json += JSON.stringify(response);
-	    alert(json);
-// 	    response.forEach(function(index, TestVO) {
-// 	      json+=JSONStringify(response).replace("startDate", "start").replace("endDate","end");
-//       })
-      alert(json);
-	    $('#calendar').fullCalendar({
-	      
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
-				},
-				defaultDate: today,
-				selectable: true,
+		
+		$.ajax({ 
+            url: '${pageContext.request.contextPath}/test/select_sch.json', 
+            type: 'GET', 
+            data: { }, 
+            error: function() {
+                alert('there was an error while fetching events!');
+            } 
+        }).done(function (doc) { 
+            var event = Array();
+                $.each(doc, function(i, entry){ 
+                    event.push({title: entry.title, start: entry.startDate, end:entry.endDate});
+                }); 
+             $('#calendar').fullCalendar({
+            	lang : 'ko',
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: today,
+                selectable: true,
 				selectHelper: true,
-				select: function(start, end) {
-					var title = prompt('Event Title:');
-					var eventData;
-					if (title) {
-						eventData = {
-							title: title,
-							start: start,
-							end: end
-						};
-						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-					}
-					$('#calendar').fullCalendar('unselect');
-				},
-				editable: true,
-				lang: currentLangCode,
-				eventLimit: true, // allow "more" link when too many events
-				events : [
-				          
-				  			 ]
-			});
-	  })
-	  .fail(function(){
-	    //alert("실패");
-	  });
+                editable: true,
+                events: event,
+                eventClick: function(event, element) {
+
+                    event.title = "CLICKED!";
+					
+                    $('#calendar').fullCalendar('updateEvent', event);
+
+                },
+    		    eventDrop: function(event, delta, revertFunc) {
+
+    		        //alert(event.title + " was dropped on " + event.start.format());
+/*
+    		        if (!confirm("Are you sure about this change?")) {
+    		            revertFunc();
+    		        }
+    		        */
+    		        $('#calendar').fullCalendar('updateEvent',event);
+    		    	console.log(event.start);
+
+    		    },
+    		    eventResize: function(event, delta, revertFunc) {
+
+    		        //alert(event.title + " end is now " + event.end.format());
+					//console.log(event.start);
+    		        //if (!confirm("is this okay?")) {
+    		            //revertFunc();
+    		            console.log(event.id);
+    		        //}
+    		        /*
+    		            $.ajax({ url: '${pageContext.request.contextPath}/test/update_sch.json', 
+    		                type: 'POST', 
+    		                data: {id:event.id , startDate:event.start, endDate:event.end} 
+    		                
+    		            }).done(function (data){
+    		            	alert("성공");
+    		            	$('#calendar').fullCalendar('updateEvent',event);
+    		            }).fail(function(){
+    		            	revertFunc();
+    		      	  	});
+    		      		*/
+    		    },
+    		    eventReceive: function(event){
+    		    	   var title = event.title;
+    		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
+    		    	  /* $.ajax({
+    		    	     url: 'process.php',
+    		    	     data: 'type=new&title='+title+'&startdate='+start+'&zone='+zone,
+    		    	     type: 'POST',
+    		    	     dataType: 'json',
+    		    	     success: function(response){
+    		    	       event.id = response.eventid;
+    		    	       $('#calendar').fullCalendar('updateEvent',event);
+    		    	     },
+    		    	     error: function(e){
+    		    	       console.log(e.responseText);
+    		    	     }
+    		    	   });
+    		    	  */
+    		    	   $('#calendar').fullCalendar('updateEvent',event);
+    		    },
+    		    select : function( start, end) {
+    		    	console.log(start);
+    		    	console.log(end);
+    		    }
+            });
+
+     	});
 		
 		
-	});
+   });
+		
+
 
 </script>
 <style>
