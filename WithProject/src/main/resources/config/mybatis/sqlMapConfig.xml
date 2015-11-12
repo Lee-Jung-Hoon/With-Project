@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupVO" alias="studygroup" />
 		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupTagVO" alias="studygrouptag" />
+		<typeAlias type="kr.co.with.test.vo.TestVO" alias="test" />
 	</typeAliases>
 </configuration>
 
