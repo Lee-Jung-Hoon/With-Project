@@ -30,4 +30,9 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public void insertStudygroupTag(StudyGroupTagVO tagVO) throws Exception {
 		dao.insertStudygroupTag(tagVO);
 	}
+
+	// 스터디그룹 상세 정보 출력을 위한 service
+	public StudyGroupVO selectGruopDetail(int no) throws Exception {
+		return dao.selectGruopDetail(no);
+	}
 }

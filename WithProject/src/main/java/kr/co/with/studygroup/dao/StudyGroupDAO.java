@@ -33,4 +33,9 @@ public class StudyGroupDAO {
 		tagVO.setGroupName(StudyName);
 		session.insert("with.studygroup.dao.insertStudyGroupTag", tagVO);
 	}
+
+	// 스터디그룹 상세를 출력하기 위한 DAO
+	public StudyGroupVO selectGruopDetail(int no) {
+		return session.selectOne("with.studygroup.dao.selectGruopDetail", no);
+	}
 }

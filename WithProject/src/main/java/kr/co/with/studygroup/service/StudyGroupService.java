@@ -13,4 +13,6 @@ public interface StudyGroupService {
 	public int insertStudyGroup(StudyGroupVO studyGroup) throws Exception;
 
 	public void insertStudygroupTag(StudyGroupTagVO tagVO) throws Exception;
+
+	public StudyGroupVO selectGruopDetail(int no) throws Exception;
 }
