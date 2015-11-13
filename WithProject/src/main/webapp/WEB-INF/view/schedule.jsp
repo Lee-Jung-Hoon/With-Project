@@ -23,9 +23,9 @@
                 alert('there was an error while fetching events!');
             } 
         }).done(function (doc) { 
-            var event = Array();
+            var array = Array();
                 $.each(doc, function(i, entry){ 
-                    event.push({title: entry.title, start: entry.startDate, end:entry.endDate});
+                  array.push({id: entry.id, title: entry.title, start: entry.startDate, end:entry.endDate});
                 }); 
              $('#calendar').fullCalendar({
             	lang : 'ko',
@@ -36,35 +36,40 @@
                 },
                 defaultDate: today,
                 selectable: true,
-				selectHelper: true,
+								selectHelper: true,
                 editable: true,
-                events: event,
+                events: array,
+                
                 eventClick: function(event, element) {
-
-                    event.title = "CLICKED!";
-					
-                    $('#calendar').fullCalendar('updateEvent', event);
-
+                  alert(event.id);
+                  event.title = "CLICKED!";
+                  $('#calendar').fullCalendar('updateEvent', event);
                 },
-    		    eventDrop: function(event, delta, revertFunc) {
-
+                
+    		    		eventDrop: function(event, delta, revertFunc) {
+    		    		  alert(event.id);
+									
     		        //alert(event.title + " was dropped on " + event.start.format());
-/*
+								/*
     		        if (!confirm("Are you sure about this change?")) {
     		            revertFunc();
     		        }
     		        */
     		        $('#calendar').fullCalendar('updateEvent',event);
-    		    	console.log(event.start);
+		            console.log(event.id);
+								console.log(event.start);
+								console.log(event.end);
 
     		    },
     		    eventResize: function(event, delta, revertFunc) {
-
     		        //alert(event.title + " end is now " + event.end.format());
-					//console.log(event.start);
+								//console.log(event.start);
     		        //if (!confirm("is this okay?")) {
     		            //revertFunc();
-    		            console.log(event.id);
+		            console.log(event.id);
+								console.log(event.start.i);
+								console.log(event.end.i);
+    		        $('#calendar').fullCalendar('updateEvent',event);
     		        //}
     		        /*
     		            $.ajax({ url: '${pageContext.request.contextPath}/test/update_sch.json', 
@@ -82,7 +87,8 @@
     		    eventReceive: function(event){
     		    	   var title = event.title;
     		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
-    		    	  /* $.ajax({
+    		    	   alert("!!!!!!!!!!");
+    		    	   /* $.ajax({
     		    	     url: 'process.php',
     		    	     data: 'type=new&title='+title+'&startdate='+start+'&zone='+zone,
     		    	     type: 'POST',
@@ -98,10 +104,30 @@
     		    	  */
     		    	   $('#calendar').fullCalendar('updateEvent',event);
     		    },
-    		    select : function( start, end) {
-    		    	console.log(start);
-    		    	console.log(end);
-    		    }
+    		    select: function(start, end) {
+              var title = prompt('Event Title:');
+              var eventData;
+             
+              if (title) {
+                 eventData = {
+                    title: title,
+                    start: start,
+                    end: end
+                 };
+                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                 // 모멘트로 날짜 형식 변환
+                 start = moment(start).format("YYYY-MM-DD");
+                 end = moment(end).format("YYYY-MM-DD");
+                 
+                 $.ajax({
+                   url: "${pageContext.request.contextPath}/calendar/regist_sch.json?title="+title+"&startDate="+start+"&endDate="+end,
+                 }).done(function(){
+                   alert("등록성공");
+                 });
+              }
+              // 드래그 부분 없어지는 효과
+              $('#calendar').fullCalendar('unselect');
+           	}
             });
 
      	});
