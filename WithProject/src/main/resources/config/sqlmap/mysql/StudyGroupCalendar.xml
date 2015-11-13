@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="with.calendar.dao">
+   
+   <resultMap type="calendar" id="calResult">
+      <result column="title" property="title"/>
+      <result column="id" property="id"/>
+      <result column="start_date" property="startDate"/>
+      <result column="end_date" property="endDate"/>
+   </resultMap>
+   
+   <insert id="registSch" parameterType="calendar">
+      insert into t_with_studygroup_calendar (
+         start_date, end_date, title
+      ) values (
+         #{startDate}, #{endDate}, #{title}
+      )
+   </insert>
+   <select id="selectSch" resultMap="calResult">
+      select start_date, end_date, title, id
+      from t_with_studygroup_calendar 
+   </select>
+   
+   <update id="updateSch" parameterType="calendar">
+      update t_with_studygroup_calendar
+       set
+    startDate_date = #{startDate}, 
+    endDate_date = #{endDate}, 
+    title = #{title}
+    where id = #{id}
+   </update>
+   
+   <delete id="delSch" parameterType="int">
+      delete t_with_studygroup_calendar
+      where id = #{id}
+   </delete>
+</mapper>

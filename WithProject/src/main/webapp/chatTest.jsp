@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/chat.js"></script>
-<script src="http://localhost:10001/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 메시지 알람 부분 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/notice/jquery.notice.js"></script>	

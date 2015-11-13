@@ -16,7 +16,7 @@
 		var today = moment().format('YYYY-MM-DD');
 		
 		$.ajax({ 
-            url: '${pageContext.request.contextPath}/test/select_sch.json', 
+            url: '${pageContext.request.contextPath}/calendar/select_sch.json', 
             type: 'GET', 
             data: { }, 
             error: function() {
