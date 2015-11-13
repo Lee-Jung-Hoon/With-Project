@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="with.studygroup.exam.dao">
+	<resultMap type="studygroupexam" id="ResultStudygroupexam">
+		<result column="exam_no" property="examNo"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="group_name" property="groupName"/>
+		<result column="exam_title" property="examTitle"/>
+		<result column="exam_info" property="examInfo"/>
+		<result column="exam_date" property="examDate"/>
+	</resultMap>
+	
+	<resultMap type="studygroupexample" id="ResultStudygroupexample">
+		<result column="example_no" property="exampleNo"/>
+		<result column="exam_no" property="examNo"/>
+		<result column="example_title" property="exampleTitle"/>
+		<result column="example_date" property="exampleDate"/>
+	</resultMap>
+	
+	<resultMap type="studygroupexampleitem" id="ResultStudygroupexampleitem">
+		<result column="ITEM_NO" property="itemNo"/>
+		<result column="EXAMPLE_NO" property="exampleNo"/>
+		<result column="ITEM_TITLE" property="itemTitle"/>
+		<result column="ITEM_CORRECT" property="itemCorrect"/>
+		<result column="EXAM_NO" property="examNo"/>
+	</resultMap>
+	
+	<!-- 시험 정보 입력 -->
+	<insert id="insertExamInfo" parameterType="studygroupexam">
+		insert into t_with_studygroup_exam(
+			group_no,
+			group_name,
+			exam_title,
+			exam_info
+		)
+		values(
+			1,
+			'테스트',
+			#{examTitle},
+			#{examInfo}
+		)
+	</insert>
+	
+	<!-- 시험 번호 출력 -->
+	<select id="selectExamNo" resultType="int">
+		select max(exam_no)
+		  from t_with_studygroup_exam;
+	</select>
+	
+	<!-- 시험 문제 입력 -->
+	<insert id="insertExample" parameterType="studygroupexample">
+		insert into T_WITH_STUDYGROUP_EXAMPLE(
+			EXAM_NO,
+			EXAMPLE_TITLE
+		)
+		values(
+			#{examNo},
+			#{exampleTitle}
+		)
+	</insert>
+	
+	<!-- 문제 번호 출력 -->
+	<select id="selectExampleNo" resultType="int">
+		select max(example_no)
+		  from T_WITH_STUDYGROUP_EXAMPLE;
+	</select>
+	
+	<!-- 문제 보기 입력 -->
+	<insert id="insertExmpleItem" parameterType="studygroupexampleitem">
+		insert into T_WITH_STUDYGROUP_EXAMPLE_ITEM(
+			example_no,
+			item_title,
+			item_correct,
+			exam_no
+		)
+		values(
+			#{exampleNo},
+			#{itemTitle},
+			#{itemCorrect},
+			#{examNo}	
+		)
+	</insert>
+	
+	<select id="selectExamList" parameterType="int" resultMap="ResultStudygroupexam">
+		select exam_no, group_no, group_name, exam_title, exam_info, exam_date
+		  from t_with_studygroup_exam
+		 where group_no = #{no}
+	</select>
+	
+	<select id="selectExampleList" parameterType="int" resultMap="ResultStudygroupexample">
+		select example_no, exam_no, example_title, example_date
+		  from T_WITH_STUDYGROUP_EXAMPLE
+		 where exam_no = #{no}
+	</select>
+	
+	<select id="selectExampleItemList" parameterType="int" resultMap="ResultStudygroupexampleitem">
+		select ITEM_NO, EXAMPLE_NO, ITEM_TITLE, ITEM_CORRECT, EXAM_NO
+		  from T_WITH_STUDYGROUP_EXAMPLE_ITEM
+		 where EXAMPLE_NO = #{no}
+	</select>
+</mapper>

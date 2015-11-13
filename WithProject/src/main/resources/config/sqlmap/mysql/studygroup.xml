@@ -19,15 +19,16 @@
 		<result column="GROUP_RECRUITSTARTDATE" property="groupRecruitStartDate"/>
 		<result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
 		<result column="GROUP_REGDATE" property="groupRegDate"/>
+		<result column="MEMBER_NO" property="groupRecruitEndDate"/>
 	</resultMap>
 	
 	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
 	<select id="studyList" resultMap="studyGroup">
 		select 
-			group_name, group_detail, group_maxperson, 
+			group_no, group_name, group_detail, group_maxperson, 
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
 			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
 		from t_with_studygroup
 		limit #{startPage}, #{endPage}
 	</select>
@@ -38,13 +39,13 @@
 			group_name, group_detail, group_maxperson, 
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
 			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
 		)
 		values(
 			#{groupName}, #{groupDetail}, #{groupMaxPerson},
 			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
 			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
-			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}
+			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, '1'
 		)
 	</insert>
 	
@@ -75,4 +76,15 @@
 			#{groupName}
 		)
 	</insert>
+	
+	<!--  -->
+	<select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">
+		select 
+			group_no, group_name, group_detail, group_maxperson, 
+			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
+		from t_with_studygroup
+		where group_no = #{no}
+	</select>
 </mapper>
