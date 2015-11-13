@@ -15,7 +15,8 @@
 
 	$(document).ready(function(){
 	  // 소켓서버에 접속
-	 var socket = io.connect("localhost:10001");
+	 //192.168.200.89
+	 var socket = io.connect("192.168.200.89:10001");
 	 var id = prompt("아이디", "아이디를 입력하세요");
 	 
 	 socket.emit("setId", id);
