@@ -2,6 +2,7 @@ package kr.co.with.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/main")
@@ -46,13 +47,6 @@ public class MainController {
 	@RequestMapping("/WebRTC.do")
 	public String WebRTC() throws Exception {
 		return "WebRTC";
-	}
-	
-	// 테스트
-	// 시험 만들기 폼 테스트
-	@RequestMapping("/examList.do")
-	public String ExamList() throws Exception {
-		return "examList";
 	}
 	
 	@RequestMapping("/createExamForm.do")

@@ -16,6 +16,15 @@ public class StudyGroupVO {
 	private String groupRecruitStartDate;
 	private String groupRecruitEndDate;
 	private String groupRegDate;
+	private int memberNo;
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
 
 	public int getGroupNo() {
 		return groupNo;
