@@ -17,8 +17,8 @@ $(document).ready(function() {
   $(document).scroll(function() {
     var documentHeight = $(document).height();
     var scrollBottom = $(window).scrollTop() + $(window).height();
-    console.log(documentHeight);
-    console.log(scrollBottom);
+    //console.log(documentHeight);
+    //console.log(scrollBottom);
     if (documentHeight < scrollBottom + 100) {
       startPage = startPage + 20;
       endPage = endPage + 20;
@@ -295,7 +295,7 @@ function ready() {
     $('body').addClass('view');
     imageEffect();
     var scroll = $(window).scrollTop();
-    var boxTop = parseInt($('.box').css('top'));
+    //var boxTop = parseInt($('.box').css('top'));
     $('.box').addClass('open', callbackOpen).css('top',30 + scroll + 'px');
     return false;
   });
