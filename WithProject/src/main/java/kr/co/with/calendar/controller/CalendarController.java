@@ -26,8 +26,12 @@ public class CalendarController {
    
    @RequestMapping("/regist_sch.json")
    @ResponseBody
-   public List<CalendarVO> registSch(CalendarVO test) throws Exception {
-      service.registSch(test);
+   public List<CalendarVO> registSch(String title, String startDate, String endDate) throws Exception {
+	   CalendarVO calender = new CalendarVO();
+	   calender.setEndDate(endDate);
+	   calender.setStartDate(startDate);
+	   calender.setTitle(title);
+	  service.registSch(calender);
       return service.selectList();
    }
    
