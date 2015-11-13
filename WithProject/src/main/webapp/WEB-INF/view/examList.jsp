@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,7 +40,20 @@ $(document).ready(function() {
 				<h1 class="title">최근 시험지</h1>
 				<div class="ExamListDIV">
 					<input type="button" value="시험 등록" class="createExam" id="createExam"/>
-					
+					<table border="1">
+						<tr>
+							<th>시험 번호</th>
+							<th>시험 제목</th>
+							<th>시험 일시</th>
+						</tr>
+						<c:forEach items="${list}" var="list">
+							<tr>
+								<td>${list.examNo}</td>
+								<td><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></td>
+								<td>${list.examDate}</td>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
 			</div>
 		</main>
