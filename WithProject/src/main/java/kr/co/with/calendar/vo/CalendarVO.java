@@ -29,4 +29,10 @@ public class CalendarVO {
    public void setTitle(String title) {
       this.title = title;
    }
+@Override
+public String toString() {
+	return "CalendarVO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", title=" + title + "]";
+}
+   
+   
 }
