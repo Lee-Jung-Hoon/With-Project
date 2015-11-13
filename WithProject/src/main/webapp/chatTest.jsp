@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://192.168.200.89:10001/socket.io/socket.io.js"></script>
 <!-- 메시지 알람 부분 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/notice/jquery.notice.js"></script>	
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/notice/jquery.notice.css" />	
@@ -14,7 +15,7 @@
 	$(document).ready(function(){
 	  // 소켓서버에 접속
 	 //192.168.200.89
-	 var socket = io.connect("192.168.200.89:10001");
+	 var socket = io.connect("localhost:10001");
 	 var id = prompt("아이디", "아이디를 입력하세요");
 	 
 	 socket.emit("setId", id);
@@ -30,11 +31,11 @@
 	 
 	 })
 	
-	 socket.emit("testId",id);
+// 	 socket.emit("testId",id);
 	 
-	 socket.on("test", function(data){
-		$.noticeAdd(date.date);
-	 })
+// 	 socket.on("test", function(data){
+// 		$.noticeAdd(date.date);
+// 	 })
 	 
 
    socket.on("msg", function(data) {
@@ -48,7 +49,7 @@
                 $("#msg"+data.cntId+" > .send").click(function(){
                   var sId = data.sendId;
                   if($("#sendText").val() != ""){
-                  socket.emit("msg", {recvId: sId, sendId : id, sendMsg : $("#sendText").val()});
+                  socket.emit("msg", {recvId: sId, sendId : id, sendMsg : $("#sendText").val(), date: new Date().toUTCString()});
                   }else{
                     alert("내용입력하세요~");
                     $("#sendText").focus();
@@ -63,7 +64,7 @@
           $(".member:checked").each(function(){
             var recvId = $(this).attr("id").slice(6);
             if($("#msg").val() != ""){
-          		socket.emit("msg", { recvId : recvId, sendId : id, sendMsg : $("#msg").val()});
+          		socket.emit("msg", { recvId : recvId, sendId : id, sendMsg : $("#msg").val(), date: new Date().toUTCString() });
             }else{
               alert("내용입력하세용");
               $("#msg").focus();
