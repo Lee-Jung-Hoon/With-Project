@@ -96,8 +96,10 @@ TermCloud.prototype.draw = function(data, options) {
     }
   }
   html.push('</div>');
+    
+    this.container.innerHTML = html.join('');
 
-  this.container.innerHTML = html.join('');
+  
   
   // Add event listeners
   var self = this;
@@ -136,3 +138,4 @@ TermCloud.prototype.escapeHtml = function(text) {
       replace(/>/g, '&gt;').
       replace(/"/g, '&quot;');
 };
+

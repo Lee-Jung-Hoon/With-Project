@@ -1,24 +1,26 @@
 /* super inefficient right now, could be improved */
 $(document).ready(function(){
-  var c = document.getElementById('c'),
+  if ($("body").hasClass("page-main")) {
+    
+    var c = document.getElementById('c'),
     ctx = c.getContext('2d'),
     cw = c.width = 400,
     ch = c.height = 300,
     rand = function(a,b){return ~~((Math.random()*(b-a+1))+a);},
     dToR = function(degrees){
-        return degrees * (Math.PI / 180);
+      return degrees * (Math.PI / 180);
     },
     circle = {
-      x: (cw / 2) + 5,
-      y: (ch / 2) + 22,
-      radius: 90,
-      speed: 2,
-      rotation: 0,
-      angleStart: 270,
-      angleEnd: 90,
-      hue: 220,
-      thickness: 18,
-      blur: 25
+        x: (cw / 2) + 5,
+        y: (ch / 2) + 22,
+        radius: 90,
+        speed: 2,
+        rotation: 0,
+        angleStart: 270,
+        angleEnd: 90,
+        hue: 220,
+        thickness: 18,
+        blur: 25
     },
     particles = [],
     particleMax = 100,
@@ -135,24 +137,25 @@ $(document).ready(function(){
       updateParticles();
       renderParticles();
     }
-
-/* Append Canvas */
+    
+    /* Append Canvas */
 //document.body.appendChild(c);
-
-/* Set Constant Properties */
-ctx.shadowBlur = circle.blur;
-ctx.shadowColor = 'hsla('+circle.hue+', 80%, 60%, 1)';
-ctx.lineCap = 'round'
-  
-var gradient1 = ctx.createLinearGradient(0, -circle.radius, 0, circle.radius);
-gradient1.addColorStop(0, 'hsla('+circle.hue+', 60%, 50%, .25)');
-gradient1.addColorStop(1, 'hsla('+circle.hue+', 60%, 50%, 0)');
-  
-var gradient2 = ctx.createLinearGradient(0, -circle.radius, 0, circle.radius);
-gradient2.addColorStop(0, 'hsla('+circle.hue+', 100%, 50%, 0)');
-gradient2.addColorStop(.1, 'hsla('+circle.hue+', 100%, 100%, .7)');
-gradient2.addColorStop(1, 'hsla('+circle.hue+', 100%, 50%, 0)');
-
-/* Loop It, Loop It Good */
-setInterval(loop, 16);
+    
+    /* Set Constant Properties */
+    ctx.shadowBlur = circle.blur;
+    ctx.shadowColor = 'hsla('+circle.hue+', 80%, 60%, 1)';
+    ctx.lineCap = 'round'
+      
+      var gradient1 = ctx.createLinearGradient(0, -circle.radius, 0, circle.radius);
+    gradient1.addColorStop(0, 'hsla('+circle.hue+', 60%, 50%, .25)');
+    gradient1.addColorStop(1, 'hsla('+circle.hue+', 60%, 50%, 0)');
+    
+    var gradient2 = ctx.createLinearGradient(0, -circle.radius, 0, circle.radius);
+    gradient2.addColorStop(0, 'hsla('+circle.hue+', 100%, 50%, 0)');
+    gradient2.addColorStop(.1, 'hsla('+circle.hue+', 100%, 100%, .7)');
+    gradient2.addColorStop(1, 'hsla('+circle.hue+', 100%, 50%, 0)');
+    
+    /* Loop It, Loop It Good */
+    setInterval(loop, 16);
+  }
 });
