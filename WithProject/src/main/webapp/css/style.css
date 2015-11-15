@@ -270,9 +270,22 @@ header .bookmarkZone {
 main {
 	width:100%;
 	height:100%;
-	padding-top:80px;
 	box-sizing:border-box;
 	overflow:hidden;
+	padding-bottom:50px;
+}
+.page-main main {
+	padding-top:80px;
+}
+.page-sub main {
+	padding-top:120px;
+}
+.container {
+	width:1000px;
+	background:#fff;
+	padding:30px 50px;
+	margin:0 auto;
+	font-size:14px;
 }
 .img-layer {
 	position:relative;
@@ -361,7 +374,7 @@ main {
 	-webkit-transform-origin: 100% 0;
 	transform-origin: 100% 0;
 }
-.spine a {
+.spine button {
 	font-size:20px;
 	text-align:center;
 	-webkit-writing-mode: vertical-rl;
@@ -1452,4 +1465,10 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	top:0;
 	left:50%;
 	margin-left:-50%;
+}
+
+/* 서브 페이지 일정 */
+
+#calendar {
+	width:900px;
 }

@@ -38,7 +38,7 @@
 
     var $this, $root, $base, $kids, $node, $item, $over, $back;
     var wait, anim, last;
-  var closeCnt = 0;
+    var closeCnt = 0;
 
     // Public API
     var api = {
@@ -57,7 +57,7 @@
             $this = $(this);
             $root = $this.find( '.root' );
             $kids = $this.find( '.node' ).not( $root );
-
+              
             // Establish values or fallbacks
             speed = utils.resolve( $this, 'speed', speed );
             easing = utils.resolve( $this, 'easing', easing );

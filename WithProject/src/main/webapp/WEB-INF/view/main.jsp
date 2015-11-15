@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width">
 <title>WITH 스터디</title>
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
-<script src="${pageContext.request.contextPath}/js/tag.cloud.js"></script>
-<script src="${pageContext.request.contextPath}/js/main.tag.js"></script>
 </head>
 <body class="page-main">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
@@ -18,7 +16,7 @@
 			<canvas id="c"></canvas>
 			<canvas id="demo-canvas"></canvas>
 			<canvas id="canvas"></canvas>
-			<span class="title"> <strong>Make <em>your</em> <em>Dream</em></strong>
+			<span class="title"><strong>Make <em>your</em> <em>Dream</em></strong>
 				<input type="text" id="keyword" name="keyword" />
 				<button class="searchIcon" type="button">
 					<img src="${pageContext.request.contextPath}/images/icon_search.png"
@@ -38,23 +36,24 @@
 	
 		<div class="box">
 	
-			<div class='box-close'>
-				<button type='button' class='btn-close'>
-					<span class='front'></span> <span class='back'></span> <span
-						class='right'></span> <span class='left'></span> <span class='top'></span>
-					<span class='bottom'></span>
+			<div class="box-close">
+				<button type="button" class="btn-close">
+					<span class="front"></span> <span class="back"></span> <span
+						class="right"></span> <span class="left"></span> <span class="top"></span>
+					<span class="bottom"></span>
 				</button>
 			</div>
 	
-			<div class='tile'>
-				<span class=''></span><span class=''></span><span class=''></span>
-				<span class=''></span><span class=''></span><span class=''></span>
-				<span class=''></span><span class=''></span><span class=''></span>
-				<span class=''></span><span class=''></span><span class=''></span>
+			<div class="tile">
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
 			</div>
 	
-			<div class='list-content'></div>
+			<div class="list-content"></div>
 		</div>
 	</main>
+	<%@ include file="/WEB-INF/view/include/main_bottom.jsp"%>
 </body>
 </html>

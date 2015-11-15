@@ -8,7 +8,7 @@
 				<form action="#" method="post">
 					<dl class="list maki">
 						<dt>
-							<a href="#" class="toggle">로그인</a>
+							<button class="toggle" type="button">로그인</button>
 						</dt>
 						<dd class="fb-login">
 							<em><a href="">페이스 북 로그인</a></em>
