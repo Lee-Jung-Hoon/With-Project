@@ -24,7 +24,6 @@
 
 
 
-
     // Global initialisation flag
     var initialized = false;
 
@@ -39,6 +38,7 @@
 
     var $this, $root, $base, $kids, $node, $item, $over, $back;
     var wait, anim, last;
+  var closeCnt = 0;
 
     // Public API
     var api = {
@@ -100,11 +100,14 @@
 
         // Trigger the fold animation
         close: function( speed, overlap, easing ) {
-
+      
             // Cache DOM references
             $this = $(this);
             $root = $this.find( '.root' );
             $kids = $this.find( '.node' ).not( $root );
+
+      if ( closeCnt !=0 ) $this.find('dd').css('display','block');
+      closeCnt++; 
 
             // Establish values or fallbacks
             speed = utils.resolve( $this, 'speed', speed ) * 0.66;

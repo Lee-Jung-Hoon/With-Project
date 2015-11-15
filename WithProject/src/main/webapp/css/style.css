@@ -118,7 +118,6 @@ header .bookmarkZone {
    text-align:center;
    display:table;
    margin-bottom:40px;
-	position:relative;
 }
 .search .title {
    display:table-cell;
@@ -444,7 +443,7 @@ main {
 	position:absolute;
 	top:30px;
 	left:50%;
-	margin:0 0 0 -600px;
+	margin:0 0 0 -662px;
 	z-index:-1;
 	opacity:0;
 	transition:opacity 1s;
@@ -1232,15 +1231,17 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	transform:translate(0, 0);
 }
 */
-.list {
 
+.list.open dd {
+	display:block;
+}
+.list {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     text-transform: uppercase;
 }
 
 .list a {
-    
     display: block;
     color: #fff;
 	text-decoration:none;
@@ -1251,7 +1252,6 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 
 .list dt, .list dd {
-
     text-indent: 10px;
     line-height: 55px;
     margin: 0;
@@ -1261,20 +1261,16 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 
 .list dt {
-
     /* Since we're hiding elements behind here, we need it in 3d */
     -webkit-transform: translateZ(0.3px);
     transform: translateZ(0.3px);
-
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 	position:relative;
 	z-index:99;
 }
 
-
-
 .list dd {
-
+	display:none;
     border-top: 1px dashed rgba(255,255,255,0.3);
     line-height:50px;
     font-size:15px;
@@ -1288,7 +1284,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	z-index:99;
 	width:100%;
 }
-.list dd em input{
+.list dd em input[type="text"], .list dd em input[type="password"] {
 	width:93%;
 }
 .list .btn-login input {
@@ -1336,25 +1332,19 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 
 /* No CSS 3D support warning */
 .warning {
-
-    -webkit-transform: translateZ(2px);
-    -moz-transform: translateZ(2px);
-    -ms-transform: translateZ(2px);
-    -o-transform: translateZ(2px);
-    transform: translateZ(2px);
-
-    background: rgba(255,255,255,0.6);
-    position: fixed;
-    display: none;
-    z-index: 999;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
+    -webkit-transform:translateZ(2px);
+    transform:translateZ(2px);
+    background:rgba(255,255,255,0.6);
+    position:fixed;
+    display:none;
+    z-index:999;
+    height:100%;
+    width:100%;
+    left:0;
+    top:0;
 }
 
 .warning .message {
-
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
     border-radius: 5px;
     text-align: center;
@@ -1378,65 +1368,23 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 
 .warning .message a {
-
     text-decoration: none;
     color: #73C8A9;
 }
 
 /* Individual styles */
 
-.sashimi dt, .sashimi dd, .sashimi a { background: #73C8A9; }
-.nigiri dt, .nigiri dd, .nigiri a { background: #E32551; }
-.maki dt, .maki dd, .maki a { background: #105a8b; }
-
-.sashimi a:hover {}
-.nigiri a:hover {}
-.maki a:hover {}
-
-.nigiri {
-
-    -webkit-transform: perspective(1200px) rotateY(40deg) !important;
-    -moz-transform: perspective(1200px) rotateY(40deg) !important;
-    -ms-transform: perspective(1200px) rotateY(40deg) !important;
-    -o-transform: perspective(1200px) rotateY(40deg) !important;
-    transform: perspective(1200px) rotateY(40deg) !important;
-
-    -webkit-transform-origin: 110% 25%;
-    -moz-transform-origin: 110% 25%;
-    -ms-transform-origin: 110% 25%;
-    -o-transform-origin: 110% 25%;
-    transform-origin: 110% 25%;
-
-    left: 20%;
+.maki dt, .maki dd, .maki a {
+	background:#105a8b;
 }
-
+.maki a:hover {}
 .maki {
-
     -webkit-transform: perspective(600px) translateZ(1px) !important;
-    -moz-transform: perspective(600px) translateZ(1px) !important;
-    -ms-transform: perspective(600px) translateZ(1px) !important;
-    -o-transform: perspective(600px) translateZ(1px) !important;
     transform: perspective(600px) translateZ(1px) !important;
-
     left: 50%;
 }
 
-.sashimi {
 
-    -webkit-transform: perspective(1200px) rotateY(-40deg) !important;
-    -moz-transform: perspective(1200px) rotateY(-40deg) !important;
-    -ms-transform: perspective(1200px) rotateY(-40deg) !important;
-    -o-transform: perspective(1200px) rotateY(-40deg) !important;
-    transform: perspective(1200px) rotateY(-40deg) !important;
-
-    -webkit-transform-origin: -10% 25%;
-    -moz-transform-origin: -10% 25%;
-    -ms-transform-origin: -10% 25%;
-    -o-transform-origin: -10% 25%;
-    transform-origin: -10% 25%;
-
-    left: 80%;
-}
 
 /* tag-cloud css */
 #tcdiv > div {
@@ -1446,23 +1394,62 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	width:1000px;
 	margin-left:-500px;
 }
-.term-cloud {font-family: arial; font-size: 10px; font-weight:bold;}
-.term-cloud-1 {font-size: 20px; color: #fff; }
-.term-cloud-2 {font-size: 24px; color: #BCA9F5; }
-.term-cloud-3 {font-size: 38px; color: #F2F5A9; }
-.term-cloud-4 {font-size: 42px; color: #A9D0F5; }
-.term-cloud-5 {font-size: 49px; color: #848484; }
-.term-cloud-6 {font-size: 55px; color: #CEF6E3; }
-.term-cloud-7 {font-size: 59px; color: #F6CEF5; }
-.term-cloud-8 {font-size: 65px; color: #81BEF7; }
-.term-cloud-9 {font-size: 78px; color: #F5D0A9; }
-.term-cloud-error {font-family:Arial; font-size:10px; color:red; }
-.term-cloud-link {text-decoration:none; }
-.term-cloud-link:hover {text-decoration:none;}
+.term-cloud {
+	font-family:'Arial'; 
+	font-size: 10px; 
+	font-weight:bold;
+}
+.term-cloud-1 {
+	font-size:20px; 
+	color:#fff; 
+}
+.term-cloud-2 {
+	font-size:24px; 
+	color:#BCA9F5; 
+}
+.term-cloud-3 {
+	font-size:38px; 
+	color:#F2F5A9;
+}
+.term-cloud-4 {
+	font-size:42px; 
+	color:#A9D0F5;
+}
+.term-cloud-5 {
+	font-size:49px; 
+	color:#848484;
+}
+.term-cloud-6 {
+	font-size:55px; 
+	color:#CEF6E3;
+}
+.term-cloud-7 {
+	font-size:59px; 
+	color:#F6CEF5;
+}
+.term-cloud-8 {
+	font-size:65px; 
+	color:#81BEF7;
+}
+.term-cloud-9 {
+	font-size:78px; 
+	color:#F5D0A9;
+}
+.term-cloud-error {
+	font-family:'Arial'; 
+	font-size:10px; 
+	color:red; 
+}
+.term-cloud-link {
+	text-decoration:none;
+}
+.term-cloud-link:hover {
+	text-decoration:none;
+}
 
 #canvas {
 	position:absolute;
 	top:0;
 	left:50%;
-	margin-left:-1000px;
+	margin-left:-50%;
 }
