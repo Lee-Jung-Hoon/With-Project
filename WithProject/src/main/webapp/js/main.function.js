@@ -61,8 +61,7 @@ function ListCallback(response, startPage) {
     var divHTML = "";
     divHTML = '<div id="'+response[index].groupNo+'" class="img-wrap">' + ' <div class="img-content">'
         + '<div class="img-inner">'
-        + '<span class="img"><img src="/WithProject/images/'
-        + response[index].groupRepImagePath + '" alt="" /></span>'
+        + '<span class="img"><img src="' + response[index].groupRepImagePath + '" alt="" /></span>'
         + '<span class="txt">' + response[index].groupName + '<br /></span>'
         + '</div>'
         + '<div class="spine spine-left"><a href="#" data-num='+response[index].groupNo+'>왼쪽</a></div>'
@@ -231,7 +230,7 @@ function ready() {
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-studygroupMap'>";
-    HTML += "<div id='map' style='width: 100%; height: 350px;'>";
+    HTML += "<div id='map' style='width: 800px; height: 350px;'>";
     HTML +="</div>";
     HTML += "</div>";
     HTML += "</div>";
