@@ -6,7 +6,15 @@ $(document).ready(function() {
   // 즐겨찾기 드랍존 관련 부분
   $( ".bookmarkZone" ).droppable({
     drop: function( event, ui ) {
-      alert("즐겨찾기에 등록되었습니다.");
+      var id = ($(ui.draggable).attr("id"));
+      console.log(id);
+      // 즐겨찾기 성공
+      $.ajax({
+        url: "/WithProject/studygroup/groupBookmark.json?groupNo="+id
+      })
+      .done(function(msg) {
+        alert(msg);
+      })
     }
   });
 
@@ -51,7 +59,7 @@ function ListCallback(response, startPage) {
   var data = JSON.stringify(response);
   $.each(response, function(index, value) {
     var divHTML = "";
-    divHTML = '<div class="img-wrap">' + ' <div class="img-content">'
+    divHTML = '<div id="'+response[index].groupNo+'" class="img-wrap">' + ' <div class="img-content">'
         + '<div class="img-inner">'
         + '<span class="img"><img src="/WithProject/images/'
         + response[index].groupRepImagePath + '" alt="" /></span>'
