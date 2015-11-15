@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +12,7 @@
 <script>
 
 	$(document).ready(function() {
-		//var currentLangCode = 'ko';
-		var today = moment().format('YYYY-MM-DD');
-		
+		var today = moment().format('YYYY-MM-DD');		
 		$.ajax({ 
             url: '${pageContext.request.contextPath}/calendar/select_sch.json', 
             type: 'GET', 
@@ -37,126 +35,131 @@
                 defaultDate: today,
                 selectable: true,
 								selectHelper: true,
-                editable: true,
+                editable: true,	
                 events: array,
                 
-                eventClick: function(event, element) {
-                  alert(event.id);
-                  event.title = "CLICKED!";
-                  $('#calendar').fullCalendar('updateEvent', event);
-                },
+            // 일정 클릭
+            eventClick: function(event, element) {
+              $('#calendar').click(function(e) {
+                var pageX = e.pageX;
+                var pageY = e.pageY;
+	              if($("#calOption").css("display")=="none") {             
+  	            	$("#calOption").css("left",pageX);
+  	            	$("#calOption").css("top",pageY);
+  	            	$("#no").val(event.id);
+  	            	$("#calOption").show();
+   	           }
+    	          else {
+      	        	$("#calOption").hide();
+  	            	$("#no").val(event.id);
+        	      }
+              });
+              $('#calendar').fullCalendar('updateEvent', event);
+            },
                 
-    		    		eventDrop: function(event, delta, revertFunc) {
-    		    		  alert(event.id);
-									
-    		        //alert(event.title + " was dropped on " + event.start.format());
-								/*
-    		        if (!confirm("Are you sure about this change?")) {
-    		            revertFunc();
-    		        }
-    		        */
-    		        $('#calendar').fullCalendar('updateEvent',event);
-		            console.log(event.id);
-								console.log(event.start);
-								console.log(event.end);
-
-    		    },
-    		    eventResize: function(event, delta, revertFunc) {
-    		        //alert(event.title + " end is now " + event.end.format());
-								//console.log(event.start);
-    		        //if (!confirm("is this okay?")) {
-    		            //revertFunc();
-		            console.log(event.id);
-								console.log(event.start.i);
-								console.log(event.end.i);
-    		        $('#calendar').fullCalendar('updateEvent',event);
-    		        //}
-    		        /*
-    		            $.ajax({ url: '${pageContext.request.contextPath}/test/update_sch.json', 
-    		                type: 'POST', 
-    		                data: {id:event.id , startDate:event.start, endDate:event.end} 
-    		                
+            // 일정 드롭
+           	eventDrop: function(event, delta, revertFunc) {
+    		      var id = event.id;
+							var start = event.start;
+							var end = event.end;
+		        	var title = event.title;
+              start = moment(start).format("YYYY-MM-DD");
+              end = moment(end).format("YYYY-MM-DD");
+	
+    		      $('#calendar').fullCalendar('updateEvent',event);
+    		            $.ajax({ 
+    		              url: '${pageContext.request.contextPath}/calendar/update_sch.json',
+    		              type: 'POST', 
+    		              data: {id:id , startDate:start, endDate:end, title: title}
     		            }).done(function (data){
-    		            	alert("성공");
     		            	$('#calendar').fullCalendar('updateEvent',event);
     		            }).fail(function(){
     		            	revertFunc();
     		      	  	});
-    		      		*/
+    		    },
+    		    
+						// 일정 리사이즈
+    		    eventResize: function(event, delta, revertFunc) {
+    		      var id = event.id;
+							var start = event.start;
+							var end = event.end;
+		        	var title = event.title;
+              start = moment(start).format("YYYY-MM-DD");
+              end = moment(end).format("YYYY-MM-DD");
+	
+    		      $('#calendar').fullCalendar('updateEvent',event);
+    		            $.ajax({ 
+    		              url: '${pageContext.request.contextPath}/calendar/update_sch.json',
+    		              type: 'POST', 
+    		              data: {id:id , startDate:start, endDate:end, title: title}
+    		            }).done(function (data){
+    		            	$('#calendar').fullCalendar('updateEvent',event);
+    		            }).fail(function(){
+    		            	revertFunc();
+    		      	  	});
     		    },
     		    eventReceive: function(event){
     		    	   var title = event.title;
     		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
-    		    	   alert("!!!!!!!!!!");
-    		    	   /* $.ajax({
-    		    	     url: 'process.php',
-    		    	     data: 'type=new&title='+title+'&startdate='+start+'&zone='+zone,
-    		    	     type: 'POST',
-    		    	     dataType: 'json',
-    		    	     success: function(response){
-    		    	       event.id = response.eventid;
-    		    	       $('#calendar').fullCalendar('updateEvent',event);
-    		    	     },
-    		    	     error: function(e){
-    		    	       console.log(e.responseText);
-    		    	     }
-    		    	   });
-    		    	  */
     		    	   $('#calendar').fullCalendar('updateEvent',event);
     		    },
     		    select: function(start, end) {
               var title = prompt('Event Title:');
               var eventData;
-             
               if (title) {
-                 eventData = {
-                    title: title,
-                    start: start,
-                    end: end
-                 };
-                 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
                  // 모멘트로 날짜 형식 변환
-                 start = moment(start).format("YYYY-MM-DD");
-                 end = moment(end).format("YYYY-MM-DD");
-                 
                  $.ajax({
-                   url: "${pageContext.request.contextPath}/calendar/regist_sch.json?title="+title+"&startDate="+start+"&endDate="+end,
-                 }).done(function(){
-                   alert("등록성공");
+                   url: "${pageContext.request.contextPath}/calendar/regist_sch.json?title="+title+"&startDate="+moment(start).format("YYYY-MM-DD")+"&endDate="+moment(end).format("YYYY-MM-DD"),
+                 }).done(function(response){
+                   eventData = {
+                       title: title,
+                       start: start,
+                       end: end,
+                       id: response
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
                  });
               }
               // 드래그 부분 없어지는 효과
               $('#calendar').fullCalendar('unselect');
            	}
             });
-
      	});
-		
-		
    });
-		
-
-
+	
+	function deleteCalendar() {
+    $.ajax({     
+      url: "${pageContext.request.contextPath}/calendar/delete_sch.json?no="+$("#no").val()
+    })
+    .done(function () {
+      $('#calendar').fullCalendar('removeEvents', $("#no").val());
+    	$("#calOption").hide();
+    });
+  }
 </script>
 <style>
+body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
+}
 
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
-
+#calendar {
+	max-width: 900px;
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
-
 	<div id='calendar'></div>
-
+	<div id='calOption' style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
+		<div style="text-align: center; width:100%;"><label>일정 설정</label></div>
+			<div>
+				<span><a href='#' onclick="modifyCalendar();">일정수정</a></span>
+				<span><a href='#' onclick="deleteCalendar();">삭제</a></span>
+				<input type="hidden" id="no">
+			</div>
+		</div>
 </body>
 </html>
