@@ -15,38 +15,31 @@ $(document).ready(function() {
   });
 });
 </script>
-<title>Insert title here</title>
 </head>
-<style>
-	.content {
-		width:1000px;
-		margin:0 auto;
-		background:#fff;
-		min-height:600px;
-		margin-top:30px;
-		padding:20px 30px;
-	}
-</style>
-<body>
+<body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 		<main>
-			<div class="content">
-				<h1 class="title">최근 시험지</h1>
+			<div class="container">
+				<h3 class="title">최근 시험지</h3>
 				<div class="ExamListDIV">
 					<input type="button" value="시험 등록" class="createExam" id="createExam"/>
-					<table border="1">
-						<tr>
-							<th>시험 번호</th>
-							<th>시험 제목</th>
-							<th>시험 일시</th>
-						</tr>
-						<c:forEach items="${list}" var="list">
+					<table>
+						<thead>
 							<tr>
-								<td>${list.examNo}</td>
-								<td><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></td>
-								<td>${list.examDate}</td>
+								<th>시험 번호</th>
+								<th>시험 제목</th>
+								<th>시험 일시</th>
 							</tr>
-						</c:forEach>
+						</thead>
+						<tbody>
+							<c:forEach items="${list}" var="list">
+								<tr>
+									<td>${list.examNo}</td>
+									<td><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></td>
+									<td>${list.examDate}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</div>

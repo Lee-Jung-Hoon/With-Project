@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!doctype html>
+<html lang="ko">
 <head>
-<meta charset="utf-8" />
-<link href="${pageContext.request.contextPath}/css/fullcalendar.css" rel="stylesheet" />
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/moment.js"></script>
-<script src="${pageContext.request.contextPath}/js/fullcalendar.js"></script>
-<script src="${pageContext.request.contextPath}/js/lang-all.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>일정 | WITH 스터디</title>
+<%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 
 	$(document).ready(function() {
@@ -137,29 +136,21 @@
     });
   }
 </script>
-<style>
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 14px;
-}
-
-#calendar {
-	max-width: 900px;
-	margin: 0 auto;
-}
-</style>
 </head>
-<body>
-	<div id='calendar'></div>
-	<div id='calOption' style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
-		<div style="text-align: center; width:100%;"><label>일정 설정</label></div>
-			<div>
-				<span><a href='#' onclick="modifyCalendar();">일정수정</a></span>
-				<span><a href='#' onclick="deleteCalendar();">삭제</a></span>
-				<input type="hidden" id="no">
-			</div>
+<body class="page-sub">
+	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
+	<main>
+	<div class="container">
+		<div id="calendar"></div>
+		<div id="calOption" style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
+			<div style="text-align: center; width:100%;"><label>일정 설정</label></div>
+				<div>
+					<span><a href="#" onclick="modifyCalendar();">일정수정</a></span>
+					<span><a href="#" onclick="deleteCalendar();">삭제</a></span>
+					<input type="hidden" id="no">
+				</div>
 		</div>
+	</div>
+	</main>
 </body>
 </html>
