@@ -11,6 +11,7 @@
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO" alias="studygroupexampleitem" />
 		<typeAlias type="kr.co.with.calendar.vo.CalendarVO" alias="calendar" />
 		<typeAlias type="kr.co.with.studygroup.vo.MsgVO" alias="msg" />
+		<typeAlias type="kr.co.with.studygroup.member.vo.MemberVO" alias="member" />
 	</typeAliases>
 </configuration>
 
