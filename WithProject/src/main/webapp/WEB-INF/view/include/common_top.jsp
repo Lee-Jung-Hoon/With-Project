@@ -13,3 +13,5 @@
 <script src="${pageContext.request.contextPath}/js/moment.js"></script>
 <script src="${pageContext.request.contextPath}/js/fullcalendar.js"></script>
 <script src="${pageContext.request.contextPath}/js/lang-all.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.top.function.js"></script>
+<script src="${pageContext.request.contextPath}/js/velocity.min.js"></script>

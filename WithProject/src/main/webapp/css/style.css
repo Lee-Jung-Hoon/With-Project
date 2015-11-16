@@ -97,7 +97,7 @@ header .nav a {
 header .bookmarkZone {
 	border:2px white dashed;
   position:absolute;
-  right:400px;
+  right:450px;
   top:50%;
   width: 10%;
   height:50px;
@@ -186,51 +186,12 @@ header .bookmarkZone {
 
 .login-area {
 	position:absolute;
-	right:100px;
+	right:150px;
 	top:50%;
 	width:270px;
 	height:50px;
 	margin-top:-25px;
 }
-/*
-.login-area .show-login {
-	color:#fff;
-	font-weight:bold;
-	font-size:20px;
-	width:80px;
-	height:40px;
-	background:#eee;
-	color:#000;
-}
-.login-area .close-login {
-	color:#fff;
-	font-weight:bold;
-	font-size:20px;
-	width:60px;
-	height:40px;
-	background:#105a8b;
-	cursor:pointer;
-	border:0;
-	color:#fff;
-	position:absolute;
-	top:10px;
-	right:10px;
-
-}
-.login-area .login {
-	position:absolute;
-	top:0;
-	right:0;
-	width:300px;
-	height:300px;
-	border:3px solid #999;
-	background:#fff;
-	z-index:999;
-	box-sizing:border-box;
-	border-radius:5px;
-	display:none;
-}
-*/
 .login-area input[type="text"], .login-area input[type="password"] {
 	padding:0 5px;
 	height:30px;
@@ -240,33 +201,243 @@ header .bookmarkZone {
 	width:30%;
 	vertical-align:top;
 }
-/*
-.login-area .btn-login {
-	position:absolute;
-	bottom:30px;
-	left:50%;
-	margin-left:-100px;
+.list {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    text-transform: uppercase;
+}
+
+.list a {
+    display: block;
+    color: #fff;
+	text-decoration:none;
+}
+
+.list a:hover {
+
+}
+
+.list dt, .list dd {
+    text-indent:10px;
+    line-height:55px;
+    margin: 0;
+    height:55px;
+    width:270px;
+    color: #fff;
+}
+
+.list.open dd {
 	display:block;
-	width:200px;
-	height:40px;
-	line-height:40px;
-	text-align:center;
-	background:#105a8b;
-	cursor:pointer;
+}
+.list dt {
+    /* Since we're hiding elements behind here, we need it in 3d */
+    -webkit-transform: translateZ(0.3px);
+    transform: translateZ(0.3px);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+	position:relative;
+	z-index:99;
+}
+
+.list dd {
+	display:none;
+    border-top:1px dashed rgba(255,255,255,0.3);
+    line-height:50px;
+    font-size:15px;
+    height:50px;
+    margin:0;
+}
+.list dt em, .list dd em {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:99;
+	width:100%;
+}
+.list dd em input[type="text"], .list dd em input[type="password"] {
+	width:93%;
+}
+.list .btn-login input {
+	width:80px;
+	height:30px;
+	background:#fff;
 	border:0;
-	color:#fff;
+	color:#105a8b;
 	font-weight:bold;
+	display:inline-block;
+	font-size:14px;
+}
+
+
+/* UI */
+.list .toggle {
 	font-size:20px;
-	letter-spacing:-1px;
-	border-radius:5px;
+	font-weight:bold;
+	display:block;
+	height:100%;
+    -webkit-transform: translateZ(100px);
+    transform: translateZ(100px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    border-radius: 3px;
+    line-height: 50px;
+    text-align: center;
+    z-index:1;
+    color: #fff;
 }
-*/
-/*
-.search input[type="text"] {
-	height:25px;
-	
+.login-area .login {
+	width:100px;
+	position:absolute;
+	top:0;
+	left:0;
+	transition:width 2s ease;
+	text-align:center;
+	overflow:hidden;
 }
-*/
+.login-area .join {
+	width:150px;
+	position:absolute;
+	top:0;
+	right:0;
+	transition:width 2s ease;
+	text-align:center;
+	overflow:hidden;
+}
+.login-sort .input-login {
+	text-align:left;
+}
+.login-sort {
+	z-index:1;
+}
+.login-sort.on {
+	width:270px;
+	transition:width 2s ease;
+	z-index:30;
+}
+.login-sort.login .list .toggle {
+	position:relative;
+	z-index:999;
+	width:100px;
+	transition:width 2s ease;
+}
+.login-sort.join .list .toggle {
+	width:150px;
+	transition:width 2s ease;
+}
+.login-sort.on .list .toggle {
+	width:100%;
+	transition:width 2s ease;
+}
+.toggle {
+  
+
+}
+
+.toggle:hover {
+    
+
+}
+
+/* No CSS 3D support warning */
+.warning {
+    -webkit-transform:translateZ(2px);
+    transform:translateZ(2px);
+    background:rgba(255,255,255,0.6);
+    position:fixed;
+    display:none;
+    z-index:999;
+    height:100%;
+    width:100%;
+    left:0;
+    top:0;
+}
+
+.warning .message {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    text-align: center;
+    margin-left: -150px;
+    margin-top: -60px;
+    line-height: 1.5;
+    background: #222;
+    font-size: 12px;
+    position: absolute;
+    padding: 10px;
+    width: 280px;
+    color: #fff;
+    left: 50%;
+    top: 50%;
+}
+
+.warning .message h1 {
+
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.warning .message a {
+    text-decoration: none;
+    color: #73C8A9;
+}
+
+/* Individual styles */
+
+.maki dt, .maki dd, .maki a {
+	background:#105a8b;
+}
+.maki a:hover {}
+.maki {
+    -webkit-transform: perspective(600px) translateZ(1px) !important;
+    transform: perspective(600px) translateZ(1px) !important;
+    left: 50%;
+}
+.btn-search {
+	position:absolute;
+	top:50%;
+	right:30px;
+	width:100px;
+	height:70px;
+	margin-top:-35px;
+}
+.ico-search {
+  display:block;
+  position:absolute;
+  top:21px;
+  left:50%;
+  -webkit-transform: translate(-50%, -30%);
+  transform:translate(-50%, -30%);
+  text-align:center;
+  width:100%;
+  height:100%;
+  cursor:pointer;
+}
+
+.element {
+  width:0;
+  height:50px;
+  position:relative;
+  display:block;
+  margin-bottom:5px;
+  border:1px solid #f2f2f2;
+  box-shadow:0 0 2px #f2f2f2;
+  /*   border-radius: 50%; */
+}
+
+.element-one {
+  width:50px;
+  border-radius:50%;
+  border:4px solid #fff;
+  left:12px;
+}
+
+.element-two {
+  position:relative;
+  left:66px;
+  top:-20px;
+  height:40px;
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+  border:2px solid #fff;
+}
+
 main {
 	width:100%;
 	height:100%;
@@ -1245,157 +1416,8 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 */
 
-.list.open dd {
-	display:block;
-}
-.list {
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    text-transform: uppercase;
-}
 
-.list a {
-    display: block;
-    color: #fff;
-	text-decoration:none;
-}
 
-.list a:hover {
-
-}
-
-.list dt, .list dd {
-    text-indent: 10px;
-    line-height: 55px;
-    margin: 0;
-    height: 55px;
-    width: 270px;
-    color: #fff;
-}
-
-.list dt {
-    /* Since we're hiding elements behind here, we need it in 3d */
-    -webkit-transform: translateZ(0.3px);
-    transform: translateZ(0.3px);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-	position:relative;
-	z-index:99;
-}
-
-.list dd {
-	display:none;
-    border-top: 1px dashed rgba(255,255,255,0.3);
-    line-height:50px;
-    font-size:15px;
-    height:50px;
-    margin: 0;
-}
-.list dt em, .list dd em {
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:99;
-	width:100%;
-}
-.list dd em input[type="text"], .list dd em input[type="password"] {
-	width:93%;
-}
-.list .btn-login input {
-	width:80px;
-	height:30px;
-	background:#fff;
-	border:0;
-	color:#105a8b;
-	font-weight:bold;
-	display:inline-block;
-	font-size:14px;
-}
-
-.login {
-	text-align:center;
-}
-.login .input-login {
-	text-align:left;
-}
-/* UI */
-.list .toggle {
-	font-size:20px;
-	font-weight:bold;
-	display:block;
-	width:100%;
-	height:100%;
-    -webkit-transform: translateZ(100px);
-    transform: translateZ(100px);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-    border-radius: 3px;
-    line-height: 50px;
-    text-align: center;
-    z-index:1;
-    color: #fff;
-}
-.toggle {
-  
-
-}
-
-.toggle:hover {
-    
-
-}
-
-/* No CSS 3D support warning */
-.warning {
-    -webkit-transform:translateZ(2px);
-    transform:translateZ(2px);
-    background:rgba(255,255,255,0.6);
-    position:fixed;
-    display:none;
-    z-index:999;
-    height:100%;
-    width:100%;
-    left:0;
-    top:0;
-}
-
-.warning .message {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
-    text-align: center;
-    margin-left: -150px;
-    margin-top: -60px;
-    line-height: 1.5;
-    background: #222;
-    font-size: 12px;
-    position: absolute;
-    padding: 10px;
-    width: 280px;
-    color: #fff;
-    left: 50%;
-    top: 50%;
-}
-
-.warning .message h1 {
-
-    font-weight: 300;
-    font-size: 14px;
-}
-
-.warning .message a {
-    text-decoration: none;
-    color: #73C8A9;
-}
-
-/* Individual styles */
-
-.maki dt, .maki dd, .maki a {
-	background:#105a8b;
-}
-.maki a:hover {}
-.maki {
-    -webkit-transform: perspective(600px) translateZ(1px) !important;
-    transform: perspective(600px) translateZ(1px) !important;
-    left: 50%;
-}
 
 
 
@@ -1465,10 +1487,4 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	top:0;
 	left:50%;
 	margin-left:-50%;
-}
-
-/* 서브 페이지 일정 */
-
-#calendar {
-	width:900px;
 }

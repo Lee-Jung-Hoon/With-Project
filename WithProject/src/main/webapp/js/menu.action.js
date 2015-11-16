@@ -38,7 +38,7 @@
 
     var $this, $root, $base, $kids, $node, $item, $over, $back;
     var wait, anim, last;
-    var closeCnt = 0;
+	var closeCnt = 0;
 
     // Public API
     var api = {
@@ -47,7 +47,10 @@
         toggle: function() {
 
             $this = $( this );
+			$siblings =  $this.parents('.login-sort').siblings().find('.list');
             $this.makisu( $this.hasClass( 'open' ) ? 'close' : 'open' );
+			$siblings.makisu( $siblings.hasClass( 'open' ) ? 'close' : '' );
+			//$this.parents('login').addClass;
         },
 
         // Trigger the unfold animation
@@ -57,7 +60,7 @@
             $this = $(this);
             $root = $this.find( '.root' );
             $kids = $this.find( '.node' ).not( $root );
-              
+
             // Establish values or fallbacks
             speed = utils.resolve( $this, 'speed', speed );
             easing = utils.resolve( $this, 'easing', easing );
@@ -100,14 +103,14 @@
 
         // Trigger the fold animation
         close: function( speed, overlap, easing ) {
-      
+			
             // Cache DOM references
             $this = $(this);
             $root = $this.find( '.root' );
             $kids = $this.find( '.node' ).not( $root );
-
-      if ( closeCnt !=0 ) $this.find('dd').css('display','block');
-      closeCnt++; 
+			//console.log(closeCnt);
+			if ( closeCnt > 1 ) $('.list').find('dd').css('display','block');
+			closeCnt++; 
 
             // Establish values or fallbacks
             speed = utils.resolve( $this, 'speed', speed ) * 0.66;
@@ -449,12 +452,19 @@ if ( $.fn.makisu.enabled ) {
 
     // Open all
     
-   $( '.list' ).makisu( 'close' );
-  //$( '.list dd' ).show();
+	 $( '.list' ).makisu( 'close' );
+	 //$( '.list dd' ).css( 'display','none' );
+	//$( '.list dd' ).show();
     // Toggle on click
 
     $( '.toggle' ).on( 'click', function() {
-        $( '.login .list' ).makisu( 'toggle' );
+        $(this).parents('.list').makisu( 'toggle' );
+		//var siblings = $(this).parents('.login-sort').siblings().find('.list');
+		/*
+		if ($(this).parents('.login-sort').siblings().find('.list').hasClass('open')) {
+			siblings.removeClass('open').addClass('close');
+		}
+		*/
     });
 
     // Disable all links
