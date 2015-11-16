@@ -33,7 +33,7 @@ $(document).ready(function() {
       MainList(startPage, endPage);
     }
   });
-
+/*
   $('.show-login').on('click', function() {
     $(this).next().fadeIn('fast');
   });
@@ -41,7 +41,7 @@ $(document).ready(function() {
   $('.close-login').on('click', function() {
     $(this).parent().fadeOut('fast');
   });
-
+*/
 });
 
 function MainList(startPage, endPage) {
@@ -64,8 +64,8 @@ function ListCallback(response, startPage) {
         + '<span class="img"><img src="' + response[index].groupRepImagePath + '" alt="" /></span>'
         + '<span class="txt">' + response[index].groupName + '<br /></span>'
         + '</div>'
-        + '<div class="spine spine-left"><a href="#" data-num='+response[index].groupNo+'>왼쪽</a></div>'
-        + '<div class="spine spine-right"><a href="#">오른쪽</a></div>'
+        + '<div class="spine spine-left"><button type="button" data-num='+response[index].groupNo+'>왼쪽</button></div>'
+        + '<div class="spine spine-right"><button type="button">오른쪽</button></div>'
         + '</div></div>';
     $("#container").append(divHTML);
   });
@@ -169,7 +169,7 @@ function ready() {
 
   
   // 상세 정보 출력
-  $('.img-wrap a').on('click', function() {
+  $('.img-wrap button').on('click', function() {
     var no = $(this).attr('data-num');
     $.ajax({
           url : "/WithProject/studygroup/groupDetail.json?groupNo="+no,
