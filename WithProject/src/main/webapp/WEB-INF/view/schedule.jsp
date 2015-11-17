@@ -11,6 +11,10 @@
 <script>
 
 	$(document).ready(function() {
+	  
+	  $(window).scroll(function() {	
+   		$('.banner').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});       		
+   	});  
 		var today = moment().format('YYYY-MM-DD');		
 		$.ajax({ 
             url: '${pageContext.request.contextPath}/calendar/select_sch.json', 
@@ -140,17 +144,18 @@
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
-	<div class="container">
-		<div id="calendar"></div>
-		<div id="calOption" style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
-			<div style="text-align: center; width:100%;"><label>일정 설정</label></div>
+		<div class="container">
+			<div id="calendar"></div>
+			<div id="calOption" style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
+				<div style="text-align: center; width:100%;"><label>일정 설정</label></div>
 				<div>
 					<span><a href="#" onclick="modifyCalendar();">일정수정</a></span>
 					<span><a href="#" onclick="deleteCalendar();">삭제</a></span>
 					<input type="hidden" id="no">
 				</div>
+			</div>
+			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
 		</div>
-	</div>
 	</main>
 </body>
 </html>
