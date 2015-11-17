@@ -1342,6 +1342,25 @@ rect:hover {  fill:blue; }
 	padding-left: 10px;
 }
 
+.list-txt .list-detailDIV {
+	clear: both;
+	width: 100%;
+	padding-top: 50px;
+  border: 1px solid black;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-style: none;
+}
+
+.list-txt .list-detailLabel {
+	font-weight: bold;
+}
+
+.list-txt .list-detail {
+  padding-bottom: 50px;
+  padding-top: 20px;
+}
+
 
 
 
