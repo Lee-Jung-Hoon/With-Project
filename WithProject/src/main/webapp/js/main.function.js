@@ -1,6 +1,7 @@
+var search = "";
 $(document).ready(function() {
-  var startPage = 1;
-  var endPage = 20;
+  var startPage = 0;
+  var endPage = 19;
   MainList(startPage, endPage);
   
   // 즐겨찾기 드랍존 관련 부분
@@ -17,23 +18,34 @@ $(document).ready(function() {
       })
     }
   });
+  
+  $(".searchIcon").on('click', function() {
+    $("#container").empty();
+    search = $("#keyword").val();
+    startPage=0;
+    endPage=19;
+    MainList(startPage, endPage);
+  });
 
+  // 스터디그룹 개설 화면으로 이동
   $("#crateGroup").on('click', function() {
     location.href = '/WithProject/main/createGroup.do';
   });
-
+  
+  // 스크롤이 끝내 닿을 경우 리스트 불러오는 부분
   $(document).scroll(function() {
     var documentHeight = $(document).height();
     var scrollBottom = $(window).scrollTop() + $(window).height();
-    //console.log(documentHeight);
-    //console.log(scrollBottom);
-    if (documentHeight < scrollBottom + 100) {
+    console.log(documentHeight);
+    console.log(scrollBottom);
+    if (documentHeight < scrollBottom) {
+      console.log(search);
       startPage = startPage + 20;
       endPage = endPage + 20;
       MainList(startPage, endPage);
     }
   });
-/*
+
   $('.show-login').on('click', function() {
     $(this).next().fadeIn('fast');
   });
@@ -41,15 +53,51 @@ $(document).ready(function() {
   $('.close-login').on('click', function() {
     $(this).parent().fadeOut('fast');
   });
-*/
+
 });
 
+// 댓글 등록
+function regComment(no) {
+  $.ajax({
+    url : "/WithProject/studygroup/regComment.json?no="+no+"&comment="+$(".comment").val()
+  })
+  .done(function () {
+    $(".comment").val("");
+    commentList(no);
+  });
+}
+
+function commentList(no) {
+  $.ajax({
+    url : "/WithProject/studygroup/commentList.json?groupNo="+no,
+    dataType : "json"
+  }).done(function(response) {
+    $(".commentList").empty();
+    var comment = "";
+    $.each(response, function(index, value) {
+      comment += "<div class='comment_"+response[index].commentNo+"' style='margin-top:10px; border:1px solid black; border-left-style: none;  border-right-style: none;  border-bottom-style: none;'>";
+      comment += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='float:left; margin-top:10px; margin-right:20px;' width='50' height='50'>";
+      comment += "<p style='margin-top:10px;'>" + response[index].memberNo + "      " + response[index].regDate + "</p>";
+      comment += "<p>" + response[index].commentContent + "</p>";
+      comment += "</div>";
+    })
+    $(".commentList").html("").append(comment);
+  });  
+}
+
+// 메인 리스트 출력
 function MainList(startPage, endPage) {
+  var url = "";
+  if(search=="") {
+    url = "/WithProject/studygroup/groupList.json?startPage=" + startPage + "&endPage=" + endPage;
+  }
+  else {
+    url = "/WithProject/studygroup/groupList.json?startPage=" + startPage + "&endPage=" + endPage + "&search=" + search;
+  }
   // ajax 리스트 호출
   $.ajax(
       {
-        url : "/WithProject/studygroup/groupList.json?startPage=" + startPage
-            + "&endPage=" + endPage,
+        url : url,
         dataType : "json"
       }).done(function(response) {
     ListCallback(response, startPage);
@@ -57,19 +105,27 @@ function MainList(startPage, endPage) {
 }
 function ListCallback(response, startPage) {
   var data = JSON.stringify(response);
+  var divHTML = "";
+  
+  if(search!="" && startPage==0) {
+    divHTML ="<div class='img-wrap' id='crateGroup' style='border-radius: 15px; border: 4px solid #105a8b; background: url(http://www.hanium.or.kr/images/egovframework/main/bg_member_block_icon.png) no-repeat 0 -400px; height: 200px;'>"
+        + "<div style='color: white; font-size: 30px; /* text-align: center; */ position: absolute; top: 120px; left: 17px;'>스터디 개설</div>"
+        + "</div>'"
+  }
+  
   $.each(response, function(index, value) {
-    var divHTML = "";
-    divHTML = '<div id="'+response[index].groupNo+'" class="img-wrap">' + ' <div class="img-content">'
+    divHTML += '<div id="'+response[index].groupNo+'" class="img-wrap">' + ' <div class="img-content">'
         + '<div class="img-inner">'
-        + '<span class="img"><img src="' + response[index].groupRepImagePath + '" alt="" /></span>'
+        + '<span class="img"><img src="/WithProject/images/' + response[index].groupRepImagePath + '" alt="" /></span>'
         + '<span class="txt">' + response[index].groupName + '<br /></span>'
         + '</div>'
         + '<div class="spine spine-left"><button type="button" data-num='+response[index].groupNo+'>왼쪽</button></div>'
         + '<div class="spine spine-right"><button type="button">오른쪽</button></div>'
         + '</div></div>';
     $("#container").append(divHTML);
+    divHTML ="";
   });
-  if (startPage == 1)
+  if (startPage == 0)
     showLetter();
   setTimeout(function() {
     $('#container').pinto({
@@ -230,7 +286,7 @@ function ready() {
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-studygroupMap'>";
-    HTML += "<div id='map' style='width: 800px; height: 350px;'>";
+    HTML += "<div id='map' style='width: 100%; height: 350px;'>";
     HTML +="</div>";
     HTML += "</div>";
     HTML += "</div>";
@@ -264,9 +320,34 @@ function ready() {
     HTML += " </ul>";
     HTML += " </div>";
     HTML += " </div>";
+    HTML += "<div class='list-detailDIV'>";
+    HTML += "<label class='list-detailLabel'>스터디그룹 상세 설명</label>";
+    HTML += "<div class='list-detail'>"+response.groupDetail+"</div>"
     HTML += "</div>";
+    
+    HTML += "<div class='list-detailDIV' style='border-bottom-style: none;'>";
+    HTML += "<label class='list-detailLabel'>스터디그룹 댓글</label>";
+    HTML += "<div class='list-detail'>";
+    HTML += "<div>"
+    HTML += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='margin-right:20px;' width='50' height='50'>";
+    HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
+    HTML += "<input class='button' onclick='regComment("+no+")' style='margin-left:10px;' type='button' name='button' title='내용입력' value='내용입력'>";
+    HTML += "</div>";
+    HTML += "</div>";
+    HTML += "</div>";
+    
+    HTML += "<div class='commentList'>";
+    HTML += "</div>";
+    
+    commentList(no);
 
+    HTML += "<div class='tag-orange'>nice</div>";
+    HTML += "<div class='tag-blue'>flat</div>";
+    HTML += "<div class='tag-green'>tags</div>";
+
+    HTML += "</div>";
     $(".list-content").html('').append(HTML);
+
     
     var mapContainer = document.getElementById('map'),
     mapOption = {

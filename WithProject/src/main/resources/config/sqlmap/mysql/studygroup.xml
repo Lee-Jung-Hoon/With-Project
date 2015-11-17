@@ -30,6 +30,9 @@
 			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
 			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
 		from t_with_studygroup
+		where group_name like CONCAT('%', #{search}, '%') 
+		  or group_detail like CONCAT('%', #{search}, '%')
+		  or group_activeplace like CONCAT('%', #{search}, '%')
 		limit #{startPage}, #{endPage}
 	</select>
 	
