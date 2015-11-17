@@ -13,7 +13,7 @@ html {
 body {
 	width:100%;
 	font-family:'Malgun Gothic';
-	background:#ddd;
+	background:#1d1f20;
 }
 input, button {
 	font-family:'Malgun Gothic';
@@ -95,18 +95,116 @@ header .nav a {
 	text-decoration:none;
 }
 header .bookmarkZone {
-	border:2px white dashed;
   position:absolute;
   right:450px;
   top:50%;
-  width: 10%;
+  width:250px;
   height:50px;
+  border:2px solid #fff;
   border-radius:10px;
   color:#fff;
   font-size:30px;
   text-align:center;
   margin-top:-25px;
-  line-height:41px;
+}
+header .bookmarkZone span {
+	display:block;
+	float:left;
+}
+header .bookmarkZone .img {
+	width:40px;
+	height:40px;
+	border:1px solid #000;
+	border-radius:50%;
+	overflow:hidden;
+}
+header .bookmarkZone .img img {
+	width:120%;
+}
+header .bookmarkZone .txt {
+	font-size:15px;
+	line-height:40px;
+}
+header .bookmarkZone .pin-btn {
+	display:block;
+	position:absolute;
+	top:0;
+	right:0;
+	width:60px;
+	height:46px;
+	background:#105a8b url("../images/pin.png") no-repeat center;
+	background-size:30px 30px;
+	border-radius:0 8px 8px 0; 
+	text-indent:-5000px;
+	border-left:2px solid #fff;
+	box-sizing:border-box;
+}
+header .bookmarkZone .pin-click {
+	position:absolute;
+	bottom:-310px;
+	right:-100px;
+	background:#fff;
+	color:#000;
+	width:300px;
+	height:300px;
+	box-sizing:border-box;
+	border:3px solid #105a8b;
+	display:none;
+}
+header .bookmarkZone .pin-click::before {
+	content:"";
+	position:absolute;
+	top:-12px;
+	left:center;
+	width:20px;
+	height:20px;
+	border-top:3px solid #105a8b;
+	border-left:3px solid #105a8b;
+	transform:rotateZ(45deg);
+	background:#fff;
+}
+header .bookmarkZone .pin-list {
+	position:relative;
+	width:90%;
+	margin:10px auto;
+	height:30px;
+	overflow:hidden;
+}
+header .bookmarkZone .pin-list li {
+	float:left;
+	width:33.333%;
+	height:100%;
+	overflow:hidden;
+}
+header .bookmarkZone .pin-list li > button {
+	text-align:center;
+	display:block;
+	width:100%;
+	height:100%;	
+	color:#fff;
+	background:#0090c0;
+	font-weight:bold;
+}
+header .bookmarkZone .pin-list li > button.current {
+	background:#105a8b;
+}
+header .bookmarkZone li:first-child {
+	border-left:2px solid #fff;
+	border-radius:10px 0 0 10px;
+}
+header .bookmarkZone li:last-child {
+	border-right:2px solid #fff;
+	border-radius:0 10px 10px 0;
+}
+header .bookmarkZone li:nth-child(2) {
+	border-right:2px solid #fff;
+	border-left:2px solid #fff; 
+}
+header .bookmarkZone .pin-content {
+	width:100%;
+	border-top:1px dashed #000;
+	height:244px;
+	overflow-y:auto;
 }
 .search {
    width:100%;
@@ -118,6 +216,7 @@ header .bookmarkZone {
    text-align:center;
    display:table;
    margin-bottom:40px;
+   overflow:hidden;
 }
 .search .title {
    display:table-cell;
@@ -176,6 +275,7 @@ header .bookmarkZone {
 	margin:-335px 0 0 -100px;
 	z-index:3;
 }
+/*
 #demo-canvas {
   position: absolute;
   top: 0;
@@ -183,11 +283,11 @@ header .bookmarkZone {
   bottom: 0;
   right: 0;
 }
-
+*/
 .login-area {
 	position:absolute;
 	right:150px;
-	top:50%;
+	top:37px;
 	width:270px;
 	height:50px;
 	margin-top:-25px;
@@ -422,20 +522,20 @@ header .bookmarkZone {
 }
 
 .element-one {
-  width:50px;
-  border-radius:50%;
-  border:4px solid #fff;
-  left:12px;
+	 width: 0px;
+    border-radius: 0px;
+    left: 47px;
+    border-width: 3px;
+    top: 10px;
+    transform: rotateZ(-45deg);
 }
 
 .element-two {
-  position:relative;
-  left:66px;
-  top:-20px;
-  height:40px;
-  -webkit-transform:rotate(-45deg);
-  transform:rotate(-45deg);
-  border:2px solid #fff;
+  transform: rotateZ(225deg);
+    left: 47px;
+    top: -45px;
+    height: 50px;
+    border-width: 3px;
 }
 
 main {
@@ -450,6 +550,7 @@ main {
 }
 .page-sub main {
 	padding-top:120px;
+	perspective:1200px;
 }
 .container {
 	width:1000px;
@@ -457,6 +558,14 @@ main {
 	padding:30px 50px;
 	margin:0 auto;
 	font-size:14px;
+	opacity:0; 
+	transform:rotateX(-90deg);
+}
+.container.effect {
+	opacity:1;
+	transform:rotateX(0);
+	transition:opacity 2s, transform 2s;
+	
 }
 .img-layer {
 	position:relative;
@@ -1487,4 +1596,67 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	top:0;
 	left:50%;
 	margin-left:-50%;
+}
+
+/* sub-page 시험 */
+.container h3 {
+	font-size:20px;
+	color:#000;
+	font-weight:bold;
+	border-bottom:2px solid #999;
+	margin-bottom:20px;
+	padding-bottom:20px;
+	text-indent:10px;
+}
+.btn-common {
+	display:inline-block;
+	padding:5px 10px;
+	background:#105a8b;
+	border:1px solid #333;
+	color:#fff;
+	font-size:15px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.table-common {
+	margin-top:20px;
+	width:100%;
+	box-sizing:border-box;
+	border-top:1px solid #999;
+	border-left:1px solid #999;
+}
+.table-common th {
+	font-size:15px;
+	background:#105a8b;
+}
+.table-common th, .table-common td {
+	border-right:1px solid #999;
+	border-bottom:1px solid #999;
+} 
+.table-common td {
+	font-size:14px;
+	text-align:center;
+}
+.table-common td a {
+	text-decoration:none;
+	color:#000;
+}
+.table-common .th-border {
+	padding:15px 0;
+	font-weight:bold;
+	color:#fff;
+	border:3px solid #fff;
+}
+.table-common td.th-border {
+	padding:10px 0;
+}	
+.table-common .td-border a {
+	width:100%;
+}
+.table-common .link-wrap {
+	text-align:left;
+	margin:0 auto;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
 }

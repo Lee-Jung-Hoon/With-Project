@@ -14,7 +14,7 @@
 	<main>
 		<div class="search">
 			<canvas id="c"></canvas>
-			<canvas id="demo-canvas"></canvas>
+			<!-- <canvas id="demo-canvas"></canvas>  -->
 			<canvas id="canvas"></canvas>
 			<span class="title"><strong>Make <em>your</em> <em>Dream</em></strong>
 				<input type="text" id="keyword" name="keyword" />
@@ -25,11 +25,14 @@
 			</span>
 			<div id="tcdiv"></div>
 		</div>
+		
+		<div style="color:#fff;">
+			asdkfjshdif	
+		</div>
 		<div id="container" class="img-layer">
 			<div class="img-wrap" id='crateGroup'
 				style="border-radius: 15px; border: 4px solid #105a8b; background: url(http://www.hanium.or.kr/images/egovframework/main/bg_member_block_icon.png) no-repeat 0 -400px; height: 200px;">
-				<div
-					style="color: white; font-size: 30px; /* text-align: center; */ position: absolute; top: 120px; left: 17px;">스터디
+				<div style="color: white; font-size: 30px; /* text-align: center; */ position: absolute; top: 120px; left: 17px;">스터디
 					개설</div>
 			</div>
 		</div>

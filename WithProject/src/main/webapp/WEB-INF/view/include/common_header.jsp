@@ -2,7 +2,21 @@
     pageEncoding="UTF-8"%>
 	<div class="dark-layer"></div>
 	<header>
-		<div class="bookmarkZone">즐겨찾기</div>
+		<div class="bookmarkZone">
+			<span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
+			<span class="txt">샘플 텍스트</span>
+			<button type="button" class="pin-btn">핀</button>
+			<div class="pin-click">
+				<ul class="pin-list">
+					<li><button type="button">즐겨찾기</button></li>
+					<li><button type="button">마이스터디</button></li>
+					<li><button type="button">메시지</button></li>
+				</ul>
+				<div class="pin-content">
+				
+				</div>
+			</div>			
+		</div>
 		<div class="login-area">
 			<div class="login-sort login">
 				<form action="#" method="post">
@@ -30,7 +44,7 @@
 			</div>
 		</div>
 		<div class="btn-search">
-			<div class="ico-search ico-function">
+			<div class="ico-search close">
 				<span class="element element-one"></span>
 				<span class="element element-two"></span> 				
 			</div> 
