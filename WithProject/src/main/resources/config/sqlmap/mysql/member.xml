@@ -5,16 +5,32 @@
  <mapper namespace="member.dao.memberMapper">
  
  <insert id="insertMember" parameterType="member" >
- 		insert into t_with_studygroup_Member(member_name, id, password, member_type, 
- 																															member_gender, member_age, member_img)
+ 		insert into t_with_Member(member_name, id, password, member_type, member_gender, member_age)
 		values(
-		#{memberName},
+		 #{memberName},
 		 #{id},
 		 #{password},
 		 #{memberType},
 		 #{memberGender},
-		 #{memberAge},
+		 #{memberAge}
 		 	);
  </insert>
-
+ <select id="selectMember" parameterType="member" resultType="member">
+ 	select 
+ 		 Member_Name as memberName, 
+ 		 id, 
+ 		 password, 
+ 		 Member_no as memberNo,  
+ 		 Member_Grade memberGrade,
+ 		 member_img as memberImg
+ 	  from 
+ 	 	 t_with_Member
+   where 
+ 	 	id = #{id} and password = #{password}
+ </select>
+ <select id="checkMember" parameterType="member" resultType="int">
+			select count(*)
+			from t_with_Member
+			where id = #{id}   
+ </select>
 </mapper>
