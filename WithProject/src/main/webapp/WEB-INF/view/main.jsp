@@ -27,7 +27,7 @@
 		</div>
 		
 		<div style="color:#fff;">
-			asdkfjshdif	
+			sorting	
 		</div>
 		<div id="container" class="img-layer">
 			<div class="img-wrap" id='crateGroup'
