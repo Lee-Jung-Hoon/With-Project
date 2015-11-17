@@ -79,5 +79,5 @@ $(document).ready(function(){
   $('.pin-list button').on('click', function(){
     $(this).addClass('current').parent().siblings().find('button').removeClass('current');
   });
-  $('.container').addClass('effect')
+  $('.container').addClass('effect');
 });
