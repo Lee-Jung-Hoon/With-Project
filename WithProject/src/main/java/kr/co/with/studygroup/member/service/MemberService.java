@@ -6,4 +6,8 @@ public interface MemberService {
 
 	public void insertMember(MemberVO member) throws Exception;
 
+	public MemberVO selectMember(MemberVO member) throws Exception;
+
+	public int checkMember(MemberVO member) throws Exception;
+
 }
