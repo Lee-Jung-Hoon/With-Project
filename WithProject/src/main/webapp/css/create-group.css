@@ -1,11 +1,10 @@
 @CHARSET "UTF-8";
 
-.content {
+.registDIV {
 	width: 100%;
-	height: 1200px;
 }
 
-.content .title {
+.registDIV .title {
 	width: 70%;
 	margin: 0 auto 0;
 	margin-top: 50px;
@@ -13,20 +12,21 @@
 	font-size: 20px;
 	font-weight: bold;
 }
-
-.content .registDIV {
+/*
+.registDIV .registDIV {
 	padding-left: 20px;
 	width: 70%;
 	height: 1000px;
 	margin: 0 auto 0;
-	border: 1px gray solid;
+	border: 1px #000 solid;
 	border-radius: 7px;
 	background-color: white;
 	margin-bottom: 100px;
 }
+*/
 
-.content .input {
-	border: 1px gray solid;
+.registDIV .input {
+	border: 1px #000 solid;
 	padding-top: 15px;
 	padding-bottom: 35px;
 	border-top-style: none;
@@ -34,59 +34,106 @@
 	border-right-style: none;
 }
 
-.content .input th {
+.registDIV .input th {
 	text-align: right;
 }
 
-.content .input td {
+.registDIV .input td {
 	padding-left: 10px;
 }
 
-.content .advice {
-	color: gray;
-	padding-left: 10px;
-	padding-top: 15px;
-	padding-bottom: 35px;
-	border: 1px gray solid;
-	border-top-style: none;
-	border-right-style: none;
-}
 
-.content .titleImage {
+.registDIV .titleImage {
 	height: 130px;
 	width: 13%;
 	border: 1px solid black;
 }
 
-.content h2 {
+.registDIV h4 {
 	color: #4195f5;
 	margin-bottom: 10px;
+	font-weight:bold;
 }
-
-.content .stepLeft {
+.registDIV .firstStep {
+	overflow:hidden;
+}
+.registDIV .stepLeft {
 	width: 70%;
 	float: left;
 }
-
-.content .stepRight {
-	width: 27%;
-	float: right;
+.registDIV .stepLeft .groupName {
+	height:30px; 
+	width:95%; 
+	background-color:#f4f4f4;
+}
+.registDIV .stepRight {
+	width:27%;
+	float:right;
+	border:1px solid #000;
+	box-sizing:border-box;
+}
+.registDIV .btn-area {
+	width:100%; 
+	text-align:center; 
+	padding-top:20px; 
+	clear:both;
+}
+.registDIV .stepRight .advice > li {
+	padding:40px 15px 30px;
+	border-bottom:1px dashed #000;
+	line-height:22px;
+	background:url('../images/icon_warning.png') no-repeat 12px 15px;
+	background-size:20px;
 }
 
-.content label {
-	top: 75px;
-  font-size: 20px;
-  left: 45px;
-  position: absolute;
-  border: 1px gray solid;
-  padding: 5px;
-  background: #bbb;"
+.registDIV .stepRight .advice > li:last-child {
+	border:0;
+}
+.registDIV .stepRight .advice > li li {
+	padding:5px 0;
+}
+.registDIV .stepRight .advice strong {
+	font-weight:bold;
+	color:#4195f5;
+}
+.registDIV .secondStep, .registDIV .thirdStep {
+	overflow:hidden;
+	/* 
+	display:none;
+	*/
+}
+.registDIV .secondStep .groupActivePlace {
+	height:30px; 
+	width:95%; 
+	background-color:#f4f4f4;	
+}
+.registDIV input[type="text"], .registDIV select {
+	height:25px;
+	vertical-align:top;
+}
+.registDIV .thirdStep .table-common2 th, .registDIV .thirdStep .table-common2 td {
+	padding:10px 0;
+}
+.registDIV .thirdStep .table-common2 td {
+	padding-left:20px;
+}
+.registDIV label {
+	top:75px;
+  font-size:20px;
+  left:45px;
+  position:absolute;
+  border:1px #999 solid;
+  padding:5px;
+  background:#bbb;
 }
 
 #map {
-	width: 100%;
-	height: 400px;
-	border: solid blue 1px;
+	width:630px;
+	height:400px;
+	border:solid #105a8b 1px;
+	position:relative;
+	z-index:99;
+  overflow:hidden;
 }
 
 #image-preview {
@@ -95,9 +142,10 @@
 	position: relative;
 	overflow: hidden;
 	background-color: #ffffff;
-	color: #ecf0f1; input { line-height : 200px;
-	font-size: 200px;
-	position: absolute;
-	opacity: 0;
-	z-index: 10;
+	color: #ecf0f1;
+	line-height:200px;
+	font-size:200px;
+	position:absolute;
+	opacity:0;
+	z-index:10;
 }

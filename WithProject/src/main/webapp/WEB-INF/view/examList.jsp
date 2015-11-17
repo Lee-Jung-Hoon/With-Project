@@ -22,20 +22,25 @@ $(document).ready(function() {
 			<div class="container">
 				<h3 class="title">최근 시험지</h3>
 				<div class="ExamListDIV">
-					<input type="button" value="시험 등록" class="createExam" id="createExam"/>
-					<table>
+					<input type="button" value="시험 등록" class="createExam btn-common" id="createExam"/>
+					<table class="table-common">
+						<colgroup>
+							<col style="width:15%" />
+							<col style="width:65%" />
+							<col style="width:20%" />
+						</colgroup>
 						<thead>
 							<tr>
-								<th>시험 번호</th>
-								<th>시험 제목</th>
-								<th>시험 일시</th>
+								<th><div class="th-border">시험 번호</div></th>
+								<th><div class="th-border">시험 제목</div></th>
+								<th><div class="th-border">시험 일시</div></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${list}" var="list">
 								<tr>
-									<td>${list.examNo}</td>
-									<td><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></td>
+									<th><div class="th-border">${list.examNo}</div></th>
+									<td><div class="link-wrap" style="width:540px;"><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></div></td>
 									<td>${list.examDate}</td>
 								</tr>
 							</c:forEach>
