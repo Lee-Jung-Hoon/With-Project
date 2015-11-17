@@ -77,7 +77,7 @@
 		)
 	</insert>
 	
-	<!--  -->
+	<!-- 스터디그룹 상세 정보 출력을 위한 쿼리문 -->
 	<select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">
 		select 
 			group_no, group_name, group_detail, group_maxperson, 
@@ -87,4 +87,55 @@
 		from t_with_studygroup
 		where group_no = #{no}
 	</select>
+	
+	<!-- 	스터디그룹 상세 댓글 작성을 위한 쿼리문  -->
+	<insert id="insertGroupComment" parameterType="studygroupcomment">
+		insert into T_WITH_STUDYGROUP_COMMENT(
+			member_no,
+			group_no,
+			comment_content
+		)
+		values(
+			#{memberNo},
+			#{groupNo},
+			#{commentContent}
+		)
+	</insert>
+	
+	<select id="selectCommentList" parameterType="int" resultType="studygroupcomment">
+		select 
+			MEMBER_NO as memberNo, 
+			GROUP_NO as groupNo, 
+			COMMENT_NO as commentNo, 
+			COMMENT_CONTENT as commentContent, 
+			REG_DATE as regDate
+		from 
+			T_WITH_STUDYGROUP_COMMENT
+		where 
+			group_no = #{groupNo}
+	</select>
+	
+	<!-- 스터디그룹 즐겨찾기 중복을 확인하기 위한 쿼리문  -->
+	<select id="selectOverlapBookmark" parameterType="studygroupbookmark" resultType="studygroupbookmark">
+		select 
+			count(bookmark_no)
+		from 
+			t_with_member_bookmark
+		where 
+			group_no = #{groupNo}
+		  and
+		  member_no = #{memberNo}
+	</select>
+	
+	<!-- 스터디그룹 즐겨찾기 등록을 위한 쿼리문 -->
+	<insert id="insertBookmark" parameterType="studygroupbookmark">
+		insert into t_with_member_bookmark (
+			member_no,
+			group_no
+		)
+		values(
+			#{memberNo},
+			#{groupNo}
+		)
+	</insert>
 </mapper>
