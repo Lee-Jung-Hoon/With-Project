@@ -17,7 +17,7 @@ import kr.co.with.studygroup.vo.MsgVO;
 @Controller
 @RequestMapping("/msg")
 public class MsgController {
-
+ 
 	@Autowired
 	private MsgService service;
 
