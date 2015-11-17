@@ -37,9 +37,12 @@ public class StudyGroupController {
 	@ResponseBody
 	public List<StudyGroupVO> GroupList(
 			@RequestParam(value = "sort", required = false, defaultValue = "new") String sort,
-			@RequestParam(value = "startPage") int startPage, @RequestParam(value = "endPage") int endPage)
+			@RequestParam(value = "startPage") int startPage, @RequestParam(value = "endPage") int endPage,
+			@RequestParam(value="search", required=false, defaultValue="") String search)
 					throws Exception {
+		System.out.println(search);
 		StudyGroupPagingVO page = new StudyGroupPagingVO();
+		page.setSearch(search);
 		page.setStartPage(startPage);
 		page.setEndPage(endPage);
 		return service.selectNewList(page);
