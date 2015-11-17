@@ -60,4 +60,9 @@ public class StudyGroupDAO {
 	public List<StudyGroupCommentVO> selectCommentList(int groupNo) {
 		return session.selectList("with.studygroup.dao.selectCommentList", groupNo);
 	}
+	
+	   // 스터디그룹 marker를 표시가히기 위한 DAO
+	   public List<StudyGroupVO> selectMaker() {
+	      return session.selectList("with.studygroup.dao.selectMarker");
+	   }
 }

@@ -25,4 +25,7 @@ public interface StudyGroupService {
 	public void insertGroupComment(StudyGroupCommentVO commentVO) throws Exception;
 
 	public List<StudyGroupCommentVO> selectCommentList(int groupNo) throws Exception;
+	
+	 public List<StudyGroupVO> selectMarker() throws Exception;
+	
 }
