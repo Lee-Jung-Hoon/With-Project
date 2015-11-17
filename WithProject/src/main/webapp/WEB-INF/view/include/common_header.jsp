@@ -112,12 +112,15 @@
 			</form>
 		</div>
 	</div>
-		<div class="btn-search">
-			<div class="ico-search close">
-				<span class="element element-one"></span>
-				<span class="element element-two"></span> 				
-			</div> 
-		</div>
+	<script>
+			if ($('body').hasClass('page-main')) {
+			  document.write('<div class="btn-search">');
+			  document.write('<div class="ico-search close">');
+			  document.write('<span class="element element-one"></span><span class="element element-two"></span>');
+			  document.write('</div>');
+			  document.write('</div>');
+			}
+		</script>
 		<h2 class="hide">주메뉴</h2>
 		</ul>
 			<nav class="nav">
