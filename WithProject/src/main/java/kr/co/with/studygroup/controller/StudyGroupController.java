@@ -152,4 +152,11 @@ public class StudyGroupController {
 		// }
 		return msg;
 	}
+	
+	// 자기자신 반경안 스터디그룹 Map과 Marker생성 Method
+	   @RequestMapping("/mapList.json")
+	   @ResponseBody
+	   public List<StudyGroupVO> markerList() throws Exception {
+	      return service.selectMarker();
+	   }
 }

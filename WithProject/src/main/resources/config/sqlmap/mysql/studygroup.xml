@@ -141,4 +141,11 @@
 			#{groupNo}
 		)
 	</insert>
+	
+	<select id="selectMarker" resultMap="studyGroup">
+         select 
+         group_no, group_name, group_detail, group_activelongitude, group_activelatitude,
+         group_activeplace, group_email, group_tel, group_repimagepath, group_regdate
+      from t_with_studygroup
+   </select>
 </mapper>

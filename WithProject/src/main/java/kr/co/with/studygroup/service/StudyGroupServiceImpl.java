@@ -59,4 +59,8 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public List<StudyGroupCommentVO> selectCommentList(int groupNo) throws Exception {
 		return dao.selectCommentList(groupNo);
 	}
+	
+	public List<StudyGroupVO> selectMarker() throws Exception {
+	      return dao.selectMaker();
+	}
 }
