@@ -9,9 +9,11 @@
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExamVO" alias="studygroupexam" />
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExampleVO" alias="studygroupexample" />
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO" alias="studygroupexampleitem" />
-		<typeAlias type="kr.co.with.calendar.vo.CalendarVO" alias="calendar" />
+		<typeAlias type="kr.co.with.studygroup.calendar.vo.CalendarVO" alias="calendar" />
 		<typeAlias type="kr.co.with.studygroup.vo.MsgVO" alias="msg" />
 		<typeAlias type="kr.co.with.studygroup.member.vo.MemberVO" alias="member" />
+		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupBookmarkVO" alias="studygroupbookmark"/>
+		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupCommentVO" alias="studygroupcomment"/>
 	</typeAliases>
 </configuration>
 
