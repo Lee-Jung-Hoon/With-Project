@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
+import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
 import kr.co.with.studygroup.vo.StudyGroupTagVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
@@ -37,5 +39,25 @@ public class StudyGroupDAO {
 	// 스터디그룹 상세를 출력하기 위한 DAO
 	public StudyGroupVO selectGruopDetail(int no) {
 		return session.selectOne("with.studygroup.dao.selectGruopDetail", no);
+	}
+
+	// 스터디그룹 즐겨찾기 중복 확인을 위한 DAO
+	public StudyGroupBookmarkVO selectOverlapBookmark(StudyGroupBookmarkVO bookmark) {
+		return session.selectOne("with.studygroup.dao.selectOverlapBookmark", bookmark);
+	}
+
+	// 스터디그룹 즐겨찾기 등록을 위한 DAO
+	public void insertBookmark(StudyGroupBookmarkVO bookmark) {
+		session.insert("with.studygroup.dao.insertBookmark", bookmark);	
+	}
+
+	// 스터디그룹 상세 댓글 등록을 위한 DAO
+	public void insertGroupComment(StudyGroupCommentVO commentVO) {
+		session.insert("with.studygroup.dao.insertGroupComment", commentVO);
+	}
+
+	// 스터디그룹 상세 댓글 리스트 출력을 위한 DAO
+	public List<StudyGroupCommentVO> selectCommentList(int groupNo) {
+		return session.selectList("with.studygroup.dao.selectCommentList", groupNo);
 	}
 }
