@@ -9,13 +9,16 @@
       <result column="id" property="id"/>
       <result column="start_date" property="startDate"/>
       <result column="end_date" property="endDate"/>
+      <result column="group_no" property="groupNo"/>
+      <result column="group_name" property="groupName"/>
+      <result column="member_no" property="memberNo"/>
    </resultMap>
    
    <insert id="registSch" parameterType="calendar">
       insert into t_with_studygroup_calendar (
-         start_date, end_date, title
+         start_date, end_date, title, group_no, group_name, member_no
       ) values (
-         #{startDate}, #{endDate}, #{title}
+         #{startDate}, #{endDate}, #{title}, 1, '자바73기', '1'
       )
    </insert>
    <select id="selectSch" resultMap="calResult">
@@ -24,16 +27,23 @@
    </select>
    
    <update id="updateSch" parameterType="calendar">
-      update t_with_studygroup_calendar
-       set
-    startDate_date = #{startDate}, 
-    endDate_date = #{endDate}, 
-    title = #{title}
-    where id = #{id}
+      update 
+      	t_with_studygroup_calendar
+      set
+    		start_date = #{startDate}, 
+    		end_date = #{endDate}, 
+    		title = #{title}
+    	where 
+    		id = #{id}
    </update>
    
-   <delete id="delSch" parameterType="int">
-      delete t_with_studygroup_calendar
+   <delete id="deleteSch" parameterType="int">
+      delete from t_with_studygroup_calendar
       where id = #{id}
    </delete>
+   
+   <select id="maxId" resultType="int">
+   	select max(id)
+   	  from t_with_studygroup_calendar
+   </select>
 </mapper>
