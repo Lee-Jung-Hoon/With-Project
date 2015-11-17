@@ -4,6 +4,15 @@ public class StudyGroupPagingVO {
 	private int startPage;
 	private int endPage;
 	private String sort;
+	private String search;
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
 
 	public int getStartPage() {
 		return startPage;
