@@ -9,9 +9,12 @@
 <title>일정 | WITH 스터디</title>
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
-
+	var btnInsert, btnCancel,
+			isInsert = false;
 	$(document).ready(function() {
-	  
+		btnInsert = $('.btn-calendar-insert');
+		btnCancel = $('.btn-calendar-cancel');
+		
 	  $(window).scroll(function() {	
    		$('.banner').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});       		
    	});  
@@ -26,7 +29,7 @@
         }).done(function (doc) { 
             var array = Array();
                 $.each(doc, function(i, entry){ 
-                  array.push({id: entry.id, title: entry.title, start: entry.startDate, end:entry.endDate});
+                  array.push({id: entry.id, title: entry.title, start: entry.startDate, end:entry.endDate ,color:entry.color, textColor:entry.textColor});
                 }); 
              $('#calendar').fullCalendar({
             	lang : 'ko',
@@ -108,27 +111,64 @@
     		    },
     		    select: function(start, end) {
               var title = prompt('Event Title:');
-              var eventData;
-              if (title) {
+							var start2=moment(start).format();
+              var end2=moment(end).format();
+              $('.date-start').val(start2.split('T')[0]);
+              $('.date-end').val(end2.split('T')[0]);
+              
+              //$('.date-end').val(end);
+              $('.calendar-update').show();
+              
+              $('.calendar-update').on('click','button', function(){
+                var colorBar = $('.color-bar').val();
+                var colorTxt = $('.color-txt').val();
+                var dateStart = $('.date-start').val();
+                var dateEnd = $('.date-end').val();
+                insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt);  
+              });
+              
+              
+              
+              //if (title) {
                  // 모멘트로 날짜 형식 변환
-                 $.ajax({
-                   url: "${pageContext.request.contextPath}/calendar/regist_sch.json?title="+title+"&startDate="+moment(start).format("YYYY-MM-DD")+"&endDate="+moment(end).format("YYYY-MM-DD"),
-                 }).done(function(response){
-                   eventData = {
-                       title: title,
-                       start: start,
-                       end: end,
-                       id: response
-                    };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                 });
-              }
+                
+              //}
               // 드래그 부분 없어지는 효과
               $('#calendar').fullCalendar('unselect');
            	}
             });
      	});
+		
+		
+		
+		
    });
+	function insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt) {
+	  console.log(title);
+	  console.log(dateStart);
+	  console.log(dateEnd);
+	  console.log(colorBar);
+	  console.log(colorTxt);
+		  if ($(this).hasClass('insert')) {
+				isInsert = true;    
+		  } else {
+		    $.ajax({
+          url: "${pageContext.request.contextPath}/calendar/regist_sch.json?title="+title+"&startDate="+dateStart+"&endDate="+dateEnd+"&color="+colorBar+"&textColor="+colorTxt,
+        }).done(function(response){
+          eventData = {
+              title: title,
+              start: start,
+              end: end,
+              id: response
+              //color: '#000'
+           };
+          	//$('#calendar').fullCalendar
+           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+        });
+		    $(this).parent().hide();
+		    isInsert = false;
+		  }
+	}
 	
 	function deleteCalendar() {
     $.ajax({     
@@ -139,7 +179,24 @@
     	$("#calOption").hide();
     });
   }
+	
+	
 </script>
+<style>
+	.calendar-update {
+		position:absolute;
+		top:50%;
+		left:50%;
+		background:#fff;
+		width:300px;
+		height:300px;
+		margin-top:-150px;
+		margin-left:-150px;
+		border:1px solid red;
+		z-index:99;
+		display:none;
+	}
+</style>
 </head>
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
@@ -153,6 +210,23 @@
 					<span><a href="#" onclick="deleteCalendar();">삭제</a></span>
 					<input type="hidden" id="no">
 				</div>
+			</div>
+			<div class="calendar-update">
+				<p>일정등록</p>
+				제목
+				<input type="text" class="title" />
+				시작일
+				<input type="date" class="date-start" /><br />
+				끝
+				<input type="date" class="date-end" /><br />
+				이벤트색
+				<input type="color" class="color-bar" /><br />
+				글자색
+				<input type="color" class="color-txt" /><br />
+				상세글
+				<textarea name="" id="" cols="30" rows="10"></textarea><br />
+				<button type="button" class="insert">등록</button>
+				<button type="button" class="cancel">등록취소</button>
 			</div>
 			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
 		</div>

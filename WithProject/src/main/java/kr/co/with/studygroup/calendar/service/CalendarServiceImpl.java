@@ -14,8 +14,8 @@ public class CalendarServiceImpl implements CalendarService {
    @Autowired
    private CalendarDAO dao;
    
-   public int registSch(CalendarVO test) throws Exception {
-      return dao.registSch(test);
+   public int registSch(CalendarVO calendar) throws Exception {
+      return dao.registSch(calendar);
    }
 
    public List<CalendarVO> selectList() throws Exception {

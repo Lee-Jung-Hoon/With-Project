@@ -10,19 +10,21 @@
       <result column="start_date" property="startDate"/>
       <result column="end_date" property="endDate"/>
       <result column="group_no" property="groupNo"/>
-      <result column="group_name" property="groupName"/>
       <result column="member_no" property="memberNo"/>
+      <result column="calendar_detail" property="calendarDetail"/>
+      <result column="color" property="color"/>
+      <result column="text_color" property="textColor"/>
    </resultMap>
    
    <insert id="registSch" parameterType="calendar">
       insert into t_with_studygroup_calendar (
-         start_date, end_date, title, group_no, group_name, member_no
+         color, text_color, start_date, end_date, title, group_no, member_no
       ) values (
-         #{startDate}, #{endDate}, #{title}, 1, '자바73기', '1'
+         #{color}, #{text_color}, #{startDate}, #{endDate}, #{title}, #{groupNo}, '1'
       )
    </insert>
    <select id="selectSch" resultMap="calResult">
-      select start_date, end_date, title, id
+      select start_date, end_date, title, id, color, text_color, calendar_detail
       from t_with_studygroup_calendar 
    </select>
    
@@ -32,7 +34,10 @@
       set
     		start_date = #{startDate}, 
     		end_date = #{endDate}, 
-    		title = #{title}
+    		title = #{title},
+    		color = #{color},
+    		text_color = #{textColor},
+    		calendar_detail = #{calendarDetail}
     	where 
     		id = #{id}
    </update>
