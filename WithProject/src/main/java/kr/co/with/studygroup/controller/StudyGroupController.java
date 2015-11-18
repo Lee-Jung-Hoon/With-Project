@@ -54,8 +54,9 @@ public class StudyGroupController {
 	@RequestMapping("/saveGroup.do")
 	public ModelAndView SaveGroup(StudyGroupVO studyGroup, String tag,
 			@RequestParam("image") MultipartFile image,
-			HttpServletRequest req, 
-			@RequestParam("photo") ArrayList<MultipartFile> files) throws Exception {
+			HttpServletRequest req
+//			@RequestParam("photo") ArrayList<MultipartFile> files
+			) throws Exception {
 		ModelAndView mav = new ModelAndView("redirect:/main/main.do");
 		Calendar cal = Calendar.getInstance(); // 날짜 객체를 불러옴
 		String yStr = "" + (cal.get(Calendar.YEAR)); // 년도
@@ -63,7 +64,7 @@ public class StudyGroupController {
 		String dStr = "" + (cal.get(Calendar.DAY_OF_MONTH)); // 일
 //		String uploadPath = req.getServletContext().getRealPath("/image") + "/" + yStr + "/" + mStr + "/" + dStr;
 
-		String uploadPath = "C:\\java73\\web-workspace\\WithProject\\src\\main\\webapp\\images";
+		String uploadPath = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images";
 		
 		File dir = new File(uploadPath);
 		if (!dir.exists()) {

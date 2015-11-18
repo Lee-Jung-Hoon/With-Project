@@ -26,9 +26,9 @@
 			<div id="tcdiv"></div>
 		</div>
 		
-		<div style="color:#fff;">
-			sorting	
-		</div>
+		<button id="switch" style="color: white;">Toggle</button><br/>
+		<div id="panel" style='position:absolute; left: -5000px;'></div>
+		
 		<div id="container" class="img-layer">
 			<div class="img-wrap" id='crateGroup'
 				style="border-radius: 15px; border: 4px solid #105a8b; background: url(http://www.hanium.or.kr/images/egovframework/main/bg_member_block_icon.png) no-repeat 0 -400px; height: 200px;">
