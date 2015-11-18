@@ -38,7 +38,7 @@ $(document).ready(function() {
     var scrollBottom = $(window).scrollTop() + $(window).height();
     console.log(documentHeight);
     console.log(scrollBottom);
-    if (documentHeight < scrollBottom) {
+    if (documentHeight <= scrollBottom) {
       console.log(search);
       startPage = startPage + 20;
       endPage = endPage + 20;
