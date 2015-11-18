@@ -1,5 +1,6 @@
 package kr.co.with.studygroup.calendar.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,21 @@ public class CalendarController {
    
    @RequestMapping("/regist_sch.json")
    @ResponseBody
-   public int registSch(String title, String startDate, String endDate) throws Exception {
-	  CalendarVO calender = new CalendarVO();
-	  calender.setEndDate(endDate);
-	  calender.setStartDate(startDate);
-	  calender.setTitle(title);
-	  return service.registSch(calender);
+   public int registSch(String title, String startDate, String endDate, String textColor, String color) throws Exception {
+	  CalendarVO calendar = new CalendarVO();
+	 
+	  
+	  // 그룹NO 받을 자리
+	  calendar.setGroupNo(1);
+	  	
+	  // 멤버NO
+	  //calendar.setCalendarDetail(calendarDetail);
+	  calendar.setColor(color);
+	  calendar.setTextColor(textColor);
+	  calendar.setStartDate(startDate);
+	  calendar.setEndDate(endDate);
+	  calendar.setTitle(title);
+	  return service.registSch(calendar);
    }
    
    @RequestMapping("/select_sch.json")
@@ -42,8 +52,8 @@ public class CalendarController {
    
    @RequestMapping("/update_sch.json")
    @ResponseBody
-   public List<CalendarVO> updateSch(CalendarVO calender) throws Exception {
-      service.updateSch(calender);
+   public List<CalendarVO> updateSch(CalendarVO calendar) throws Exception {
+      service.updateSch(calendar);
       return service.selectList();
    }
    @RequestMapping("/delete_sch.json")
