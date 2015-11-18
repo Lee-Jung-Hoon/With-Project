@@ -18,17 +18,18 @@
       }
     })   
   
-    if ("${no}" != null) {
-        socket = io.connect("http://localhost:10001");
-        socket.emit("login", "${no}");
-        var study
-        $(".studyMemberList").empty();
-        $.get("/WithProject/member/memberList.do", )
-        for(var i  in data){}
-      }
+//     if ("${no}" != null) {
+//         socket = io.connect("http://localhost:10001");
+//         socket.emit("login", "${no}");
+//         var study;
+//         $(".studyMemberList").empty();
+//         $.get("/WithProject/member/memberList.do", )
+//         for(var i  in data){}
+//       }
     })
   </script>
 	<header>
+		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<div class="bookmarkZone">
 			<span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
 			<span class="txt">샘플 텍스트</span>
@@ -125,7 +126,6 @@
 		</ul>
 			<nav class="nav">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/main/main.do">홈</a></li>
 					<li><a href="${pageContext.request.contextPath}/exam/examList.do">시험테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/calendar/schedule.do">일정</a></li>
 				</ul>
