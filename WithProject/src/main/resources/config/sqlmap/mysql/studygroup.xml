@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
-	<select id="studyList" resultMap="studyGroup">
+	<select id="studyList" parameterType="studygrouppaging" resultMap="studyGroup">
 		select 
 			group_no, group_name, group_detail, group_maxperson, 
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
@@ -31,8 +31,8 @@
 			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
 		from t_with_studygroup
 		where group_name like CONCAT('%', #{search}, '%') 
-		  or group_detail like CONCAT('%', #{search}, '%')
-		  or group_activeplace like CONCAT('%', #{search}, '%')
+		  or group_detail like CONCAT('%', #{search}, '%') 
+		  or group_activeplace like CONCAT('%', #{search}, '%') 
 		limit #{startPage}, #{endPage}
 	</select>
 	

@@ -76,9 +76,9 @@
                      <div class="input">
                         <h4>스터디그룹 모집기간 설정</h4>
                         <div>
-                           <input type="datetime-local" name="groupRecruitStartDate" id="groupRecruitStartDate" /> 
+                           <input type="date" name="groupRecruitStartDate" id="groupRecruitStartDate" /> 
                            <strong> ~ </strong>
-                           <input type="datetime-local" name="groupRecruitEndDate" id="groupRecruitEndDate" />
+                           <input type="date" name="groupRecruitEndDate" id="groupRecruitEndDate" />
                         </div>
                         <br />
                         <h4>스터디그룹 활동기간 설정</h4>
