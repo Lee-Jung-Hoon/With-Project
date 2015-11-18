@@ -340,11 +340,6 @@ function ready() {
     HTML += "</div>";
     
     commentList(no);
-
-    HTML += "<div class='tag-orange'>nice</div>";
-    HTML += "<div class='tag-blue'>flat</div>";
-    HTML += "<div class='tag-green'>tags</div>";
-
     HTML += "</div>";
     $(".list-content").html('').append(HTML);
 
