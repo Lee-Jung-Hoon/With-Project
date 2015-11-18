@@ -42,8 +42,8 @@
 									type="file" name="image" id="image-upload"
 									style="display: none" accept="image/png, image/gif, image/jpeg" />
 							</div>
-						<input class='fileInput' type="file" name="photo" multiple="multiple" />
-							<div id="aflie3-list" style="border:2px solid #c9c9c9; min-height:50px;"></div>
+<!-- 						<input class='fileInput' type="file" name="photo" multiple="multiple" /> -->
+<!-- 							<div id="aflie3-list" style="border:2px solid #c9c9c9; min-height:50px;"></div> -->
 						</div>
                   <div class="input" style="height:432px;">
                      <h4>상세내용 입력</h4>
@@ -148,14 +148,14 @@
                                        <option value="011">011</option>
                                        <option value="018">018</option>
                                     </select> - 
-                                    <input type="text" id="secondTel" name="secondTel">
-                                    - <input type="text" name="thirdTel" id="thirdTel"></td>
+                                    <input type="text" style="width: 50px; text-align: center;" id="secondTel" name="secondTel">
+                                    - <input type="text" style="width: 50px; text-align: center;" name="thirdTel" id="thirdTel"></td>
                               </tr>
                               <tr>
                                  <th>개설자 이메일주소 설정</th>
                                  <td>
                                     <input type="hidden" name="groupEmail" id="groupEmail" />
-                                    <input type="text" name="email" id="email"> @ 
+                                    <input type="text" style="width: 150px;" name="email" id="email"> @ 
                                     <select id="domain" name="domain">
                                        <option value="naver.com">naver.com</option>
                                        <option value="gmail.com">gmail.com</option>
