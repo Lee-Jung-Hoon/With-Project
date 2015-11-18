@@ -143,9 +143,12 @@
 	overflow: hidden;
 	background-color: #ffffff;
 	color: #ecf0f1;
+	font-size:20px;
+	/*
 	line-height:200px;
 	font-size:200px;
 	position:absolute;
 	opacity:0;
+	*/
 	z-index:10;
 }
