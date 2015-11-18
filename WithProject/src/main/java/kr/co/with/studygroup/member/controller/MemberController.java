@@ -1,7 +1,9 @@
 package kr.co.with.studygroup.member.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.with.studygroup.member.service.MemberService;
@@ -71,4 +74,29 @@ public class MemberController {
 		session.removeAttribute("name");
 		return "redirect:/main/main.do";
 	}
+	
+	@RequestMapping("/groupList.json")
+	@ResponseBody
+	public List<MemberVO> groupList(String memberNo, HttpServletRequest req) throws Exception {
+		return service.groupList(memberNo);
+	}
+	@RequestMapping("/memberList.json")
+	@ResponseBody
+	public List<MemberVO> memberList(String groupNo, HttpServletRequest req) throws Exception {
+		System.out.println(groupNo);
+		List<MemberVO> list = service.memberList(groupNo);
+		System.out.println("asdasd"+list.size());
+		return list;
+	}
+	
 }
+
+//for(MemberVO vo : list){
+//System.out.println("그룹 No ? "+vo.getGroupNo());
+//
+//List<MemberVO> memberList = service.sMemberList(vo.getGroupNo());
+//for(MemberVO sVo : memberList){
+//	System.out.println("맴버 No ? " +sVo.getMemberNo()+ "그룹 넘버"+ sVo.getGroupNo());
+//}
+//
+//}

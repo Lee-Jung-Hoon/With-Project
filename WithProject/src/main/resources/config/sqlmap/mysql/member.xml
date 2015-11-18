@@ -33,4 +33,15 @@
 			from t_with_Member
 			where id = #{id}   
  </select>
+ <select id="groupList" parameterType="String" resultType="member">
+ 			select group_no groupNo
+ 			  from t_with_joinstudygroup
+ 			 where member_no = #{memberNo}	 
+ </select>
+ <select id="memberList" parameterType="String" resultType="member">
+ 			select member_no memberNo
+ 			  from t_with_joinstudygroup
+ 			 where group_no = #{groupNo}
+ </select>
+ 
 </mapper>

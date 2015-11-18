@@ -1,5 +1,7 @@
 package kr.co.with.studygroup.member.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,13 @@ public class MemberDAO {
 	public int checkMember(MemberVO member) {
 		return session.selectOne("member.dao.memberMapper.checkMember", member);
 	}
+
+	public List<MemberVO> groupList(String memberNo) {
+		return session.selectList("member.dao.memberMapper.groupList", memberNo);
+	}
+	
+	public List<MemberVO> memberList(String groupNo) {
+		return session.selectList("member.dao.memberMapper.memberList", groupNo);
+	}
+
 }
