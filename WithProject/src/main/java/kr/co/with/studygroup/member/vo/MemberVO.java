@@ -13,7 +13,14 @@ public class MemberVO {
     private String memberStatus;
     private String memberImg;
     private String joinDate;
+    private String groupNo;
     
+	public String getGroupNo() {
+		return groupNo;
+	}
+	public void setGroupNo(String groupNo) {
+		this.groupNo = groupNo;
+	}
 	public int getMemberNo() {
 		return memberNo;
 	}

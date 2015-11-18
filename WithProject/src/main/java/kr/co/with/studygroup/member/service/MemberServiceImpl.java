@@ -1,5 +1,7 @@
 package kr.co.with.studygroup.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +28,14 @@ public class MemberServiceImpl implements MemberService {
 	public int checkMember(MemberVO member) throws Exception {
 		return dao.checkMember(member);
 	}
+
+
+	public List<MemberVO> groupList(String memberNo) throws Exception {
+		return dao.groupList(memberNo);
+	}
+	
+	public List<MemberVO> memberList(String groupNo) throws Exception {
+		return dao.memberList(groupNo);
+	}
+
 }
