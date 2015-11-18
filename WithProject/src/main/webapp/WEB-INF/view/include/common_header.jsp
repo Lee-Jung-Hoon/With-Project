@@ -2,32 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="dark-layer"></div>
-	<script>
-  $(document).ready(function() {
-    var d = new Date();
-
-    $("#memberAge").on('change', function() {
-      var test = (d.getFullYear() - $("#memberAge").val() + 1);
-      $("#rAge").html("나이 : " + (test) + "세");
-      
-      var gender = document.getElementsByName('memberGender');
-      for (var i = 0; i < gender.length; i++) {
-        if (gender[i].checked == true) {
-					console.log(gender[i].value);
-        }
-      }
-    })   
-  
-//     if ("${no}" != null) {
-//         socket = io.connect("http://localhost:10001");
-//         socket.emit("login", "${no}");
-//         var study;
-//         $(".studyMemberList").empty();
-//         $.get("/WithProject/member/memberList.do", )
-//         for(var i  in data){}
-//       }
-    })
-  </script>
 	<header>
 		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<div class="bookmarkZone">
@@ -42,7 +16,13 @@
 				</ul>
 				<div class="pin-content">
 					<div class="studyMemberList">
-						
+						<div class="rUserList">
+							
+						</div>
+						<input type="text" id="msg" />
+						<input type="button" id="sendMsg"value="메세지 전송" />
+						<div id="msgList">
+						</div>
 					</div>
 				</div>
 			</div>			
@@ -83,7 +63,7 @@
 			<form action="${pageContext.request.contextPath}/member/join.do" method="post">
 				<dl class="list maki">
 					<dt>
-						<button type="button" class="toggle">JOIN</button>
+						<a href="#" class="toggle">JOIN</a>
 					</dt>
 					<dd class="input-login">
 						<em><input type="text" name="memberName" id="memberName" placeholder="name" /></em>
@@ -113,19 +93,17 @@
 			</form>
 		</div>
 	</div>
-	<script>
-			if ($('body').hasClass('page-main')) {
-			  document.write('<div class="btn-search">');
-			  document.write('<div class="ico-search close">');
-			  document.write('<span class="element element-one"></span><span class="element element-two"></span>');
-			  document.write('</div>');
-			  document.write('</div>');
-			}
-		</script>
+		<div class="btn-search">
+			<div class="ico-search close">
+				<span class="element element-one"></span>
+				<span class="element element-two"></span> 				
+			</div> 
+		</div>
 		<h2 class="hide">주메뉴</h2>
 		</ul>
 			<nav class="nav">
 				<ul>
+					<li><a href="${pageContext.request.contextPath}/main/main.do">홈</a></li>
 					<li><a href="${pageContext.request.contextPath}/exam/examList.do">시험테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/calendar/schedule.do">일정</a></li>
 				</ul>
