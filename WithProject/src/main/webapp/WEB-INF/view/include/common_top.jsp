@@ -51,6 +51,7 @@
       })
          
 			socket.on("msg", function(data){
+			  console.log("asdasdf"+data.msg);
 			  $("#msgList").appnend("<p>"+data.sendId+":"+data.msg+"</p>");
 			});
       
@@ -58,6 +59,9 @@
           $(".member:checked").each(function(){
             var recvId = $(this).attr("id").slice(6);
             if($("#msg").val() != ""){
+              console.log("씨발....."+recvId);
+              console.log("개시팔....."+$("#msg").val());
+              
           		socket.emit("msg", { recvId : recvId, sendId : "${no}", sendMsg : $("#msg").val()});
             }else{
               alert("내용입력하세용");
