@@ -83,7 +83,7 @@
 			<form action="${pageContext.request.contextPath}/member/join.do" method="post">
 				<dl class="list maki">
 					<dt>
-						<a href="#" class="toggle">JOIN</a>
+						<button type="button" class="toggle">JOIN</button>
 					</dt>
 					<dd class="input-login">
 						<em><input type="text" name="memberName" id="memberName" placeholder="name" /></em>

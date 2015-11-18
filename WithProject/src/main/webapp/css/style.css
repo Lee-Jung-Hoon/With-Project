@@ -492,8 +492,10 @@ header .bookmarkZone .pin-content {
 	width:100%;
 	transition:width 2s ease;
 }
-.toggle {
-  
+.login-sort .toggle {
+  font-family:'Luckiest Guy', cursive;
+	letter-spacing:0;
+	font-weight:normal;
 
 }
 
@@ -1702,6 +1704,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	color:#fff;
 	font-size:15px;
 	font-weight:bold;
+	box-shadow:2px 2px 2px #000;
 	cursor:pointer;
 }
 .table-common {
