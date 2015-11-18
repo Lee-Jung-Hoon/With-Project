@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +43,6 @@ public class StudyGroupController {
 			@RequestParam(value = "startPage") int startPage, @RequestParam(value = "endPage") int endPage,
 			@RequestParam(value="search", required=false, defaultValue="") String search)
 					throws Exception {
-		System.out.println(search);
 		StudyGroupPagingVO page = new StudyGroupPagingVO();
 		page.setSearch(search);
 		page.setStartPage(startPage);
@@ -110,9 +112,12 @@ public class StudyGroupController {
 	// 그룹 상세 정보 내 댓글 작성을 위한 JSON
 	@RequestMapping("/regComment.json")
 	@ResponseBody
-	public void RegComment(int no, String comment) throws Exception {
+	public void RegComment(int no, String comment, HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		
 		// 멤버 번호 받을 예정
-		int memberNo = 1;
+		int memberNo = (int) session.getAttribute("no");
+		
 		
 		StudyGroupCommentVO commentVO = new StudyGroupCommentVO();
 		commentVO.setCommentContent(comment);
