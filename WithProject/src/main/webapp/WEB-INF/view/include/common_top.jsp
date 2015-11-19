@@ -20,6 +20,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/notice/jquery.notice.js"></script>	
 	
 <script>
+var socket = "";
   $(document).ready(function() {
     var d = new Date();
     $("#memberAge").on('change', function() {
@@ -34,81 +35,97 @@
       }
     })   
     
-    if ("${no}" != null) {
+    if ("${no}" != null && "${no}" != "") {
+      socket = io.connect("http://localhost:10001");
+      var id = "${no}"
+      socket.emit("setMemberNo", id);
       
-      var socket = io.connect("http://localhost:10001");
-      
-      socket.emit("setMemberNo", "${no}");
-      
-      socket.on("setMemberNo", function(data){
-        
-      $(".rUserList").empty();
-        for(var i in data){
-          if(id != data[i]){
-               $(".rUserList").append("<input type='checkbox' id='member"+data[i]+"' class='member' />"+data[i])
-             }
-           }
-      })
-         
-			socket.on("msg", function(data){
-			  console.log("asdasdf"+data.msg);
-			  $("#msgList").appnend("<p>"+data.sendId+":"+data.msg+"</p>");
-			});
-      
-			$("#sendMsg").click(function() {
-          $(".member:checked").each(function(){
-            var recvId = $(this).attr("id").slice(6);
-            if($("#msg").val() != ""){
-              console.log("씨발....."+recvId);
-              console.log("개시팔....."+$("#msg").val());
-              
-          		socket.emit("msg", { recvId : recvId, sendId : "${no}", sendMsg : $("#msg").val()});
-            }else{
-              alert("내용입력하세용");
-              $("#msg").focus();
-            }
-          })
-          $("#msg").val("");  
-        });
-  }   
-});
-// 					var div = "";
-// 					var list = "";
-//            $(".studyMemberList").empty();
-//            $.post("/WithProject/member/groupList.json", {memberNo:"${no}"}, function(data){
-//              $.each(data, function(index, MemberVO){
-            
-//                div += "<div id='"+data[index].groupNo+"'>";
-//                	div += "<p class='node-title'> ○.○"+data[index].groupNo+" 번 그룹</p>";
-//                		div += "<ul style='display:none;'>";   
-//                			 // 멤버 출력
-//                			 $.ajax({
-//                			  url : "/WithProject/member/memberList.json?groupNo="+data[index].groupNo,
-//                			  type: "POST",
-//                			  datatype : "JSON",
-//                			  success:function(member, status){
-//                			   list = "";
-//                			    $.each(member, function(no, MemberVO){
-//                			     		list += "<li>멤버"+member[no].memberNo+"<input type='button' value='쪽지' /></li>";
+
+					var div = "";
+					var list = "";
+					
+           $(".studyMemberList").empty();
+           $.post("/WithProject/member/groupList.json", {memberNo:"${no}"}, function(data){
+             $.each(data, function(index, MemberVO){
+               
+               div += "<div id='"+data[index].groupNo+"'>";
+               	div += "<p class='node-title' style='font-size: 20px'>[-----------"+data[index].groupNo+" 번 그룹----------- ]</p>";
+               		div += "<ul style='display:none;'>";
+               		 div += "<li><input type='text' id='msg' /><input type='button' value='보내기' class='send'></li>";
+               			 // 멤버 출력
+               			 $.ajax({
+               			  url : "/WithProject/member/memberList.json?groupNo="+data[index].groupNo,
+               			  type: "POST",
+               			  datatype : "JSON",
+               			  success:function(member, status){
+               			    
+               			   list = "";
+               			  	   
+               			    $.each(member, function(no, MemberVO){
+               			      if(id != member[no].memberNo)
+               			     		list += "<li stlye><input type='checkbox' class='member' id='member"+member[no].memberNo+"' value='쪽지' />멤버"+member[no].memberNo+"</li>";
                			    		
-//                			    	})
-//                			    	$('#'+data[index].groupNo+' ul').append(list);
-//                			  	}
-//                			  })
+               			    	})
+               			    	$('#'+data[index].groupNo+' ul').append(list);
+               			   		 
+               			  	}
+               			  })
         		    	  
-//       	         	div += "</ul>"
-//                div += "</div>";
-//              })
-//              $(".studyMemberList").append(div);
-             
-//              test();
-//            })
-//       	}
-//     })
-//     function test() {
-//     $('.node-title').on('click', function(){
-//       $(this).next().slideToggle();
-//     });
-//  } 
-						
+      	         	div += "</ul>"
+               div += "</div>";
+             })
+             $(".studyMemberList").append(div);
+             msgList(id);
+             test();
+           });
+           
+          socket.on("msg", function(data){
+       	    console.log("들어오겠찡"+data.msg);
+       	    $("#msgList").append("<div>"+data.sendId+"님에게 메시지가 도착! <input type='button' class='detail' value='보기'><p>"+data.date+"</p></div>");
+       	    $('.detail').one('click', function(){
+       	      $.post("/WithProject/msg/updateMsg.do", { msgNo : data.msgNo }); 
+       	      $(this).parent().html("<div id='msg"+data.cntId+"'><p>내용 : "+data.msg+"</p><input type='text' id='sendText'/><input type='button' value='보내기' class='send' /></div>");
+                     
+                     $("#msg"+data.cntId+" > .send").click(function(){
+                       var sId = data.sendId;
+                       var groupNo = data.groupNo
+                       if($("#sendText").val() != ""){
+                       socket.emit("msg", {recvId: sId, sendId : id, sendMsg : $("#sendText").val(), groupNo : groupNo, date: new Date().toUTCString()});
+                       }else{
+                         alert("내용입력하세요~");
+                         $("#sendText").focus();
+                       }
+                       $(this).parent().parent().parent().remove();
+                     });
+                     
+                   });
+       	    })          
+      	}
+});
+    function test() {
+    $('.node-title').on('click', function(){
+      $(this).next().slideToggle();
+    });
+ }
+    function msgList(id){
+      socket = io.connect("http://localhost:10001");
+      $(".send").click(function(){
+	        console.log("눌렸다.");
+	        var groupNum = $(this).parent().parent().parent().attr('id');
+	        
+	        console.log("그룹번호"+ $(this).parent().parent().parent().attr('id'));
+	        
+	        $(this).parent().siblings().find(".member:checked").each(function(){
+	          var recvId = $(this).attr("id").slice(6);
+	          	if($("#sendText").val() != ""){
+	          	  socket.emit("msg", {recvId : recvId, sendId : id, sendMsg : $("#sendText").val(), groupNo : groupNum ,  date: new Date().toUTCString() });
+	          	//  $("#sendText").val() = "";
+	          	}
+	          else{
+	            alert("내용입력 ㄱㄱ욤");
+	            $("#msg").focus();
+	          }
+	        })
+	      })
+    }
   </script>

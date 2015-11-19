@@ -15,13 +15,11 @@
 					<li><button type="button">메시지</button></li>
 				</ul>
 				<div class="pin-content">
-					<div class="studyMemberList">
-						<div class="rUserList">
+					<div id="msgList" style="font-size: 20px; line-height:30px; height:auto;">
+					</div>
+					<div class="studyMemberList" style="font-size: 20px; line-height:30px; height:auto;">
+						<div class="rUserList" style="font-size: 20px; line-height:30px; height:auto;">
 							
-						</div>
-						<input type="text" id="msg" />
-						<input type="button" id="sendMsg"value="메세지 전송" />
-						<div id="msgList">
 						</div>
 					</div>
 				</div>
