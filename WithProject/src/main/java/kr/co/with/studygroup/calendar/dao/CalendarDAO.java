@@ -14,8 +14,8 @@ public class CalendarDAO {
    @Autowired
    private SqlSessionTemplate session;
    
-   public int registSch(CalendarVO test) {
-      session.insert("with.calendar.dao.registSch", test);
+   public int registSch(CalendarVO calendar) {
+      session.insert("with.calendar.dao.registSch", calendar);
       return session.selectOne("with.calendar.dao.maxId");
    }
 
@@ -23,8 +23,8 @@ public class CalendarDAO {
       return session.selectList("with.calendar.dao.selectSch");
    }
 
-   public void updateSch(CalendarVO test) {
-      session.update("with.calendar.dao.updateSch",test);
+   public void updateSch(CalendarVO calendar) {
+      session.update("with.calendar.dao.updateSch",calendar);
    }
 
    public void deleteSch(int no) {

@@ -71,4 +71,10 @@ public class CalendarVO {
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+	@Override
+	public String toString() {
+		return "CalendarVO [id=" + id + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", calendarDetail=" + calendarDetail + ", color=" + color + ", textColor=" + textColor + ", groupNo="
+				+ groupNo + ", groupName=" + groupName + ", memberNo=" + memberNo + "]";
+	}
 }
