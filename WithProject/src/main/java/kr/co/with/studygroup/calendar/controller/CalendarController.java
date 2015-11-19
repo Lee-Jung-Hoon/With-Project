@@ -27,20 +27,11 @@ public class CalendarController {
    
    @RequestMapping("/regist_sch.json")
    @ResponseBody
-   public int registSch(String title, String startDate, String endDate, String textColor, String color) throws Exception {
-	  CalendarVO calendar = new CalendarVO();
-	 
-	  
-	  // 그룹NO 받을 자리
-	  calendar.setGroupNo(1);
+   public int registSch(CalendarVO calendar) throws Exception {
 	  	
 	  // 멤버NO
-	  //calendar.setCalendarDetail(calendarDetail);
-	  calendar.setColor(color);
-	  calendar.setTextColor(textColor);
-	  calendar.setStartDate(startDate);
-	  calendar.setEndDate(endDate);
-	  calendar.setTitle(title);
+	  //calendar.setCalendarDetail(calendarDetail);;
+	  
 	  return service.registSch(calendar);
    }
    
@@ -53,6 +44,8 @@ public class CalendarController {
    @RequestMapping("/update_sch.json")
    @ResponseBody
    public List<CalendarVO> updateSch(CalendarVO calendar) throws Exception {
+	   // 그룹NO 받을 자리
+	  // 상세글 넣을 자리
       service.updateSch(calendar);
       return service.selectList();
    }
