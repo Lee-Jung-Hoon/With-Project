@@ -59,4 +59,11 @@ public class MainController {
 	public String CreateGroup() throws Exception {
 		return "createGroup";
 	}
+	
+	// 테스트
+	// 가계부 테스트
+	@RequestMapping("/moneybookMain.do")
+	public String MoneybookMain() throws Exception {
+		return "StudyGroupMoneyBook/moneybookMain";
+	}
 }

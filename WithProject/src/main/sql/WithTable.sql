@@ -17,10 +17,6 @@ GROUP_REGDATE datetime default current_timestamp,
 MEMBER_NO int not null
 );
 
-
-
-
-
 create table T_WITH_JOINSTUDYGROUP(
 	join_no int not null primary key auto_increment,
     MEMBER_NO int,
@@ -53,3 +49,13 @@ GROUP_NO INT	NOT NULL,
 MEMBER_NO INT	NOT NULL
 );
 
+
+create table T_WITH_STUDYGROUP_MONEYBOOK(
+M_NO INT NOT NULL auto_increment primary key, 
+GROUP_NO INT NOT NULL,
+MEMBER_NO INT NOT NULL,
+M_DATE DATETIME	NOT NULL,
+M_MEMO VARCHAR(400)	NOT NULL,
+M_MONEY INT	NOT NULL,
+M_LEFT VARCHAR(100)	NOT NULL,
+M_RIGHT VARCHAR(100) NOT NULL);

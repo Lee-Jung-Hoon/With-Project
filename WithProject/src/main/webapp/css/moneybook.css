@@ -1,0 +1,138 @@
+@CHARSET "UTF-8";
+
+
+.container {
+	width: 100%;
+		
+}
+
+.moneybook-top {
+	overflow: hidden;
+	width: 65%;
+	border: 1px solid #bbb;
+	margin: 0 auto 0;
+	background: #eee;
+}
+
+.moneybook-top ul {
+	list-style: none; 
+	overflow: hidden;
+}
+
+.moneybook-top li {
+	float: left;    
+	padding-right: 68px;
+}
+
+.moneybook-top li a {
+	text-decoration: none;
+}
+
+.moneybook-main {
+	overflow: hidden;
+	width: 65%;
+	border: 1px solid #bbb;
+/* 	border-radius: 5px; */
+	margin: 0 auto 0;
+	margin-bottom: 30px;
+}
+
+.moneybook-main .main-row {
+	padding-left: 10px;
+	float: left;
+}
+
+.moneybook-main .main-row-spend {
+	padding-left: 10px;
+	float: left;
+}
+
+.moneybook-main .main-row-import {
+	padding-left: 10px;
+	float: left;
+}
+
+.main-row .money {
+	text-align: right;
+}
+
+.main-row .reg-btn {
+	width: 100px;
+	height: 264px;
+	font-size: 20px;
+}
+
+.moneybook-main h4 {
+	background: #eee;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.moneybook-main span {
+	font-size: 13px;
+}
+
+.moneybook-main .quick-money {
+	width: 100%;
+	height: 200px;
+}
+
+.moneybook-main .quick-menu {
+	display: none;
+	text-align: right;
+}
+
+.moneybook-main .quick-menu a {
+	text-decoration: none;
+	color: blue;
+	font-size: 15px;
+}
+
+.moneybook-list {
+	overflow: hidden;
+	width: 95%;
+	margin: 10px auto 10px;
+}
+
+.moneybook-list .moneybook-item {
+	width: 100%;
+	overflow: hidden;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-bottom-style: inset;
+}
+
+.moneybook-item .item-date {
+	width: 15%;
+	float: left;
+	line-height: 30px;
+}
+
+.moneybook-item .item-memo {
+	width: 25%;
+	float: left;
+	line-height: 30px;
+}
+
+.moneybook-item .item-money, .item-total {
+	width: 10%;
+	padding-right: 2%;
+	text-align: right;
+	float: left;
+	line-height: 30px;
+}
+
+.moneybook-item .item-import, .item-spend, .item-menu, .item_writer {
+	width: 12%;
+	float: left;
+	height: 30px;
+	overflow: hidden;
+	line-height: 30px;
+}
+
+.moneybook-item .menu-span {
+	width: 100%;
+	float:left;
+	height: 30px;
+	display: none;
+}
