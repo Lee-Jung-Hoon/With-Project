@@ -15,6 +15,7 @@
 		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupBookmarkVO" alias="studygroupbookmark"/>
 		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupCommentVO" alias="studygroupcomment"/>
 		<typeAlias type="kr.co.with.studygroup.vo.StudyGroupPagingVO" alias="studygrouppaging"/>
+		<typeAlias type="kr.co.with.studygroup.moneybook.vo.MoneyBookVO" alias="moneybook"/>
 	</typeAliases>
 </configuration>
 
