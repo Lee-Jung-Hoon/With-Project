@@ -28,6 +28,12 @@
       from t_with_studygroup_calendar 
    </select>
    
+   <select id="updateForm" resultMap="calResult" parameterType="int">
+      select start_date, end_date, title, color, text_color, calendar_detail
+      from t_with_studygroup_calendar 
+      where id = #{id}
+   </select>
+   
    <update id="updateSch" parameterType="calendar">
       update 
       	t_with_studygroup_calendar

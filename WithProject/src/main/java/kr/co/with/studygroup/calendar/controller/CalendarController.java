@@ -31,7 +31,7 @@ public class CalendarController {
 	  	
 	  // 멤버NO
 	  //calendar.setCalendarDetail(calendarDetail);;
-	  
+	  System.out.println("몇번째??");
 	  return service.registSch(calendar);
    }
    
@@ -40,6 +40,12 @@ public class CalendarController {
    public List<CalendarVO> selectList() throws Exception {
       return service.selectList();
    }
+   @RequestMapping("/update_form.json")
+   @ResponseBody
+   public CalendarVO updateForm(int no) throws Exception {
+	   return service.updateForm(no);
+   }
+   
    
    @RequestMapping("/update_sch.json")
    @ResponseBody

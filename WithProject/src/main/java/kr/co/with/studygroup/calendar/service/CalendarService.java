@@ -12,5 +12,7 @@ public interface CalendarService {
 
    public void updateSch(CalendarVO calendar) throws Exception;
 
-   public void deleteSch(int no) throws Exception; 
+   public void deleteSch(int no) throws Exception;
+
+   public CalendarVO updateForm(int no) throws Exception; 
 }

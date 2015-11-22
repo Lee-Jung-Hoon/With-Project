@@ -29,4 +29,8 @@ public class CalendarServiceImpl implements CalendarService {
    public void deleteSch(int no) throws Exception {
       dao.deleteSch(no);
    }
+
+   public CalendarVO updateForm(int no) throws Exception {
+	  return dao.updateForm(no);
+   }
 }
