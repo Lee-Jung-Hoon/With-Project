@@ -28,8 +28,11 @@ public class CalendarDAO {
    }
 
    public void deleteSch(int no) {
-	   System.out.println(no);
       session.delete("with.calendar.dao.deleteSch", no);
+   }
+
+   public CalendarVO updateForm(int no) {
+	   return session.selectOne("with.calendar.dao.updateForm", no);
    }
 
 }

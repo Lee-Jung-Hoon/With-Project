@@ -16,7 +16,12 @@
 		btnInsert = $('.btn-calendar-insert');
 		btnCancel = $('.btn-calendar-cancel');
 		groupNo = $('.group-no').val();
-		
+		$('.cal-frame-first .cancel, .cal-frame-second .close').on('click', function(){
+		  frameClose($(this));
+		});
+		$('.cal-frame-second .update').on('click', function(){
+			
+		});
 		
 	  $(window).scroll(function() {	
    		$('.banner').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});       		
@@ -48,25 +53,24 @@
             events: array,
             dragOpacity: .75,
             eventRender: function(event, element) { 
-	    	      element.find('.fc-title').attr('data-detail',event.detail).attr('data-member',event.memberNo).attr('data-id',event.id); 
+	    	      //element.find('.fc-title').attr('data-detail',event.detail).attr('data-member',event.memberNo).attr('data-id',event.id); 
 	          },    
             // 일정 클릭
             eventClick: function(calEvent, jsEvent, view) {
 							var offset = $('.container').offset();
-							//var top ($(this).offset().top);
 							var top = offset.top;
 							var left = offset.left;
-							var no = $(this).find('.fc-title').attr('data-id');
-							console.log('top : '+ offset.top);
-							console.log('left : '+ offset.left);
+							//var id = $(this).find('.fc-title').attr('data-id');
+							//console.log('top : '+ offset.top);
+							//console.log('left : '+ offset.left);
 							$('.cal-frame-second .del').on('click', function(){
-							  deleteCalendar(no);
+							  deleteCalendar(calEvent.id, $(this));  
 							});
 							$('.cal-frame-second .update').on('click', function(){
-							  
+							  updateForm(calEvent.id);
 							});
 							$('.cal-frame-second').hide();
-							$('.cal-frame-second').css({'top':jsEvent.pageY - top +'px','left':jsEvent.pageX - left +'px'}).show().find('.no').val(target);
+							$('.cal-frame-second').css({'top':jsEvent.pageY - top +'px','left':jsEvent.pageX - left +'px'}).show().find('.no').val(id);
 							
               //alert('Event: ' + calEvent.detail);
               //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -85,11 +89,11 @@
     		    eventResize: function(event, delta, revertFunc) {
     		      update(event, revertFunc, $(this));
     		    },
-    		    eventReceive: function(event){
+    		    /*eventReceive: function(event){
     		    	   var title = event.title;
     		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
     		    	   $('#calendar').fullCalendar('updateEvent',event);
-    		    },
+    		    },*/
     		    select: function(start, end) {
              
 							//var start2=moment(start).format();
@@ -108,10 +112,11 @@
                 var dateStart = $('.date-start').val();
                 var dateEnd = $('.date-end').val();
                 var detail = $('.calendar-detail').val();
-  		        	var memberNo = $(this).attr('data-member');
+  		        	var memberNo = 1;
                 
                 if ($(this).hasClass('insert')) {
-                  insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo);          		        
+                  console.log("호출함");
+                  insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt, detail, groupNo, memberNo);          		        
           		  } 
                 $('.cal-frame-first').hide();
                 $('#calendar').fullCalendar('unselect');
@@ -134,22 +139,24 @@
 		
    });
 	function insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo) {
-	  	
+	  	console.log("호출됨");
 	    $.ajax({
          url: "${pageContext.request.contextPath}/calendar/regist_sch.json",
-         data: {title:title, startDate:moment(start).format('YYYY-MM-DD'), endDate:moment(end).format('YYYY-MM-DD'), color:colorBar.split('#')[1], textColor:colorTxt.split('#')[1], calendarDetail:detail, groupNo:groupNo, memberNo:1}
+         data: {title:title, startDate:start, endDate:end, color:colorBar.split('#')[1], textColor:colorTxt.split('#')[1], calendarDetail:detail, groupNo:groupNo, memberNo:1}
        }).done(function(response){
+         console.log(response);
          eventData = {
              title: title,
              start: start,
              end: end,
-             id: response,
+             id: id,
              color: colorBar,
              textColor: colorTxt,
              detail: detail
-          },
+          }
          	
-          $('#calendar').fullCalendar('renderEvent', eventData, true).fullCalendar('updateEvent',event); // stick? = true
+          $('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
+         	$('#calendar').fullCalendar('updateEvent',event); 
        });
 	   
 	}
@@ -158,10 +165,14 @@
 		var start = event.start;
 		var end = event.end;
 		var title = event.title;
-		var color = rgb2hex(tag.css('background-color')).split('#')[1];
-		var textColor = rgb2hex(tag.css('color')).split('#')[1];
-		var detail = tag.find('.fc-title').attr('data-detail');
-		var memberNo = tag.find('.fc-title').attr('data-member');
+		var color = event.color;
+		var textColor = event.textColor;
+		var detail = event.detail;
+		var memberNo = event.memberNo;
+		//var color = rgb2hex(tag.css('background-color')).split('#')[1];
+		//var textColor = rgb2hex(tag.css('color')).split('#')[1];
+		//var detail = tag.find('.fc-title').attr('data-detail');
+		//var memberNo = tag.find('.fc-title').attr('data-member');
 	  start = moment(start).format("YYYY-MM-DD");
 	  end = moment(end).format("YYYY-MM-DD");
 
@@ -175,18 +186,35 @@
     	revertFunc();
 	 });
 	}
+	// 삭제 수정 레이어 닫기 버튼 클릭
 	
-	function updateForm() {
-	  
+	function frameClose(closeTag) {
+	  closeTag.parent().hide();
+	  $('.cal-frame-first .update').hide();
+	  $('.cal-frame-first .insert').show();
+	} 
+	
+	//삭제 수정 레이어 일정수정 버튼 클릭
+	function updateForm(id) {
+	  $('.cal-frame-second').hide();
+	  $('.cal-frame-first .insert').hide();
+	  $('.cal-frame-first .update').show();
+	  $('.cal-frame-first').show();
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/calendar/update_form.json?no="+ id
+	  }).done(function(){
+	 		$('.cal-frame-first .title span:last').val();   
+	  });
 	}
-	function deleteCalendar(no) {
+	
+	//삭제 수정 레이어 일정 삭제 버튼 클릭
+	function deleteCalendar(id, closeTag) {
     $.ajax({     
-      url: "${pageContext.request.contextPath}/calendar/delete_sch.json?no="+ no
+      url: "${pageContext.request.contextPath}/calendar/delete_sch.json?no="+ id
     })
     .done(function () {   
-      $('#calendar').fullCalendar('removeEvents', no);
-    	//$("#calOption").hide();
-      $('.cal-frame-second').hide();
+      $('#calendar').fullCalendar('removeEvents', id);
+      frameClose(closeTag);
     });
   }
 	function rgb2hex(orig){
@@ -235,6 +263,9 @@
 		width:150px;
 		margin-left:20px;
 	}
+	.cal-frame-first .update {
+		display:none;
+	}
 	.cal-frame-second {
 		position:absolute;
 		width:300px;
@@ -279,15 +310,16 @@
 			<div class="cal-frame-first">
 				<p>일정등록</p>
 				<ul>
-					<li><span>제목 :</span><span><input type="text" class="title" /></span></li>
-					<li><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
-					<li><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
-					<li><span>이벤트색 :</span><span><input type="color" class="color-bar" /></span></li>
-					<li><span>글자색 :</span><span><input type="color" class="color-txt" /></span></li>
-					<li><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
+					<li class="title"><span>제목 :</span><span><input type="text" class="title" /></span></li>
+					<li class="start"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
+					<li class="end"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
+					<li class="color"><span>이벤트색 :</span><span><input type="color" class="color-bar" /></span></li>
+					<li class="txtColor"><span>글자색 :</span><span><input type="color" class="color-txt" /></span></li>
+					<li class="detail"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
 				</ul>
 				<button type="button" class="insert">등록</button>
-				<button type="button" class="cancel">등록취소</button>
+				<button type="button" class="update">수정</button>
+				<button type="button" class="cancel">취소</button>
 				<input type="hidden" class="group-no" value="1" />
 			</div>
 			<div class="cal-frame-second">
