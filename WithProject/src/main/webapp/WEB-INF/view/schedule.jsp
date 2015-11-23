@@ -37,7 +37,7 @@
         }).done(function (doc) { 
             var array = Array();
             $.each(doc, function(i, entry){ 
-              array.push({id: entry.id, title: entry.title, start: entry.startDate, end:entry.endDate ,color:"#"+entry.color, textColor:"#"+entry.textColor, detail:entry.calendarDetail, memberNo:entry.memberNo});
+              array.push({id: entry.id, title: entry.title, start: entry.startDate, end:entry.endDate ,color:entry.color, textColor:entry.textColor, detail:entry.calendarDetail, groupNo:entry.groupNo, memberNo:entry.memberNo});
             }); 
             $('#calendar').fullCalendar({
            	lang : 'ko',
@@ -52,9 +52,11 @@
             editable: true,	
             events: array,
             dragOpacity: .75,
-            eventRender: function(event, element) { 
-	    	      //element.find('.fc-title').attr('data-detail',event.detail).attr('data-member',event.memberNo).attr('data-id',event.id); 
-	          },    
+            /*
+            eventRender: function(event, element) {
+	    	      element.find('.fc-title').attr('data-detail',event.detail).attr('data-member',event.memberNo).attr('data-id',event.id); 
+	          },
+	          */
             // 일정 클릭
             eventClick: function(calEvent, jsEvent, view) {
 							var offset = $('.container').offset();
@@ -112,6 +114,7 @@
                 var dateStart = $('.date-start').val();
                 var dateEnd = $('.date-end').val();
                 var detail = $('.calendar-detail').val();
+                var groupNo = 1;
   		        	var memberNo = 1;
                 
                 if ($(this).hasClass('insert')) {
@@ -142,21 +145,21 @@
 	  	console.log("호출됨");
 	    $.ajax({
          url: "${pageContext.request.contextPath}/calendar/regist_sch.json",
-         data: {title:title, startDate:start, endDate:end, color:colorBar.split('#')[1], textColor:colorTxt.split('#')[1], calendarDetail:detail, groupNo:groupNo, memberNo:1}
+         data: {title:title, startDate:start, endDate:end, color:colorBar, textColor:colorTxt, calendarDetail:detail, groupNo:groupNo, memberNo:memberNo}
        }).done(function(response){
          console.log(response);
          eventData = {
              title: title,
              start: start,
              end: end,
-             id: id,
+             id: response,
              color: colorBar,
              textColor: colorTxt,
              detail: detail
           }
          	
-          $('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
-         	$('#calendar').fullCalendar('updateEvent',event); 
+          $('#calendar').fullCalendar( 'renderEvent', eventData, false )
+          $('#calendar').fullCalendar('updateEvent',event);
        });
 	   
 	}
@@ -168,6 +171,7 @@
 		var color = event.color;
 		var textColor = event.textColor;
 		var detail = event.detail;
+		var groupNo = event.groupNo;
 		var memberNo = event.memberNo;
 		//var color = rgb2hex(tag.css('background-color')).split('#')[1];
 		//var textColor = rgb2hex(tag.css('color')).split('#')[1];
@@ -310,12 +314,12 @@
 			<div class="cal-frame-first">
 				<p>일정등록</p>
 				<ul>
-					<li class="title"><span>제목 :</span><span><input type="text" class="title" /></span></li>
-					<li class="start"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
-					<li class="end"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
-					<li class="color"><span>이벤트색 :</span><span><input type="color" class="color-bar" /></span></li>
-					<li class="txtColor"><span>글자색 :</span><span><input type="color" class="color-txt" /></span></li>
-					<li class="detail"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
+					<li class="title-area"><span>제목 :</span><span><input type="text" class="title" /></span></li>
+					<li class="start-area"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
+					<li class="end-area"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
+					<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" /></span></li>
+					<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" /></span></li>
+					<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
 				</ul>
 				<button type="button" class="insert">등록</button>
 				<button type="button" class="update">수정</button>
