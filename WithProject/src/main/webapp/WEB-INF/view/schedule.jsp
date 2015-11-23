@@ -159,7 +159,7 @@
           }
          	
           $('#calendar').fullCalendar( 'renderEvent', eventData, false )
-          $('#calendar').fullCalendar('updateEvent',event);
+          //$('#calendar').fullCalendar('updateEvent',event);
        });
 	   
 	}
@@ -317,8 +317,8 @@
 					<li class="title-area"><span>제목 :</span><span><input type="text" class="title" /></span></li>
 					<li class="start-area"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
 					<li class="end-area"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
-					<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" /></span></li>
-					<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" /></span></li>
+					<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" value="#3a87ad" /></span></li>
+					<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" value="#ffffff" /></span></li>
 					<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
 				</ul>
 				<button type="button" class="insert">등록</button>
@@ -330,7 +330,6 @@
 				<button type="button" class="del">일정삭제</button>
 				<button type="button" class="update">일정수정</button>
 				<button type="button" class="close">닫기</button>
-				<input type="hidden" class="no" />
 			</div>
 			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
 		</div>
