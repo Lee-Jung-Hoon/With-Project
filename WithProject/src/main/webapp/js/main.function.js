@@ -1,6 +1,20 @@
 var search = "";
 var isClick = "false";
 $(document).ready(function() {
+  
+    var d = new Date();
+    $("#memberAge").on('change', function() {
+      var test = (d.getFullYear() - $("#memberAge").val() + 1);
+      $("#rAge").html("나이 : " + (test) + "세");
+      
+      var gender = document.getElementsByName('memberGender');
+      for (var i = 0; i < gender.length; i++) {
+        if (gender[i].checked == true) {
+          console.log(gender[i].value);
+        }
+      }
+    })  
+  
   var startPage = 0;
   var endPage = 19;
   MainList(startPage, endPage);
