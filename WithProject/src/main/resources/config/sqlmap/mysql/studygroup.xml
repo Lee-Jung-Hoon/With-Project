@@ -119,16 +119,14 @@
 	</select>
 	
 	<!-- 스터디그룹 즐겨찾기 중복을 확인하기 위한 쿼리문  -->
-	<select id="selectOverlapBookmark" parameterType="studygroupbookmark" resultType="studygroupbookmark">
-		select 
-			count(bookmark_no)
-		from 
-			t_with_member_bookmark
-		where 
-			group_no = #{groupNo}
-		  and
-		  member_no = #{memberNo}
-	</select>
+   <select id="selectOverlapBookmark" parameterType="studygroupbookmark" resultType="int">
+      select count(*)
+      from t_with_member_bookmark
+      where 
+         group_no = #{groupNo}
+        and
+        member_no = #{memberNo}
+   </select>
 	
 	<!-- 스터디그룹 즐겨찾기 등록을 위한 쿼리문 -->
 	<insert id="insertBookmark" parameterType="studygroupbookmark">

@@ -42,7 +42,7 @@ public class StudyGroupDAO {
 	}
 
 	// 스터디그룹 즐겨찾기 중복 확인을 위한 DAO
-	public StudyGroupBookmarkVO selectOverlapBookmark(StudyGroupBookmarkVO bookmark) {
+	public int selectOverlapBookmark(StudyGroupBookmarkVO bookmark) {
 		return session.selectOne("with.studygroup.dao.selectOverlapBookmark", bookmark);
 	}
 
