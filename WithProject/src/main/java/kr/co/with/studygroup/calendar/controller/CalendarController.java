@@ -21,7 +21,7 @@ public class CalendarController {
    
    @RequestMapping("/schedule.do")
    public String schedule() throws Exception {
-      return "schedule";
+      return "StudygroupSchedule/schedule";
    }
    
    

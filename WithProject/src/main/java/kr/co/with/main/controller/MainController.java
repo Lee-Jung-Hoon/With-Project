@@ -51,7 +51,7 @@ public class MainController {
 	
 	@RequestMapping("/createExamForm.do")
 	public String CreateExamForm() throws Exception {
-		return "createExamForm";
+		return "StudygroupExam/createExamForm";
 	}
 	
 	// 스터디 그룹 개설

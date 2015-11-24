@@ -29,7 +29,7 @@ public class StudyGroupExamController {
 	// 시험 만들기 폼 테스트
 	@RequestMapping("/examList.do")
 	public ModelAndView ExamList() throws Exception {
-		ModelAndView mav = new ModelAndView("examList");
+		ModelAndView mav = new ModelAndView("StudygroupExam/examList");
 		List<StudyGroupExamVO> list = service.selectExamList(1);
 		mav.addObject("list", list);
 		return mav;
@@ -71,7 +71,7 @@ public class StudyGroupExamController {
 	
 	@RequestMapping("/examResolve.do")
 	public ModelAndView ExamList(int no, String info, String title) throws Exception {
-		ModelAndView mav = new ModelAndView("examResolve");
+		ModelAndView mav = new ModelAndView("StudygroupExam/examResolve");
 		List<StudyGroupExampleVO> list = service.selectExampleList(no);
 		mav.addObject("info", info);
 		mav.addObject("title", title);
@@ -94,14 +94,13 @@ public class StudyGroupExamController {
 	}
 	@RequestMapping("/examResult.do")
 	public ModelAndView ExamResult(StudyGroupExamResultVO result)throws Exception{
-		ModelAndView mav = new ModelAndView("examResult");
+		ModelAndView mav = new ModelAndView("StudygroupExam/examResult");
 		result.setGroupNo(1);
 		result.setMemberNo(1);
 		service.insertExamResult(result);
 		mav.addObject("chkNo", result.getExamChkNo());
 		mav.addObject("totalNo", result.getExamTotalNo());
 		mav.addObject("score", result.getExamScore());
-			System.out.println("맞은수"+result.getExamChkNo()+"시험점수"+result.getExamScore()+"총문제수"+result.getExamTotalNo());
 		// meberNo와 groupNo를 넣어줄 자리
 			return mav;
 	}
