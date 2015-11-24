@@ -2,8 +2,33 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div class="dark-layer"></div>
+	<script>
+  $(document).ready(function() {
+    var d = new Date();
+
+    $("#memberAge").on('change', function() {
+      var test = (d.getFullYear() - $("#memberAge").val() + 1);
+      $("#rAge").html("나이 : " + (test) + "세");
+      
+      var gender = document.getElementsByName('memberGender');
+      for (var i = 0; i < gender.length; i++) {
+        if (gender[i].checked == true) {
+					console.log(gender[i].value);
+        }
+      }
+    })   
+  
+//     if ("${no}" != null) {
+//         socket = io.connect("http://localhost:10001");
+//         socket.emit("login", "${no}");
+//         var study
+//         $(".studyMemberList").empty();
+//         $.get("/WithProject/member/memberList.do", )
+//         for(var i  in data){}
+//       }
+    })
+  </script>
 	<header>
-		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<div class="bookmarkZone">
 			<span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
 			<span class="txt">샘플 텍스트</span>
@@ -16,12 +41,14 @@
 				</ul>
 				<div class="pin-content">
 					<div id="msgList" style="font-size: 20px; line-height:30px; height:auto;">
-					</div>
-					<div class="studyMemberList" style="font-size: 20px; line-height:30px; height:auto;">
-						<div class="rUserList" style="font-size: 20px; line-height:30px; height:auto;">
-							
-						</div>
-					</div>
+               <input type="button" id="newMsgList" value="새로운 메시지" />
+               <div id="newMsg"></div>
+               </div>
+               <div class="studyMemberList" style="font-size: 20px; line-height:30px; height:auto;">
+                  <div class="rUserList" style="font-size: 20px; line-height:30px; height:auto;">
+                     
+                  </div>
+               </div>
 				</div>
 			</div>			
 		</div>
@@ -31,20 +58,21 @@
 				<dl class="list maki">
 				
 					<c:choose>
-					<c:when test="${empty id}">
-					<dt>
-						<button type="button" class="toggle">LOGIN</button>
-					</dt>
-					</c:when>
-					<c:otherwise>
-					<dt>
-							<button type="button" class="toggle" onclick='location.href="${pageContext.request.contextPath}/member/logout.do"'>LOGOUT</button>
-					</dt>
-					</c:otherwise>
-					</c:choose>
-					 <dd class="fb-login">
-						<em><a href="#">페이스 북 로그인</a></em>
-					</dd>
+               <c:when test="${empty id}" >
+               <dt>
+                  <button id="facebook-login-btn" type="button" class="toggle" >LOGIN</button>
+               </dt>
+               </c:when>
+               <c:otherwise>
+               <dt>
+                     <button type="button" id="facebook-logout-btn" class="toggle" 
+                                        onclick='location.href="${pageContext.request.contextPath}/member/logout.do"; FB.logout()'>LOGOUT</button>
+               </dt>
+               </c:otherwise>
+               </c:choose>
+                <dd class="fb-login">
+                  <em><a href="#" onclick="FB.login();">페이스 북 로그인</a></em>
+               </dd>
 					<dd class="input-login">
 						<em><input type="text" name="id" id="id" placeholder="ID" /></em>
 					</dd>
@@ -91,12 +119,15 @@
 			</form>
 		</div>
 	</div>
-		<div class="btn-search">
-			<div class="ico-search close">
-				<span class="element element-one"></span>
-				<span class="element element-two"></span> 				
-			</div> 
-		</div>
+	<script>
+			if ($('body').hasClass('page-main')) {
+			  document.write('<div class="btn-search">');
+			  document.write('<div class="ico-search close">');
+			  document.write('<span class="element element-one"></span><span class="element element-two"></span>');
+			  document.write('</div>');
+			  document.write('</div>');
+			}
+		</script>
 		<h2 class="hide">주메뉴</h2>
 		</ul>
 			<nav class="nav">

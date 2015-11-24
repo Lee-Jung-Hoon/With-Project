@@ -1011,11 +1011,16 @@ $(document).ready(function() {
   function selectCardList(start, end) {
     var arr1 = start.split('-');
     var arr2 = end.split('-');
-    var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
-    var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+    var dat1 = new Date(arr1[0], arr1[1]);
+    var dat2 = new Date(arr2[0], arr2[1]);
     
     for(var i=0; i<=arr2[1]-arr1[1]; i++) {
+      if(arr1[1]==12){
+        arr1[0] = Number(arr1[0]+1);
+        arr1[1] = 01;
+      }
     }
+    console.log(arr1[0] + "-" + arr1[1]);
   }
 
   function selectMainListOption(start, end) {
