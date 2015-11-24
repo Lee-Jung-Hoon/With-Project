@@ -36,6 +36,7 @@
 			M_DATE as mDate,
 			M_MEMO as mMemo,
 			M_MONEY as mMoney,
+			M_TYPE as mType,
 			M_LEFT as mLeft,
 			M_RIGHT as mRight,
 			reg_date as regDate
@@ -53,6 +54,7 @@
 			MEMBER_NO as memberNo,
 			M_DATE as mDate,
 			M_MEMO as mMemo,
+			M_TYPE as mType,
 			M_MONEY as mMoney,
 			M_LEFT as mLeft,
 			M_RIGHT as mRight,
@@ -70,4 +72,39 @@
 		delete from T_WITH_STUDYGROUP_MONEYBOOK
 		 where M_NO = #{no}		 
 	</delete>
+	
+	<select id="SelectMoneybookListOption" parameterType="moneybooksearch" resultType="moneybook">
+	select 
+			M_NO as mNo, 
+			GROUP_NO as groupNo,
+			MEMBER_NO as memberNo,
+			M_DATE as mDate,
+			M_MEMO as mMemo,
+			M_TYPE as mType,
+			M_MONEY as mMoney,
+			M_LEFT as mLeft,
+			M_RIGHT as mRight,
+			reg_date as regDate
+		from 
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			date_format(M_DATE, '%Y-%m-%d') between #{startDate} and #{endDate}
+		order by m_no desc
+	</select>
+	
+	
+	<select id="SortSearchMoneybook" parameterType="moneybooksearch" resultType="moneybook">
+		select 
+			sum(M_MONEY) as mMoney
+		from 
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			date_format(M_DATE, '%Y-%m-%d') between #{startDate} and #{endDate}
+	  and
+	    m_left like CONCAT('%', #{search}, '%')
+	</select>
 </mapper>
