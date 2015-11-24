@@ -84,7 +84,7 @@ public class StudyGroupController {
 		// 그룹 정보를 DB에 저장한 후 태그 저장을 위해 auto_increment 값을 가지고옴
 		int groupNo = service.insertStudyGroup(studyGroup);
 		
-//		// 다중 파일 저장
+		// 다중 파일 저장
 //		for(int i=0; i<files.size(); i++) {
 //			String fName = UUID.randomUUID().toString() + ".jpg";
 //			MultipartFile file = files.get(i);
@@ -92,14 +92,14 @@ public class StudyGroupController {
 //		}
 		
 		// 한 줄로 입력 받은 태그를 따로따로 구분함
-		String tags[] = tag.split(",");
-		StudyGroupTagVO tagVO = new StudyGroupTagVO();
-		tagVO.setGroupNo(groupNo);
-		for (int i = 0; i < tags.length; i++) {
-			tagVO.setTagName(tags[i]);
+//		String tags[] = tag.split(",");
+//		StudyGroupTagVO tagVO = new StudyGroupTagVO();
+//		tagVO.setGroupNo(groupNo);
+//		for (int i = 0; i < tags.length; i++) {
+//			tagVO.setTagName(tags[i]);
 			// 태그를 DB에 저장
-			service.insertStudygroupTag(tagVO);
-		}
+//			service.insertStudygroupTag(tagVO);
+//		}
 		return mav;
 	}
 
