@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.with.studygroup.moneybook.service.MoneybookService;
+import kr.co.with.studygroup.moneybook.vo.MoneyBookSearchVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 
 @RequestMapping("/moneybook")
@@ -25,6 +26,35 @@ public class MoneybookController {
 		return service.SelectMoneybookList(groupNo);
 	}
 	
+	@RequestMapping("/select_moneybookOption.json")
+	@ResponseBody
+	public List<MoneyBookVO> SelectMoneybookListOption(String start, String end) throws Exception {
+		// groupNo 넣을 자리
+		int groupNo = 1;
+		
+		MoneyBookSearchVO search = new MoneyBookSearchVO();
+		search.setEndDate(end);
+		search.setStartDate(start);
+		search.setGroupNo(groupNo);
+		
+		return service.SelectMoneybookListOption(search);
+	}
+	
+	@RequestMapping("/sortSearchMoneybook.json")
+	@ResponseBody
+	public List<MoneyBookVO> SortSearchMoneybook(String start, String end) throws Exception {
+		// groupNo 넣을 자리
+		int groupNo = 1;
+		
+		MoneyBookSearchVO search = new MoneyBookSearchVO();
+		search.setEndDate(end);
+		search.setStartDate(start);
+		search.setGroupNo(groupNo);
+		
+		return service.SortSearchMoneybook(search);
+	}
+	
+	
 	// 가계부 입력 등록을 위한 json
 	@RequestMapping("/reg_moneybook.json")
 	@ResponseBody
@@ -35,7 +65,6 @@ public class MoneybookController {
 		moneybook.setMemberNo(1);
 		return service.regMoneybook(moneybook);
 	}
-	
 	
 	@RequestMapping("/delete_moneybook.json")
 	@ResponseBody

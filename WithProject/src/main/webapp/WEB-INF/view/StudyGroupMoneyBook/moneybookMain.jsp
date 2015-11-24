@@ -6,6 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.moneybook.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="/WithProject/js/Donut3D.js"></script>
+<script>
+$(document).ready(function() {
+  $(".btnInsert").trigger('click');
+})
+</script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/moneybook.css" />
 <title>Insert title here</title>
 </head>
@@ -50,19 +57,19 @@
 		</li>
 		
 		<li>
-			<a href='#' class='btnGraph' style='padding: 5px;'>
+			<a href='#' class='btnGraph1' style='padding: 5px;'>
       	<img style=' width: 30px; background: #eee;' alt='' src='/WithProject/images/icon_graph1.png'/>
       </a>
 		</li>
 		
 		<li>
-			<a href='#' class='btnGraph' style='padding: 5px;'>
+			<a href='#' class='btnGraph2' style='padding: 5px;'>
       	<img style=' width: 30px; background: #eee;' alt='' src='/WithProject/images/icon_graph2.png'/>
       </a>
 		</li>
 		
 		<li>
-			<a href='#' class='btnGraph' style='padding: 5px;'>
+			<a href='#' class='btnGraph3' style='padding: 5px;'>
       	<img style=' width: 30px; background: #eee;' alt='' src='/WithProject/images/icon_chart.png'/>
       </a>
 		</li>
