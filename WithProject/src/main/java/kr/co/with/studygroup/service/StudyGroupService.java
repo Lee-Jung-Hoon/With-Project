@@ -18,7 +18,7 @@ public interface StudyGroupService {
 
 	public StudyGroupVO selectGruopDetail(int no) throws Exception;
 
-	public StudyGroupBookmarkVO selectOverlapBookmark(StudyGroupBookmarkVO bookmark) throws Exception;
+	public int selectOverlapBookmark(StudyGroupBookmarkVO bookmark) throws Exception;
 
 	public void insertBookmark(StudyGroupBookmarkVO bookmark) throws Exception;
 

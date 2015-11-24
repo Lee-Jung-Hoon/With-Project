@@ -158,12 +158,14 @@ $(document).ready(function() {
   $( ".bookmarkZone" ).droppable({
     drop: function( event, ui ) {
       var id = ($(ui.draggable).attr("id"));
-      console.log(id);
+      //console.log(id);
       // 즐겨찾기 성공
       $.ajax({
-        url: "/WithProject/studygroup/groupBookmark.json?groupNo="+id
-      })
-      .done(function(msg) {
+        url: "/WithProject/studygroup/groupBookmark.json",
+        data: {
+          groupNo : id,
+         }
+      }).done(function(msg) {
         alert(msg);
       })
     }

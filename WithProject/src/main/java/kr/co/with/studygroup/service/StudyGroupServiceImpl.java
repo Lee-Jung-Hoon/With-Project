@@ -39,7 +39,7 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	}
 
 	// 스터디그룹 즐겨찾기 중복을 확인하기 위한 service
-	public StudyGroupBookmarkVO selectOverlapBookmark(StudyGroupBookmarkVO bookmark) throws Exception {
+	public int selectOverlapBookmark(StudyGroupBookmarkVO bookmark) throws Exception {
 		return dao.selectOverlapBookmark(bookmark);
 	}
 

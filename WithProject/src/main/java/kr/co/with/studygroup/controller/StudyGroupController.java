@@ -133,30 +133,26 @@ public class StudyGroupController {
 	public List<StudyGroupCommentVO> CommentList(int groupNo) throws Exception {
 		return service.selectCommentList(groupNo);
 	}
-
+	
 	// 그룹 즐겨찾기 등록을 위한 JSON
 	@RequestMapping("/groupBookmark.json")
 	@ResponseBody
-	public String GroupBookmark(int groupNo) throws Exception {
-		int memberNo = 1;
-		String msg = "";
-
-		StudyGroupBookmarkVO bookmark = new StudyGroupBookmarkVO();
-		bookmark.setGroupNo(groupNo);
-		bookmark.setMemberNo(memberNo);
-		// 즐겨찾기 중복 확인
-		// bookmark = service.selectOverlapBookmark(bookmark);
-
-		// if(overlapNo==0) {
-		// bookmark.setGroupNo(groupNo);
-		// bookmark.setMemberNo(memberNo);
-		service.insertBookmark(bookmark);
-		msg = "등록 성공";
-		// }
-		// else {
-		// msg = "이미 즐겨찾기에 등록된 스터디그룹입니다.";
-		// }
-		return msg;
+	public String GroupBookmark(@RequestParam("groupNo") int groupNo, HttpServletRequest req) throws Exception {
+	   String msg = "";
+	   HttpSession session = req.getSession();
+	   System.out.println("스터디그룹 번호"+groupNo);
+	   System.out.println("회원 번호"+session.getAttribute("no"));
+	   StudyGroupBookmarkVO bookmark = new StudyGroupBookmarkVO();
+	   bookmark.setGroupNo(groupNo);
+	   bookmark.setMemberNo((Integer)session.getAttribute("no"));
+	   int count = service.selectOverlapBookmark(bookmark);
+	   if(count == 0) {
+	      service.insertBookmark(bookmark);
+	      msg = "등록 성공";
+	   } else {
+	      msg = "이미 즐겨찾기에 등록된 스터디그룹입니다.";
+	   }
+	   return msg;
 	}
 	
 	// 자기자신 반경안 스터디그룹 Map과 Marker생성 Method

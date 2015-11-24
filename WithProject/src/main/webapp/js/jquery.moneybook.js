@@ -1011,16 +1011,28 @@ $(document).ready(function() {
   function selectCardList(start, end) {
     var arr1 = start.split('-');
     var arr2 = end.split('-');
-    var dat1 = new Date(arr1[0], arr1[1]);
-    var dat2 = new Date(arr2[0], arr2[1]);
     
-    for(var i=0; i<=arr2[1]-arr1[1]; i++) {
-      if(arr1[1]==12){
-        arr1[0] = Number(arr1[0]+1);
-        arr1[1] = 01;
+    var start = (Number(arr1[0]*12) + Number(arr1[1]));
+    var end = (Number(arr2[0]*12) + Number(arr2[1]));
+    
+    var month;
+    var year;
+    
+    for(var i=0; i<=end-start; i++) {
+      year = (Math.floor((Number(arr1[0]*12) + Number(arr1[1])+i)/12));
+      month = (Math.floor((Number(arr1[0]*12) + Number(arr1[1])+i)%12));
+      if(month == 0) {
+        year = year -1;
+        month = 12;
       }
+      console.log(year+"-"+month);
+      $.ajax({
+        url : "/WithProject/"
+      })
+      .done(function() {
+        
+      });
     }
-    console.log(arr1[0] + "-" + arr1[1]);
   }
 
   function selectMainListOption(start, end) {
