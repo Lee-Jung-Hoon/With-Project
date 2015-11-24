@@ -16,7 +16,7 @@
 <script src="${pageContext.request.contextPath}/js/lang-all.js"></script>
 <script src="${pageContext.request.contextPath}/js/common.top.function.js"></script>
 <script src="${pageContext.request.contextPath}/js/velocity.min.js"></script>
-<script src="http://192.168.200.89:10001/socket.io/socket.io.js"></script>
+<script src="http://192.168.0.6:10001/socket.io/socket.io.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/js/jquery.msg.js"></script> --%>
 <script src="${pageContext.request.contextPath}/js/facebookAPI.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/notice/jquery.notice.js"></script>	
@@ -25,7 +25,7 @@ var socket = "";
 $(document).ready(function() {
   console.log("${no}");
   if ("${no}" != null && "${no}" != "") {
-    socket = io.connect("http://192.168.200.89:10001");
+    socket = io.connect("http://192.168.0.6:10001");
     var id = "${no}"
     socket.emit("setMemberNo", id);
         var div = "";
@@ -115,7 +115,7 @@ $(document).ready(function() {
 });
 
 function newMsgList(data){
-  socket = io.connect("http://192.168.200.89:10001");
+  socket = io.connect("http://192.168.0.6:10001");
   $("#newMsg").html("");
   $.each(data, function(index, value){
     console.log(data[index].memberNo);
@@ -161,7 +161,7 @@ function newMsgList(data){
   });
 }
   function msgList(id){
-    socket = io.connect("http://192.168.200.89:10001");
+    socket = io.connect("http://192.168.0.6:10001");
     $(".send").click(function(){
         console.log("눌렸다.");
         var groupNum = $(this).parent().parent().parent().attr('id');
