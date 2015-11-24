@@ -30,8 +30,17 @@ public class MsgController {
 	@ResponseBody
 	public List<MsgVO> selectList(HttpServletRequest req) throws Exception{
 		String recvId = req.getParameter("recvId");
-
+		System.out.println("넘어왔니 ?"+recvId);
 		return service.selectList(recvId);
+	}
+	@RequestMapping("/msgInfo.do")
+	@ResponseBody
+	public MsgVO selectMsgInfo(HttpServletRequest req) throws Exception{
+	    int msgNo = Integer.parseInt(req.getParameter("msgNo"));
+	    System.out.println("인포 여긴왔니 ? "+msgNo );
+	    MsgVO msg = service.selectMsgInfo(msgNo);
+	    System.out.println("내용: "+msg.getContent()+"받을사람 : " +msg.getMemberNo());
+		return msg;
 	}
 	@RequestMapping("/updateMsg.do")
 	@ResponseBody

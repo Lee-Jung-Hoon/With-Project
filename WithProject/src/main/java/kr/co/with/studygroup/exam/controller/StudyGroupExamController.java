@@ -1,14 +1,19 @@
 package kr.co.with.studygroup.exam.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.with.studygroup.exam.service.StudyGroupExamService;
+import kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExamVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleSendItemVO;
@@ -71,6 +76,7 @@ public class StudyGroupExamController {
 		mav.addObject("info", info);
 		mav.addObject("title", title);
 		mav.addObject("list", list);
+		mav.addObject("examNo", no);
 		List<String> sendItemList = new ArrayList<String>();
 		for(int i=0; i<list.size(); i++) {
 			String sendItem = "";
@@ -86,4 +92,18 @@ public class StudyGroupExamController {
 		mav.addObject("item", sendItemList);
 		return mav;
 	}
+	@RequestMapping("/examResult.do")
+	public ModelAndView ExamResult(StudyGroupExamResultVO result)throws Exception{
+		ModelAndView mav = new ModelAndView("examResult");
+		result.setGroupNo(1);
+		result.setMemberNo(1);
+		service.insertExamResult(result);
+		mav.addObject("chkNo", result.getExamChkNo());
+		mav.addObject("totalNo", result.getExamTotalNo());
+		mav.addObject("score", result.getExamScore());
+			System.out.println("맞은수"+result.getExamChkNo()+"시험점수"+result.getExamScore()+"총문제수"+result.getExamTotalNo());
+		// meberNo와 groupNo를 넣어줄 자리
+			return mav;
+	}
+	
 }

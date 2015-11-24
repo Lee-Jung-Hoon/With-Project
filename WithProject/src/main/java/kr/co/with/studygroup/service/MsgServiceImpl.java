@@ -30,4 +30,8 @@ public class MsgServiceImpl implements MsgService{
 		dao.updateMsg(msg);
 	}
 
+	public MsgVO selectMsgInfo(int msgNo) throws Exception {
+		return dao.selectMsgInfo(msgNo);
+	}
+
 }

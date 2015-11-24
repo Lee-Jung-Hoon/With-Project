@@ -100,4 +100,23 @@
 		  from T_WITH_STUDYGROUP_EXAMPLE_ITEM
 		 where EXAMPLE_NO = #{no}
 	</select>
+	<insert id="insertExamResult" parameterType="studygroupexamresult">
+			insert into t_with_studygroup_exam_result(			
+  			exam_score,
+   			exam_totalNo,
+   			exam_chkNo,
+   			exam_no,
+   			member_no,
+   			group_no
+			)
+			values(
+				#{examScore},
+				#{examTotalNo},
+				#{examChkNo},
+				#{examNo},
+				#{memberNo},
+				#{groupNo}	
+			)
+	</insert>
+	
 </mapper>

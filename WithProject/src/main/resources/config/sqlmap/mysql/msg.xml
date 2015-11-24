@@ -4,27 +4,33 @@
 	
  <mapper namespace="with.msg.dao">
 	<resultMap type="msg" id="msg">
-		<result column="study_no" property="studyNo"/>
+		<result column="group_no" property="groupNo"/>
 		<result column="msg_no" property="msgNo"/>
-		<result column="send_id" property="sendId"/>
+		<result column="member_no" property="memberNo"/>
 		<result column="recv_id" property="recvId"/>
 		<result column="content" property="content"/>
 		<result column="reg_date" property="regDate"/>
 	</resultMap>
 
 	<insert id="insertMsg" parameterType="msg" >
-		 insert into with_studygroup_msg (study_no, send_id, recv_id, content)
-		 		values ( 1, #{sendId}, #{recvId}, #{content} )                       
+		 insert into with_studygroup_msg (group_no, member_no, recv_id, content)
+		 		values ( #{groupNo}, #{memberNo}, #{recvId}, #{content} )                       
 	</insert>
 	<select id="selectList" parameterType="String" resultMap="msg">
-		select msg_no ,send_id, recv_id, content, date_format(reg_date, '%Y-%m-%d')as reg_date  
+		select group_no, msg_no , recv_id, member_no, content, date_format(reg_date, '%Y-%m-%d')as reg_date  
 		  from with_studygroup_msg
 		 where recv_id = #{recvId} and msg_check = 0 
 	</select>
+	
+	<select id="selectMsgInfo" parameterType="int" resultMap="msg">
+		select group_no, msg_no , recv_id, member_no, content, date_format(reg_date, '%Y-%m-%d')as reg_date  
+		  from with_studygroup_msg
+		 where msg_no = #{msgNo} 
+	</select>
+	
 	<update id="updateMsg" parameterType="msg">
 		update with_studygroup_msg
 		   set msg_check = 1
 		 where msg_no = #{msgNo}
 	</update>
-	 
 </mapper>

@@ -1,19 +1,18 @@
 package kr.co.with.studygroup.vo;
 
 public class MsgVO {
-	private String sendId;
+	private String memberNo;
 	private String recvId;
     private int msgNo;
-    private int studyNo;
+    private int groupNo;
     private String content;
     private int msgCheck;
     private String regDate;
-    
-	public String getSendId() {
-		return sendId;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setSendId(String sendId) {
-		this.sendId = sendId;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 	public String getRecvId() {
 		return recvId;
@@ -27,11 +26,11 @@ public class MsgVO {
 	public void setMsgNo(int msgNo) {
 		this.msgNo = msgNo;
 	}
-	public int getStudyNo() {
-		return studyNo;
+	public int getGroupNo() {
+		return groupNo;
 	}
-	public void setStudyNo(int studyNo) {
-		this.studyNo = studyNo;
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
 	}
 	public String getContent() {
 		return content;
@@ -51,5 +50,6 @@ public class MsgVO {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+    
     
 }

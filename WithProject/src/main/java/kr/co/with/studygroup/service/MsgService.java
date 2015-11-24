@@ -11,5 +11,7 @@ public interface MsgService {
 	public List<MsgVO> selectList(String recvId) throws Exception;
 
 	public void updateMsg(MsgVO msg)throws Exception;
+
+	public MsgVO selectMsgInfo(int msgNo)throws Exception;
 	
 }
