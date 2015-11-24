@@ -43,5 +43,28 @@
  			  from t_with_joinstudygroup
  			 where group_no = #{groupNo}
  </select>
- 
+  <insert id="insertFbookMember" parameterType="member" >
+ 		insert into t_with_Member(member_name, id, password, member_type, member_gender, member_age, member_img)
+		values(
+		 #{memberName},
+		 #{id},
+		 "1111",
+		 #{memberType},
+		 #{memberGender},
+		 #{memberAge},
+		 #{memberImg}
+		 	);
+ </insert>
+  <select id="selectFbookMember" parameterType="member" resultType="member">
+ 	select 
+ 		 Member_Name as memberName, 
+ 		 id, 
+ 		 password, 
+ 		 Member_no as memberNo,  
+ 		 Member_Grade memberGrade,
+ 		 member_img as memberImg
+ 	  from 
+ 	 	 t_with_Member
+   where id = #{id}
+ </select>
 </mapper>

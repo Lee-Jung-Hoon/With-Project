@@ -38,4 +38,13 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memberList(groupNo);
 	}
 
+	// Facebook 로그인시 member등록 
+	public void insertFbookMember(MemberVO member) throws Exception {
+		dao.insertFbookMember(member);
+	}
+
+	// Facebook 로그인시 회원정보 불러오기
+	public MemberVO selectFbookMember(MemberVO member) {
+		return dao.selectFbookMember(member);
+	}
 }

@@ -16,4 +16,10 @@ public interface MemberService {
 	
 	public List<MemberVO> memberList(String groupNo) throws Exception;
 
+	// Facebook 로그인시 회원등록
+	public void insertFbookMember(MemberVO member) throws Exception;
+
+	// Facebook 로그인시 회원정보 불러오기
+	public MemberVO selectFbookMember(MemberVO member);
+
 }

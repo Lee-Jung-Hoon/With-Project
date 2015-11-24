@@ -50,7 +50,6 @@ public class MemberController {
 		System.out.println(member.getPassword());
 		int checkVO = service.checkMember(member);
 		
-		
 		HttpSession session = req.getSession();
 		if(checkVO == 0){
 			mav.addObject("msg", "아이디나 비밀번호를 다시 입력하세요.");
@@ -69,17 +68,49 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
-		session.removeAttribute("id");
-		session.removeAttribute("grade");
-		session.removeAttribute("name");
+		session.invalidate();
 		return "redirect:/main/main.do";
 	}
+
+	
+	
+	// Facebook 로그인시 MemberTable 회원등록 & 로그인 관련 method
+	@ResponseBody
+	@RequestMapping("/fbookLogin.do")
+	public MemberVO fbookLogin(MemberVO member, HttpServletRequest req) throws Exception {
+		int checkVO = service.checkMember(member);
+		HttpSession session = req.getSession();
+		
+		
+		System.out.println("회원체크 숫자 : "+checkVO);
+		if(checkVO == 0){
+			member.setMemberType("페북가입");
+			session.setAttribute("id", member.getId());
+			session.setAttribute("name", member.getMemberName());
+			service.insertFbookMember(member);
+			MemberVO joinVO = service.selectFbookMember(member);
+			session.setAttribute("grade", joinVO.getMemberGrade());
+			session.setAttribute("no", joinVO.getMemberNo());
+			return joinVO;
+		}
+		else{
+			MemberVO loginVO = service.selectFbookMember(member);
+			session.setAttribute("id", loginVO.getId());
+			session.setAttribute("grade", loginVO.getMemberGrade());
+			session.setAttribute("name", loginVO.getMemberName());
+			session.setAttribute("no", loginVO.getMemberNo());
+			return loginVO;
+		}
+	}
+		
 	
 	@RequestMapping("/groupList.json")
 	@ResponseBody
 	public List<MemberVO> groupList(String memberNo, HttpServletRequest req) throws Exception {
 		return service.groupList(memberNo);
 	}
+	
+	
 	@RequestMapping("/memberList.json")
 	@ResponseBody
 	public List<MemberVO> memberList(String groupNo, HttpServletRequest req) throws Exception {
@@ -89,14 +120,5 @@ public class MemberController {
 		return list;
 	}
 	
+	
 }
-
-//for(MemberVO vo : list){
-//System.out.println("그룹 No ? "+vo.getGroupNo());
-//
-//List<MemberVO> memberList = service.sMemberList(vo.getGroupNo());
-//for(MemberVO sVo : memberList){
-//	System.out.println("맴버 No ? " +sVo.getMemberNo()+ "그룹 넘버"+ sVo.getGroupNo());
-//}
-//
-//}

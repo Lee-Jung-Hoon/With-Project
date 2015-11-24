@@ -33,5 +33,15 @@ public class MemberDAO {
 	public List<MemberVO> memberList(String groupNo) {
 		return session.selectList("member.dao.memberMapper.memberList", groupNo);
 	}
+	
+	// Facebook 로그인시 회원등록
+	public Object insertFbookMember(MemberVO member) {
+		return session.insert("member.dao.memberMapper.insertFbookMember", member);
+	}
+
+	public MemberVO selectFbookMember(MemberVO member) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.dao.memberMapper.selectFbookMember", member);
+	}
 
 }
