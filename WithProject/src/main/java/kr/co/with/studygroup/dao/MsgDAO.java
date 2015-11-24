@@ -26,4 +26,8 @@ public class MsgDAO {
 		session.update("with.msg.dao.updateMsg", msg);
 	}
 
+	public MsgVO selectMsgInfo(int msgNo) {
+		return session.selectOne("with.msg.dao.selectMsgInfo", msgNo);
+	}
+
 }

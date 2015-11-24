@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.with.studygroup.exam.dao.StudyGroupExamDAO;
+import kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExamVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleVO;
@@ -43,6 +44,10 @@ public class StudyGroupExamServiceImpl implements StudyGroupExamService {
 
 	public List<StudyGroupExampleItemVO> selectExampleItemList(int exampleNo) throws Exception {
 		return dao.selectExampleItemList(exampleNo);
+	}
+
+	public void insertExamResult(StudyGroupExamResultVO result) throws Exception {
+		dao.inserExamResult(result);
 	}
 
 }

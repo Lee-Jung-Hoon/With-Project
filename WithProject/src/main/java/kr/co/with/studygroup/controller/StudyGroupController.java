@@ -117,7 +117,7 @@ public class StudyGroupController {
 		HttpSession session = req.getSession();
 		
 		// 멤버 번호 받을 예정
-		int memberNo = (int) session.getAttribute("no");
+		int memberNo = (Integer) session.getAttribute("no");
 		
 		
 		StudyGroupCommentVO commentVO = new StudyGroupCommentVO();

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExamVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleVO;
@@ -43,5 +44,9 @@ public class StudyGroupExamDAO {
 
 	public List<StudyGroupExampleItemVO> selectExampleItemList(int exampleNo) {
 		return session.selectList("with.studygroup.exam.dao.selectExampleItemList", exampleNo);
+	}
+
+	public void inserExamResult(StudyGroupExamResultVO result) {
+		session.insert("with.studygroup.exam.dao.insertExamResult", result);
 	}
 }

@@ -2,6 +2,7 @@ package kr.co.with.studygroup.exam.service;
 
 import java.util.List;
 
+import kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExamVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleItemVO;
 import kr.co.with.studygroup.exam.vo.StudyGroupExampleVO;
@@ -19,5 +20,7 @@ public interface StudyGroupExamService {
 	public List<StudyGroupExampleVO> selectExampleList(int no) throws Exception;
 
 	public List<StudyGroupExampleItemVO> selectExampleItemList(int exampleNo) throws Exception;
+
+	public void insertExamResult(StudyGroupExamResultVO result)throws Exception;
 
 }

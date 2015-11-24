@@ -49,13 +49,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	}
 
 	// 스터디그룹 상세보기 댓글 등록을 위한 service
-	@Override
 	public void insertGroupComment(StudyGroupCommentVO commentVO) throws Exception {
 		dao.insertGroupComment(commentVO);
 	}
 
 	// 스터디그룹 상세 댓글 리스트 출력을 위한 service
-	@Override
 	public List<StudyGroupCommentVO> selectCommentList(int groupNo) throws Exception {
 		return dao.selectCommentList(groupNo);
 	}
