@@ -415,10 +415,10 @@ function ready() {
 //    HTML += " <li><a href='#'><img src='/WithProject/images/sample5.jpg'alt='' /></a></li>";
 //    HTML += "</ul>";
 //    HTML += "</div>";
-     HTML += "<div class='list-txt'>";
-    HTML += " <div>";
-    HTML += "  <h3>"+response.groupName+"</h3>";
-    HTML += "  <div class='list-studygroupInfo'>";
+    HTML += "<div class='list-txt'>";
+    HTML += "<div class='list-infoTop'>";
+    HTML += "<h3>"+response.groupName+"</h3>";
+    HTML += "<div class='list-studygroupInfo'>";
     HTML += "<h4>스터디그룹 정보</h4>";
     HTML += "<div class='list-infoDIV'>";
     HTML += "<div class='list-infoImgDIV'>";
@@ -434,7 +434,7 @@ function ready() {
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-BtnDIV'>";
-    HTML += "<input class='enterBtn' type='button' value='참가 신청'> <input class='cancleBtn' type='button' value='참가 수정 및 취소'>";
+    HTML += "<input class='enterBtn commonBtn' type='button' value='참가 신청'> <input class='cancleBtn commonBtn' type='button' value='참가 수정 및 취소'>";
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-studygroupMap'>";
@@ -460,7 +460,7 @@ function ready() {
     HTML += " <div class='list-openDIV'>";
     HTML += "  <div style='margin-bottom: 20px;'>";
     HTML += "  <h4>스터디그룹 개설자 정보</h4>";
-    HTML += " <label>              *본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
+    HTML += " <label>*본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
     HTML += " </div>";
     HTML += " <div class='list-openImgDIV'>";
     HTML += " <img class='list-openImg' src='/WithProject/images/sample.jpg'>";
