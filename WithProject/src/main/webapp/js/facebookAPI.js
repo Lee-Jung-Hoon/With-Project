@@ -4,9 +4,8 @@
       FB.init({
         appId      : '913474612022887', // 앱 ID
         status     : true,          // 로그인 상태를 확인
-        cookie     : true,          // 쿠키허용
-        xfbml      : true,           // parse XFBML
-        version : 'v2.5' // use version 2.5
+        cookie     : false,          // 쿠키허용
+        xfbml      : true           // parse XFBML
       });
       
       FB.getLoginStatus(function(response) {
@@ -15,10 +14,12 @@
       
      FB.Event.subscribe('auth.login', function(response) {
         location.reload();
+      
       });
      
       FB.Event.subscribe('auth.logout', function(response) {
         location.reload();
+      
       });
     };
   
@@ -36,8 +37,7 @@
       }
     }
 
-
-    // 페이스북 로그인 버튼 
+      // 페이스북 로그인 버튼 
     (function(d){
       var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
       if (d.getElementById(id)) {
@@ -48,8 +48,8 @@
       js.src = "//connect.facebook.net/ko_KR/all.js";
       ref.parentNode.insertBefore(js, ref);
     }(document));
-
-    
+  
+  
   //ajax로 페이스북 정보 DB 저장
   function inputData(response) {
     FB.api('/me?fields=name, email, picture, age_range, gender', function (response) {
