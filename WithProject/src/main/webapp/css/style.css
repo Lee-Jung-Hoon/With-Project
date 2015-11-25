@@ -2193,16 +2193,16 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	height:40px;
 	background:#23AE89;
 }
-.btnDIV_0 {
+.btnDIV {
 	padding-top:10px;
 }
-.btnDIV_0 button {
+.btnDIV button {
 	width:50px;
 	height:50px;
 	text-align:center;
 	margin-left:10px; 
 }
-.btnDIV_0 button img {
+.btnDIV button img {
 	margin:-6px 0 0 2px;
 }
 .btnModify {
@@ -2217,4 +2217,19 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	background:#6A55C2 url("../images/icon_cpt.png") no-repeat 10px center;
 	background-size:30%;
 	text-indent:33px;
+}
+.addPanel input {
+	border:1px solid #CFD8DC;
+}
+.addPanel input:focus, .addPanel select:focus {
+	border-color:#66afe9;
+	outline:0;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+}
+.addPanel tr:first-child td {
+	padding:20px 0;	
+}
+.addPanel th {
+	vertical-align:middle;
 }
