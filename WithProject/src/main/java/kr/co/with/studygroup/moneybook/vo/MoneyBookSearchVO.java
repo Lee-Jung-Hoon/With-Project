@@ -6,7 +6,6 @@ public class MoneyBookSearchVO {
 	private int groupNo;
 	private String search;
 	
-	
 
 	public String getSearch() {
 		return search;

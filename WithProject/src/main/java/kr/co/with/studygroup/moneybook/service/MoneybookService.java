@@ -17,4 +17,6 @@ public interface MoneybookService {
 
 	public List<MoneyBookVO> SortSearchMoneybook(MoneyBookSearchVO search) throws Exception;
 
+	public MoneyBookVO SelectCardList(MoneyBookVO search) throws Exception;
+
 }

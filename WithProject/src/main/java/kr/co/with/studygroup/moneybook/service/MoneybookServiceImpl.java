@@ -45,4 +45,9 @@ public class MoneybookServiceImpl implements MoneybookService {
 		return dao.SortSearchMoneybook(search);
 	}
 
+	// 가계부 카드 내역 검색을 위한 service
+	@Override
+	public MoneyBookVO SelectCardList(MoneyBookVO search) throws Exception {
+		return dao.SelectCardList(search);
+	}
 }
