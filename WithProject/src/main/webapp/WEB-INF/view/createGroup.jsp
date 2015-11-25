@@ -50,7 +50,7 @@
                      <textarea rows="10" cols="40" id="groupDetail" name="groupDetail"   style="width:100%; height:300px;"></textarea>
                   </div>
                   <div class="btn-area">
-                     <input type="button" class="nextStep_First btn-common" value="다음 단계" />
+                     <button type="button" class="nextStep_First commonBtn">다음 단계</button>
                   </div>
                </div>
 
@@ -68,7 +68,7 @@
 
             <!-- 두번째 입력란 -->
    
-               <div class="secondStep hide">
+               <div class="secondStep blind">
                   <div class="stepLeft">
                      <div class="input">
                         <h4>일정/장소 정보 입력</h4>
@@ -101,8 +101,8 @@
                         <input type="hidden" id="groupActiveLatitude" name="groupActiveLatitude" />
                      </div>
                      <div class="btn-area">
-                        <input type="button" class="prevStep_Second btn-common" value="이전 단계" /> 
-                        <input type="button" class="nextStep_Second btn-common" value="다음 단계" />
+                        <button type="button" class="prevStep_Second commonBtn">이전 단계</button> 
+                        <button type="button" class="nextStep_Second commonBtn">다음 단계</button>
                      </div>
                   </div>
 
@@ -129,7 +129,7 @@
 
 
             <!-- 세번째 입력란 -->
-            <div class="thirdStep hide">
+            <div class="thirdStep blind">
                <div class="stepLeft">
                   <div class="input">
                      <h4>부가 정보 입력</h4>
@@ -201,8 +201,8 @@
                      </table>
                   </div>
                   <div class="btn-area">
-                     <input type="button" class="prevStep_Thrid btn-common" value="이전 단계" /> 
-                     <input type="button" class="create_Group btn-common" value="작성 완료" />
+                     <button type="button" class="prevStep_Thrid commonBtn">이전 단계</button> 
+                     <button type="button" class="create_Group commonBtn">작성 완료</button>
                   </div>
                </div>
 

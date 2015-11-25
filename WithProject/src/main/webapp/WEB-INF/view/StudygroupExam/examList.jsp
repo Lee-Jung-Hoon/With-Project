@@ -22,7 +22,7 @@ $(document).ready(function() {
 			<div class="container">
 				<h3 class="title">최근 시험지</h3>
 				<div class="ExamListDIV">
-					<input type="button" value="시험 등록" class="createExam btn-common" id="createExam"/>
+					<button type="button" class="createExam commonBtn" id="createExam">시험 등록</button>
 					<table class="table-common">
 						<colgroup>
 							<col style="width:15%" />

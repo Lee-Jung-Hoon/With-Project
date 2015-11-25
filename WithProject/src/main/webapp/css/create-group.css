@@ -78,6 +78,27 @@
 	padding:20px 0 5px; 
 	clear:both;
 }
+.registDIV .btn-area button {
+	width:120px;
+	height:50px;
+	font-size:18px;
+	margin:0 10px;
+}
+.registDIV .nextStep_First {
+	background:#23AE89;
+}
+.registDIV .prevStep_Second {
+	background:#E94B3B;
+}
+.registDIV .nextStep_Second {
+	background:#23AE89;
+}
+.registDIV .prevStep_Thrid {
+	background:#E94B3B;
+}
+.registDIV .create_Group {
+	background:#1C7EBB;
+}
 .registDIV .stepRight .advice > li {
 	padding:40px 15px 30px;
 	border-bottom:1px dashed #000;
