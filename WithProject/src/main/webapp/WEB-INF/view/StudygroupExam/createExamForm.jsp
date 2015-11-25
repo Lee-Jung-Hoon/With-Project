@@ -100,6 +100,26 @@ $(document).ready(function() {
     addCnt++;
   });
 	
+
+	socket.on("alarm", function(data){
+	  $.noticeAdd({"text": "<div>"+data.recvId+"님이 시험을 등록하셨습니다. </div>"});
+	})
+	
+	$(".submitBtn").on('click', function () {
+	  console.log("여기는 들어오시구요~~");
+    var id = "${no}";
+    $.ajax({
+      url : "/WithProject/member/memberList2.json",
+      type: "POST",
+      datatype : "JSON",
+      success:function(member, status){
+        $.each(member, function(no, MemberVO){
+          console.log("멤버이시구요~"+member[no].memberNo)
+    			socket.emit("alarm", {sendId : member[no].memberNo});
+          });
+        }
+      })
+	
 	$(".submitBtn").on('click', function () {
 	  var exampleTitle = "";
 	  var example_answer = "";
