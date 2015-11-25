@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $(".btn-menu").on("click", function() {
+    $(this).find('> span').toggleClass("active").end().next().toggle();
+  });
+  
   
   $('.toggle').on('click', function(){
     $(this).parents('.login-sort').toggleClass('on').siblings().removeClass('on');
@@ -50,7 +54,7 @@ $(document).ready(function(){
             borderRadius: '0',
             rotateZ: '-45deg',
             left: '47px',
-            borderWidth: '3px',
+            borderWidth: '2px',
             top: '10px'
         }, {
             duration: 250,
@@ -59,7 +63,7 @@ $(document).ready(function(){
         $('.element-two').velocity({
             rotateZ: '225deg',
             left: '47px',
-            borderWidth: '3px',
+            borderWidth: '2px',
             height: '50px',
             top: '-45px'
         }, {
@@ -74,7 +78,7 @@ $(document).ready(function(){
     } 
   });
   $('.pin-btn').on('click', function(){
-    $(this).next().toggle();
+    $(this).toggleClass('active').next().toggle();
   });
   $('.pin-list button').on('click', function(){
     $(this).addClass('current').parent().siblings().find('button').removeClass('current');

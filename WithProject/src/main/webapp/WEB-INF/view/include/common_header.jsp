@@ -29,6 +29,7 @@
     })
   </script>
 	<header>
+		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<div class="bookmarkZone">
 			<span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
 			<span class="txt">샘플 텍스트</span>
@@ -89,7 +90,7 @@
 			<form action="${pageContext.request.contextPath}/member/join.do" method="post">
 				<dl class="list maki">
 					<dt>
-						<a href="#" class="toggle">JOIN</a>
+						<button type="button" class="toggle">JOIN</button>
 					</dt>
 					<dd class="input-login">
 						<em><input type="text" name="memberName" id="memberName" placeholder="name" /></em>
@@ -128,13 +129,40 @@
 			  document.write('</div>');
 			}
 		</script>
-		<h2 class="hide">주메뉴</h2>
-		</ul>
-			<nav class="nav">
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/main/main.do">홈</a></li>
-					<li><a href="${pageContext.request.contextPath}/exam/examList.do">시험테스트</a></li>
-					<li><a href="${pageContext.request.contextPath}/calendar/schedule.do">일정</a></li>
-				</ul>
-			</nav>
-	</header>
+		<div class="main-menu">
+		<button type="button" class="btn-menu">
+			<span class="style-menu"><span></span></span>
+			<em>MENU</em>
+		</button>
+		<div class="list-menu">
+			<p>지역</p>
+			<ul>
+				<li><button type="button">강남</button></li>
+				<li><button type="button">신촌</button></li>
+				<li><button type="button">종로</button></li>
+			</ul>
+			<p>정렬</p>
+			<ul>
+				<li><button type="button">인기순</button></li>
+				<li><button type="button">마감임박순</button></li>
+				<li><button type="button">이름순</button></li>
+			</ul>
+			<p><a href='${pageContext.request.contextPath}/exam/examList.do'>시험테스트</a></p>
+			<p><a href='${pageContext.request.contextPath}/calendar/schedule.do'>일정</a></p>
+		</div>
+	</div>
+	<script>
+	if ($("body").hasClass("page-sub")) {
+	  document.write("<aside>");
+		  document.write("<h2 class='hide'>주메뉴</h2>");
+				document.write("<ul>");
+					document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do'><span>일정</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do'><span>시험테스트</span></a></li>");
+					document.write("<li><a href='#'><span>가계부</span></a></li>");
+					document.write("<li><a href='#'><span>자료실</span></a></li>");
+					document.write("<li><a href='#'><span>공지사항</span></a></li>");
+			document.write("</ul>");
+		document.write("</aside>"); 
+	}
+	</script>
+</header>

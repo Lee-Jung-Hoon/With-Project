@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/WithProject/css/reset.css" />
-<link rel="stylesheet" type="text/css" href="/WithProject/css/style.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>시험 | WITH 스터디</title>
+<%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 // 항목 생성 번호
 var addCnt = 0;
@@ -183,26 +183,12 @@ function modifyExam(no) {
 }
 
 </script>
-<title>Insert title here</title>
 </head>
-<body>
-	<header>
-	<!-- 		<div class="login-area"> -->
-	<!-- 			<div class="login"> -->
-	<!-- 				<form action="#" method="post"> -->
-	<!-- 					<dl class="list maki"> -->
-	<!-- 						<dt><a href="#" class="toggle">로그인</a></dt> -->
-	<!-- 						<dd class="fb-login"><em><a href="">페이스 북 로그인</a></em></dd> -->
-	<!-- 						<dd class="input-login"><em><input type="text" id="id" placeholder="ID" /></em></dd> -->
-	<!-- 						<dd class="input-login"><em><input type="password" id="pw" placeholder="password" /></em></dd> -->
-	<!-- 						<dd class="btn-login"><em><input type="submit" value="로그인"  /></em></dd> -->
-	<!-- 					</dl> -->
-	<!-- 				</form> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	</header>
+<body class="page-sub">
+	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
-		<h1 style="height:50px; width: 60%; margin: 0 auto 0; margin-top: 50px; font-size: 20px;	font-weight: bold;">시험 개설</h1>
+		<div class="container">
+			<h1 style="height:50px; width: 60%; margin: 0 auto 0; margin-top: 50px; font-size: 20px;	font-weight: bold;">시험 개설</h1>
 		<div style="width: 60%; border: 1px #ccc solid; margin: 0 auto 0; background: white; margin-bottom: 50px;">
 				<div style="background: white; width: 100%; text-align: center; padding-bottom: 10px; padding-top: 10px;">
 				<input type="text" id="examTitle" name="examTitle" value="시험-제목없음" 
@@ -220,6 +206,7 @@ function modifyExam(no) {
 				<input type="button" class="addBtn" id="addBtn" value="항목 추가" style="padding: 5px;">
 				<input type="button" class="submitBtn" id="submitBtn" value="시험 저장" style="padding: 5px;">
 			</div>
+		</div>
 		</div>
 	</main>
 </body>
