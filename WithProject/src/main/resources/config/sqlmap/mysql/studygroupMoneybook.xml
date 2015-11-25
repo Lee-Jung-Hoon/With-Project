@@ -107,4 +107,17 @@
 	  and
 	    m_left like CONCAT('%', #{search}, '%')
 	</select>
+	
+	<select id="SelectCardList" parameterType="moneybook" resultType="moneybook">
+		select
+			sum(M_MONEY) as mMoney
+		from
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			M_LEFT like CONCAT('%', '신용카드-', '%')
+		and 
+			date_format(M_DATE, '%Y-%m') = #{mDate}
+	</select>
 </mapper>

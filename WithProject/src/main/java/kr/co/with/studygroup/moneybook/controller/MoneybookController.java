@@ -40,6 +40,7 @@ public class MoneybookController {
 		return service.SelectMoneybookListOption(search);
 	}
 	
+	// 
 	@RequestMapping("/sortSearchMoneybook.json")
 	@ResponseBody
 	public List<MoneyBookVO> SortSearchMoneybook(String start, String end) throws Exception {
@@ -66,9 +67,20 @@ public class MoneybookController {
 		return service.regMoneybook(moneybook);
 	}
 	
+	// 가계부 삭제를 위한 json
 	@RequestMapping("/delete_moneybook.json")
 	@ResponseBody
 	public void DeleteMoneybook(int no) throws Exception {
 		service.deleteMoneybook(no);
+	}
+	
+	// 카드 내역 확인을 위한 json
+	@RequestMapping("/select_CardList.json")
+	@ResponseBody
+	public MoneyBookVO SelectCardList(String date) throws Exception {
+		MoneyBookVO search = new MoneyBookVO();
+		search.setGroupNo(1);
+		search.setmDate(date);
+		return service.SelectCardList(search);
 	}
 }

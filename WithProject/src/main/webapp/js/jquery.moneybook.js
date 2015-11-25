@@ -1015,24 +1015,45 @@ $(document).ready(function() {
     var start = (Number(arr1[0]*12) + Number(arr1[1]));
     var end = (Number(arr2[0]*12) + Number(arr2[1]));
     
+    var html = "";
     var month;
     var year;
-    
+    var lastDay;
+    var lastDayWithSlashes;
+    $(".moneybook-list").empty();
     for(var i=0; i<=end-start; i++) {
       year = (Math.floor((Number(arr1[0]*12) + Number(arr1[1])+i)/12));
-      month = (Math.floor((Number(arr1[0]*12) + Number(arr1[1])+i)%12));
+      month = ((Number(arr1[0]*12) + Number(arr1[1])+i)%12);
+      lastDay = new Date(year, month + 1, 0);
+      lastDayWithSlashes = (lastDay.getFullYear()) + "-" + (lastDay.getMonth()) + "-" + (lastDay.getDate());
+
       if(month == 0) {
         year = year -1;
         month = 12;
       }
       console.log(year+"-"+month);
       $.ajax({
-        url : "/WithProject/"
+        url : "/WithProject/moneybook/select_CardList.json?date="+year+"-"+month
       })
-      .done(function() {
-        
-      });
+      .done(function(data) {
+        html += "<div style='overflow:hidden padding-bottom:20px;'>";
+          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+year+"-"+month+"</div>"
+            html += "<table border='1' style='width:80%;'>";
+               html += "<tr>";
+                 html += "<th style='width:20%;'>항목</th>";
+                 html += "<th style='width:50%;'>청구금액</th>";
+                 html += "<th style='width:30%;'>사용기간</th>";
+               html += "</tr>";
+               html += "<tr>";
+                 html += "<td style='font-weight:bold;'>총 금액</td>";
+                 html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
+                 html += "<td style='text-align:center;'>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
+               html += "</tr>";
+            html += "</table>";
+        html += "</div>";
+      })
     }
+    $(".moneybook-list").append(html);
   }
 
   function selectMainListOption(start, end) {

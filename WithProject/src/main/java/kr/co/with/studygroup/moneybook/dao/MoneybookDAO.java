@@ -37,6 +37,7 @@ public class MoneybookDAO {
 		return session.selectList("with.moneybook.dao.SelectMoneybookListOption", search);
 	}
 
+	// 가계부 사용 내역별 리스트 출력을 위한 dao
 	public List<MoneyBookVO> SortSearchMoneybook(MoneyBookSearchVO search) {
 		String array[] = {"식비", "교통비", "생활용품", "교통/차량", "경조사", "장소대여비", "미분류"};
 		List<MoneyBookVO> val = new ArrayList<>();
@@ -47,4 +48,8 @@ public class MoneybookDAO {
 		return val;
 	}
 
+	// 가계부 카드 내역 출력을 위한 dao
+	public MoneyBookVO SelectCardList(MoneyBookVO search) {
+		return session.selectOne("with.moneybook.dao.SelectCardList", search);
+	}
 }
