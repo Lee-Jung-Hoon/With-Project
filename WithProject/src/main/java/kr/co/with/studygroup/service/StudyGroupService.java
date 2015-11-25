@@ -14,7 +14,7 @@ public interface StudyGroupService {
 
 	public int insertStudyGroup(StudyGroupVO studyGroup) throws Exception;
 
-	public void insertStudygroupTag(StudyGroupTagVO tagVO) throws Exception;
+	public void insertStudygroupTag(String tagName) throws Exception;
 
 	public StudyGroupVO selectGruopDetail(int no) throws Exception;
 
@@ -27,5 +27,11 @@ public interface StudyGroupService {
 	public List<StudyGroupCommentVO> selectCommentList(int groupNo) throws Exception;
 	
 	 public List<StudyGroupVO> selectMarker() throws Exception;
+
+	public int nameCheck(String tagName) throws Exception;
+
+	public void updateTagCount(String tagName) throws Exception;
+
+	public List<StudyGroupTagVO> selectTagList() throws Exception;
 	
 }

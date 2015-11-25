@@ -3,6 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="with.studygroup.dao">
+
 	<resultMap type="studygroup" id="studyGroup">
 		<result column="group_no" property="groupNo"/>
 		<result column="group_name" property="groupName"/>
@@ -20,6 +21,7 @@
 		<result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
 		<result column="GROUP_REGDATE" property="groupRegDate"/>
 		<result column="MEMBER_NO" property="groupRecruitEndDate"/>
+		<result column="GROUP_TAG" property="groupTag"/>
 	</resultMap>
 	
 	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
@@ -39,13 +41,13 @@
 	<!-- 	스터디그룹 개설을 위한 쿼리문 -->
 	<insert id="insertStudyGroup" parameterType="studygroup">
 		insert into t_with_studygroup(
-			group_name, group_detail, group_maxperson, 
+			group_name, group_detail, group_maxperson, group_tag,
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
 			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
 			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
 		)
 		values(
-			#{groupName}, #{groupDetail}, #{groupMaxPerson},
+			#{groupName}, #{groupDetail}, #{groupMaxPerson}, #{groupTag},
 			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
 			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
 			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, '1'
@@ -67,18 +69,30 @@
 		where group_no = #{no};
 	</select>
 	
-	<!-- 	스터디그룹 태그를 입력하기 위한 쿼리문 -->
-	<insert id="insertStudyGroupTag" parameterType="studygrouptag">
-		insert into T_WITH_STUDYGROUP_TAG(
-			TAG_NAME, 
-			GROUP_NO,
-			GROUP_NAME)
-		values(
-			#{tagName},
-			#{groupNo},
-			#{groupName}
-		)
+<!-- 		스터디그룹 태그를 입력하기 위한 쿼리문 -->
+	<insert id="insertStudyGroupTag" parameterType="String">
+		insert into T_WITH_STUDYGROUP_TAG( TAG_NAME )
+		                           values( #{tagName} )
 	</insert>
+	<update id="updateTagCount" parameterType="String">
+		update T_WITH_STUDYGROUP_TAG
+		   set tag_cnt = (tag_cnt + 1)
+		 where tag_name = #{tagName} 
+	</update>
+	
+	<select id="selectTagList" resultType="studygrouptag">
+		select tag_cnt as tagCnt, tag_name as tagName  
+      from t_with_studygroup_tag
+     order by tag_cnt desc
+     limit 0, 4
+		 
+	</select>
+	<!-- 태그테이블의 특정 태그수 를 가져오기 위한 쿼리문  -->
+	<select id="nameCheck" parameterType="String" resultType="int">
+		select count(tag_name)
+		  from t_with_studygroup_tag
+		 where tag_name = #{tagName}
+	</select>
 	
 	<!-- 스터디그룹 상세 정보 출력을 위한 쿼리문 -->
 	<select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">

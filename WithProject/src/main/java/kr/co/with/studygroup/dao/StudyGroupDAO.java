@@ -30,10 +30,8 @@ public class StudyGroupDAO {
 	}
 
 	// 스터디 그룹 태그 생성을 위한 DAO
-	public void insertStudygroupTag(StudyGroupTagVO tagVO) {
-		String StudyName = session.selectOne("with.studygroup.dao.studyName", tagVO.getGroupNo());
-		tagVO.setGroupName(StudyName);
-		session.insert("with.studygroup.dao.insertStudyGroupTag", tagVO);
+	public void insertStudygroupTag(String tagName) {
+		session.insert("with.studygroup.dao.insertStudyGroupTag", tagName);
 	}
 
 	// 스터디그룹 상세를 출력하기 위한 DAO
@@ -65,4 +63,16 @@ public class StudyGroupDAO {
 	   public List<StudyGroupVO> selectMaker() {
 	      return session.selectList("with.studygroup.dao.selectMarker");
 	   }
+
+	public int nameCheck(String tagName) {
+		return session.selectOne("with.studygroup.dao.nameCheck", tagName);
+	}
+
+	public void updateTagCount(String tagName) {
+		session.update("with.studygroup.dao.updateTagCount", tagName);
+	}
+
+	public List<StudyGroupTagVO> selectTagList() {
+		return session.selectList("with.studygroup.dao.selectTagList");
+	}
 }

@@ -1,41 +1,26 @@
 package kr.co.with.studygroup.vo;
 
 public class StudyGroupTagVO {
-	private int TagNo;
-	private String TagName;
-	private int GroupNo;
-	private String GroupName;
-
+	private int tagNo;
+	private String tagName;
+	private int tagCnt;
 	public int getTagNo() {
-		return TagNo;
+		return tagNo;
 	}
-
 	public void setTagNo(int tagNo) {
-		TagNo = tagNo;
+		this.tagNo = tagNo;
 	}
-
 	public String getTagName() {
-		return TagName;
+		return tagName;
 	}
-
 	public void setTagName(String tagName) {
-		TagName = tagName;
+		this.tagName = tagName;
 	}
-
-	public int getGroupNo() {
-		return GroupNo;
+	public int getTagCnt() {
+		return tagCnt;
 	}
-
-	public void setGroupNo(int groupNo) {
-		GroupNo = groupNo;
+	public void setTagCnt(int tagCnt) {
+		this.tagCnt = tagCnt;
 	}
-
-	public String getGroupName() {
-		return GroupName;
-	}
-
-	public void setGroupName(String groupName) {
-		GroupName = groupName;
-	}
-
+		
 }
