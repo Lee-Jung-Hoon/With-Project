@@ -48,14 +48,14 @@ $(document).ready(function() {
 	// 항목 추가 버튼 클릭시
 	$(".addBtn").on('click', function() {
 	  var div = "";
-	  div += "<div class='addPanel_"+addCnt+"' id='addPanel_"+addCnt+"' style='width: 100%; border: 1px #bbb solid; z-index: 1; background: #fbfbfb;  box-shadow: 5px -5px 5px #bbb; display: none;'>";
-			div += "<div class='btnDIV_"+addCnt+"' id='btnDIV_"+addCnt+"' style='text-align: end; margin-right: 10px;'>";
-				div += "<button class='btnModify' id='btnModify' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-					div += "<img style=' width: 25px; background: #eee;' alt='' src='${pageContext.request.contextPath}/images/icon_modify.png'/>";
+	  div += "<div class='addPanel addPanel_"+addCnt+"' id='addPanel_"+addCnt+"' style='width: 100%; z-index:1; background:#CFD8DC; box-shadow:0 0 5px rgba(0, 0, 0, 0.15); display: none;'>";
+			div += "<div class='btnDIV btnDIV_"+addCnt+"' id='btnDIV_"+addCnt+"' style='text-align: end; margin-right: 10px;'>";
+				div += "<button class='btnModify commonBtn' id='btnModify'>";
+					div += "<img src='${pageContext.request.contextPath}/images/icon_write.png' alt='수정' />";
 				div += "</button>";
 			
-				div += "<button class='btnDelete' id='btnDelete' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-					div += "<img style=' width: 25px; background: #eee;' alt='' src='${pageContext.request.contextPath}/images/icon_delete.png'/>";
+				div += "<button class='btnDelete commonBtn' id='btnDelete'>";
+					div += "<img src='${pageContext.request.contextPath}/images/icon_del.png' alt='삭제' />";
 				div += "</button>";
 			div += "</div>";
 			
@@ -81,15 +81,15 @@ $(document).ready(function() {
 						
 						div += "<div style='padding-top: 20px; display: block;' id='exampleAdd_"+addCnt+"' class='exampleAdd_"+addCnt+"'>";
 							div += "<input type='hidden' class='exampleCnt_"+addCnt+"' id='exampleCnt_"+addCnt+"' value='0'>";
-							div += "<input type='button' onclick='addExample("+addCnt+")' value='보기 추가'>";
+							div += "<button type='button' class='addExample commonBtn' onclick='addExample("+addCnt+")''>보기추가</button>";
 						div += "</div>";
 					div += "</td>";
 				div += "</tr>";
 			
 				div += "<tr>";
 					div += "<td style='padding-bottom:20px; padding-left: 30px;'>";
-						div += "<button onclick='completeExample("+addCnt+")' style='background:#eee;border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-							div += "<img style=' width: 25px; background: #eee;' alt='' src='${pageContext.request.contextPath}/images/icon_complete.png'/> 작성완료";
+						div += "<button class='btnCpt commonBtn' onclick='completeExample("+addCnt+")'>";
+							div += "작성완료";
 						div += "</button>";
 					div += "</td>";
 				div += "</tr>";
@@ -188,23 +188,23 @@ function modifyExam(no) {
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
 		<div class="container">
-			<h1 style="height:50px; width: 60%; margin: 0 auto 0; margin-top: 50px; font-size: 20px;	font-weight: bold;">시험 개설</h1>
-		<div style="width: 60%; border: 1px #ccc solid; margin: 0 auto 0; background: white; margin-bottom: 50px;">
-				<div style="background: white; width: 100%; text-align: center; padding-bottom: 10px; padding-top: 10px;">
-				<input type="text" id="examTitle" name="examTitle" value="시험-제목없음" 
-					style="font-size:30px; box-sizing: border-box; font-weight:bold; width:90%; border:1px solid white;;"/>
-			</div>
-			<div style="background: white; width: 100%; text-align: center; padding-bottom: 10px; padding-top: 10px;">
-				<input type="text" id="examExplain" name="examExplain" placeholder="시험지 설명" 
-					style="box-sizing:border-box; font-size:15px; font-weight:bold; width:90%; border:1px solid white;"/>
-			</div>
-			
-			<div class="examList" id="examList">
-			</div>
-			<div style="background: white; width: 100%; padding-left: 40px;  padding-bottom: 10px; padding-top: 10px;">
+			<h3>시험 개설</h3>
+			<div class="createTest">
+				<div class="createTest-input">
+					<input type="text" class="examTitle" id="examTitle" name="examTitle" value="시험-제목없음" />
+				</div>
+				<div class="createTest-input">
+					<input type="text" class="examExplain" id="examExplain" name="examExplain" placeholder="시험지 설명" />
+				</div>
+			<div class="examList" id="examList"></div>
+			<div class="examBtn">
 <!-- 				<a href='#' class="addBtn" id="addBtn" style="padding: 5px;">항목 추가</a> -->
-				<input type="button" class="addBtn" id="addBtn" value="항목 추가" style="padding: 5px;">
-				<input type="button" class="submitBtn" id="submitBtn" value="시험 저장" style="padding: 5px;">
+<!-- <input type="button" class="addBtn" id="addBtn" value="항목 추가" /> -->
+				
+				<button type="button" class="addBtn commonBtn" id="addBtn">항목 추가</button>
+				<!--  <input type="button" class="submitBtn" id="submitBtn" value="시험 저장" />-->
+				
+				<button type="button" class="submitBtn commonBtn" id="submitBtn">시험 저장</button>
 			</div>
 		</div>
 		</div>
