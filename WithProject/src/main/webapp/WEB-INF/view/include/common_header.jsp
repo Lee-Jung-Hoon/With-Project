@@ -130,7 +130,7 @@
 			}
 		</script>
 		<div class="main-menu">
-		<button type="button" class="btn-menu">
+		<button type="button" class="btn-menu eft-light">
 			<span class="style-menu"><span></span></span>
 			<em>MENU</em>
 		</button>

@@ -303,26 +303,26 @@ setTimeout(function(){
 
 //첫번째 다음 스텝 버튼이 눌러졌을 경우
 $(".nextStep_First").on('click', function() {
- $(".secondStep").removeClass('hide').siblings('div').addClass('hide');
+ $(".secondStep").removeClass('blind').siblings('div').addClass('blind');
  $(window).scrollTop(0);
 });
 
 //두번째 다음 스텝 버튼이 눌러졌을 경우
 $(".nextStep_Second").on('click', function() {
  //$(".secondStep").hide();
- $(".thirdStep").removeClass('hide').siblings('div').addClass('hide');
+ $(".thirdStep").removeClass('blind').siblings('div').addClass('blind');
  $(window).scrollTop(0);
 });
 
 $(".prevStep_Second").on('click', function() {
  //$(".secondStep").hide();
- $(".firstStep").removeClass('hide').siblings('div').addClass('hide');
+ $(".firstStep").removeClass('blind').siblings('div').addClass('blind');
  $(window).scrollTop(0);
 });
 
 $(".prevStep_Thrid").on('click', function() {
  //$(".thirdStep").hide();
- $(".secondStep").removeClass('hide').siblings('div').addClass('hide');
+ $(".secondStep").removeClass('blind').siblings('div').addClass('blind');
  $(window).scrollTop(0);
 });
 

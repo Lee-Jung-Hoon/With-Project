@@ -227,11 +227,13 @@ function commentList(no) {
     $(".commentList").empty();
     var comment = "";
     $.each(response, function(index, value) {
-      comment += "<div class='comment_"+response[index].commentNo+"' style='margin-top:10px; border:1px solid black; border-left-style: none;  border-right-style: none;  border-bottom-style: none;'>";
-      comment += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='float:left; margin-top:10px; margin-right:20px;' width='50' height='50'>";
-      comment += "<p style='margin-top:10px;'>" + response[index].memberNo + "      " + response[index].regDate + "</p>";
-      comment += "<p>" + response[index].commentContent + "</p>";
+      comment += "<li class='comment_content comment_"+response[index].commentNo+"'>";
+      comment += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' />";
+      comment += "<div class='comment_conR'>";
+      comment += "<span><em>" + response[index].memberNo + "</em><strong>" + response[index].regDate + "</strong></span>";
+      comment += "<span>" + response[index].commentContent + "slkfhlisadufhlsaiudfhslaidufhsiodfuhsidfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuh</span>";
       comment += "</div>";
+      comment += "</li>";
     })
     $(".commentList").html("").append(comment);
   });  
@@ -434,7 +436,7 @@ function ready() {
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-BtnDIV'>";
-    HTML += "<input class='enterBtn commonBtn' type='button' value='참가 신청'> <input class='cancleBtn commonBtn' type='button' value='참가 수정 및 취소'>";
+    HTML += "<button type='button' class='enterBtn commonBtn'>참가 신청</button><button type='button' class='cancleBtn commonBtn'>참가 수정 및 취소</button>";
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-studygroupMap'>";
@@ -473,23 +475,21 @@ function ready() {
     HTML += " </div>";
     HTML += " </div>";
     HTML += "<div class='list-detailDIV'>";
-    HTML += "<label class='list-detailLabel'>스터디그룹 상세 설명</label>";
+    HTML += "<h4>스터디그룹 상세 설명</h4>";
     HTML += "<div class='list-detail'>"+response.groupDetail+"</div>"
     HTML += "</div>";
     
     HTML += "<div class='list-detailDIV' style='border-bottom-style: none;'>";
-    HTML += "<label class='list-detailLabel'>스터디그룹 댓글</label>";
+    HTML += "<h4>스터디그룹 댓글</h4>";
     HTML += "<div class='list-detail'>";
-    HTML += "<div>"
     HTML += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='margin-right:20px;' width='50' height='50'>";
     HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
-    HTML += "<input class='button' onclick='regComment("+no+")' style='margin-left:10px;' type='button' name='button' title='내용입력' value='내용입력'>";
-    HTML += "</div>";
+    HTML += "<button type='button' class='commonBtn' onclick='regComment("+no+")'>내용입력</button>";
     HTML += "</div>";
     HTML += "</div>";
     
-    HTML += "<div class='commentList'>";
-    HTML += "</div>";
+    HTML += "<ul class='commentList'>";
+    HTML += "</ul>";
     
     commentList(no);
     HTML += "</div>";
