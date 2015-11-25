@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,9 +82,11 @@ public class StudyGroupController {
 
 		// 업로드한 파일명을 DB에 저장하기 위한 구문
 		studyGroup.setGroupRepImagePath(fileName);
+		
 
 		// 그룹 정보를 DB에 저장한 후 태그 저장을 위해 auto_increment 값을 가지고옴
-		int groupNo = service.insertStudyGroup(studyGroup);
+		studyGroup.setGroupTag(tag);
+		service.insertStudyGroup(studyGroup);
 		
 		// 다중 파일 저장
 //		for(int i=0; i<files.size(); i++) {
@@ -92,17 +96,32 @@ public class StudyGroupController {
 //		}
 		
 		// 한 줄로 입력 받은 태그를 따로따로 구분함
-//		String tags[] = tag.split(",");
-//		StudyGroupTagVO tagVO = new StudyGroupTagVO();
-//		tagVO.setGroupNo(groupNo);
-//		for (int i = 0; i < tags.length; i++) {
-//			tagVO.setTagName(tags[i]);
+		String tags[] = tag.split(",");
+		StudyGroupTagVO tagVO = new StudyGroupTagVO();
+		
+		for (int i = 0; i < tags.length; i++) {
+			tagVO.setTagName(tags[i]);
 			// 태그를 DB에 저장
-//			service.insertStudygroupTag(tagVO);
-//		}
+			String tagName = tags[i];
+			int cnt = service.nameCheck(tagName);
+			if(cnt != 0){
+				service.updateTagCount(tagName);
+			}else{
+			service.insertStudygroupTag(tagName);
+			}
+		}
 		return mav;
 	}
 
+	//메인 태그 클라우드 출력을 위한 JSON
+	@RequestMapping("/tagList.json")
+	@ResponseBody
+	public List<StudyGroupTagVO> tagList() throws Exception {
+		List<StudyGroupTagVO> list = service.selectTagList();
+		Collections.shuffle(list);
+		return list;
+	}
+	
 	// 그룹 상세 정보 출력을 위한 JSON
 	@RequestMapping("/groupDetail.json")
 	@ResponseBody

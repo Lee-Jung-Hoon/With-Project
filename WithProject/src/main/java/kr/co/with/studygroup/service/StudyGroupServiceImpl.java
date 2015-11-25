@@ -29,8 +29,8 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	}
 
 	// 스터디그룹 태그 생성을 위한 service
-	public void insertStudygroupTag(StudyGroupTagVO tagVO) throws Exception {
-		dao.insertStudygroupTag(tagVO);
+	public void insertStudygroupTag(String tagName) throws Exception {
+		dao.insertStudygroupTag(tagName);
 	}
 
 	// 스터디그룹 상세 정보 출력을 위한 service
@@ -60,5 +60,23 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	
 	public List<StudyGroupVO> selectMarker() throws Exception {
 	      return dao.selectMaker();
+	}
+
+	// 스터디그룹 태그가  db에 있는지 없는지 체크하는 service 
+	@Override
+	public int nameCheck(String tagName) throws Exception {		
+		return dao.nameCheck(tagName);
+	}
+
+	// 태그의 cnt를 늘리기 위한 service
+	@Override
+	public void updateTagCount(String tagName) throws Exception {
+		dao.updateTagCount(tagName);
+	}
+
+	// 높은 순으로 태그를 뽑아오는 service
+	@Override
+	public List<StudyGroupTagVO> selectTagList() throws Exception {
+		return dao.selectTagList();
 	}
 }

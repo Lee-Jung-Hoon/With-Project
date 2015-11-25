@@ -16,16 +16,7 @@ public class StudyGroupVO {
 	private String groupRecruitStartDate;
 	private String groupRecruitEndDate;
 	private String groupRegDate;
-	private int memberNo;
-
-	public int getMemberNo() {
-		return memberNo;
-	}
-
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
-
+	
 	public int getGroupNo() {
 		return groupNo;
 	}
@@ -145,6 +136,25 @@ public class StudyGroupVO {
 	public void setGroupRegDate(String groupRegDate) {
 		this.groupRegDate = groupRegDate;
 	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
+	public String getGroupTag() {
+		return groupTag;
+	}
+
+	public void setGroupTag(String groupTag) {
+		this.groupTag = groupTag;
+	}
+
+	private int memberNo;
+	private String groupTag;
 
 	@Override
 	public String toString() {
