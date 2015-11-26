@@ -203,6 +203,7 @@ NOTE: use percentage font sizes or else old IE chokes
 	top: -0.05em; /* seems to be a good adjustment across browsers */
 	margin: 0 .2em;
 	vertical-align: middle;
+	color:#fff;
 }
 	
 /*
@@ -265,7 +266,11 @@ NOTE: use percentage font sizes or else old IE chokes
 .fc-button-group {
 	display: inline-block;
 }
-
+.fc-button-group > button {
+	background:#1C7EBB;
+	color:#fff;
+	border:1px solid #ddd;
+}
 /*
 every button that is not first in a button group should scootch over one pixel and cover the
 previous button's border...
@@ -693,6 +698,16 @@ a.fc-more:hover {
 .fc-toolbar .fc-center {
 	display: inline-block;
 }
+.fc-toolbar .fc-center > h2 {
+	font-size:18px;
+}
+.fc-day-header {
+	font-weight:bold;
+	font-size:16px;
+	color:#fff;
+	background:#1C7EBB;
+	line-height:30px;
+}
 
 /* the things within each left/right/center section */
 .fc .fc-toolbar > * > * { /* extra precedence to override button border margins */
@@ -702,7 +717,8 @@ a.fc-more:hover {
 
 /* the first thing within each left/center/right section */
 .fc .fc-toolbar > * > :first-child { /* extra precedence to override button border margins */
-	margin-left: 0;
+	margin-left:0;
+	font-weight:bold;
 }
 	
 /* title text */
@@ -808,7 +824,8 @@ a.fc-more:hover {
 }
 
 .fc-ltr .fc-basic-view .fc-day-number {
-	text-align: right;
+	text-align:right;
+	padding-right:5px;
 }
 
 .fc-rtl .fc-basic-view .fc-day-number {
@@ -851,7 +868,13 @@ a.fc-more:hover {
 }
 
 .fc-ltr .fc-axis {
-	text-align: right;
+	text-align:right;
+	
+}
+.fc-day-grid .fc-bg .fc-axis {
+	font-weight:bold;
+	color:#fff;
+	background:#1C7EBB;
 }
 
 .fc-rtl .fc-axis {
