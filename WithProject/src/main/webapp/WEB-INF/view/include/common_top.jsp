@@ -64,6 +64,16 @@ $(document).ready(function() {
            msgList(id);
            test();
          });
+        
+       	socket.on("alarm", function(data){
+       	  console.log("시험등록 진짜 들어왔니~~?" );
+      	  $.noticeAdd({"text": "<div>"+data.recvId+"님이 시험을 등록하셨습니다. </div>"});
+      	})
+      	
+       	socket.on("scheduleAlarm", function(data){
+       	 console.log("일정등록 진짜 들어왔니~~?" );
+      	  $.noticeAdd({"text": "<div>"+data.recvId+"님이 일정을 등록하셨습니다. </div>"});
+      	})
          
         socket.on("msg", function(data){
           console.log("들어오겠찡"+data.sendMsg+"번호"+data.msgNo);

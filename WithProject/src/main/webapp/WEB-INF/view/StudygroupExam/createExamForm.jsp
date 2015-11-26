@@ -16,6 +16,7 @@ var cnt = 0;
 var examCnt = 0;
 var HTML = "";
 $(document).ready(function() {
+  var socket = io.connect("http://192.168.0.6:10001");
 	// 제목 마우스 오버
   $("#examTitle").on("mouseover", function () {
     $(this).css("border", "1px solid #ccc");
@@ -65,12 +66,19 @@ $(document).ready(function() {
 					div += "<td><input class='exampleTitle_"+addCnt+"' name='exampleTitle_"+addCnt+"' style='width: 80%; font-size: 18px; height: 35px;' type='text' placeHolder=' 시험 문제 내용 입력'></td>";
 				div += "</tr>";
 				div += "<tr>";
-					div += "<th style='width:20%; text-align: left; padding-left: 30px;'>문제 유형</th>";
-					div += "<td>";
-						div += "<select onchange='examOption("+addCnt+");' id='examOption_"+addCnt+"' class='examOption_"+addCnt+"' name='examOption_"+addCnt+"'>";
-							div += "<option value='1'>객관식</option>";
-							div += "<option value='2'>주관식</option>";
-						div += "</select>";
+// 					div += "<th style='width:20%; text-align: left; padding-left: 30px;'>문제 유형</th>";
+// 					div += "<td>";
+// 						div += "<select onchange='examOption("+addCnt+");' id='examOption_"+addCnt+"' class='examOption_"+addCnt+"' name='examOption_"+addCnt+"'>";
+// 							div += "<option value='1'>객관식</option>";
+// 							div += "<option value='2'>주관식</option>";
+// 						div += "</select>";
+						
+						div += "<th style='width:20%; text-align: left; padding-left: 30px;'>보기</th>";
+						div += "<td>";
+//	 						div += "<select onchange='examOption("+addCnt+");' id='examOption_"+addCnt+"' class='examOption_"+addCnt+"' name='examOption_"+addCnt+"'>";
+//	 							div += "<option value='1'>객관식</option>";
+//	 							div += "<option value='2'>주관식</option>";
+//	 						div += "</select>";
 						
 						div += "<div style='padding-top: 20px;' id='examOptionDIV_"+addCnt+"' class='examOptionDIV_"+addCnt+"'>";
 							div += "<div>";
@@ -100,10 +108,6 @@ $(document).ready(function() {
     addCnt++;
   });
 	
-
-	socket.on("alarm", function(data){
-	  $.noticeAdd({"text": "<div>"+data.recvId+"님이 시험을 등록하셨습니다. </div>"});
-	})
 	
 	$(".submitBtn").on('click', function () {
 	  console.log("여기는 들어오시구요~~");
@@ -119,8 +123,6 @@ $(document).ready(function() {
           });
         }
       })
-	
-	$(".submitBtn").on('click', function () {
 	  var exampleTitle = "";
 	  var example_answer = "";
     for(var i=0; i<addCnt; i++) {
@@ -142,7 +144,9 @@ $(document).ready(function() {
     }
 		location.href='/WithProject/exam/createExam.do?examTitle='+$("#examTitle").val()+'&examExplain='+$("#examExplain").val()+'&exampleTitle='+exampleTitle+"&example_answer="+example_answer;
   });
+	  
 });
+	
 
 // 보기 추가 클릭시 실행
 function addExample(no) {
@@ -155,21 +159,21 @@ function addExample(no) {
 }
 
 // 문제 유형 항목을 변경할 경우 실행
-function examOption(no) {
-  HTML = "";
-  if($("#examOption_"+no).val()=="1") {
-    cnt = 0;
-    $("#examOptionDIV_"+no).empty();
-   	HTML += "<div><input style='margin-right: 10px;' type='checkbox' id='answer_"+cnt+"'>";
-    HTML += "<input type='text' id='example_"+cnt+"' value='옵션'></div>";
-    $("#examOptionDIV_"+no).append(HTML);
-    $(".exampleAdd_"+no).css("display", "block");
-  }
-  else if($("#examOption_"+no).val()=="2") {
-    $("#examOptionDIV_"+no).empty();
-    $(".exampleAdd_"+no).css("display", "none");
-  }
-}
+// function examOption(no) {
+//   HTML = "";
+//   if($("#examOption_"+no).val()=="1") {
+//     cnt = 0;
+//     $("#examOptionDIV_"+no).empty();
+//    	HTML += "<div><input style='margin-right: 10px;' type='checkbox' id='answer_"+cnt+"'>";
+//     HTML += "<input type='text' id='example_"+cnt+"' value='옵션'></div>";
+//     $("#examOptionDIV_"+no).append(HTML);
+//     $(".exampleAdd_"+no).css("display", "block");
+//   }
+//   else if($("#examOption_"+no).val()=="2") {
+//     $("#examOptionDIV_"+no).empty();
+//     $(".exampleAdd_"+no).css("display", "none");
+//   }
+// }
 
 function completeExample(no) {
   $(".examCnt_"+no).remove();
