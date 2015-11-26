@@ -119,7 +119,9 @@ $(document).ready(function() {
       success:function(member, status){
         $.each(member, function(no, MemberVO){
           console.log("멤버이시구요~"+member[no].memberNo)
-    			socket.emit("alarm", {sendId : member[no].memberNo});
+	          if(id != member[no].memberNo){
+	    				socket.emit("alarm", {sendId : member[no].memberNo});
+	          }
           });
         }
       })
