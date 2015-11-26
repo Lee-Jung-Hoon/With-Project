@@ -39,6 +39,9 @@ input, button {
 input[type="checkbox"] {
 	-webkit-appearance:checkbox;
 }
+input[type="radio"] {
+	-webkit-appearance:radio;
+}
 body.view {
 	overflow:hidden;
 }
@@ -185,12 +188,14 @@ header .bookmarkZone {
   text-align:left;
   margin-top:-25px;
   border-radius:10px;
-  box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
 }
 header .bookmarkZone-left {
 	width:200px;
 	height:100%;
 	line-height:46px;
+	border:1px solid #CFD8DC;
+	border-right:0;
+	border-radius:10px 0 0 10px;
 }
 header .bookmarkZone span {
 	display:inline-block;
@@ -203,6 +208,7 @@ header .bookmarkZone .img {
 	border:1px solid #515d6e;
 	border-radius:50%;
 	overflow:hidden;
+	
 }
 header .bookmarkZone .img img {
 	display:table-cell;
@@ -343,6 +349,16 @@ header .main-menu em {
   padding-top:10px;
   overflow:hidden;
 }
+.commonBtn:active {
+	transform:translate(0px,3px);
+  -webkit-transform:translate(0px,3px);
+  transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+.commonBtn:active::before {
+	opacity:0;
+}
+
 .eft-light::after {
 	content:"";
 	display:block;
@@ -473,12 +489,14 @@ header .main-menu em {
 	display:none;
 }
 .list-menu li button {
+	font-weight:normal;
 	color:#000;
-	transition:color .5s ease;
+	transition:all .2s ease;
 }
 .list-menu li button:hover, .list-menu li button:focus {
+	font-weight:bold;
 	color:#0090c0;
-	transition:color .5s ease;
+	transition:all .2s ease;
 }
 .list-menu li::after {
 	content:"";
@@ -1801,6 +1819,7 @@ rect:hover {
 }
 .list-txt .list-detail textarea {
 	width:800px;
+	border:1px solid #ddd;
 }
 .list-txt .list-detail button {
 	width:100px;
@@ -1813,9 +1832,12 @@ rect:hover {
 	width:100%;
 	position:relative;
 	box-sizing:border-box;
-	border-top:1px solid #000;
+	border-top:1px solid #ddd;
 	padding:10px;
 	overflow:hidden;
+}
+.commentList {
+	border-bottom:1px solid #ddd;
 }
 .comment_content img {
 	position:absolute;
@@ -2097,7 +2119,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .createExam {
 	width:100px;
 	height:40px;
-	background:#23AE89;
+	background:#F98E33;
 	font-size:15px;
 }
 .btn-common {
@@ -2115,16 +2137,16 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	margin-top:20px;
 	width:100%;
 	box-sizing:border-box;
-	border-top:1px solid #999;
-	border-left:1px solid #999;
+	border-top:1px solid #ddd;
+	border-left:1px solid #ddd;
 }
 .table-common th {
 	font-size:15px;
-	background:#105a8b;
+	background:#E94B3B;
 }
 .table-common th, .table-common td {
-	border-right:1px solid #999;
-	border-bottom:1px solid #999;
+	border-right:1px solid #ddd;
+	border-bottom:1px solid #ddd;
 } 
 .table-common td {
 	font-size:14px;
@@ -2218,8 +2240,37 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	background-size:30%;
 	text-indent:33px;
 }
+.examList {
+	margin-top:10px;
+	width:100%; 
+	z-index:1; 
+	background:#f4f4f4; 
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
+}
+.examOptionInner {
+	margin-top:10px;
+}
+.check-option {
+	margin-right:10px;
+}
+.examTable {
+	width:100%; 
+	margin-top:-60px; 
+	border-top:1px dashed #ddd;
+}
+.examTable th {
+	font-size:15px;
+}
+.addPanel_0 .examTable {
+	border:0;
+}
+.addPanel {
+  width:100%;
+  display:none;
+}
 .addPanel input {
 	border:1px solid #CFD8DC;
+	vertical-align:middle;
 }
 .addPanel input:focus, .addPanel select:focus {
 	border-color:#66afe9;
@@ -2232,4 +2283,121 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 .addPanel th {
 	vertical-align:middle;
+	font-weight:bold;
 }
+.addPanel .input-option {
+	padding:0 5px;
+	line-height:24px;
+}
+/* 일정 */
+.cal-frame-first {
+	position:absolute;
+	top:50%;
+	left:50%;
+	background:#fff;
+	border:1px solid #ccc;
+  -webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
+	box-shadow:0 2px 4px rgba(0,0,0,.2);
+	width:350px;
+	margin-top:-200px;
+	margin-left:-175px;
+	z-index:99;
+	display:none;
+	box-sizing:border-box;
+	padding:10px;
+	text-align:center;
+}
+.cal-frame-first p {
+	font-size:16px;
+	font-weight:bold;
+	background:#6A55C2;
+	line-height:35px;
+	margin-bottom:10px;
+	color:#fff;
+}
+.cal-frame-first input, .cal-frame-first textarea {
+	border:1px solid #ddd;
+}
+.cal-frame-first input[type="text"], .cal-frame-first input[type="date"] {
+	line-height:24px;
+	height:24px;
+}
+.cal-frame-first input:focus {
+	border-color:#66afe9;
+	outline:0;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+}
+.cal-frame-first textarea {
+	resize:none;
+}
+.cal-frame-first li {
+	padding:5px 0;
+	overflow:hidden;
+}
+.cal-frame-first span {
+	display:block;
+	float:left;
+}
+.cal-frame-first span:nth-child(1) {
+	width:70px;
+	text-align:right;
+	line-height:24px;
+}
+.cal-frame-first span:nth-child(2) {
+	width:150px;
+	margin-left:20px;
+	text-align:left;
+}
+.cal-frame-first button {
+	width:60px;
+	height:40px;
+	margin:0 5px;
+}
+.cal-frame-first .insert {
+	background:#23AE89;
+} 
+.cal-frame-first .update {
+	display:none;
+	background:#F98E33;
+}
+.cal-frame-first .cancel {
+	background:#E94B3B;
+}
+.cal-frame-second {
+	position:absolute;
+	width:270px;
+	background:#fff;
+  border:1px solid #ccc;
+  -webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
+	box-shadow:0 2px 4px rgba(0,0,0,.2);
+	padding:10px 0;
+	display:none;
+	z-index:99;
+}
+.cal-frame-second {
+	text-align:center;
+}
+.cal-frame-second .update, .cal-frame-second .del {
+	width:80px;
+	height:40px;
+	margin:0 5px;
+} 
+.cal-frame-second .update {
+	background:#F98E33;
+}
+.cal-frame-second .del {
+	background:#E94B3B;
+}
+.cal-frame-second .close {
+	display:block;
+	position:absolute;
+	top:10px;
+	right:10px;
+	width:15px;
+	height:15px;
+	overflow:hidden;
+	text-indent:-5000px;
+	background:url('/WithProject/images/icon_close_cal.png') no-repeat center;
+	background-size:15px 15px;
+}	
