@@ -43,6 +43,7 @@ public class CalendarController {
    @RequestMapping("/update_form.json")
    @ResponseBody
    public CalendarVO updateForm(int no) throws Exception {
+	   System.out.println(no);
 	   return service.updateForm(no);
    }
    
