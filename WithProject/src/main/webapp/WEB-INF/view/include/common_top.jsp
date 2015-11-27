@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/notice/jquery.notice.css" />
+<script>
+	var memberNo = "${no}";
+</script>
 <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
 <script src="http://www.google.com/jsapi"></script>

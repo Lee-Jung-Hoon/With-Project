@@ -26,6 +26,7 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	//회원가입를 위한 join.do
 	@RequestMapping("/join.do")
 	public String join(MemberVO member) throws Exception {
 		
@@ -43,6 +44,7 @@ public class MemberController {
 		return "redirect:/main/main.do";
 	}
 	
+	// 로그인을 위한 서블릿
 	@RequestMapping("/login.do")
 	public ModelAndView login(MemberVO member, HttpServletRequest req) throws Exception {
 		ModelAndView mav = new ModelAndView("main");
@@ -65,6 +67,7 @@ public class MemberController {
 		return mav;
 	}
 	
+	//로그아웃을 위한 서블릿
 	@RequestMapping("/logout.do")
 	public String logout(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
@@ -103,14 +106,14 @@ public class MemberController {
 		}
 	}
 		
-	
+	// 로그인한 회원이 가입한 그룹리스트를 가져오는 json
 	@RequestMapping("/groupList.json")
 	@ResponseBody
 	public List<MemberVO> groupList(String memberNo, HttpServletRequest req) throws Exception {
 		return service.groupList(memberNo);
 	}
 	
-	
+	//해당 그룹에 가입한 맴버 LIST를 가져오는  json
 	@RequestMapping("/memberList.json")
 	@ResponseBody
 	public List<MemberVO> memberList(String groupNo, HttpServletRequest req) throws Exception {
@@ -119,6 +122,15 @@ public class MemberController {
 		System.out.println("asdasd"+list.size());
 		return list;
 	}
+	//해당 그룹에 가입한 맴버 LIST를 가져오는  json
+	@RequestMapping("/memberList2.json")
+	@ResponseBody
+	public List<MemberVO> memberList2() throws Exception {
+		List<MemberVO> list = service.memberList2();
+		System.out.println("asdasd"+list.size());
+		return list;
+	}
+	
 	
 	
 }

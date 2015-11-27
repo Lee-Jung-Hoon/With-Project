@@ -43,6 +43,11 @@
  			  from t_with_joinstudygroup
  			 where group_no = #{groupNo}
  </select>
+ <select id="memberList2" parameterType="String" resultType="member">
+ 			select member_no memberNo
+ 			  from t_with_joinstudygroup
+ 			 where group_no = '1'
+ </select>
   <insert id="insertFbookMember" parameterType="member" >
  		insert into t_with_Member(member_name, id, password, member_type, member_gender, member_age, member_img)
 		values(

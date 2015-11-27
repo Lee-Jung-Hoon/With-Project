@@ -1,5 +1,5 @@
 var search = "";
-var isClick = "false";
+var isClick = false;
 $(document).ready(function() {
   
     var d = new Date();
@@ -66,7 +66,7 @@ $(document).ready(function() {
       var infowindows = [];
 
       $.getJSON("/WithProject/studygroup/mapList.json", function(data) {
-        $(data).each(function(idx, obj) {
+         $(data).each(function(idx, obj) {
           
           // 반경 내 거리 계산을 위한 부분
           var lat1 = position.coords.latitude;
@@ -89,14 +89,15 @@ $(document).ready(function() {
          
           if(dist < 1000) {
             console.log(obj.groupName);
+            console.log(obj.groupNo);
             // markers 배열에 경도 위도 객체 추가
-            addMarker(new daum.maps.LatLng(obj.groupActiveLatitude, obj.groupActiveLongitude));
+            addMarker(new daum.maps.LatLng(obj.groupActiveLatitude, obj.groupActiveLongitude), obj.groupNo, obj.groupName);
           }
         });
       });
 
       //마커를 생성하고 지도위에 표시하는 함수
-      function addMarker(position) {
+      function addMarker(position, groupNo, groupName) {
         // 마커를 생성합니다
         var marker = new daum.maps.Marker({
           position : position
@@ -105,12 +106,11 @@ $(document).ready(function() {
         // 마커가 지도 위에 표시되도록 설정
         marker.setMap(map);
 
-        
         // 생성된 마커를 배열에 추가
         markers.push(marker);
         
-        var iwContent = '<div style="padding:5px;"><a href="http://map.daum.net/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        
+        var iwContent = "<div style='padding:5px;' ><input type='button' class='mapDetail' value='"+groupName+"' onclick='mapDetail("+groupNo+");'/></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+       
         // 인포윈도우를 생성합니다
         var infowindow = new daum.maps.InfoWindow({
           position : position, 
@@ -122,6 +122,8 @@ $(document).ready(function() {
         
         infowindows.push(infowindow);
       }
+      
+      
 
       //배열에 추가된 마커들을 지도에 표시
       function setMarkers(map) {
@@ -129,7 +131,9 @@ $(document).ready(function() {
           markers[i].setMap(map);
           infowindows[i].setMap(map);
         }
+
       }
+      
     })
   }
   
@@ -138,19 +142,20 @@ $(document).ready(function() {
   })
   
   
-  $("#switch").button().click(function(){
-    if(isClick=="false") {
+  $("#switch").click(function(){
+    console.log(isClick);
+    if(isClick==false) {
       $("#panel").animate({
         'left':'50%',
         'margin-left' : '-600px'
       },500).css("position", "relative");
-      isClick="true";
+      isClick=true;
     }
-    else if(isClick=="true") {
+    else if(isClick==true) {
       $("#panel").animate({
         'left': '-5000px'
       },500).css("position", "absolute");
-      isClick="false"; 
+      isClick=false; 
     }
   });
   
@@ -871,3 +876,153 @@ rollBtn.on('click', function() {
   imageS(current, size, cnt);
 });
 }
+
+
+function mapDetail(no) {
+  $.ajax({
+        url : "/WithProject/studygroup/groupDetail.json?groupNo="+no,
+        dataType : "json"
+      }).done(function(response1) {
+  var HTML = "";
+  HTML += "<div class='list-txt'>";
+  HTML += "<div class='list-infoTop'>";
+  HTML += "<h3>"+response1.groupName+"</h3>";
+  HTML += "<div class='list-studygroupInfo'>";
+  HTML += "<h4>스터디그룹 정보</h4>";
+  HTML += "<div class='list-infoDIV'>";
+  HTML += "<div class='list-infoImgDIV'>";
+  HTML += "<span class='list-infoImgFrame'>";
+  HTML += "<img class='list-infoImg' src='/WithProject/images/"+response1.groupRepImagePath+"' alt=''>";
+  HTML += "</span>";
+  HTML += "<div class='list-infoUl'>";
+  HTML += "<ul>";
+  HTML += "<li style='padding-bottom: 10px;'>그룹 활동 기간 : </li>";
+  HTML += "<li style='padding-bottom: 10px;'>그룹원 모집 기간 : " + response1.groupRecruitStartDate + " ~ " + response1.groupRecruitEndDate + "</li>";
+  HTML += "<li style='padding-bottom: 10px;'>주 모임 장소 : " + response1.groupActivePlace + "</li>";
+  HTML += "</ul>";
+  HTML += "</div>";
+  HTML += "</div>";
+  HTML += "<div class='list-BtnDIV'>";
+  HTML += "<button type='button' class='enterBtn commonBtn'>참가 신청</button><button type='button' class='cancleBtn commonBtn'>참가 수정 및 취소</button>";
+  HTML += "</div>";
+  HTML += "</div>";
+  HTML += "<div class='list-studygroupMap'>";
+  HTML += "<div id='map' style='width: 100%; height: 350px;'>";
+  HTML +="</div>";
+  HTML += "</div>";
+  HTML += "</div>";
+  HTML += "</div>";
+  HTML += "<div style='margin-top: 20px;'>";
+  HTML += "<h4>스터디그룹 회원 분포</h4>";
+  HTML += " <div id='dashboard' style='text-align: center;'>";
+  HTML += " <script>";
+  HTML += "  var freqData=[{State:'10대',freq:{male:1319, female:249}}";
+  HTML += " ,{State:'20대',freq:{male:412, female:674}}";
+  HTML += "    ,{State:'30대',freq:{male:2149, female:418}}";
+  HTML += "   ,{State:'40대',freq:{male:1152, female:1862}}";
+  HTML += "    ,{State:'50대',freq:{male:1152, female:1862}}";
+  HTML += "    ];";
+  HTML += "   dashboard('#dashboard',freqData);";
+  HTML += " </script>";
+  HTML += " </div>";
+  HTML += " </div>";
+  HTML += " <div class='list-openDIV'>";
+  HTML += "  <div style='margin-bottom: 20px;'>";
+  HTML += "  <h4>스터디그룹 개설자 정보</h4>";
+  HTML += " <label>*본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
+  HTML += " </div>";
+  HTML += " <div class='list-openImgDIV'>";
+  HTML += " <img class='list-openImg' src='/WithProject/images/sample.jpg'>";
+  HTML += "</div>";
+  HTML += "<div class='list-openUl'>";
+  HTML += "  <ul style='padding-top: 50px;'>";
+  HTML += "   <li style='padding-bottom: 20px;'>이름</li>";
+  HTML += "  <li style='padding-bottom: 20px;'>"+response1.groupEmail+" - "+response1.groupTel+"</li>";
+  HTML += " </ul>";
+  HTML += " </div>";
+  HTML += " </div>";
+  HTML += "<div class='list-detailDIV'>";
+  HTML += "<h4>스터디그룹 상세 설명</h4>";
+  HTML += "<div class='list-detail'>"+response1.groupDetail+"</div>"
+  HTML += "</div>";
+  
+  HTML += "<div class='list-detailDIV' style='border-bottom-style: none;'>";
+  HTML += "<h4>스터디그룹 댓글</h4>";
+  HTML += "<div class='list-detail'>";
+  HTML += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='margin-right:20px;' width='50' height='50'>";
+  HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
+  HTML += "<button type='button' class='commonBtn' onclick='regComment("+no+")'>내용입력</button>";
+  HTML += "</div>";
+  HTML += "</div>";
+  
+  HTML += "<ul class='commentList'>";
+  HTML += "</ul>";
+  
+  commentList(no);
+  HTML += "</div>";
+  $(".list-content").html('').append(HTML);
+
+  
+  var mapContainer = document.getElementById('map'),
+  mapOption = {
+    center : new daum.maps.LatLng(response1.groupActiveLatitude, response1.groupActiveLongitude),
+    level : 3
+  }
+
+  var map = new daum.maps.Map(mapContainer, mapOption);
+
+  var markerPosition = new daum.maps.LatLng(response1.groupActiveLatitude, response1.groupActiveLongitude);
+
+  var marker = new daum.maps.Marker({
+                  position : markerPosition});
+
+  marker.setMap(map);
+
+  var iwContent = "<div style='padding:5px;'>주활동 지역<br>";
+    iwContent +="<a href='http://map.daum.net/link/map/"+response1.groupActivePlace+","+response1.groupActiveLatitude+","+response1.groupActiveLongitude+"' style='color:blue' target='_blank'>큰지도보기</a>";
+    iwContent +="<a href='http://map.daum.net/link/to/"+response1.groupActivePlace+","+response1.groupActiveLatitude+","+response1.groupActiveLongitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
+  iwPosition = new daum.maps.LatLng(response1.groupActiveLatitude, response1.groupActiveLongitude);
+
+
+  
+  var infowindow = new daum.maps.InfoWindow({
+  position : iwPosition,
+  content : iwContent
+  });
+
+  infowindow.open(map, marker);
+  
+  isClick = true;
+  $(this).parents('.img-wrap').addClass('on');
+  $('body').addClass('view');
+  imageEffect();
+  var scroll = $(window).scrollTop();
+  //var boxTop = parseInt($('.box').css('top'));
+  $('.box').addClass('open', callbackOpen).css('top',30 + scroll + 'px');
+  return false;
+});
+
+$('.box .btn-close').on('click', function() {
+  $('.box').removeClass('open', callbackClose);
+  $('.list-content').removeClass('scroll');
+  isClick = false;
+});
+
+var slide, slideAction, isOver;
+
+function callbackOpen() {
+  setTimeout(function() {
+    $('.list-content').addClass('scroll');
+  }, 1000);
+}
+function callbackClose() {
+  setTimeout(function() {
+    $('body').removeClass('view');
+    $('.img-wrap').removeClass('on');
+  }, 1000);
+}
+}
+
+
+
+
