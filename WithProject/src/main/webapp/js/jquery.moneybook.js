@@ -3,7 +3,10 @@
  */
 
 var cnt = 0;
-var value = [1,2,3,4,5,6,7];
+var value = [];
+var freqData =  [];
+var lastDay = [];
+
 $(document).ready(function() {  
   $(".btnInsert").on('click', function() {
     var html = "";
@@ -92,7 +95,7 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 오늘 날짜를 기본 값으로 설정
     var d = new Date();
@@ -207,7 +210,7 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
     var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + "01";
@@ -295,7 +298,7 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
     var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + "01";
@@ -320,7 +323,44 @@ $(document).ready(function() {
   });
   
   $(".btnMoney").on('click', function() {
+    var html = "";
+    var d = new Date();
+    html += "<div class='moneybook-main'>";
+    html += "<div class='main-row'>";
+    html += "<div>시작</div>";
+    html += "<input type='month' name='sMonth' class='sMonth'/>";
+    html += "</div>";
+
+    html += "<div class='main-row'>";
+    html += "<br/>";
+    html += "<div>~</div>";
+    html += "</div>";
     
+    html += "<div class='main-row'>";
+    html += "<div>종료</div>";
+    html += "<input type='month' name='eMonth' class='eMonth'/>";
+    html += "</div>";
+
+    html += "<div class='main-row'>";
+    html += "<br/>";
+    html += "<input type='button' name='search' value='조회' class='monthSearch'/>";
+    html += "</div>";
+  
+    html += "<div style='clear:both; height:20px;'></div>";
+    html += "<div class='moneybook-list'>";
+    html += "</div>";
+    html += "</div>";
+    html += "</div>";
+    $(".content").html("").append(html);
+
+    // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
+    var strDate = d.getFullYear() + "-" + (d.getMonth()+1);
+    $(".sMonth").val(strDate);
+    $(".eMonth").val(strDate);
+    
+    selectMoneyList(strDate, strDate);
+    
+    searchMoneyAction();
   });  
 
   $(".btnCard").on('click', function() {
@@ -352,7 +392,7 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
     var strDate = d.getFullYear() + "-" + (d.getMonth()+1);
@@ -387,54 +427,16 @@ $(document).ready(function() {
 
     html += "<div class='main-row'>";
     html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='search'/>";
-    html += "</div>";
-    
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='year' onchange='changeYear()'>";
-    html += "<option>연도별</option>";
-    html += "<option>"+(d.getFullYear()-4)+"</option>";
-    html += "<option>"+(d.getFullYear()-3)+"</option>";
-    html += "<option>"+(d.getFullYear()-2)+"</option>";
-    html += "<option>"+(d.getFullYear()-1)+"</option>";
-    html += "<option>"+(d.getFullYear()-0)+"</option>";
-    html += "<option>"+(d.getFullYear()+1)+"</option>";
-    html += "<option>"+(d.getFullYear()+2)+"</option>";
-    html += "</select>";
+    html += "<input type='button' name='search' value='조회' onclick='spendSearch()' class='spendSearch'/>";
     html += "</div>";
 
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='quarter' onchange='changeQuarter()'>";
-    html += "<option>분기별</option>";
-    html += "<option value='1'>"+(d.getFullYear()-1)+" 1/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 2/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 3/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 4/4</option>";
-    html += "<option>"+(d.getFullYear())+" 1/4</option>";
-    html += "<option>"+(d.getFullYear())+" 2/4</option>";
-    html += "<option>"+(d.getFullYear())+" 3/4</option>";
-    html += "<option>"+(d.getFullYear())+" 4/4</option>";
-    html += "</select>";    
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='month' onchange='changeMonth()'>";
-    html += "<option>월별</option>";
-    for(var i=1; i<=12; i++)
-      html+="<option value='"+i+"'>"+i+"월</option>";
-    html += "</select>";
-    html += "</div>";
-    
     html += "<div style='clear:both; height:20px;'></div>";
     html += "<div class='moneybook-list-graph'>";
     html += "<div id='dashboard'>";
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
     var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + "01";
@@ -445,331 +447,49 @@ $(document).ready(function() {
     var lastDayWithSlashes =  lastDay.getFullYear() + '-' + (lastDay.getMonth() + 1) + "-" +(lastDay.getDate());
     $(".eDate").val(lastDayWithSlashes);
     
+    spendChart(strDate, lastDayWithSlashes);
 
-    function dashboard(id, fData){
-        var barColor = 'steelblue';
-        function segColor(c){ return {신용카드:"#807dba", 현금:"#e08214", 체크카드:"#FF4848", 갚을돈:"#41ab5d"}[c]; }
-        
-        // compute total for each state.
-        fData.forEach(function(d){d.total=d.freq.신용카드+d.freq.현금+d.freq.갚을돈+d.freq.체크카드;});
-        
-        // function to handle histogram.
-        function histoGram(fD){
-            var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
-            hGDim.w = 500 - hGDim.l - hGDim.r, 
-            hGDim.h = 300 - hGDim.t - hGDim.b;
-                
-            //create svg for histogram.
-            var hGsvg = d3.select(id).append("svg")
-                .attr("width", hGDim.w + hGDim.l + hGDim.r)
-                .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
-                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
-
-            // create function for x-axis mapping.
-            var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
-                    .domain(fD.map(function(d) { return d[0]; }));
-
-            // Add x-axis to the histogram svg.
-            hGsvg.append("g").attr("class", "x axis")
-                .attr("transform", "translate(0," + hGDim.h + ")")
-                .call(d3.svg.axis().scale(x).orient("bottom"));
-
-            // Create function for y-axis map.
-            var y = d3.scale.linear().range([hGDim.h, 0])
-                    .domain([0, d3.max(fD, function(d) { return d[1]; })]);
-
-            // Create bars for histogram to contain rectangles and freq labels.
-            var bars = hGsvg.selectAll(".bar").data(fD).enter()
-                    .append("g").attr("class", "bar");
-            
-            //create the rectangles.
-            bars.append("rect")
-                .attr("x", function(d) { return x(d[0]); })
-                .attr("y", function(d) { return y(d[1]); })
-                .attr("width", x.rangeBand())
-                .attr("height", function(d) { return hGDim.h - y(d[1]); })
-                .attr('fill',barColor)
-                .on("mouseover",mouseover)// mouseover is defined below.
-                .on("mouseout",mouseout);// mouseout is defined below.
-                
-            //Create the frequency labels above the rectangles.
-            bars.append("text").text(function(d){ return d3.format(",")(d[1])})
-                .attr("x", function(d) { return x(d[0])+x.rangeBand()/2; })
-                .attr("y", function(d) { return y(d[1])-5; })
-                .attr("text-anchor", "middle");
-            
-            function mouseover(d){  // utility function to be called on mouseover.
-                // filter for selected state.
-                var st = fData.filter(function(s){ return s.State == d[0];})[0],
-                    nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
-                   
-                // call update functions of pie-chart and legend.    
-                pC.update(nD);
-                leg.update(nD);
-            }
-            
-            function mouseout(d){    // utility function to be called on mouseout.
-                // reset the pie-chart and legend.    
-                pC.update(tF);
-                leg.update(tF);
-            }
-            
-            // create function to update the bars. This will be used by pie-chart.
-            hG.update = function(nD, color){
-                // update the domain of the y-axis map to reflect change in frequencies.
-                y.domain([0, d3.max(nD, function(d) { return d[1]; })]);
-                
-                // Attach the new data to the bars.
-                var bars = hGsvg.selectAll(".bar").data(nD);
-                
-                // transition the height and color of rectangles.
-                bars.select("rect").transition().duration(500)
-                    .attr("y", function(d) {return y(d[1]); })
-                    .attr("height", function(d) { return hGDim.h - y(d[1]); })
-                    .attr("fill", color);
-
-                // transition the frequency labels location and change value.
-                bars.select("text").transition().duration(500)
-                    .text(function(d){ return d3.format(",")(d[1])})
-                    .attr("y", function(d) {return y(d[1])-5; });            
-            }        
-            return hG;
-        }
-        
-        // function to handle pieChart.
-        function pieChart(pD){
-            var pC ={},    pieDim ={w:250, h: 250};
-            pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
-                    
-            // create svg for pie chart.
-            var piesvg = d3.select(id).append("svg")
-                .attr("width", pieDim.w).attr("height", pieDim.h).append("g")
-                .attr("transform", "translate("+pieDim.w/2+","+pieDim.h/2+")");
-            
-            // create function to draw the arcs of the pie slices.
-            var arc = d3.svg.arc().outerRadius(pieDim.r - 10).innerRadius(0);
-
-            // create a function to compute the pie slice angles.
-            var pie = d3.layout.pie().sort(null).value(function(d) { return d.freq; });
-
-            // Draw the pie slices.
-            piesvg.selectAll("path").data(pie(pD)).enter().append("path").attr("d", arc)
-                .each(function(d) { this._current = d; })
-                .style("fill", function(d) { return segColor(d.data.type); })
-                .on("mouseover",mouseover).on("mouseout",mouseout);
-
-            // create function to update pie-chart. This will be used by histogram.
-            pC.update = function(nD){
-                piesvg.selectAll("path").data(pie(nD)).transition().duration(500)
-                    .attrTween("d", arcTween);
-            }        
-            // Utility function to be called on mouseover a pie slice.
-            function mouseover(d){
-                // call the update function of histogram with new data.
-                hG.update(fData.map(function(v){ 
-                    return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
-            }
-            //Utility function to be called on mouseout a pie slice.
-            function mouseout(d){
-                // call the update function of histogram with all data.
-                hG.update(fData.map(function(v){
-                    return [v.State,v.total];}), barColor);
-            }
-            // Animating the pie-slice requiring a custom function which specifies
-            // how the intermediate paths should be drawn.
-            function arcTween(a) {
-                var i = d3.interpolate(this._current, a);
-                this._current = i(0);
-                return function(t) { return arc(i(t));    };
-            }    
-            return pC;
-        }
-        
-        // function to handle legend.
-        function legend(lD){
-            var leg = {};
-                
-            // create table for legend.
-            var legend = d3.select(id).append("table").attr('class','legend');
-            
-            // create one row per segment.
-            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
-                
-            // create the first column for each segment.
-            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
-                .attr("width", '16').attr("height", '16')
-          .attr("fill",function(d){ return segColor(d.type); });
-                
-            // create the second column for each segment.
-            tr.append("td").text(function(d){ return d.type;});
-
-            // create the third column for each segment.
-            tr.append("td").attr("class",'legendFreq')
-                .text(function(d){ return d3.format(",")(d.freq);});
-
-            // create the fourth column for each segment.
-            tr.append("td").attr("class",'legendPerc')
-                .text(function(d){ return getLegend(d,lD);});
-
-            // Utility function to be used to update the legend.
-            leg.update = function(nD){
-                // update the data attached to the row elements.
-                var l = legend.select("tbody").selectAll("tr").data(nD);
-
-                // update the frequencies.
-                l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
-
-                // update the percentage column.
-                l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
-            }
-            
-            function getLegend(d,aD){ // Utility function to compute percentage.
-                return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
-            }
-
-            return leg;
-        }
-        
-        // calculate total frequency by segment for all state.
-        var tF = ['신용카드', '체크카드','현금','갚을돈'].map(function(d){ 
-            return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))}; 
-        });    
-        
-        // calculate total frequency by state for all segment.
-        var sF = fData.map(function(d){return [d.State,d.total];});
-
-        var hG = histoGram(sF), // create the histogram.
-            pC = pieChart(tF), // create the pie-chart.
-            leg= legend(tF);  // create the legend.
+    
+    function spendSearch() {
+      spendChart($(".sDate").val(strDate), $(".eDate").val(lastDayWithSlashes));
     }
-
-    var freqData = [];
-    
-//    $.ajax({
-//      
-//    })
-//    .done(function() {
-      freqData=[{State:'식비',freq:{신용카드:4786, 체크카드:200, 현금:1319, 갚을돈:249}}
-                ,{State:'교통비',freq:{신용카드:1101, 체크카드:200, 현금:412, 갚을돈:674}}
-                ,{State:'생활용품',freq:{신용카드:932, 체크카드:200, 현금:2149, 갚을돈:418}}
-                ,{State:'교통/차량',freq:{신용카드:832, 체크카드:200, 현금:1152, 갚을돈:1862}}
-                ,{State:'경조사',freq:{신용카드:1101, 체크카드:200, 현금:412, 갚을돈:674}}
-                ,{State:'장소대여비',freq:{신용카드:932, 체크카드:200, 현금:2149, 갚을돈:418}}
-                ,{State:'미분류',freq:{신용카드:832, 체크카드:200, 현금:1152, 갚을돈:1862}}];
-//    });
-    
-
-    dashboard('#dashboard',freqData);
-  })
   
+  });
   
+
   $(".btnGraph2").on('click', function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작일</div>";
-    html += "<input type='date' name='sDate' class='sDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
-    html += "</div>";
-    
-    html += "<div class='main-row'>";
-    html += "<div>종료일</div>";
-    html += "<input type='date' name='eDate' class='eDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='search'/>";
-    html += "</div>";
-    
     html += "<div class='main-row' style='float:right;'>";
     html += "<br/>";
-    html += "<select class='year' onchange='changeYear()'>";
+    html += "<select class='year' onchange='yeardChart()'>";
     html += "<option>연도별</option>";
-    html += "<option>"+(d.getFullYear()-4)+"</option>";
-    html += "<option>"+(d.getFullYear()-3)+"</option>";
-    html += "<option>"+(d.getFullYear()-2)+"</option>";
-    html += "<option>"+(d.getFullYear()-1)+"</option>";
-    html += "<option>"+(d.getFullYear()-0)+"</option>";
-    html += "<option>"+(d.getFullYear()+1)+"</option>";
-    html += "<option>"+(d.getFullYear()+2)+"</option>";
+    html += "<option val='"+(d.getFullYear()-4)+"'>"+(d.getFullYear()-4)+"</option>";
+    html += "<option val='"+(d.getFullYear()-3)+"'>"+(d.getFullYear()-3)+"</option>";
+    html += "<option val='"+(d.getFullYear()-2)+"'>"+(d.getFullYear()-2)+"</option>";
+    html += "<option val='"+(d.getFullYear()-1)+"'>"+(d.getFullYear()-1)+"</option>";
+    html += "<option val='"+(d.getFullYear()-0)+"'>"+(d.getFullYear()-0)+"</option>";
+    html += "<option val='"+(d.getFullYear()+1)+"'>"+(d.getFullYear()+1)+"</option>";
+    html += "<option val='"+(d.getFullYear()+2)+"'>"+(d.getFullYear()+2)+"</option>";
     html += "</select>";
     html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='quarter' onchange='changeQuarter()'>";
-    html += "<option>분기별</option>";
-    html += "<option value='1'>"+(d.getFullYear()-1)+" 1/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 2/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 3/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 4/4</option>";
-    html += "<option>"+(d.getFullYear())+" 1/4</option>";
-    html += "<option>"+(d.getFullYear())+" 2/4</option>";
-    html += "<option>"+(d.getFullYear())+" 3/4</option>";
-    html += "<option>"+(d.getFullYear())+" 4/4</option>";
-    html += "</select>";    
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='month' onchange='changeMonth()'>";
-    html += "<option>월별</option>";
-    for(var i=1; i<=12; i++)
-      html+="<option value='"+i+"'>"+i+"월</option>";
-    html += "</select>";
-    html += "</div>";
-    
     html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list-graph2'>";
+    html += "<div class='moneybook-list-graph'>";
     html += "</div>";
     html += "</div>";
-    html += "</div>";
-    $(".container").html("").append(html);
-
-    // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
-    var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + "01";
-    $(".sDate").val(strDate);
-
-    // date 클래스에 해당 달의 마지막 날짜를 기본 값으로 설정
-    var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
-    var lastDayWithSlashes =  lastDay.getFullYear() + '-' + (lastDay.getMonth() + 1) + "-" +(lastDay.getDate());
-    $(".eDate").val(lastDayWithSlashes);
     
+    $(".content").html("").append(html);
     
-    var salesData=[
-      {label:"Basic", color:"#3366CC"},
-      {label:"Plus", color:"#DC3912"},
-      {label:"Lite", color:"#FF9900"},
-      {label:"Elite", color:"#109618"},
-      {label:"Delux", color:"#990099"}
-    ];
-
-    var svg = d3.select(".moneybook-list-graph2").append("svg").attr("width",900).attr("height",500);
-
-    svg.append("g").attr("id","salesDonut");
-    svg.append("g").attr("id","quotesDonut");
-
-    Donut3D.draw("salesDonut", randomData(), 150, 150, 130, 100, 30, 0.4);
-    Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
-      
-    function changeData(){
-      Donut3D.transition("salesDonut", randomData(), 130, 100, 30, 0.4);
-      Donut3D.transition("quotesDonut", randomData(), 130, 100, 30, 0);
-    }
-
-    function randomData(){
-      return salesData.map(function(d){ 
-        return {label:d.label, value:1000*Math.random(), color:d.color};});
-    }
+    drawYearLineChart(d.getFullYear());
+    
   });
   
+  
+  
   $(".btnGraph3").on('click', function() {
+    var value = [];
+    var cnt = 0;
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
@@ -790,45 +510,7 @@ $(document).ready(function() {
 
     html += "<div class='main-row'>";
     html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='search'/>";
-    html += "</div>";
-    
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='year' onchange='changeYear()'>";
-    html += "<option>연도별</option>";
-    html += "<option>"+(d.getFullYear()-4)+"</option>";
-    html += "<option>"+(d.getFullYear()-3)+"</option>";
-    html += "<option>"+(d.getFullYear()-2)+"</option>";
-    html += "<option>"+(d.getFullYear()-1)+"</option>";
-    html += "<option>"+(d.getFullYear()-0)+"</option>";
-    html += "<option>"+(d.getFullYear()+1)+"</option>";
-    html += "<option>"+(d.getFullYear()+2)+"</option>";
-    html += "</select>";
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='quarter' onchange='changeQuarter()'>";
-    html += "<option>분기별</option>";
-    html += "<option value='1'>"+(d.getFullYear()-1)+" 1/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 2/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 3/4</option>";
-    html += "<option>"+(d.getFullYear()-1)+" 4/4</option>";
-    html += "<option>"+(d.getFullYear())+" 1/4</option>";
-    html += "<option>"+(d.getFullYear())+" 2/4</option>";
-    html += "<option>"+(d.getFullYear())+" 3/4</option>";
-    html += "<option>"+(d.getFullYear())+" 4/4</option>";
-    html += "</select>";    
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
-    html += "<select class='month' onchange='changeMonth()'>";
-    html += "<option>월별</option>";
-    for(var i=1; i<=12; i++)
-      html+="<option value='"+i+"'>"+i+"월</option>";
-    html += "</select>";
+    html += "<input type='button' name='search' value='조회' class='btn_search'/>";
     html += "</div>";
     
     html += "<div style='clear:both; height:20px;'></div>";
@@ -836,7 +518,7 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    $(".container").html("").append(html);
+    $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
     var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + "01";
@@ -847,167 +529,180 @@ $(document).ready(function() {
     var lastDayWithSlashes =  lastDay.getFullYear() + '-' + (lastDay.getMonth() + 1) + "-" +(lastDay.getDate());
     $(".eDate").val(lastDayWithSlashes);
     
-//    $(".btn").on('click', function() {
-//      var sDate = $(".sDate").val();
-//      var eDate = $(".eDate").val();
-//      selectMainListOption(sDate, eDate);
-//    });
-    var svg = d3.select(".moneybook-list-graph3")
-      .append("svg")
-      .append("g")
-
-    svg.append("g")
-      .attr("class", "slices");
-    svg.append("g")
-      .attr("class", "labels");
-    svg.append("g")
-      .attr("class", "lines");
-
-    var width = 960,
-        height = 450,
-      radius = Math.min(width, height) / 2;
-
-    var pie = d3.layout.pie()
-      .sort(null)
-      .value(function(d) {
-        return d.value;
-      });
-
-    var arc = d3.svg.arc()
-      .outerRadius(radius * 0.8)
-      .innerRadius(radius * 0.4);
-
-    var outerArc = d3.svg.arc()
-      .innerRadius(radius * 0.9)
-      .outerRadius(radius * 0.9);
-
-    svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-    var key = function(d){ return d.data.label; };
-//    식비 교통비 생활용품
-//    교통/차량 경조사
-//    장소대여비 미분류
-    var color = d3.scale.ordinal()
-      .domain(["식비", "교통비", "생활용품", "교통/차량", "경조사", "장소대여비", "미분류"])
-      .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
     
-    function randomData (){
-      var labels = color.domain();
-      return labels.map(function(label){
-        return { label: label, value: value[cnt++] }
-      });
+    
+
+    var value = [];
+
+    
+    function sortGraph3(strDate, lastDayWithSlashes) {
+      value = [];
+      $.ajax({
+        url : "/WithProject/moneybook/sortSearchMoneybook.json?start="+strDate+"&end="+lastDayWithSlashes,
+        async : false
+      })
+      .done(function(response) {
+        console.log(response);
+        $.each(response, function(index, MoneybookVO) { 
+          value.push(response[index].mMoney);
+      })
+      console.log(value);
+        cnt=0;
+    })
     }
-    change(randomData());
     
-    d3.select(".search").on("click", function(){
-//        value = [];
-        var start = $(".sDate").val();
-        var end = $(".eDate").val();
-        $.ajax({
-          url: "/WithProject/moneybook/sortSearchMoneybook.json?start="+start+"&end="+end
-        })
-        .done(function(response) {  
-          $.each(response, function(index, MoneyBookVO) {
-            value[index] = response[index].mMoney;
-          });
-        })
-        change(randomData());
+    
+    sortGraph3(strDate, lastDayWithSlashes);
+    
+    var svg = d3.select(".moneybook-list-graph3")
+    .append("svg")
+    .append("g")
+
+  svg.append("g")
+    .attr("class", "slices");
+  svg.append("g")
+    .attr("class", "labels");
+  svg.append("g")
+    .attr("class", "lines");
+
+  var width = 960,
+      height = 450,
+    radius = Math.min(width, height) / 2;
+
+  var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) {
+      return d.value;
+    });
+
+  var arc = d3.svg.arc()
+    .outerRadius(radius * 0.8)
+    .innerRadius(radius * 0.4);
+
+  var outerArc = d3.svg.arc()
+    .innerRadius(radius * 0.9)
+    .outerRadius(radius * 0.9);
+
+  svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  var key = function(d){ return d.data.label; };
+
+  var color = d3.scale.ordinal()
+    .domain(["회비", "이자", "기타 수입", "미분류"])
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+  change(randomData());
+
+  d3.select(".btn_search").on("click", function(){
+    var start = $(".sDate").val();
+    var end = $(".eDate").val();
+    console.log("!!");
+    sortGraph3(start, end);
+    change(randomData());
+  });
+
+  function randomData (){
+    var labels = color.domain();
+    return labels.map(function(label){
+      return { label: label, value: value[cnt++]}
+    });
+  }
+
+  function change(data) {
+    /* ------- PIE SLICES -------*/
+    var slice = svg.select(".slices").selectAll("path.slice")
+      .data(pie(data), key);
+
+    slice.enter()
+      .insert("path")
+      .style("fill", function(d) { return color(d.data.label); })
+      .attr("class", "slice");
+
+    slice   
+      .transition().duration(1000)
+      .attrTween("d", function(d) {
+        this._current = this._current || d;
+        var interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          return arc(interpolate(t));
+        };
+      })
+
+    slice.exit()
+      .remove();
+
+    /* ------- TEXT LABELS -------*/
+
+    var text = svg.select(".labels").selectAll("text")
+      .data(pie(data), key);
+
+    text.enter()
+      .append("text")
+      .attr("dy", ".35em")
+      .text(function(d) {
+        return d.data.label;
+      });
+    
+    function midAngle(d){
+      return d.startAngle + (d.endAngle - d.startAngle)/2;
+    }
+
+    text.transition().duration(1000)
+      .attrTween("transform", function(d) {
+        this._current = this._current || d;
+        var interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          var d2 = interpolate(t);
+          var pos = outerArc.centroid(d2);
+          pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+          return "translate("+ pos +")";
+        };
+      })
+      .styleTween("text-anchor", function(d){
+        this._current = this._current || d;
+        var interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          var d2 = interpolate(t);
+          return midAngle(d2) < Math.PI ? "start":"end";
+        };
       });
 
+    text.exit()
+      .remove();
 
-    function change(data) {
+    /* ------- SLICE TO TEXT POLYLINES -------*/
 
-      cnt = 0;
-      /* ------- PIE SLICES -------*/
-      var slice = svg.select(".slices").selectAll("path.slice")
-        .data(pie(data), key);
+    var polyline = svg.select(".lines").selectAll("polyline")
+      .data(pie(data), key);
+    
+    polyline.enter()
+      .append("polyline");
 
-      slice.enter()
-        .insert("path")
-        .style("fill", function(d) { return color(d.data.label); })
-        .attr("class", "slice");
-
-      slice   
-        .transition().duration(1000)
-        .attrTween("d", function(d) {
-          this._current = this._current || d;
-          var interpolate = d3.interpolate(this._current, d);
-          this._current = interpolate(0);
-          return function(t) {
-            return arc(interpolate(t));
-          };
-        })
-
-      slice.exit()
-        .remove();
-
-      /* ------- TEXT LABELS -------*/
-
-      var text = svg.select(".labels").selectAll("text")
-        .data(pie(data), key);
-
-      text.enter()
-        .append("text")
-        .attr("dy", ".35em")
-        .text(function(d) {
-          return d.data.label;
-        });
-      
-      function midAngle(d){
-        return d.startAngle + (d.endAngle - d.startAngle)/2;
-      }
-
-      text.transition().duration(1000)
-        .attrTween("transform", function(d) {
-          this._current = this._current || d;
-          var interpolate = d3.interpolate(this._current, d);
-          this._current = interpolate(0);
-          return function(t) {
-            var d2 = interpolate(t);
-            var pos = outerArc.centroid(d2);
-            pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-            return "translate("+ pos +")";
-          };
-        })
-        .styleTween("text-anchor", function(d){
-          this._current = this._current || d;
-          var interpolate = d3.interpolate(this._current, d);
-          this._current = interpolate(0);
-          return function(t) {
-            var d2 = interpolate(t);
-            return midAngle(d2) < Math.PI ? "start":"end";
-          };
-        });
-
-      text.exit()
-        .remove();
-
-      /* ------- SLICE TO TEXT POLYLINES -------*/
-
-      var polyline = svg.select(".lines").selectAll("polyline")
-        .data(pie(data), key);
-      
-      polyline.enter()
-        .append("polyline");
-
-      polyline.transition().duration(1000)
-        .attrTween("points", function(d){
-          this._current = this._current || d;
-          var interpolate = d3.interpolate(this._current, d);
-          this._current = interpolate(0);
-          return function(t) {
-            var d2 = interpolate(t);
-            var pos = outerArc.centroid(d2);
-            pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-            return [arc.centroid(d2), outerArc.centroid(d2), pos];
-          };      
-        });
-      
-      polyline.exit()
-        .remove();
-    };
+    polyline.transition().duration(1000)
+      .attrTween("points", function(d){
+        this._current = this._current || d;
+        var interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          var d2 = interpolate(t);
+          var pos = outerArc.centroid(d2);
+          pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+          return [arc.centroid(d2), outerArc.centroid(d2), pos];
+        };      
+      });
+    
+    polyline.exit()
+      .remove();
+  };
+    
+    
   }); 
 });
+
+
   function selectCardList(start, end) {
     var arr1 = start.split('-');
     var arr2 = end.split('-');
@@ -1015,7 +710,6 @@ $(document).ready(function() {
     var start = (Number(arr1[0]*12) + Number(arr1[1]));
     var end = (Number(arr2[0]*12) + Number(arr2[1]));
     
-    var html = "";
     var month;
     var year;
     var lastDay;
@@ -1026,9 +720,9 @@ $(document).ready(function() {
       month = ((Number(arr1[0]*12) + Number(arr1[1])+i)%12);
       lastDay = new Date(year, month + 1, 0);
       lastDayWithSlashes = (lastDay.getFullYear()) + "-" + (lastDay.getMonth()) + "-" + (lastDay.getDate());
-
+      
       if(month == 0) {
-        year = year -1;
+        year = year-1;
         month = 12;
       }
       console.log(year+"-"+month);
@@ -1036,8 +730,9 @@ $(document).ready(function() {
         url : "/WithProject/moneybook/select_CardList.json?date="+year+"-"+month
       })
       .done(function(data) {
-        html += "<div style='overflow:hidden padding-bottom:20px;'>";
-          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+year+"-"+month+"</div>"
+        var html = "";
+        html += "<div style='overflow:hidden; padding-bottom:20px;'>";
+          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+data.mDate+"</div>"
             html += "<table border='1' style='width:80%;'>";
                html += "<tr>";
                  html += "<th style='width:20%;'>항목</th>";
@@ -1046,14 +741,62 @@ $(document).ready(function() {
                html += "</tr>";
                html += "<tr>";
                  html += "<td style='font-weight:bold;'>총 금액</td>";
-                 html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
+                   html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
                  html += "<td style='text-align:center;'>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
                html += "</tr>";
             html += "</table>";
         html += "</div>";
+        $(".moneybook-list").append(html);
       })
     }
-    $(".moneybook-list").append(html);
+  }
+  
+  function selectMoneyList(start, end) {
+    var arr1 = start.split('-');
+    var arr2 = end.split('-');
+    
+    var start = (Number(arr1[0]*12) + Number(arr1[1]));
+    var end = (Number(arr2[0]*12) + Number(arr2[1]));
+    
+    var month;
+    var year;
+    var lastDay;
+    var lastDayWithSlashes;
+    $(".moneybook-list").empty();
+    for(var i=0; i<=end-start; i++) {
+      year = (Math.floor((Number(arr1[0]*12) + Number(arr1[1])+i)/12));
+      month = ((Number(arr1[0]*12) + Number(arr1[1])+i)%12);
+      lastDay = new Date(year, month + 1, 0);
+      lastDayWithSlashes = (lastDay.getFullYear()) + "-" + (lastDay.getMonth()) + "-" + (lastDay.getDate());
+      
+      if(month == 0) {
+        year = year-1;
+        month = 12;
+      }
+      console.log(year+"-"+month);
+      $.ajax({
+        url : "/WithProject/moneybook/select_MoneyList.json?date="+year+"-"+month
+      })
+      .done(function(data) {
+        var html = "";
+        html += "<div style='overflow:hidden; padding-bottom:20px;'>";
+          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+data.mDate+"</div>"
+            html += "<table border='1' style='width:80%;'>";
+               html += "<tr>";
+                 html += "<th style='width:20%;'>항목</th>";
+                 html += "<th style='width:50%;'>사용금액</th>";
+                 html += "<th style='width:30%;'>사용기간</th>";
+               html += "</tr>";
+               html += "<tr>";
+                 html += "<td style='font-weight:bold;'>총 금액</td>";
+                   html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
+                 html += "<td style='text-align:center;'>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
+               html += "</tr>";
+            html += "</table>";
+        html += "</div>";
+        $(".moneybook-list").append(html);
+      })
+    }
   }
 
   function selectMainListOption(start, end) {
@@ -1227,7 +970,16 @@ $(document).ready(function() {
   
   // 가계부 내역 수정
   function modifyMoneybook(no) {
+    $('.modifyDIV').css("top", Math.max(0, (($(window).height() - $('.modifyDIV').outerHeight()) / 2) + 
+        $(window).scrollTop()) + "px");
+    $('.modifyDIV').css("left", Math.max(0, (($(window).width() - $('.modifyDIV').outerWidth()) / 2) + 
+        $(window).scrollLeft()) + "px");
+    $(".dark-layer").css("z-index", "1");
+    $('.modifyDIV').css("z-index", "99999");
+    $(".dark-layer").css("height", "500%");
+    $(document.body).toggleClass( "view" );
     
+    $('.modifyDIV').toggle();
   }
   
   // 가계부 내역 삭제
@@ -1239,7 +991,6 @@ $(document).ready(function() {
       $("#moneybook_"+no).remove();
     })
   }
-  
 
   function searchAction() {
     $(".monthSearch").on('click', function() {
@@ -1249,4 +1000,154 @@ $(document).ready(function() {
     })
   }
   
+  function searchMoneyAction() {
+    $(".monthSearch").on('click', function() {
+      var start = $(".sMonth").val();
+      var end = $(".eMonth").val();
+      selectMoneyList(start, end);
+    })
+  }
+  function spendChart(start, end) {
+    freqData = [];
+    $("#dashboard").empty();
+        $.ajax({
+          url : "/WithProject/moneybook/spendChart.json?start="+start+"&end="+end
+        })
+        .done(function(response) {
+          freqData = [{State:'식비',freq:{신용카드:response.card[0], 체크카드:response.check[0], 현금:response.money[0], 갚을돈:response.debt[0]}}
+          ,{State:'교통비',freq:{신용카드:response.card[1], 체크카드:response.check[1], 현금:response.money[1], 갚을돈:response.debt[1]}}
+          ,{State:'생활용품',freq:{신용카드:response.card[2], 체크카드:response.check[2], 현금:response.money[2], 갚을돈:response.debt[2]}}
+          ,{State:'교통/차량',freq:{신용카드:response.card[3], 체크카드:response.check[3], 현금:response.money[3], 갚을돈:response.debt[3]}}
+          ,{State:'경조사',freq:{신용카드:response.card[4], 체크카드:response.check[4], 현금:response.money[4], 갚을돈:response.debt[4]}}
+          ,{State:'장소대여비',freq:{신용카드:response.card[5], 체크카드:response.check[5], 현금:response.money[5], 갚을돈:response.debt[5]}}
+          ,{State:'미분류',freq:{신용카드:response.card[6], 체크카드:response.check[6], 현금:response.money[6], 갚을돈:response.debt[6]}}];
+          dashboard('#dashboard',freqData);
+        });
+     }
   
+  
+  function drawYearLineChart(year) {
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    var parseDate = d3.time.format("%Y%m").parse;
+
+    var x = d3.time.scale()
+        .range([0, width]);
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+
+    var line = d3.svg.area()
+        .interpolate("basis")
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d["수입"]); });
+
+    var area = d3.svg.area()
+        .interpolate("basis")
+        .x(function(d) { return x(d.date); })
+        .y1(function(d) { return y(d["수입"]); });
+
+    var svg = d3.select(".moneybook-list-graph").html("").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var data = [];
+    $.ajax({
+      url:"/WithProject/moneybook/selectYearChart.json?year="+year
+    })
+    .done(function(response) {
+      console.log(response[0])
+        data = [{date:(year+"01").toString(), '수입': Number(response[0].money), '지출': Number(response[1].money)},
+                {date:(year+"02").toString(), '수입': Number(response[2].money), '지출': Number(response[3].money)},
+                {date:(year+"03").toString(), '수입': Number(response[4].money), '지출': Number(response[5].money)},
+                {date:(year+"04").toString(), '수입': Number(response[6].money), '지출': Number(response[7].money)},
+                {date:(year+"05").toString(), '수입': Number(response[8].money), '지출': Number(response[9].money)},
+                {date:(year+"06").toString(), '수입': Number(response[10].money), '지출': Number(response[11].money)},
+                {date:(year+"07").toString(), '수입': Number(response[12].money), '지출': Number(response[13].money)},
+                {date:(year+"08").toString(), '수입': Number(response[14].money), '지출': Number(response[15].money)},
+                {date:(year+"09").toString(), '수입': Number(response[16].money), '지출': Number(response[17].money)},
+                {date:(year+"10").toString(), '수입': Number(response[18].money), '지출': Number(response[19].money)},
+                {date:(year+"11").toString(), '수입': Number(response[20].money), '지출': Number(response[21].money)},
+                {date:(year+"12").toString(), '수입': Number(response[22].money), '지출': Number(response[23].money)}
+                ];
+//        data = [{date:'201101', '수입':63.4, '지출':62.7},
+//                {date:'201102', '수입':58.0, '지출':59.9},
+//                {date:'201103', '수입':53.0, '지출':54.9},
+//                {date:'201104', '수입':55.7, '지출':64.1},
+//                {date:'201105', '수입':64.2, '지출':60.7},
+//                {date:'201106', '수입':57.9, '지출':65.1},
+//                {date:'201107', '수입':71.2, '지출':54.4},
+//                {date:'201108', '수입':61.8, '지출':58.1}];
+//                console.log(response);
+        data.forEach(function(d) {
+          d.date = parseDate(d.date);
+          d["수입"]= +d["수입"];
+          d["지출"] = +d["지출"];
+        });
+        
+        x.domain(d3.extent(data, function(d) { return d.date; }));
+        
+        y.domain([
+                  d3.min(data, function(d) { return Math.min(d["수입"], d["지출"]); }),
+                  d3.max(data, function(d) { return Math.max(d["수입"], d["지출"]); })
+                  ]);
+        
+        svg.datum(data);
+        
+        svg.append("clipPath")
+        .attr("id", "clip-below")
+        .append("path")
+        .attr("d", area.y0(height));
+        
+        svg.append("clipPath")
+        .attr("id", "clip-above")
+        .append("path")
+        .attr("d", area.y0(0));
+        
+        svg.append("path")
+        .attr("class", "area above")
+        .attr("clip-path", "url(#clip-above)")
+        .attr("d", area.y0(function(d) { return y(d["지출"]); }));
+        
+        svg.append("path")
+        .attr("class", "area below")
+        .attr("clip-path", "url(#clip-below)")
+        .attr("d", area);
+        
+        svg.append("path")
+        .attr("class", "line")
+        .attr("d", line);
+        
+        svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+        
+        svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("지출대비 수입비율(%)");
+    })
+  }  
+
+  function yeardChart() {
+    var year = $(".year").val();
+    drawYearLineChart(year);
+  }
