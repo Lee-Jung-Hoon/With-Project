@@ -50,4 +50,20 @@ public class MoneybookServiceImpl implements MoneybookService {
 	public MoneyBookVO SelectCardList(MoneyBookVO search) throws Exception {
 		return dao.SelectCardList(search);
 	}
+
+	// 가계부 지출 내역 출력을 위한 service
+	@Override
+	public Integer selectSpendChart(MoneyBookSearchVO search) throws Exception {
+		return dao.selectSpendChart(search);
+	}
+
+	@Override
+	public MoneyBookVO SelectMoneyList(MoneyBookVO search) throws Exception {
+		return dao.SelectMoneyList(search);
+	}
+
+	@Override
+	public List<MoneyBookSearchVO> SelectYearChart(MoneyBookSearchVO search) throws Exception {
+		return dao.SelectYearChart(search);
+	}
 }

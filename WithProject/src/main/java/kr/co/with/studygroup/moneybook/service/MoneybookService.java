@@ -19,4 +19,10 @@ public interface MoneybookService {
 
 	public MoneyBookVO SelectCardList(MoneyBookVO search) throws Exception;
 
+	public Integer selectSpendChart(MoneyBookSearchVO search) throws Exception;
+
+	public MoneyBookVO SelectMoneyList(MoneyBookVO search) throws Exception;
+
+	public List<MoneyBookSearchVO> SelectYearChart(MoneyBookSearchVO search) throws Exception;
+
 }
