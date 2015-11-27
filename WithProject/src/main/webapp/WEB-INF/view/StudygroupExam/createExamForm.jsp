@@ -49,7 +49,7 @@ $(document).ready(function() {
 	// 항목 추가 버튼 클릭시
 	$(".addBtn").on('click', function() {
 	  var div = "";
-	  div += "<div class='addPanel addPanel_"+addCnt+"' id='addPanel_"+addCnt+"' style='width: 100%; z-index:1; background:#CFD8DC; box-shadow:0 0 5px rgba(0, 0, 0, 0.15); display: none;'>";
+	  div += "<div class='addPanel addPanel_"+addCnt+"' id='addPanel_"+addCnt+"'>";
 			div += "<div class='btnDIV btnDIV_"+addCnt+"' id='btnDIV_"+addCnt+"' style='text-align: end; margin-right: 10px;'>";
 				div += "<button class='btnModify commonBtn' id='btnModify'>";
 					div += "<img src='${pageContext.request.contextPath}/images/icon_write.png' alt='수정' />";
@@ -60,9 +60,14 @@ $(document).ready(function() {
 				div += "</button>";
 			div += "</div>";
 			
-			div += "<table style='width:90%;'>";
+			div += "<table class='examTable'>";
+				div += "<colgroup>";
+				div += "<col style='width:15%' />";
+				div += "<col style='width:85%' />";
+				div += "</colgroup>";
+				div += "<tbody>";
 				div += "<tr>";
-					div += "<th style='width:20%; text-align: left; padding-left: 30px;'>시험 문제</th>";
+					div += "<th style='text-align: left; padding-left:30px;'>시험 문제</th>";
 					div += "<td><input class='exampleTitle_"+addCnt+"' name='exampleTitle_"+addCnt+"' style='width: 80%; font-size: 18px; height: 35px;' type='text' placeHolder=' 시험 문제 내용 입력'></td>";
 				div += "</tr>";
 				div += "<tr>";
@@ -73,17 +78,17 @@ $(document).ready(function() {
 // 							div += "<option value='2'>주관식</option>";
 // 						div += "</select>";
 						
-						div += "<th style='width:20%; text-align: left; padding-left: 30px;'>보기</th>";
+						div += "<th style='width:20%; text-align: left; padding-left: 30px; vertical-align:top;'>보기</th>";
 						div += "<td>";
 //	 						div += "<select onchange='examOption("+addCnt+");' id='examOption_"+addCnt+"' class='examOption_"+addCnt+"' name='examOption_"+addCnt+"'>";
 //	 							div += "<option value='1'>객관식</option>";
 //	 							div += "<option value='2'>주관식</option>";
 //	 						div += "</select>";
 						
-						div += "<div style='padding-top: 20px;' id='examOptionDIV_"+addCnt+"' class='examOptionDIV_"+addCnt+"'>";
+						div += "<div id='examOptionDIV_"+addCnt+"' class='examOptionDIV_"+addCnt+"'>";
 							div += "<div>";
-								div += "<input style='margin-right: 10px;' type='checkbox' id='answer_"+addCnt+"_0'>";
-								div += "<input type='text' id='example_"+addCnt+"_0' value='옵션'>";
+								div += "<input class='check-option' type='checkbox' id='answer_"+addCnt+"_0'>";
+								div += "<input type='text' class='input-option' id='example_"+addCnt+"_0' value='옵션'>";
 							div += "</div>";
 						div += "</div>";
 						
@@ -101,6 +106,7 @@ $(document).ready(function() {
 						div += "</button>";
 					div += "</td>";
 				div += "</tr>";
+				div += "</tbody>";
 			div += "</table>";
 		div += "</div>";
 		$(".examList").append(div);
@@ -110,7 +116,7 @@ $(document).ready(function() {
 	
 	
 	$(".submitBtn").on('click', function () {
-	  console.log("여기는 들어오시구요~~워후ㄱ(ㅇㅅㅇ)ㄴㄴ(ㅇㅅㅇ)ㄱ드루와!!드루와!!");
+	  console.log("여기는 들어오시구요~~");
     var id = "${no}";
     $.ajax({
       url : "/WithProject/member/memberList2.json",
@@ -119,9 +125,7 @@ $(document).ready(function() {
       success:function(member, status){
         $.each(member, function(no, MemberVO){
           console.log("멤버이시구요~"+member[no].memberNo)
-	          if(id != member[no].memberNo){
-	    				socket.emit("alarm", {sendId : member[no].memberNo});
-	          }
+    			socket.emit("alarm", {sendId : member[no].memberNo});
           });
         }
       })
@@ -155,8 +159,10 @@ function addExample(no) {
   cnt++;
   $(".exampleCnt_"+no).val(cnt);
 	HTML = "";	  
-  HTML += "<div style='margin-top:10px;'><input type='checkbox' style='margin-right: 10px;' id='answer_"+no+"_"+cnt+"'>";
-  HTML += "<input type='text' id='example_"+no+"_"+cnt+"' value='옵션'></div>";
+  HTML += "<div class='examOptionInner'>";
+  HTML += "<input type='checkbox' class='check-option' id='answer_"+no+"_"+cnt+"'>";
+  HTML += "<input type='text' class='input-option' id='example_"+no+"_"+cnt+"' value='옵션'>";
+  HTML += "</div>";
   $("#examOptionDIV_"+no).append(HTML);
 }
 
