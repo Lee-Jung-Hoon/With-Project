@@ -47,4 +47,10 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO selectFbookMember(MemberVO member) {
 		return dao.selectFbookMember(member);
 	}
+
+
+	@Override
+	public List<MemberVO> memberList2() throws Exception {
+		return dao.memberList2();
+	}
 }

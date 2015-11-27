@@ -44,4 +44,8 @@ public class MemberDAO {
 		return session.selectOne("member.dao.memberMapper.selectFbookMember", member);
 	}
 
+	public List<MemberVO> memberList2() {
+		return session.selectList("member.dao.memberMapper.memberList2");
+	}
+
 }

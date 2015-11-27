@@ -110,7 +110,7 @@ $(document).ready(function() {
 	
 	
 	$(".submitBtn").on('click', function () {
-	  console.log("여기는 들어오시구요~~");
+	  console.log("여기는 들어오시구요~~워후ㄱ(ㅇㅅㅇ)ㄴㄴ(ㅇㅅㅇ)ㄱ드루와!!드루와!!");
     var id = "${no}";
     $.ajax({
       url : "/WithProject/member/memberList2.json",
