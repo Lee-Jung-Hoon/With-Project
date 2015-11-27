@@ -30,29 +30,33 @@
   </script>
 	<header>
 		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
-		<div class="bookmarkZone">
-			<span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
-			<span class="txt">샘플 텍스트</span>
-			<button type="button" class="pin-btn">핀</button>
-			<div class="pin-click">
-				<ul class="pin-list">
-					<li><button type="button">즐겨찾기</button></li>
-					<li><button type="button">마이스터디</button></li>
-					<li><button type="button">메시지</button></li>
-				</ul>
-				<div class="pin-content">
-					<div id="msgList" style="font-size: 20px; line-height:30px; height:auto;">
-               <input type="button" id="newMsgList" value="새로운 메시지" />
-               <div id="newMsg"></div>
+		<c:choose>
+    <c:when test="${!empty id}" >
+      <div class="bookmarkZone">
+				<div class="bookmarkZone-left">
+	         <span class="img"><img src="${pageContext.request.contextPath}/images/01.jpg" alt="" /></span>
+	         <span class="txt">샘플 텍스트</span>
+         </div>
+         <button type="button" class="pin-btn">핀</button>
+         <div class="pin-click">
+            <ul class="pin-list">
+               <li><button type="button">즐겨찾기</button></li>
+               <li><button type="button">마이스터디</button></li>
+               <li><button type="button">메시지</button></li>
+            </ul>
+            <div class="pin-content">
+               <div id="msgList" style="font-size: 20px; line-height:30px; height:auto;">
+	               <input type="button" id="newMsgList" value="새로운 메시지" />
+	               <div id="newMsg"></div>
                </div>
                <div class="studyMemberList" style="font-size: 20px; line-height:30px; height:auto;">
-                  <div class="rUserList" style="font-size: 20px; line-height:30px; height:auto;">
-                     
-                  </div>
+                  <div class="rUserList" style="font-size: 20px; line-height:30px; height:auto;"></div>
                </div>
-				</div>
-			</div>			
-		</div>
+            </div>
+         </div>         
+      </div>
+    </c:when>
+    </c:choose>
 		<div class="login-area">
 		<div class="login-sort login">
 			<form action="${pageContext.request.contextPath}/member/login.do" method="post">
