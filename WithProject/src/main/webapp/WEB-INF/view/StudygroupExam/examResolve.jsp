@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!doctype html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/WithProject/css/reset.css" />
-<link rel="stylesheet" type="text/css" href="/WithProject/css/style.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>시험제출 | 시험 | WITH 스터디</title>
+<%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 	$(document).ready(function () {
   	var list = new Array(); 
@@ -67,18 +67,21 @@
   });
 	
 </script>
-<title>Insert title here</title>
 </head>
-<body>
-	<h1 style="height:50px; width: 60%; margin: 0 auto 0; margin-top: 50px; font-size: 20px;	font-weight: bold;">시험 제출</h1>
-		<form action="${pageContext.request.contextPath}/exam/examResult.do" method="POST">
-			<div class="ExamDIV" style="width: 60%; border: 1px #ccc solid; margin: 0 auto 0; background: white; margin-bottom: 50px;">
-				<div style="font-size: 30px; font-weight: bold; padding-top: 20px; padding-left: 20px;">${title}</div>
-				<div style="font-size: 20px; padding-top: 20px; padding-left: 20px;">${info}</div>
-				<input type="hidden" name="examNo" value="${examNo}" />
-				<input style='margin-left:20px; margin-bottom:20px;' type='submit' value='시험지 제출' class='sendExample' id='sendExample'>
-				<br/>
-			</div>
-		</form>
+<body class="page-sub">
+	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
+	<main>
+		<div class="container">
+			<h3>시험 제출</h3>
+			<form action="${pageContext.request.contextPath}/exam/examResult.do" method="POST">
+				<div class="ExamDIV" style="border: 1px #ccc solid; margin:0 auto;">
+					<div style="font-size: 30px; font-weight: bold; padding-top: 20px; padding-left: 20px;">${title}</div>
+					<div style="font-size: 20px; padding-top: 20px; padding-left: 20px;">${info}</div>
+					<input type="hidden" name="examNo" value="${examNo}" />
+					<input style='margin-left:20px; margin-bottom:20px;' type='submit' value='시험지 제출' class='sendExample' id='sendExample'>
+				</div>
+			</form>
+		</div>
+	</main>
 </body>
 </html>

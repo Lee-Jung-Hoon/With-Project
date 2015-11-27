@@ -6,7 +6,7 @@
 
 /* core styles usually need no change */
 .tag-editor li { display: block; float: left; overflow: hidden; margin: 3px 0; line-height:21px; height:21px;}
-.tag-editor div { float: left; padding: 0 4px; }
+.tag-editor div { float: left; padding: 0 4px;}
 .tag-editor .placeholder { padding: 0 8px; color: #bbb; }
 .tag-editor .tag-editor-spacer { padding: 0; width: 8px; overflow: hidden; color: transparent; background: none; }
 .tag-editor input {
@@ -26,10 +26,9 @@
 }
 
 /* delete icon */
-.tag-editor .tag-editor-delete { background: #e0eaf1; cursor: pointer; padding-right: 5px; border-radius: 0 2px 2px 0; height:20px;}
+.tag-editor .tag-editor-delete { background: #e0eaf1; cursor: pointer; padding-right: 5px; border-radius: 0 2px 2px 0; height:21px;}
 .tag-editor .tag-editor-delete i {
     display: inline-block; width: 7px; height: 7px; vertical-align: middle; background: url("delete.png") 0 0 no-repeat;
-    position: relative; top: 50%; margin-top:-3.5px;
 }
 .tag-editor .tag-editor-delete:hover i { background-position: 0 -14px; }
 .tag-editor .tag-editor-tag.active+.tag-editor-delete,

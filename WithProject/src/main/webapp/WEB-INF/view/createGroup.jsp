@@ -34,12 +34,11 @@
                      <input class="groupName" placeholder="스터디그룹 이름" type="text" name="groupName"
                         id="groupName">
                   </div>
-                  <div class="input">
-							<h2>대표이미지</h2>
-							<div id="image-preview"
-								style="border: 1px gray solid; background-image: url('http://images.freeimages.com/static/images/avatardefault.png')">
-								<label for="image-upload" id="image-label">사진 변경</label> <input
-									type="file" name="image" id="image-upload"
+                 	<div class="input">
+										<h4>대표이미지</h4>
+							<div id="image-preview" class="image-preview">
+								<span><label for="image-upload" id="image-label">사진 변경</label></span> 
+								<input type="file" name="image" id="image-upload"
 									style="display: none" accept="image/png, image/gif, image/jpeg" />
 							</div>
 <!-- 						<input class='fileInput' type="file" name="photo" multiple="multiple" /> -->
