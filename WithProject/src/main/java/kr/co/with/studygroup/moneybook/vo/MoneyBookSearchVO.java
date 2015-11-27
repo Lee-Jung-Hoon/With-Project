@@ -5,7 +5,35 @@ public class MoneyBookSearchVO {
 	private String startDate;
 	private int groupNo;
 	private String search;
+	private String category;
+	private String money;
+	private String sMoney;
 	
+	
+
+	public String getsMoney() {
+		return sMoney;
+	}
+
+	public void setsMoney(String sMoney) {
+		this.sMoney = sMoney;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
+	}
 
 	public String getSearch() {
 		return search;

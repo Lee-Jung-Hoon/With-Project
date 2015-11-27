@@ -39,7 +39,7 @@ public class MoneybookDAO {
 
 	// 가계부 사용 내역별 리스트 출력을 위한 dao
 	public List<MoneyBookVO> SortSearchMoneybook(MoneyBookSearchVO search) {
-		String array[] = {"식비", "교통비", "생활용품", "교통/차량", "경조사", "장소대여비", "미분류"};
+		String array[] = {"회비", "이자", "기타 수입", "미분류"};
 		List<MoneyBookVO> val = new ArrayList<>();
 		for(int i=0; i<array.length; i++) {
 			search.setSearch(array[i]);
@@ -50,6 +50,41 @@ public class MoneybookDAO {
 
 	// 가계부 카드 내역 출력을 위한 dao
 	public MoneyBookVO SelectCardList(MoneyBookVO search) {
-		return session.selectOne("with.moneybook.dao.SelectCardList", search);
+		MoneyBookVO money = session.selectOne("with.moneybook.dao.SelectCardList", search);
+		money.setmDate(search.getmDate());
+		if(money.getmMoney() == 0)
+			money.setmMoney(0);
+		return money;
+	}
+
+	public Integer selectSpendChart(MoneyBookSearchVO search) {
+		return session.selectOne("with.moneybook.dao.selectSpendChart", search);
+	}
+
+	public MoneyBookVO SelectMoneyList(MoneyBookVO search) {
+		MoneyBookVO money = session.selectOne("with.moneybook.dao.SelectMoneyList", search);
+		money.setmDate(search.getmDate());
+		if(money.getmMoney() == 0)
+			money.setmMoney(0);
+		return money;
+	}
+
+	public List<MoneyBookSearchVO> SelectYearChart(MoneyBookSearchVO search) {
+		List<MoneyBookSearchVO> val = new ArrayList<>();
+		String year = search.getStartDate();
+		System.out.println(year);
+		for(int i=1; i<=12; i++) {
+			if(i<10){
+				search.setStartDate(year+"-0"+i);
+				System.out.println(year+"-0"+i);
+			}
+			else { 
+				search.setStartDate(year+"-"+i);
+				System.out.println(year+"-"+i);
+			}
+			val.add(session.selectOne("with.moneybook.dao.SelectYearChartImport", search));
+			val.add(session.selectOne("with.moneybook.dao.SelectYearChartSpend", search));
+		}
+		return val;
 	}
 }

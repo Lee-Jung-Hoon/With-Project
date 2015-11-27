@@ -97,7 +97,7 @@
 	
 	<select id="SortSearchMoneybook" parameterType="moneybooksearch" resultType="moneybook">
 		select 
-			sum(M_MONEY) as mMoney
+			IFNULL(SUM(M_MONEY), 0) as mMoney
 		from 
 			T_WITH_STUDYGROUP_MONEYBOOK 
 		where
@@ -105,19 +105,82 @@
 		and
 			date_format(M_DATE, '%Y-%m-%d') between #{startDate} and #{endDate}
 	  and
-	    m_left like CONCAT('%', #{search}, '%')
+	    m_right = #{search}
 	</select>
 	
 	<select id="SelectCardList" parameterType="moneybook" resultType="moneybook">
 		select
-			sum(M_MONEY) as mMoney
+			IFNULL(SUM(M_MONEY), 0) as mMoney
 		from
 			T_WITH_STUDYGROUP_MONEYBOOK 
 		where
 			group_no = #{groupNo}
 		and
-			M_LEFT like CONCAT('%', '신용카드-', '%')
+			M_RIGHT like CONCAT('%', '신용카드+', '%')
 		and 
 			date_format(M_DATE, '%Y-%m') = #{mDate}
+	</select>
+	
+	<select id="SelectMoneyList" parameterType="moneybook" resultType="moneybook">
+			select
+			IFNULL(SUM(M_MONEY), 0) as mMoney
+		from
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			M_RIGHT like CONCAT('%', '현금-', '%')
+		and 
+			date_format(M_DATE, '%Y-%m') = #{mDate}
+	</select>
+	
+	
+	
+	
+	<select id="selectSpendChart" resultType="int" parameterType="moneybooksearch">
+		select 
+			IFNULL(SUM(M_MONEY), 0) as money
+		from 
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			date_format(M_DATE, '%Y-%m-%d') between #{startDate} and #{endDate}
+	  and
+	    m_left = #{category}
+	  and
+	  	m_right = #{search}
+<!-- 	private String endDate; -->
+<!-- 	private String startDate; -->
+<!-- 	private int groupNo; -->
+<!-- 	private String search; -->
+<!-- 	private String category; -->
+<!-- 	private String money; -->
+	</select>
+	
+	<select id="SelectYearChartSpend" resultType="moneybooksearch" parameterType="moneybooksearch">
+	select 
+			IFNULL(SUM(M_MONEY), 0) as money, date_format(M_DATE, '%Y-%m') as startDate
+		from 
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			date_format(M_DATE, '%Y-%m') = #{startDate}
+		and 
+			m_type = 1
+	</select>
+	
+	<select id="SelectYearChartImport" resultType="moneybooksearch" parameterType="moneybooksearch">
+	select 
+			IFNULL(SUM(M_MONEY), 0) as money, date_format(M_DATE, '%Y-%m') as startDate
+		from 
+			T_WITH_STUDYGROUP_MONEYBOOK 
+		where
+			group_no = #{groupNo}
+		and
+			date_format(M_DATE, '%Y-%m') = #{startDate}
+		and 
+			m_type = 2
 	</select>
 </mapper>
