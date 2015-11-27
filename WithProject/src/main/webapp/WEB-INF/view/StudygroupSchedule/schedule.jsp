@@ -10,13 +10,13 @@
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 	var btnInsert, btnCancel, groupNo;
-			//isInsert = false;
+	var	isInsert = false;
 	//memberNo = 1;
 	$(document).ready(function() {
 		btnInsert = $('.btn-calendar-insert');
 		btnCancel = $('.btn-calendar-cancel');
 		groupNo = $('.group-no').val();
-		$('.cal-frame-first .cancel, .cal-frame-second .close').on('click', function(){
+		$('.cal-frame-first .cancel, .cal-frame-second .close').one('click', function(){
 		  frameClose($(this));
 		});
 		$('.cal-frame-second .update').on('click', function(){
@@ -41,6 +41,12 @@
             }); 
             $('#calendar').fullCalendar({
            	lang : 'ko',
+           	eventLimit: true, // for all non-agenda views
+            views: {
+                agenda: {
+                    eventLimit: 3 // adjust to 6 only for agendaWeek/agendaDay
+                }
+            },
             header: {
                 left: 'prev,next',
                 center: 'title',
@@ -96,18 +102,17 @@
     		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
     		    	   $('#calendar').fullCalendar('updateEvent',event);
     		    },*/
-    		    select: function(start, end) {
-             
-							//var start2=moment(start).format();
-              //var end2=moment(end).format();
-              $('.date-start').val(moment(start).format().split('T')[0]);
-              $('.date-end').val(moment(end).format().split('T')[0]);
-              
-              //$('.date-end').val(end);
-              $('.cal-frame-first').show();
-              $('.title').val("");
-              $('.cal-frame-first').on('click','button', function(){
+    		    select: function(start, end) { 
+    		      inInsert= false;
+              console.log("select function 들어감");
+                $('.date-start').val(moment(start).format().split('T')[0]);
+                $('.date-end').val(moment(end).format().split('T')[0]);
                 
+                $('.cal-frame-first').show();
+              $('.title').val("");
+              $('.calendar-detail').val("");
+
+              $('.cal-frame-first').one('click','button', function(){
                 var title = $('.title').val();
                 var colorBar = $('.color-bar').val();
                 var colorTxt = $('.color-txt').val();
@@ -116,33 +121,22 @@
                 var detail = $('.calendar-detail').val();
                 var groupNo = 1;
   		        	var memberNo = 1;
-                
-                if ($(this).hasClass('insert')) {
-                  console.log("호출함");
+
+                if ($(this).hasClass('insert') && isInsert==false) {
+                  console.log("hasClass if로 들어감");
                   insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt, detail, groupNo, memberNo);          		        
+                  inInsert= true;
           		  } 
                 $('.cal-frame-first').hide();
                 $('#calendar').fullCalendar('unselect');
               });
-              
-              
-              
-              //if (title) {
-                 // 모멘트로 날짜 형식 변환
-                
-              //}
-              // 드래그 부분 없어지는 효과
-              
-           	}
+    		    }
          });
      	});
-		
-		
-		
-		
    });
 	function insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo) {
-	  	var socket = io.connect("http://192.168.0.6:10001");
+    console.log("insertCalendar 들어감");
+	  var socket = io.connect("http://192.168.0.6:10001");
     	var id = "${no}";
     	$.ajax({
       	url : "/WithProject/member/memberList2.json",
@@ -158,8 +152,7 @@
 	        }
 	      })
 	  
-	  
-	  	console.log("호출됨");
+	    console.log("regist_sch 들어감");
 	    $.ajax({
          url: "${pageContext.request.contextPath}/calendar/regist_sch.json",
          data: {title:title, startDate:start, endDate:end, color:colorBar, textColor:colorTxt, calendarDetail:detail, groupNo:groupNo, memberNo:memberNo}
@@ -174,12 +167,9 @@
              textColor: colorTxt,
              detail: detail
           }
-         
-         	
           $('#calendar').fullCalendar( 'renderEvent', eventData, false )
           //$('#calendar').fullCalendar('updateEvent',event);
        });
-	   
 	}
 	function update(event, revertFunc, tag) {
 	  var id = event.id;
@@ -249,69 +239,7 @@
 	
 	
 </script>
-<style>
-	.cal-frame-first {
-		position:absolute;
-		top:50%;
-		left:50%;
-		background:#fff;
-		border:1px solid #ccc;
-    -webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
-		box-shadow:0 2px 4px rgba(0,0,0,.2);
-		width:350px;
-		height:400px;
-		margin-top:-200px;
-		margin-left:-175px;
-		border:1px solid red;
-		z-index:99;
-		display:none;
-	}
-	.cal-frame-first textarea {
-		resize:none;
-	}
-	.cal-frame-first li {
-		padding:5px 0;
-		overflow:hidden;
-	}
-	.cal-frame-first span {
-		display:block;
-		float:left;
-	}
-	.cal-frame-first span:nth-child(1) {
-		width:70px;
-		text-align:right;
-	}
-	.cal-frame-first span:nth-child(2) {
-		width:150px;
-		margin-left:20px;
-	}
-	.cal-frame-first .update {
-		display:none;
-	}
-	.cal-frame-second {
-		position:absolute;
-		width:300px;
-		height:200px;
-		background:#fff;
-    border:1px solid #ccc;
-    -webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
-		box-shadow:0 2px 4px rgba(0,0,0,.2);
-		display:none;
-		z-index:99;
-	}
-	.cal-frame-second .close {
-		display:block;
-		position:absolute;
-		top:10px;
-		right:10px;
-		width:15px;
-		height:15px;
-		overflow:hidden;
-		text-indent:-5000px;
-		background:url('/WithProject/images/icon_close_cal.png') no-repeat center;
-		background-size:15px 15px;
-	}	
-</style>
+
 </head>
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
@@ -339,14 +267,14 @@
 					<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" value="#ffffff" /></span></li>
 					<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
 				</ul>
-				<button type="button" class="insert">등록</button>
-				<button type="button" class="update">수정</button>
-				<button type="button" class="cancel">취소</button>
+				<button type="button" class="insert commonBtn">등록</button>
+				<button type="button" class="update commonBtn">수정</button>
+				<button type="button" class="cancel commonBtn">취소</button>
 				<input type="hidden" class="group-no" value="1" />
 			</div>
 			<div class="cal-frame-second">
-				<button type="button" class="del">일정삭제</button>
-				<button type="button" class="update">일정수정</button>
+				<button type="button" class="del commonBtn">일정삭제</button>
+				<button type="button" class="update commonBtn">일정수정</button>
 				<button type="button" class="close">닫기</button>
 			</div>
 			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
