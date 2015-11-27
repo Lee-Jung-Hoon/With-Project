@@ -10,19 +10,18 @@
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 	var btnInsert, btnCancel, groupNo;
-	var	isInsert = false;
+			//isInsert = false;
 	//memberNo = 1;
 	$(document).ready(function() {
 		btnInsert = $('.btn-calendar-insert');
 		btnCancel = $('.btn-calendar-cancel');
 		groupNo = $('.group-no').val();
-		$('.cal-frame-first .cancel, .cal-frame-second .close').one('click', function(){
-		  frameClose($(this));
-		});
+		/*
 		$('.cal-frame-second .update').on('click', function(){
-			
+		  updateForm(id);
+		  
 		});
-		
+		*/
 	  $(window).scroll(function() {	
    		$('.banner').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});       		
    	});  
@@ -41,12 +40,6 @@
             }); 
             $('#calendar').fullCalendar({
            	lang : 'ko',
-           	eventLimit: true, // for all non-agenda views
-            views: {
-                agenda: {
-                    eventLimit: 3 // adjust to 6 only for agendaWeek/agendaDay
-                }
-            },
             header: {
                 left: 'prev,next',
                 center: 'title',
@@ -71,11 +64,14 @@
 							//var id = $(this).find('.fc-title').attr('data-id');
 							//console.log('top : '+ offset.top);
 							//console.log('left : '+ offset.left);
-							$('.cal-frame-second .del').on('click', function(){
+							$('.cal-frame-second .del').one('click', function(){
 							  deleteCalendar(calEvent.id, $(this));  
 							});
-							$('.cal-frame-second .update').on('click', function(){
+							$('.cal-frame-second .update').one('click', function(){
 							  updateForm(calEvent.id);
+							});
+							$('.cal-frame-first .update').one('click', function(){
+							  update(calEvent);
 							});
 							$('.cal-frame-second').hide();
 							$('.cal-frame-second').css({'top':jsEvent.pageY - top +'px','left':jsEvent.pageX - left +'px'}).show().find('.no').val(id);
@@ -102,17 +98,25 @@
     		    	   var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
     		    	   $('#calendar').fullCalendar('updateEvent',event);
     		    },*/
-    		    select: function(start, end) { 
-    		      inInsert= false;
-              console.log("select function 들어감");
-                $('.date-start').val(moment(start).format().split('T')[0]);
-                $('.date-end').val(moment(end).format().split('T')[0]);
-                
-                $('.cal-frame-first').show();
+    		    select: function(start, end) {
+             
+							//var start2=moment(start).format();
+              //var end2=moment(end).format();
+              $('.date-start').val(moment(start).format().split('T')[0]);
+              $('.date-end').val(moment(end).format().split('T')[0]);
+              
+              //$('.date-end').val(end);
+              $('.cal-frame-first').show(function(){
+                $('.cal-frame-first .cancel, .cal-frame-second .close').one('click', function(){
+            		  frameClose($(this));
+            		});
+              });
+              $('.color-bar').val("#3a87ad");
+              $('.color-txt').val("#ffffff")
               $('.title').val("");
               $('.calendar-detail').val("");
-
               $('.cal-frame-first').one('click','button', function(){
+                
                 var title = $('.title').val();
                 var colorBar = $('.color-bar').val();
                 var colorTxt = $('.color-txt').val();
@@ -121,22 +125,32 @@
                 var detail = $('.calendar-detail').val();
                 var groupNo = 1;
   		        	var memberNo = 1;
-
-                if ($(this).hasClass('insert') && isInsert==false) {
-                  console.log("hasClass if로 들어감");
+                
+                if ($(this).hasClass('insert')) {
                   insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt, detail, groupNo, memberNo);          		        
-                  inInsert= true;
           		  } 
                 $('.cal-frame-first').hide();
                 $('#calendar').fullCalendar('unselect');
               });
-    		    }
+              
+              
+              
+              //if (title) {
+                 // 모멘트로 날짜 형식 변환
+                
+              //}
+              // 드래그 부분 없어지는 효과
+              
+           	}
          });
      	});
+		
+		
+		
+		
    });
 	function insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo) {
-    console.log("insertCalendar 들어감");
-	  var socket = io.connect("http://192.168.0.6:10001");
+	  	var socket = io.connect("http://192.168.0.6:10001");
     	var id = "${no}";
     	$.ajax({
       	url : "/WithProject/member/memberList2.json",
@@ -145,19 +159,16 @@
       	success:function(member, status){
 	        $.each(member, function(no, MemberVO){
 	          console.log("멤버이시구요~"+member[no].memberNo)
-	          if(id != member[no].memberNo){
-	    				socket.emit("scheduleAlarm", {sendId : member[no].memberNo});
-	         	 }
+	    			socket.emit("scheduleAlarm", {sendId : member[no].memberNo});
 	          });
 	        }
-	      })
-	  
-	    console.log("regist_sch 들어감");
+	      });
+
 	    $.ajax({
          url: "${pageContext.request.contextPath}/calendar/regist_sch.json",
          data: {title:title, startDate:start, endDate:end, color:colorBar, textColor:colorTxt, calendarDetail:detail, groupNo:groupNo, memberNo:memberNo}
        }).done(function(response){
-         console.log(response);
+         //console.log(response);
          eventData = {
              title: title,
              start: start,
@@ -167,18 +178,21 @@
              textColor: colorTxt,
              detail: detail
           }
+         
+         	
           $('#calendar').fullCalendar( 'renderEvent', eventData, false )
           //$('#calendar').fullCalendar('updateEvent',event);
        });
+	   
 	}
-	function update(event, revertFunc, tag) {
-	  var id = event.id;
-		var start = event.start;
-		var end = event.end;
-		var title = event.title;
-		var color = event.color;
-		var textColor = event.textColor;
-		var detail = event.detail;
+	function update(event) {
+	  var id = event.id
+		var start = $('.date-start').val();
+		var end = $('.date-end').val();
+		var title = $('.title').val();
+		var color = $('.color-bar').val();
+		var textColor = $('.color-txt').val();
+		var detail = $('.calendar-detail').val();
 		var groupNo = event.groupNo;
 		var memberNo = event.memberNo;
 		//var color = rgb2hex(tag.css('background-color')).split('#')[1];
@@ -192,31 +206,60 @@
       url: '${pageContext.request.contextPath}/calendar/update_sch.json',
       type: 'POST', 
       data: {id:id , startDate:start, endDate:end, title:title, color:color, textColor:textColor, calendarDetail:detail, groupNo:groupNo, memberNo:memberNo}
-    }).done(function (data){
-    	$('#calendar').fullCalendar('updateEvent',event);
-    }).fail(function(){
-    	revertFunc();
-	 });
+    }).done(function (response){
+      eventData = {
+          title: title,
+          start: start,
+          end: end,
+          id: response,
+          color: color,
+          textColor: textColor,
+          detail: detail,
+          memberNo:memberNo
+       }
+       $('#calendar').fullCalendar( 'rerenderEvents' );
+    });
 	}
 	// 삭제 수정 레이어 닫기 버튼 클릭
 	
 	function frameClose(closeTag) {
 	  closeTag.parent().hide();
-	  $('.cal-frame-first .update').hide();
-	  $('.cal-frame-first .insert').show();
+ 	  $('.cal-frame-first .insert').show();
 	} 
 	
 	//삭제 수정 레이어 일정수정 버튼 클릭
+	
 	function updateForm(id) {
+	  $('.cal-frame-first .cancel').one('click', function(){
+		  frameClose($(this));
+		});
 	  $('.cal-frame-second').hide();
 	  $('.cal-frame-first .insert').hide();
 	  $('.cal-frame-first .update').show();
 	  $('.cal-frame-first').show();
 	  $.ajax({
 	    url: "${pageContext.request.contextPath}/calendar/update_form.json?no="+ id
-	  }).done(function(){
-	 		$('.cal-frame-first .title span:last').val();   
+	  }).done(function(data){  
+	    /*
+	    private int id;
+	private String title;
+	private String startDate;
+	private String endDate;
+	private String calendarDetail;
+	private String color;
+	private String textColor;
+	private int groupNo;
+	private String groupName;
+	private int memberNo;
+	    */
+	 		$('.cal-frame-first .title').val(data.title);
+	 		$('.cal-frame-first .date-start').val(data.startDate);
+	 		$('.cal-frame-first .date-end').val(data.endDate);
+	 		$('.cal-frame-first .color-bar').val(data.color);
+	 		$('.cal-frame-first .color-txt').val(data.textColor);
+	 		$('.cal-frame-first .calendar-detail').val(data.calendarDetail);
 	  });
+	 
 	}
 	
 	//삭제 수정 레이어 일정 삭제 버튼 클릭
@@ -239,7 +282,6 @@
 	
 	
 </script>
-
 </head>
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
