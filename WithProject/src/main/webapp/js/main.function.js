@@ -195,7 +195,7 @@ $(document).ready(function() {
     var scrollBottom = $(window).scrollTop() + $(window).height();
     console.log("docu : "+documentHeight);
     console.log("scroll : "+scrollBottom);
-    if (documentHeight == scrollBottom) {
+    if (documentHeight <= scrollBottom+1) {
       console.log(search);
       startPage = startPage + 20;
       endPage = endPage + 20;
