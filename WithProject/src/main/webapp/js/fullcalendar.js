@@ -10662,7 +10662,7 @@ var BasicView = View.extend({
   // 월 드래그 할때
   unrenderDrag: function() {
     this.dayGrid.unrenderDrag();
-    console.log("월 드래그");
+    
   },
 
 
