@@ -1030,6 +1030,12 @@ main {
 	display:block;
 	color:#fff;
 }
+.createGroup {
+	border-radius:15px; 
+	border:4px solid #105a8b; 
+	background:url(../images/bg_member_block_icon.png) no-repeat 0 -400px; 
+	height:200px;
+}
 .img-wrap {
 	position:absolute;
 	width:192px;
