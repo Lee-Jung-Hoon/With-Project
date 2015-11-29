@@ -12,6 +12,7 @@
 	var btnInsert, btnCancel, groupNo;
 			//isInsert = false;
 	//memberNo = 1;
+	var isDR = false;
 	$(document).ready(function() {
 		btnInsert = $('.btn-calendar-insert');
 		btnCancel = $('.btn-calendar-cancel');
@@ -53,17 +54,22 @@
             dragOpacity: .75,
             /*
             eventRender: function(event, element) {
-	    	      element.find('.fc-title').attr('data-detail',event.detail).attr('data-member',event.memberNo).attr('data-id',event.id); 
+	    	      element.attr('data-id',event.id); 
 	          },
 	          */
             // 일정 클릭
-            eventClick: function(calEvent, jsEvent, view) {
+            eventClick: function(calEvent, jsEvent) {
 							var offset = $('.container').offset();
 							var top = offset.top;
 							var left = offset.left;
+							var thisTag = $(this);
 							//var id = $(this).find('.fc-title').attr('data-id');
 							//console.log('top : '+ offset.top);
 							//console.log('left : '+ offset.left);
+							//console.log($(this).find('.fc-title').text());
+							$('.cal-frame-second .close').one('click', function(){
+							  frameClose($(this));
+							});
 							$('.cal-frame-second .del').one('click', function(){
 							  deleteCalendar(calEvent.id, $(this));  
 							});
@@ -86,12 +92,14 @@
                 
             // 일정 드롭
            	eventDrop: function(event, delta, revertFunc) {
-           	 update(event, revertFunc, $(this));
-    		    	},
+							isDR = true;
+							update(event);
+    		    },
     		    
 						// 일정 리사이즈
     		    eventResize: function(event, delta, revertFunc) {
-    		      update(event, revertFunc, $(this));
+    		      isDR = true;
+    		      update(event);
     		    },
     		    /*eventReceive: function(event){
     		    	   var title = event.title;
@@ -106,8 +114,9 @@
               $('.date-end').val(moment(end).format().split('T')[0]);
               
               //$('.date-end').val(end);
+              $('.cal-frame-second').hide();
               $('.cal-frame-first').show(function(){
-                $('.cal-frame-first .cancel, .cal-frame-second .close').one('click', function(){
+                $('.cal-frame-first .cancel').one('click', function(){
             		  frameClose($(this));
             		});
               });
@@ -180,44 +189,79 @@
           }
          
          	
-          $('#calendar').fullCalendar( 'renderEvent', eventData, false )
+          $('#calendar').fullCalendar( 'renderEvent', eventData, false );
           //$('#calendar').fullCalendar('updateEvent',event);
        });
 	   
 	}
 	function update(event) {
-	  var id = event.id
-		var start = $('.date-start').val();
-		var end = $('.date-end').val();
-		var title = $('.title').val();
-		var color = $('.color-bar').val();
-		var textColor = $('.color-txt').val();
-		var detail = $('.calendar-detail').val();
-		var groupNo = event.groupNo;
-		var memberNo = event.memberNo;
 		//var color = rgb2hex(tag.css('background-color')).split('#')[1];
 		//var textColor = rgb2hex(tag.css('color')).split('#')[1];
 		//var detail = tag.find('.fc-title').attr('data-detail');
 		//var memberNo = tag.find('.fc-title').attr('data-member');
-	  start = moment(start).format("YYYY-MM-DD");
+		console.log(isDR);
+		var id, start, end, title, color, textColor, detail, groupNo, memberNo;
+		id = event.id
+		groupNo = event.groupNo;
+ 		memberNo = event.memberNo;
+		if (isDR == true) {
+		  start = event.start;
+		  end = event.end;
+		  title = event.title;
+		  color = event.color;
+		  textColor = event.textColor;
+		  detail = event.detail;
+		} else {
+		  start = $('.date-start').val();
+	 		end = $('.date-end').val();
+	 		title = $('.title').val();
+	 		color = $('.color-bar').val();
+	 		textColor = $('.color-txt').val();
+	 		detail = $('.calendar-detail').val();
+	 		console.log(detail);
+		}
+		start = moment(start).format("YYYY-MM-DD");
 	  end = moment(end).format("YYYY-MM-DD");
-
     $.ajax({ 
       url: '${pageContext.request.contextPath}/calendar/update_sch.json',
       type: 'POST', 
       data: {id:id , startDate:start, endDate:end, title:title, color:color, textColor:textColor, calendarDetail:detail, groupNo:groupNo, memberNo:memberNo}
     }).done(function (response){
-      eventData = {
+      if (isDR == true) {
+        $('#calendar').fullCalendar('updateEvent', event);
+        isDR = false;
+      } else {
+       
+        $('#calendar').fullCalendar( 'removeEvents', id );
+/*
+ 
+ id: entry.id, 
+ title: entry.title, 
+ start: entry.startDate, 
+ end:entry.endDate ,
+ color:entry.color, 
+ textColor:entry.textColor, 
+ detail:entry.calendarDetail, 
+ groupNo:entry.groupNo, 
+ memberNo:entry.memberNo
+ */
+        $('#calendar').fullCalendar( 'renderEvent', {
+          id : id,
           title: title,
           start: start,
           end: end,
-          id: response,
           color: color,
           textColor: textColor,
           detail: detail,
           memberNo:memberNo
-       }
-       $('#calendar').fullCalendar( 'rerenderEvents' );
+        }, true );
+        //thisTag.find('.fc-title').text(title);
+        //thisTag.css({'color':textColor,'background-color':color, 'border-color':color});
+        frameClose($('.cancel'));
+        //$('#calendar').fullCalendar( 'removeEvents' );
+        //$('#calendar').fullCalendar('addEventSource', eventData);
+         
+      }
     });
 	}
 	// 삭제 수정 레이어 닫기 버튼 클릭
@@ -225,6 +269,7 @@
 	function frameClose(closeTag) {
 	  closeTag.parent().hide();
  	  $('.cal-frame-first .insert').show();
+ 	  $('.cal-frame-first .update').hide();
 	} 
 	
 	//삭제 수정 레이어 일정수정 버튼 클릭
@@ -286,7 +331,7 @@
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
-		<div class="container">
+		<div class="container" style="height:771px;">
 			<div id="calendar"></div>
 			<!-- 
 			<div id="calOption" style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
