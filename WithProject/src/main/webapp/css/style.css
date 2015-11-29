@@ -514,6 +514,7 @@ aside {
 	width:5%;
 	height:100%;
 	transition:width 1s;
+	position:fixed;
 }
 aside ul {
 	position:fixed;
@@ -950,8 +951,9 @@ main {
 	padding-bottom:50px;
 }
 .page-sub main {
-	float:right;
-	width:95%;
+
+	width:100%;
+	padding-left:80px;
 	transition:width 1s;
 }
 .page-main main {
@@ -963,9 +965,9 @@ main {
 }
 .container {
 	position:relative;
-	width:1000px;
+	width:90%;
 	background:#fff;
-	padding:30px 50px;
+	padding:50px;
 	margin:0 auto 30px;
 	font-size:14px;
 	opacity:0; 
@@ -2157,6 +2159,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .table-common td {
 	font-size:14px;
 	text-align:center;
+	vertical-align:middle;
 }
 .table-common td a {
 	text-decoration:none;
@@ -2176,7 +2179,12 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 .table-common .link-wrap {
 	text-align:left;
+	width:95%;
 	margin:0 auto;
+}
+.table-common .link-wrap a {
+	display:block;
+	width:100%;
 	text-overflow:ellipsis;
 	overflow:hidden;
 	white-space:nowrap;

@@ -331,7 +331,7 @@
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
-		<div class="container" style="height:771px;">
+		<div class="container">
 			<div id="calendar"></div>
 			<!-- 
 			<div id="calOption" style="display:none; z-index:1; background:#eee; border: 1px solid black; width: 150px; height: 100px; position: absolute;">
@@ -364,7 +364,10 @@
 				<button type="button" class="update commonBtn">일정수정</button>
 				<button type="button" class="close">닫기</button>
 			</div>
+			<!--
 			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
+			  -->
+			
 		</div>
 	</main>
 </body>
