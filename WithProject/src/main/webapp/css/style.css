@@ -2821,3 +2821,42 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
    height:35px;
    width:80px;
 }
+
+
+
+.container .graph1-1 {
+    padding: 35px;
+    min-height: 400px;
+    margin-bottom: 30px;
+    border: 1px solid gray;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;	
+}
+
+
+.container .graph1-2 {
+	overflow:hidden;
+   min-height: 400px;
+    margin-bottom: 30px;
+}
+
+.container .graph1-2-1{
+	min-height: 400px;
+    float: left;
+    width: 49%;
+    border: 1px solid black;	
+}
+
+.container .graph1-2-2{
+	min-height: 400px;
+    float: right;
+    width: 49%;
+    border: 1px solid black;	
+}
+
+.container .main-title {
+	margin-bottom: 20px;    
+	font-size: 20px;
+}
+ 
