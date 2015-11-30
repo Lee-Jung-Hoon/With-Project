@@ -979,6 +979,45 @@ main {
 	transition:opacity 2s, transform 2s;
 	
 }
+
+
+
+.container .graph1-1 {
+    padding: 35px;
+    min-height: 400px;
+    margin-bottom: 30px;
+    border: 1px solid gray;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;	
+}
+
+
+.container .graph1-2 {
+	overflow:hidden;
+   min-height: 400px;
+    margin-bottom: 30px;
+}
+
+.container .graph1-2-1{
+	min-height: 400px;
+    float: left;
+    width: 49%;
+    border: 1px solid black;	
+}
+
+.container .graph1-2-2{
+	min-height: 400px;
+    float: right;
+    width: 49%;
+    border: 1px solid black;	
+}
+
+.container .main-title {
+	margin-bottom: 20px;    
+	font-size: 20px;
+}
+ 
 @-webkit-keyframes flipInX {
   0% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -1005,7 +1044,6 @@ main {
 	width:1200px;
 	margin:0 auto;
 }
-
 
 .img-layer .img {
 	display:block;
@@ -2415,3 +2453,135 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	background:url('/WithProject/images/icon_close_cal.png') no-repeat center;
 	background-size:15px 15px;
 }	
+
+
+/*sub-page 자료등록*/
+
+.container h3 {
+   font-size:20px;
+   color:#000;
+   font-weight:bold;
+   border-bottom:2px solid #999;
+   margin-bottom:20px;
+   padding-bottom:20px;
+   text-indent:10px;
+}
+
+.btn-common {
+   display:inline-block;
+   padding:5px 10px;
+   background:#105a8b;
+   border:1px solid #333;
+   color:#fff;
+   font-size:15px;
+   font-weight:bold;
+   box-shadow:2px 2px 2px #000;
+   cursor:pointer;
+}
+.registeForm {
+   margin-top:20px;
+   width:100%;
+   box-sizing:border-box;
+}
+
+.registeForm th{
+   text-align:left;
+   height:50px;
+   vertical-align:middle;
+   font-size:15px;
+   font-weight:bold;
+   margin-bottom:5px;
+   background-color: #4195f5;
+   text-indent:10px;
+   color:#fff;
+   height:50px;   
+   box-sizing:border-box;
+   position:relative;
+   padding-bottom:2px;
+}
+
+.registeForm th::before {
+   content:"";
+   position:absolute;
+   bottom:0;
+   left:0;
+   width:100%;
+   height:2px;
+   background:#fff;
+}
+
+.registeForm td {
+   vertical-align:middle;
+   padding-bottom:2px;
+}
+
+.registeForm .td-common {
+   padding:0 10px;
+}
+
+.registeForm .td-content {
+   margin-top:30px 0 30px;
+   padding-left:10px;
+}
+
+.registeForm input {
+   line-height:24px;
+   height:35px;
+   font-size:15px;
+}
+.registeForm .registeTitle {
+   width:100%;
+}
+
+.registeForm textarea {
+   width:100%;
+   font-size:15px;
+   vertical-align:middle;
+   height:100px;
+}
+
+.registeForm select {
+   width:150px;
+   vertical-align:middle;
+   height:35px;
+   font-size:15px;
+   font-weight:bold;
+}
+
+.registeForm .categori {
+   width:25%;
+}
+
+.registeForm .registeSpace {
+   height:35px;
+   background-color:#fff;
+   border: 2px solid #dcdcdc;
+}
+
+.referenceRegiste .referenceDetail {
+   font-size:15px;
+   margin:5px 0 10px;
+   font-weight:bold;
+  color: #4195f5;
+}
+.referenceRegiste .btn-set {
+   width:100%;
+   text-align:right;
+}
+
+.referenceRegiste .submitBtn, .referenceRegiste .cancelBtn{
+   height:50px;
+   width:80px;
+   margin-left:10px;
+}
+.referenceRegiste .submitBtn {
+   background:#F98E33;
+}
+.referenceRegiste .cancelBtn {
+   background:#E94B3B;
+}
+.referenceRegiste .referenceBtn {
+   background:#808080;
+   height:35px;
+   width:80px;
+}

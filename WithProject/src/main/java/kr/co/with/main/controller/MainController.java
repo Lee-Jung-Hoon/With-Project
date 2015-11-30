@@ -60,6 +60,22 @@ public class MainController {
 		return "createGroup";
 	}
 	
+	
+	   // 테스트
+	   // 자료실 테스트
+	   @RequestMapping("/referenceRoomMain.do")
+	   public String referenceRoom() throws Exception {
+	      return "StudyGroupReferenceRoom/referenceRoomList";
+	   }
+	   
+	   // 테스트
+	   // 자료실등록 테스트
+	   @RequestMapping("/referenceRegisteForm.do")
+	   public String referenceRegiesteForm() throws Exception {
+	      return "StudyGroupReferenceRoom/referenceRegiste";
+	   }
+	   
+	
 	// 테스트
 	// 가계부 테스트
 	@RequestMapping("/moneybookMain.do")
