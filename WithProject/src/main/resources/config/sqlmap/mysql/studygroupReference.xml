@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="reference.dao.referenceMapper">
+		
+		<resultMap type="reference" id="Reference">
+			<result column="reference_no" property="referenceNo"/>
+			<result column="group_no" property="groupNo"/>
+			<result column="reference_title" property="referenceTitle"/>
+			<result column="reference_categori" property="referenceCategori"/>
+			<result column="reference_file" property="referenceFile"/>
+			<result column="member_no" property="memberNo"/>
+		</resultMap>
+		
+		<insert id="insertReference" parameterType="reference">
+			insert into t_with_studygroup_referenceroom(group_no, reference_title, reference_categori, reference_file, member_no)
+			values(
+					#{groupNo},
+					#{referenceTitle},
+					#{referenceCategori},
+					#{referenceFile},
+					#{memberNo})
+		</insert>
+		<!-- <select id="selectReference" parameterType="groupNumber" resultMap="Reference">
+			select referenceNo, referenceTitle, referenceCategori, referenceFile
+			from  t_with_studygroup_referenceroom
+			where gruopNo = #{groupNumber}
+		</select> -->
+		
+	</mapper>
