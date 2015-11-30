@@ -18,6 +18,7 @@
 		<typeAlias type="kr.co.with.studygroup.moneybook.vo.MoneyBookVO" alias="moneybook"/>
 		<typeAlias type="kr.co.with.studygroup.moneybook.vo.MoneyBookSearchVO" alias="moneybooksearch"/>
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO" alias="studygroupexamresult" />
+		<typeAlias type="kr.co.with.studygroup.reference.vo.ReferenceVO" alias="reference" />
 	</typeAliases>
 </configuration>
 

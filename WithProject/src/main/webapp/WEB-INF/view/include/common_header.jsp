@@ -374,8 +374,8 @@
 				document.write("<ul>");
 					document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do'><span>일정</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do'><span>시험테스트</span></a></li>");
-					document.write("<li><a href='#'><span>가계부</span></a></li>");
-					document.write("<li><a href='#'><span>자료실</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/main/moneybookMain.do'><span>가계부</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/main/referenceRoomMain.do'><span>자료실</span></a></li>");
 					document.write("<li><a href='#'><span>공지사항</span></a></li>");
 			document.write("</ul>");
 		document.write("</aside>"); 
