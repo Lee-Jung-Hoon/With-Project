@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
@@ -79,5 +80,24 @@ public class StudyGroupDAO {
 	// 스터디그룹 즐겨찾기 리스트 출력을 위한 DAO
 	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) {
 		return session.selectList("with.studygroup.dao.selectGroupBookmarkList", memberNo);
+	}
+
+	// 스터디그룹 내가 개설한 스터디그룹 리스트 출력을 위한 DAO
+	public List<StudyGroupVO> selectMyCreateGroup(int memberNo) {
+		return session.selectList("with.studygroup.dao.selectMyCreateGroup", memberNo);
+	}
+
+	// 스터디그룹 내가 가입한 스터디그룹 리스트 출력을 위한 DAO
+	public List<StudyGroupVO> selectMyJoinGroup(int memberNo) {
+		return session.selectList("with.studygroup.dao.selectMyJoinGroup", memberNo);
+	}
+
+	// 스터디그룹 메인 내용을 출력하기 위한 DAO
+	public StudyGroupVO SelectStudygroupMain(int groupNo) {
+		return session.selectOne("with.studygroup.dao.SelectStudygroupMain", groupNo);
+	}
+
+	public List<MemberVO> SelectStudygroupMemeber(int groupNo) {
+		return session.selectList("with.studygroup.dao.SelectStudygroupMemeber", groupNo);
 	}
 }

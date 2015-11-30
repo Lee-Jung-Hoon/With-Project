@@ -2,6 +2,7 @@ package kr.co.with.studygroup.service;
 
 import java.util.List;
 
+import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
@@ -35,5 +36,13 @@ public interface StudyGroupService {
 	public List<StudyGroupTagVO> selectTagList() throws Exception;
 
 	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) throws Exception;
+
+	public List<StudyGroupVO> selectMyCreateGroup(int memberNo) throws Exception;
+
+	public List<StudyGroupVO> selectMyJoinGroup(int memberNo) throws Exception;
+
+	public StudyGroupVO SelectStudygroupMain(int groupNo) throws Exception;
+
+	public List<MemberVO> SelectStudygroupMemeber(int groupNo)throws Exception;
 	
 }

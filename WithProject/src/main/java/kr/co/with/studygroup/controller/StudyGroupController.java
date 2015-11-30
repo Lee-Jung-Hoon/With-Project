@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.service.StudyGroupService;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
@@ -185,8 +186,41 @@ public class StudyGroupController {
 	@ResponseBody
 	public List<StudyGroupVO> GroupBookmarkList(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
-		// 멤버 번호 받을 예정
-		int memberNo = (Integer) session.getAttribute("no");
+		int memberNo = (int) session.getAttribute("no");
 		return service.selectGroupBookmarkList(memberNo);
+	}
+	
+	// 마이 스터디내 본인이 개설한 스터디그룹 리스트를 출력하기 위한 json
+	@RequestMapping("/myCreateGroup.json")
+	@ResponseBody
+	public List<StudyGroupVO> MyCreateGroup(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		int memberNo = (int) session.getAttribute("no");
+		return service.selectMyCreateGroup(memberNo);
+	}
+	
+	// 마이 스터디내 본인이 가입한 스터디그룹 리스트를 출력하기 위한 json
+	@RequestMapping("/myJoinGroup.json")
+	@ResponseBody
+	public List<StudyGroupVO> MyJoinGroup(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		int memberNo = (int) session.getAttribute("no");
+		return service.selectMyJoinGroup(memberNo);
+	}
+	
+	// 스터디그룹 메인으로 이동
+	@RequestMapping("/StudygroupMain.do")
+	public ModelAndView StudygroupMain(int groupNo, HttpServletRequest req) throws Exception {
+		ModelAndView mav = new ModelAndView("StudygroupMain/StudygroupMain");
+		mav.addObject("groupNo", groupNo);
+		// 스터디그룹 상세 정보 출력
+		StudyGroupVO studyGroup = service.SelectStudygroupMain(groupNo);
+		mav.addObject("studyGroup", studyGroup);
+		
+		// 스터디그룹 멤버 정보 출력
+		List<MemberVO> member = service.SelectStudygroupMemeber(groupNo);
+		System.out.println(member.size());
+		mav.addObject("member", member);
+		return mav;
 	}
 }
