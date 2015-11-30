@@ -197,7 +197,7 @@ header .bookmarkZone-left {
 	border-right:0;
 	border-radius:10px 0 0 10px;
 }
-header .bookmarkZone span {
+header .bookmarkZone .bookmarkZone-left span {
 	display:inline-block;
 	vertical-align:top;
 }
@@ -246,7 +246,6 @@ header .bookmarkZone .pin-click {
 	background:#fff;
 	color:#000;
 	width:300px;
-	height:300px;
 	box-sizing:border-box;
 	border:1px solid #515d6e;
 	border-top:8px solid #515d6e;
@@ -293,15 +292,15 @@ header .bookmarkZone .pin-list li > button:hover, header .bookmarkZone .pin-list
 	background:#515d6e;
 	transition:background .5s ease;
 }
-header .bookmarkZone li:first-child {
+header .bookmarkZone .pin-list > li:first-child {
 	border-left:2px solid #fff;
 	border-radius:10px 0 0 10px;
 }
-header .bookmarkZone li:last-child {
+header .bookmarkZone .pin-list > li:last-child {
 	border-right:2px solid #fff;
 	border-radius:0 10px 10px 0;
 }
-header .bookmarkZone li:nth-child(2) {
+header .bookmarkZone .pin-list > li:nth-child(2) {
 	border-right:2px solid #fff;
 	border-left:2px solid #fff; 
 }
@@ -309,6 +308,7 @@ header .bookmarkZone .pin-content {
 	width:100%;
 	border-top:1px dashed #515d6e;
 	height:244px;
+	background:#515d6e;
 	overflow-y:auto;
 }
 header .main-menu {
@@ -377,6 +377,44 @@ header .main-menu em {
 .eft-light:hover::after, .eft-light:focus::after {
 	left:120%;
 	transition:left 2s;
+}
+.eft-light2::before {
+	content:"";
+	display:block;
+	width:40px;
+	height:150%;
+	position:absolute;
+	background:#fff;
+	font-weight:bold;
+	opacity:.6;
+	top:-10px;
+	left:-70%;
+	z-index:2;
+	transform:rotate(-20deg);
+	transition:left 1s;
+}
+.eft-light2:hover::before, .eft-light2:focus::before {
+	left:120%;
+	transition:left 1s;
+}
+.eft-light2::after {
+	content:"";
+	display:block;
+	width:10px;
+	height:150%;
+	position:absolute;
+	background:#fff;
+	font-weight:bold;
+	opacity:.6;
+	top:-10px;
+	left:-75%;
+	z-index:2;
+	transform:rotate(-20deg);
+	transition:left 1s;
+}
+.eft-light2:hover::after, .eft-light2:focus::after {
+	left:115%;
+	transition:left 1s;
 }
 .btn-menu {
 	position:relative;
@@ -979,45 +1017,6 @@ main {
 	transition:opacity 2s, transform 2s;
 	
 }
-
-
-
-.container .graph1-1 {
-    padding: 35px;
-    min-height: 400px;
-    margin-bottom: 30px;
-    border: 1px solid gray;
-    border-top-style: none;
-    border-left-style: none;
-    border-right-style: none;	
-}
-
-
-.container .graph1-2 {
-	overflow:hidden;
-   min-height: 400px;
-    margin-bottom: 30px;
-}
-
-.container .graph1-2-1{
-	min-height: 400px;
-    float: left;
-    width: 49%;
-    border: 1px solid black;	
-}
-
-.container .graph1-2-2{
-	min-height: 400px;
-    float: right;
-    width: 49%;
-    border: 1px solid black;	
-}
-
-.container .main-title {
-	margin-bottom: 20px;    
-	font-size: 20px;
-}
- 
 @-webkit-keyframes flipInX {
   0% {
     -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
@@ -1044,6 +1043,7 @@ main {
 	width:1200px;
 	margin:0 auto;
 }
+
 
 .img-layer .img {
 	display:block;
@@ -1714,7 +1714,7 @@ main {
 	float:left;
 /*    width: 250px; */
 	
-   padding-top: 20px;
+   padding:20px 0;
 }
 .list-txt .list-infoImgFrame {
 	display:table-cell;
@@ -2454,6 +2454,242 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	background-size:15px 15px;
 }	
 
+/* 상단 핀 메세지 */
+.pin-content .title-common {
+	font-weight:bold;
+	text-align:center;
+	background:#f4f4f4;
+	line-height:40px;
+	font-size:17px; 
+}
+.pin-msg {
+	position:relative;
+	font-size:15px;
+	background:#fff;
+	height:auto;
+	overflow:hidden;
+	transition:height .5s;
+}
+.pin-msg.off {
+	height:0;
+	transition:height .5s;
+}
+.pin-msg li:last-child .pin-msg-toggle {
+	border-bottom:1px solid #515d6e;
+}
+.pin-msg li:last-child .pin-msg-content > p {
+	border:0;
+}
+.pin-msg-content {
+	overflow:hidden;
+	height:0;
+	transition:height 1s;
+}
+.pin-msg-content.current {
+	height:auto;
+	transition:height 1s;
+}
+.pin-msg-content span {
+	display:block;
+	width:100%;
+	padding:5px;
+	overflow:hidden;
+}
+.pin-msg .pin-msg-toggle {
+	width:100%;
+	position:relative;
+	overflow:hidden;
+	height:36px;
+	line-height:36px;
+	padding:0 5px;
+	display:block;
+	font-size:15px;
+	border-top:1px solid #ddd;
+	background:#fff;
+	color:#000;
+	transition:background 1.2s, color 1.2s;
+}
+.pin-msg li:first-child .pin-msg-toggle {
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
+}
+.pin-msg .pin-msg-toggle.on, .pin-msg .pin-msg-toggle:hover, .pin-msg .pin-msg-toggle:focus {
+	background:#515d6e;
+	color:#fff;
+	transition:background 1.2s, color 1.2s;
+}
+.pin-msg .pin-msg-toggle strong, .pin-msg .pin-msg-toggle span {
+	display:block;
+	float:left;
+}
+.pin-msg .pin-msg-toggle strong {
+	font-weight:bold;
+}
+.pin-msg .pin-msg-toggle span {
+	width:152px;
+	padding-left:3px;
+	font-weight:bold;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	text-align:left;
+}
+.pin-msg .pin-msg-toggle em {
+	display:block;
+	float:right;
+	font-size:13px;
+}
+.pin-msg-content {
+	perspective:1200px;
+}
+.pin-msg-content > p {
+	padding:5px;
+	font-size:14px;
+	line-height:20px;
+	border-top:1px solid #515d6e;
+}
+.pin-msg-content .msg-send {
+	position:relative;
+	display:block;
+	width:50px;
+	height:50px;
+	overflow:hidden;
+  border-radius:50%;
+}
+.pin-msg-content .msg-send {
+	position:relative;
+	display:block;
+	float:right;
+	width:50px;
+	height:50px;
+	overflow:hidden;
+}
+.pin-msg-content .msg-send:hover::before, .pin-msg-content .msg-send:focus::before {
+	width:100%;
+	transition:all 1s;	
+}
+.pin-msg-content .msg-send::before {
+	content:"";
+	position:absolute;
+	left:0;
+	top:0;
+	width:0%;
+	height:100%;
+	background-color:#F98E33;
+	transition:height 1s;
+	z-index:2;
+	transition:width 1s;
+}
+.pin-msg-content .msg-send::after {
+	content:"";
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:#CFD8DC;	
+}
+.pin-msg-content .msg-send em::after {
+	content:"";
+  display:block;
+  width:30px;
+  height:150%;
+  position:absolute;
+  background:#fff;
+  font-weight:bold;
+  opacity:.6;
+  top:-10px;
+  left:-30px;
+  transition:left 1s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  z-index:4;
+}
+.pin-msg-content .msg-send:hover em::after, .pin-msg-content .msg-send:focus em::after {
+	left:80px;
+	transition:left 1s;
+}
+.pin-msg-content .msg-send em {
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-indent:-5000px;
+	background-image:url('../images/icon_mail.png');
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:70%;
+  border-radius:50%;
+	z-index:3;
+}
+.pin-msg-write {
+	position:absolute;
+	top:0;
+	right:5px;
+	width:40px;
+	height:40px;
+	text-indent:-5000px;
+	background-image:url('../images/icon_write2.png');
+	background-repeat:no-repeat;
+	background-position:10px 7px;
+	background-color:transparent;
+	border-radius:0;
+	background-size:60%;
+	box-sizing:border-box;
+	overflow:hidden;
+	transition:border-radius 1s ease-in-out, background-color 1s ease-in-out, background-image 1s ease-in-out;
+}
+.pin-msg-write:hover {
+	border-radius:50%;
+	background-color:#6A55C2;
+	background-image:url('../images/icon_write2_h.png');
+	transition:all 1s;
+}
+.pin-msg-new {
+	width:100%;
+	height:0;
+}
+.pin-msg-new.on {
+	display:block;
+	height:100%;
+}
+.pin-msg-newIn {
+	box-sizing:border-box;
+	width:80%;
+	height:10px;
+	position:relative;
+	top:50%;
+	margin:-5px auto 0;
+	background:#fff;
+	overflow:hidden;
+	transform:rotateX(-270deg);
+	transition:width .3s, height .3s, margin .3s, top .3s, transform .3s;
+}
+.pin-msg-new.on .pin-msg-newIn { 
+	top:0;
+	width:100%;
+	margin:0 auto;
+	transform:rotateX(0);
+	height:100%;
+	transition:width .5s ease-in-out, height .5s ease-in-out, margin .5s ease-in-out, top .5s ease-in-out, transform .5s ease-in-out;
+}
+.pin-msg-newTxt {
+	position:relative;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+	border-top:1px solid #ddd;
+	padding:5px;
+	height:203px;
+}
+.pin-msg-newTxt p {
+	font-size:14px;
+	line-height:18px;
+}
+.pin-msg-newTxt textarea {
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:80%;
+}
 
 /*sub-page 자료등록*/
 
