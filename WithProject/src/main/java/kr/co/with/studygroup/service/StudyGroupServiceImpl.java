@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.with.studygroup.dao.StudyGroupDAO;
+import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
@@ -84,5 +85,29 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	@Override
 	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) throws Exception {
 		return dao.selectGroupBookmarkList(memberNo);
+	}
+
+	// 마이스터디 내 내가 개설한 스터디그룹 리스트 출력을 위한 service
+	@Override
+	public List<StudyGroupVO> selectMyCreateGroup(int memberNo) throws Exception {
+		return dao.selectMyCreateGroup(memberNo);
+	}
+
+	// 마이스터디 내 내가 가입한 스터디그룹 리스트 출력을 위한 service
+	@Override
+	public List<StudyGroupVO> selectMyJoinGroup(int memberNo) throws Exception {
+		return dao.selectMyJoinGroup(memberNo);
+	}
+
+	// 스터디 그룹 메인 내용 출력을 위한 service
+	@Override
+	public StudyGroupVO SelectStudygroupMain(int groupNo) throws Exception {
+		return dao.SelectStudygroupMain(groupNo);
+	}
+
+	// 스터디그룹 멤버 정보를 출력하기 위한 service
+	@Override
+	public List<MemberVO> SelectStudygroupMemeber(int groupNo) throws Exception {
+		return dao.SelectStudygroupMemeber(groupNo);
 	}
 }
