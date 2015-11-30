@@ -4,6 +4,22 @@
 	<div class="dark-layer"></div>
 	<script>
   $(document).ready(function() {
+	   $('.pin-msg-toggle').on('click',function(){
+      if ($(this).hasClass('on')) {
+        $(this).removeClass('on').next().removeClass('current');
+      } else {
+        var index = $(this).parent().index();
+        console.log(index);
+        var heightL = $('.pin-msg > p').height();
+    	  var height = $('.pin-msg li').height();
+    	  $(this).addClass('on').next().addClass('current').parent().siblings().find('.pin-msg-toggle').removeClass('on').next().removeClass('current');
+    	  $('.pin-content').stop().scrollTop(heightL + (index * height));
+      }
+  	});
+    $('.msg-send').on('click', function(){
+      $('.pin-msg').addClass('off');
+      $('.pin-msg-new').addClass('on');
+    });
     var d = new Date();
     
     // 상단 핀 내 즐겨찾기 탭 클릭시
@@ -246,7 +262,65 @@
                <li><button type="button" class='messageLI'>메시지</button></li>
             </ul>
             <div class="pin-content">
-               
+                <div class="pin-msg">
+            		 <p class="title-common">받은 메세지</p>
+	               <ul>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>안지원</span><em>2015-11-30 09:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>김수한무거북이와두루미삼천갑자동방삭</span><em>2015-11-30 11:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               	<li>
+	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
+	               		<div class="pin-msg-content">
+	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               		</div>
+	               	</li>
+	               </ul>
+	               <button type="button" class="pin-msg-write">글쓰기</button>
+            	</div>
+            	<div class="pin-msg-new">
+            		<div class="pin-msg-newIn">
+            			<p class="title-common">새로운 메세지</p>
+	           			<div class="pin-msg-newTxt">
+	           				<p>받는사람 : </p>
+	           				<textarea></textarea>
+	            			<button type="button"></button>
+	           			</div>
+            		</div>
+            	</div>
+            </div>
             </div>
          </div>         
       </div>
