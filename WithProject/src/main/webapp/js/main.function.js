@@ -19,131 +19,163 @@ $(document).ready(function() {
   var endPage = 19;
   MainList(startPage, endPage);
   
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var mapContainer = document.getElementById('panel'), // 지도를 표시할 div  
-      // 맵 옵션
-      mapOption = {
-        center : new daum.maps.LatLng(position.coords.latitude, position.coords.longitude), // 지도의 중심좌표
-        level : 4 // 지도의 확대 레벨
-      };
-
-      var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-      
-      var imageSrc = 'https://cdn3.iconfinder.com/data/icons/map/500/around_me-512.png', // 마커이미지의 주소입니다    
-          imageSize = new daum.maps.Size(64, 69), // 마커이미지의 크기입니다
-          imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-        
-      // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-      var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
-          markerPosition = new daum.maps.LatLng(position.coords.latitude, position.coords.longitude); // 마커가 표시될 위치입니다
-
-      // 마커를 생성합니다
-      var mark = new daum.maps.Marker({
-          position: markerPosition, 
-          image: markerImage // 마커이미지 설정 
-      });
-
-      // 마커가 지도 위에 표시되도록 설정합니다
-      mark.setMap(map);
-
-      var circle = new daum.maps.Circle({
-        center : new daum.maps.LatLng(position.coords.latitude, position.coords.longitude), // 원의 중심좌표 
-        radius : 1000, // 미터 단위의 원의 반지름 
-        strokeWeight : 4, // 선의 두께
-        strokeColor : '#75B8FA', // 선의 색깔
-        strokeOpacity : 0.5, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
-        strokeStyle : 'solid', // 선의 스타일
-        fillColor : 'transparent', // 채우기 색깔
-        fillOpacity : 0.7 // 채우기 불투명도   
-      });
-
-      //지도에 원을 표시
-      circle.setMap(map);
-      
-      //지도에 표시된 마커 객체를 가지고 있을 배열
-      var markers = [];
-      var infowindows = [];
-
-      $.getJSON("/WithProject/studygroup/mapList.json", function(data) {
-         $(data).each(function(idx, obj) {
-          
-          // 반경 내 거리 계산을 위한 부분
-          var lat1 = position.coords.latitude;
-          var lon1 = position.coords.longitude;
-          
-          var lat2 = obj.groupActiveLatitude;
-          var lon2 = obj.groupActiveLongitude;
-          var theta;
-          var dist;  
-          theta = lon1 - lon2;  
-          dist = Math.sin((lat1* Math.PI / 180.0)) * Math.sin((lat2* Math.PI / 180.0)) + Math.cos((lat1* Math.PI / 180.0))   
-                * Math.cos((lat2* Math.PI / 180.0)) * Math.cos((theta* Math.PI / 180.0));  
-          dist = Math.acos(dist);  
-          dist = (dist* 180.0 / Math.PI);  
-              
-          dist = dist * 60 * 1.1515;   
-          dist = dist * 1.609344;    // 단위 mile 에서 km 변환.  
-          dist = dist * 1000.0;      // 단위  km 에서 m 로 변환  
-          console.log("중심점과의 거리 : " + dist+"M");
-         
-          if(dist < 1000) {
-            console.log(obj.groupName);
-            console.log(obj.groupNo);
-            // markers 배열에 경도 위도 객체 추가
-            addMarker(new daum.maps.LatLng(obj.groupActiveLatitude, obj.groupActiveLongitude), obj.groupNo, obj.groupName);
-          }
-        });
-      });
-
-      //마커를 생성하고 지도위에 표시하는 함수
-      function addMarker(position, groupNo, groupName) {
-        // 마커를 생성합니다
-        var marker = new daum.maps.Marker({
-          position : position
-        });
-
-        // 마커가 지도 위에 표시되도록 설정
-        marker.setMap(map);
-
-        // 생성된 마커를 배열에 추가
-        markers.push(marker);
-        
-        var iwContent = "<div style='padding:5px;' ><input type='button' class='mapDetail' value='"+groupName+"' onclick='mapDetail("+groupNo+");'/></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-       
-        // 인포윈도우를 생성합니다
-        var infowindow = new daum.maps.InfoWindow({
-          position : position, 
-          content : iwContent 
-        });
-      
-        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-        infowindow.open(map, marker);
-        
-        infowindows.push(infowindow);
-      }
-      
-      
-
-      //배열에 추가된 마커들을 지도에 표시
-      function setMarkers(map) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-          infowindows[i].setMap(map);
-        }
-
-      }
-      
-    })
-  }
-  
   $("#panel").on('click', 'div', function () {
     $(this).css("z-index", 1).siblings().css("z-index", 0);
   })
   
-  
-  $("#switch").click(function(){
-    console.log(isClick);
+//  위치 관련 버튼 클릭시 작동부
+  $(".switch").click(function(){
+
+    // 지역 단위 클릭시
+    var area = $(this).attr("data-area");
+    
+    // 거리 단위 클릭시
+    var distance = $(this).attr("data-distance");
+    
+    // 중심 좌표 값
+    var center;
+    
+    // 검색 <-> 경도 위도를 위한 선언
+    var geocoder = new daum.maps.services.Geocoder();
+
+    // 반경 내 거리 계산을 위한 부분
+    var lat1;
+    var lon1;
+    
+    // 지역 단위 클릭시 초기 반경값 설정
+    if(distance==null) {
+      // 주소로 좌표를 검색합니다
+      geocoder.addr2coord(area, function(status, result) {
+        // 정상적으로 검색이 완료됐으면 
+        if (status === daum.maps.services.Status.OK) {
+          center = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+          lat1 = result.addr[0].lat;
+          lon1 = result.addr[0].lng;
+          distance = 3000;
+        }
+      });
+    }
+    // 자바스크립트 현재 접속자 위치 정보를 얻어올 수 있을 경우
+    if (navigator.geolocation) { 
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // 거리 단위 클릭시 초기 중심 좌표값 설정
+        if(area==null) {
+          center = new daum.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          lat1 = position.coords.latitude;
+          lon1 = position.coords.longitude;
+        }
+        
+        // 지도를 표시할 div 
+        var mapContainer = document.getElementById('panel'),  
+        // 맵 옵션
+        mapOption = {
+          center : center, // 지도의 중심좌표
+          level : 6 // 지도의 확대 레벨
+        };
+
+        var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        
+        var imageSrc = 'https://cdn3.iconfinder.com/data/icons/map/500/around_me-512.png', // 마커이미지의 주소입니다    
+            imageSize = new daum.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+          
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+            markerPosition = center;
+        
+        // 마커를 생성합니다
+        var mark = new daum.maps.Marker({
+            position: markerPosition, 
+            image: markerImage // 마커이미지 설정 
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        mark.setMap(map);
+
+        var circle = new daum.maps.Circle({
+          center : center, // 원의 중심좌표 
+          radius : Number(distance), // 미터 단위의 원의 반지름 
+          strokeWeight : 4, // 선의 두께
+          strokeColor : '#75B8FA', // 선의 색깔
+          strokeOpacity : 0.5, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
+          strokeStyle : 'solid', // 선의 스타일
+          fillColor : 'transparent', // 채우기 색깔
+          fillOpacity : 0.7 // 채우기 불투명도   
+        });
+
+        //지도에 원을 표시
+        circle.setMap(map);
+        
+        //지도에 표시된 마커 객체를 가지고 있을 배열
+        var markers = [];
+        var infowindows = [];
+
+        $.getJSON("/WithProject/studygroup/mapList.json", function(data) {
+           $(data).each(function(idx, obj) {
+            
+            var lat2 = obj.groupActiveLatitude;
+            var lon2 = obj.groupActiveLongitude;
+            var theta;
+            var dist;  
+            theta = lon1 - lon2;  
+            dist = Math.sin((lat1* Math.PI / 180.0)) * Math.sin((lat2* Math.PI / 180.0)) + Math.cos((lat1* Math.PI / 180.0))   
+                  * Math.cos((lat2* Math.PI / 180.0)) * Math.cos((theta* Math.PI / 180.0));  
+            dist = Math.acos(dist);  
+            dist = (dist* 180.0 / Math.PI);  
+                
+            dist = dist * 60 * 1.1515;   
+            dist = dist * 1.609344;    // 단위 mile 에서 km 변환.  
+            dist = dist * 1000.0;      // 단위  km 에서 m 로 변환  
+           
+            if(dist < distance) {
+              console.log(obj.groupName);
+              console.log(obj.groupNo);
+              // markers 배열에 경도 위도 객체 추가
+              addMarker(new daum.maps.LatLng(obj.groupActiveLatitude, obj.groupActiveLongitude), obj.groupNo, obj.groupName);
+            }
+          });
+        });
+
+        //마커를 생성하고 지도위에 표시하는 함수
+        function addMarker(position, groupNo, groupName) {
+          // 마커를 생성합니다
+          var marker = new daum.maps.Marker({
+            position : position
+          });
+
+          // 마커가 지도 위에 표시되도록 설정
+          marker.setMap(map);
+
+          // 생성된 마커를 배열에 추가
+          markers.push(marker);
+          
+          var iwContent = "<div style='padding:5px;'><input type='button' class='mapDetail' value='"+groupName+"' onclick='mapDetail("+groupNo+");'/></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+         
+          // 인포윈도우를 생성합니다
+          var infowindow = new daum.maps.InfoWindow({
+            position : position, 
+            content : iwContent 
+          });
+        
+          // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+          infowindow.open(map, marker);
+          
+          infowindows.push(infowindow);
+        }
+        
+        
+
+        //배열에 추가된 마커들을 지도에 표시
+        function setMarkers(map) {
+          for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            infowindows[i].setMap(map);
+          }
+
+        }
+        
+      })
+    }
     if(isClick==false) {
       $("#panel").animate({
         'left':'50%',
@@ -235,8 +267,8 @@ function commentList(no) {
       comment += "<li class='comment_content comment_"+response[index].commentNo+"'>";
       comment += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' />";
       comment += "<div class='comment_conR'>";
-      comment += "<span><em>" + response[index].memberNo + "</em><strong>" + response[index].regDate + "</strong></span>";
-      comment += "<span>" + response[index].commentContent + "slkfhlisadufhlsaiudfhslaidufhsiodfuhsidfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuhdfuhsiopdfuhsoidfushdfopisuhdfoisudfhsoifuh</span>";
+      comment += "<span><em>" + response[index].memberName + "</em><strong>" + response[index].regDate + "</strong></span>";
+      comment += "<span>" + response[index].commentContent + "</span>";
       comment += "</div>";
       comment += "</li>";
     })
@@ -474,7 +506,7 @@ function ready() {
     HTML += "</div>";
     HTML += "<div class='list-openUl'>";
     HTML += "  <ul style='padding-top: 50px;'>";
-    HTML += "   <li style='padding-bottom: 20px;'>이름</li>";
+    HTML += "   <li style='padding-bottom: 20px;'>" + response.memberName + "</li>";
     HTML += "  <li style='padding-bottom: 20px;'>"+response.groupEmail+" - "+response.groupTel+"</li>";
     HTML += " </ul>";
     HTML += " </div>";
@@ -516,7 +548,7 @@ function ready() {
 
     marker.setMap(map);
 
-    var iwContent = "<div style='padding:5px;'>주활동 지역<br>";
+    var iwContent = "<div style='padding:5px;'>"+response.groupActivePlace+"<br>";
       iwContent +="<a href='http://map.daum.net/link/map/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' style='color:blue' target='_blank'>큰지도보기</a>";
       iwContent +="<a href='http://map.daum.net/link/to/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
     iwPosition = new daum.maps.LatLng(response.groupActiveLatitude, response.groupActiveLongitude);

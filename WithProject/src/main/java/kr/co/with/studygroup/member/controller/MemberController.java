@@ -129,8 +129,5 @@ public class MemberController {
 		List<MemberVO> list = service.memberList2();
 		System.out.println("asdasd"+list.size());
 		return list;
-	}
-	
-	
-	
+	}	
 }

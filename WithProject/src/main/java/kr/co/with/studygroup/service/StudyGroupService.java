@@ -33,5 +33,7 @@ public interface StudyGroupService {
 	public void updateTagCount(String tagName) throws Exception;
 
 	public List<StudyGroupTagVO> selectTagList() throws Exception;
+
+	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) throws Exception;
 	
 }

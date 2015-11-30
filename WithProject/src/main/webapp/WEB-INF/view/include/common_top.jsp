@@ -10,7 +10,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
 <script src="http://www.google.com/jsapi"></script>
-<script src="http://apis.daum.net/maps/maps3.js?apikey=ed9f2771750f83351d39d6973594a653"></script>
+<script src="http://apis.daum.net/maps/maps3.js?apikey=ed9f2771750f83351d39d6973594a653&libraries=services"></script>
 <script src="${pageContext.request.contextPath}/js/circle.js"></script>
 <script src="${pageContext.request.contextPath}/js/menu.action.js"></script>
 <script src="${pageContext.request.contextPath}/js/d3.v3.min.js"></script>

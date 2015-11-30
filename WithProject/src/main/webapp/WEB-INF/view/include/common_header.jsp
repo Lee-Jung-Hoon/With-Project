@@ -8,11 +8,35 @@
     
     // 상단 핀 내 즐겨찾기 탭 클릭시
     $(".bookmarkLI").on('click', function() {
-			$(".pin-content").html("");
+      var html = "";
+     	html += "<div id='bookmarkList' style='font-size: 20px; line-height:30px; height:auto;'>";
+      $.ajax({
+        url: "${pageContext.request.contextPath}/studygroup/groupBookmarkList.json"
+      })
+      .done(function(response) {
+        $.each(response, function(index, StudygroupVO) {
+          html += "<li class='bookmark_content bookmark_"+response[index].groupNo+"'>";
+          html += "<div class='bookmark-left'>";
+          html += "<img src='/WithProject/images/"+response[index].groupRepImagePath+"'/>";
+          html += "</div>";
+          html += "<div class='bookmark-right'>";
+          html += "<span>"+response[index].groupName+"</span>";
+          html += "<span>"+response[index].groupActivePlace+"</span><br/>";
+          html += "<span>"+response[index].groupRecruitStartDate+"</span>";
+          html += "<span> ~ </span>";
+          html += "<span>"+response[index].groupRecruitEndDate+"</span>";
+          html += "</div>"
+          html += "</li>";
+        });
+      	html += "</div>";
+				$(".pin-content").html("").append(html);
+      });
+      
     })
     
     // 상단 핀 내 마이스터디 탭 클릭시
     $(".mystudyLI").on('click', function() {
+      var html = "";
 			$(".pin-content").html("");
     })
     
@@ -93,6 +117,7 @@
 			                     var sId = data.sendId;
 			                     var groupNo = data.groupNo;
 			                     if($(this).prev().val() != ""){
+			                       console.log("왔음요!");
 			                     socket.emit("msg", {recvId: sId, sendId : id, sendMsg : $(this).prev().val(), groupNo : groupNo, date: new Date().toUTCString()});
 			                     }else{
 			                       alert("내용입력하세요~");
@@ -146,6 +171,7 @@
 			      var msgNo = $('.'+target).next().val();
 			      $.post("/WithProject/msg/updateMsg.do", { msgNo : msgNo });
 			      $.post("/WithProject/msg/msgInfo.do", {msgNo : msgNo}, function(data){
+			        console.log("한번 오고 두번오고 세번오고");
 			        console.log(data);
 			        var m = eval("(" + data + ")");
 			        console.log(m.content);
@@ -156,7 +182,7 @@
 			              var sId = m.memberNo;
 			              var groupNo = m.groupNo;
 			              if($(this).prev().val() != ""){
-			              $.post("/WithProject/msg/sendMsg.do", {recvId: sId, memberNo : m.recvId, content : $(this).prev().val(), groupNo : m.groupNo});
+// 			              $.post("/WithProject/msg/sendMsg.do", {recvId: sId, memberNo : m.recvId, content : $(this).prev().val(), groupNo : m.groupNo});
 			              socket.emit("msg", {recvId: sId, sendId : m.recvId, sendMsg : $(this).prev().val(), groupNo : m.groupNo, date: new Date().toUTCString()});
 			              }else{
 			                alert("내용입력하세요~");
@@ -330,9 +356,26 @@
 		<div class="list-menu">
 			<p>지역</p>
 			<ul>
-				<li><button type="button" id='switch'>강남</button></li>
-				<li><button type="button">신촌</button></li>
-				<li><button type="button">종로</button></li>
+				<li><button type="button" class='switch' data-area="강남">강남</button></li>
+				<li><button type="button" class='switch' data-area="신촌">신촌</button></li>
+				<li><button type="button" class='switch' data-area="종로">종로</button></li>
+				<li><button type="button" class='switch' data-area="노량진">노량진</button></li>
+				<li><button type="button" class='switch' data-area="홍대">홍대</button></li>
+				<li><button type="button" class='switch' data-area="김포">김포</button></li>
+				<li><button type="button" class='switch' data-area="신림">신림</button></li>
+				<li><button type="button" class='switch' data-area="구로">구로</button></li>
+				<li><button type="button" class='switch' data-area="인천">인천</button></li>
+				<li><button type="button" class='switch' data-area="대전">대전</button></li>
+				<li><button type="button" class='switch' data-area="대구">대구</button></li>
+				<li><button type="button" class='switch' data-area="광주">광주</button></li>
+				<li><button type="button" class='switch' data-area="부산">부산</button></li>
+			</ul>
+			<p>내 주변</p>
+			<ul>
+				<li><button type="button" class='switch' data-distance="3000">근처 스터디그룹(3km)</button></li>
+				<li><button type="button" class='switch' data-distance="5000">멀리 스터디그룹(5km)</button></li>
+				<li><button type="button" class='switch' data-distance="8000">머어어얼리 스터디그룹(8km)</button></li>
+				<li><button type="button" class='switch' data-distance="10000">머어어어어어어어어얼리 스터디그룹(10km)</button></li>
 			</ul>
 			<p>정렬</p>
 			<ul>

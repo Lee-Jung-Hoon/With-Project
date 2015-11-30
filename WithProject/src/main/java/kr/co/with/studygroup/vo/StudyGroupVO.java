@@ -16,7 +16,52 @@ public class StudyGroupVO {
 	private String groupRecruitStartDate;
 	private String groupRecruitEndDate;
 	private String groupRegDate;
-	
+	private String memberName;
+	private String groupStartDate;
+	private String groupStartTime;
+	private String groupEndDate;
+	private String groupEndTime;
+
+	public String getGroupStartDate() {
+		return groupStartDate;
+	}
+
+	public void setGroupStartDate(String groupStartDate) {
+		this.groupStartDate = groupStartDate;
+	}
+
+	public String getGroupStartTime() {
+		return groupStartTime;
+	}
+
+	public void setGroupStartTime(String groupStartTime) {
+		this.groupStartTime = groupStartTime;
+	}
+
+	public String getGroupEndDate() {
+		return groupEndDate;
+	}
+
+	public void setGroupEndDate(String groupEndDate) {
+		this.groupEndDate = groupEndDate;
+	}
+
+	public String getGroupEndTime() {
+		return groupEndTime;
+	}
+
+	public void setGroupEndTime(String groupEndTime) {
+		this.groupEndTime = groupEndTime;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 	public int getGroupNo() {
 		return groupNo;
 	}
@@ -166,7 +211,5 @@ public class StudyGroupVO {
 				+ ", groupRecruitStartDate=" + groupRecruitStartDate + ", groupRecruitEndDate=" + groupRecruitEndDate
 				+ ", groupRegDate=" + groupRegDate + "]";
 	}
-	
-	
 
 }

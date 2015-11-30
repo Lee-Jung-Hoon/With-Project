@@ -79,4 +79,10 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public List<StudyGroupTagVO> selectTagList() throws Exception {
 		return dao.selectTagList();
 	}
+
+	// 스터디그룹 즐겨찾기 리스트 출력을 위한 service
+	@Override
+	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) throws Exception {
+		return dao.selectGroupBookmarkList(memberNo);
+	}
 }

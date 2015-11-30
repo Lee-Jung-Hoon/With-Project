@@ -1,15 +1,24 @@
 //jQuery UI autocomplete extension - suggest labels may contain HTML tags
 //github.com/scottgonzalez/jquery-ui-extensions/blob/master/src/autocomplete/jquery.ui.autocomplete.html.js
 (function($) {
- var proto = $.ui.autocomplete.prototype, initSource = proto._initSource;
- function filter(array, term) {
-  var matcher = new RegExp($.ui.autocomplete
-    .escapeRegex(term), "i");
-  return $.grep(array, function(value) {
-    return matcher.test($("<div>").html(
-      value.label || value.value || value).text());
-  });
- }
+  var d = new Date();
+  var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+  $("#groupRecruitStartDate").val(strDate);
+  $("#groupRecruitEndDate").val(strDate);
+  $("#groupRecruitEndDate").val(strDate);
+  $("#groupStartDate").val(strDate);
+  $("#groupEndDate").val(strDate);
+  $("#groupStartTime").val("12:00:00");
+  $("#groupEndTime").val("12:00:00");
+
+  var proto = $.ui.autocomplete.prototype, initSource = proto._initSource;
+  function filter(array, term) {
+    var matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
+    return $.grep(array, function(value) {
+      return matcher.test($("<div>").html(
+          value.label || value.value || value).text());
+      });
+    }
  $.extend(proto, {
   _initSource : function() {
     if (this.options.html && $.isArray(this.options.source)) {
