@@ -6,7 +6,7 @@ google.setOnLoadCallback(draw);
     data.addColumn('string', 'Label');
     data.addColumn('number', 'Value');
     data.addColumn('string', 'Link');
-    data.addRows(4);
+    data.addRows(18);
 
     $.ajax({
       url : "/WithProject/studygroup/tagList.json",
@@ -16,7 +16,7 @@ google.setOnLoadCallback(draw);
       $.each(response, function(index, StudyGroupTagVO){
         data.setValue(index, 0, response[index].tagName);
         data.setValue(index, 1, response[index].tagCnt);
-        
+        data.setValue(index, 2, response[index].tagName);
       })
       
       var outputDiv = document.getElementById('tcdiv');

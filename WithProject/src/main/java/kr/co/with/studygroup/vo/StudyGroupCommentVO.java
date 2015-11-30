@@ -2,10 +2,21 @@ package kr.co.with.studygroup.vo;
 
 public class StudyGroupCommentVO {
 	private int memberNo;
+	private String memberName;
 	private int groupNo;
 	private int commentNo;
 	private String commentContent;
 	private String regDate;
+	
+	
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 
 	public int getMemberNo() {
 		return memberNo;

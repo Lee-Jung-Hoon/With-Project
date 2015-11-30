@@ -79,7 +79,7 @@ TermCloud.prototype.draw = function(data, options) {
       var freq = data.getValue(rowInd, 1);
       var size = TermCloud.MIN_UNIT_SIZE +
            Math.round((freq - minFreq) / range * TermCloud.RANGE_UNIT_SIZE);
-      html.push('<a class="term-cloud-link" href="', (link || '#'), '" id="_tc_', id, '_', rowInd , '"');
+      html.push("<a class='term-cloud-link' data-str='"+link+"' href='#' id='_tc_"+id+"_"+rowInd+"'");
       if (link) {
         html.push(' target="', linkTarget, '"');
       }
@@ -98,7 +98,7 @@ TermCloud.prototype.draw = function(data, options) {
   html.push('</div>');
     
     this.container.innerHTML = html.join('');
-
+    
   
   
   // Add event listeners

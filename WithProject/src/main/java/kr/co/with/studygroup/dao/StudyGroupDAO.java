@@ -59,10 +59,10 @@ public class StudyGroupDAO {
 		return session.selectList("with.studygroup.dao.selectCommentList", groupNo);
 	}
 	
-	   // 스터디그룹 marker를 표시가히기 위한 DAO
-	   public List<StudyGroupVO> selectMaker() {
-	      return session.selectList("with.studygroup.dao.selectMarker");
-	   }
+	// 스터디그룹 marker를 표시가히기 위한 DAO
+	public List<StudyGroupVO> selectMaker() {
+		return session.selectList("with.studygroup.dao.selectMarker");
+	}	
 
 	public int nameCheck(String tagName) {
 		return session.selectOne("with.studygroup.dao.nameCheck", tagName);
@@ -74,5 +74,10 @@ public class StudyGroupDAO {
 
 	public List<StudyGroupTagVO> selectTagList() {
 		return session.selectList("with.studygroup.dao.selectTagList");
+	}
+
+	// 스터디그룹 즐겨찾기 리스트 출력을 위한 DAO
+	public List<StudyGroupVO> selectGroupBookmarkList(int memberNo) {
+		return session.selectList("with.studygroup.dao.selectGroupBookmarkList", memberNo);
 	}
 }

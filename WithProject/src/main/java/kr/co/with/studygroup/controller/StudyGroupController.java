@@ -138,7 +138,6 @@ public class StudyGroupController {
 		// 멤버 번호 받을 예정
 		int memberNo = (Integer) session.getAttribute("no");
 		
-		
 		StudyGroupCommentVO commentVO = new StudyGroupCommentVO();
 		commentVO.setCommentContent(comment);
 		commentVO.setGroupNo(no);
@@ -175,9 +174,19 @@ public class StudyGroupController {
 	}
 	
 	// 자기자신 반경안 스터디그룹 Map과 Marker생성 Method
-	   @RequestMapping("/mapList.json")
-	   @ResponseBody
-	   public List<StudyGroupVO> markerList() throws Exception {
-	      return service.selectMarker();
-	   }
+	@RequestMapping("/mapList.json")
+	@ResponseBody
+	public List<StudyGroupVO> markerList() throws Exception {
+		return service.selectMarker();
+	}	
+
+	// 스터디그룹 즐겨찾기 리스트 출력을 위한 json
+	@RequestMapping("/groupBookmarkList.json")
+	@ResponseBody
+	public List<StudyGroupVO> GroupBookmarkList(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		// 멤버 번호 받을 예정
+		int memberNo = (Integer) session.getAttribute("no");
+		return service.selectGroupBookmarkList(memberNo);
+	}
 }

@@ -22,8 +22,13 @@
 		<result column="GROUP_REGDATE" property="groupRegDate"/>
 		<result column="MEMBER_NO" property="groupRecruitEndDate"/>
 		<result column="GROUP_TAG" property="groupTag"/>
+		<result column="member_name" property="memberName"/>
+		<result column="group_StartDate" property="groupStartDate"/>
+		<result column="group_StartTime" property="groupStartTime"/>
+		<result column="group_EndDate" property="groupEndDate"/>
+		<result column="group_EndTime" property="groupEndTime"/>
 	</resultMap>
-	
+
 	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
 	<select id="studyList" parameterType="studygrouppaging" resultMap="studyGroup">
 		select 
@@ -44,15 +49,23 @@
 			group_name, group_detail, group_maxperson, group_tag,
 			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
 			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
+			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO, 
+			group_StartDate, group_StartTime, group_EndDate, group_EndTime
 		)
 		values(
 			#{groupName}, #{groupDetail}, #{groupMaxPerson}, #{groupTag},
 			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
 			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
-			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, '1'
+			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, '1',
+			#{groupStartDate}, #{groupStartTime}, #{groupEndDate}, #{groupEndTime}
 		)
 	</insert>
+	
+	
+<!-- 		<result column="group_StartDate" property="groupStartDate"/> -->
+<!-- 		<result column="group_StartTime" property="groupStartTime"/> -->
+<!-- 		<result column="group_EndDate" property="groupEndDate"/> -->
+<!-- 		<result column="group_EndTime" property="groupEndTime"/> -->
 	
 	<!-- 	가장 최근 증가값 가져오기 위한 쿼리문-->
 	<select id="selectAutoIncrement" resultType="int">
@@ -84,7 +97,7 @@
 		select tag_cnt as tagCnt, tag_name as tagName  
       from t_with_studygroup_tag
      order by tag_cnt desc
-     limit 0, 4
+     limit 0, 17
 		 
 	</select>
 	<!-- 태그테이블의 특정 태그수 를 가져오기 위한 쿼리문  -->
@@ -93,23 +106,24 @@
 		  from t_with_studygroup_tag
 		 where tag_name = #{tagName}
 	</select>
-	
+		
 	<!-- 스터디그룹 상세 정보 출력을 위한 쿼리문 -->
 	<select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">
-		select 
-			group_no, group_name, group_detail, group_maxperson, 
-			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
-			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
-		from t_with_studygroup
+	select 	gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
+			gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
+			gr.GROUP_ACTIVEPLACE, gr.group_email, GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
+			gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO, member.member_name,
+			gr.group_StartDate, gr.group_StartTime, gr.group_EndDate, gr.group_EndTime
+		from t_with_studygroup gr, t_with_member member
 		where group_no = #{no}
+          and gr.member_no = member.member_no
 	</select>
 	
 	<!-- 	스터디그룹 상세 댓글 작성을 위한 쿼리문  -->
 	<insert id="insertGroupComment" parameterType="studygroupcomment">
 		insert into T_WITH_STUDYGROUP_COMMENT(
 			member_no,
-			group_no,
+			group_no, 
 			comment_content
 		)
 		values(
@@ -121,15 +135,18 @@
 	
 	<select id="selectCommentList" parameterType="int" resultType="studygroupcomment">
 		select 
-			MEMBER_NO as memberNo, 
-			GROUP_NO as groupNo, 
-			COMMENT_NO as commentNo, 
-			COMMENT_CONTENT as commentContent, 
-			REG_DATE as regDate
+			com.MEMBER_NO as memberNo, 
+			mem.member_name as memberName,
+			com.GROUP_NO as groupNo, 
+			com.COMMENT_NO as commentNo, 
+			com.COMMENT_CONTENT as commentContent, 
+			date_format(com.REG_DATE, '%Y-%m-%d %H:%i') as regDate
 		from 
-			T_WITH_STUDYGROUP_COMMENT
+			T_WITH_STUDYGROUP_COMMENT com, T_WITH_MEMBER MEM
 		where 
-			group_no = #{groupNo}
+			com.group_no = #{groupNo} 
+		  and
+		 	com.MEMBER_NO = mem.MEMBER_NO 
 	</select>
 	
 	<!-- 스터디그룹 즐겨찾기 중복을 확인하기 위한 쿼리문  -->
@@ -155,9 +172,21 @@
 	</insert>
 	
 	<select id="selectMarker" resultMap="studyGroup">
-         select 
+    	select 
          group_no, group_name, group_detail, group_activelongitude, group_activelatitude,
          group_activeplace, group_email, group_tel, group_repimagepath, group_regdate
       from t_with_studygroup
-   </select>
+  </select>
+  
+  <select id="selectGroupBookmarkList" parameterType="int" resultType="studygroup">
+			select sg.GROUP_NO as groupNo,
+						 sg.GROUP_NAME as groupName, 
+						 sg.GROUP_ACTIVEPLACE as groupActivePlace, 
+						 sg.GROUP_REPIMAGEPATH as groupRepImagePath, 
+						 sg.GROUP_RECRUITSTARTDATE as groupRecruitStartDate, 
+						 sg.GROUP_RECRUITENDDATE as groupRecruitEndDate
+				from t_with_member_bookmark bk, t_with_studygroup sg
+			 where bk.bookmark_no = sg.GROUP_NO
+  			 and bk.member_no = #{groupNo};
+  </select> 
 </mapper>
