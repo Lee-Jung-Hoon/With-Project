@@ -55,7 +55,7 @@ $(document).ready(function() {
 					div += "<img src='${pageContext.request.contextPath}/images/icon_write.png' alt='수정' />";
 				div += "</button>";
 			
-				div += "<button class='btnDelete commonBtn' id='btnDelete'>";
+				div += "<button class='btnDelete commonBtn' id='btnDelete_"+addCnt+"' onclick='delExample("+addCnt+")'>";
 					div += "<img src='${pageContext.request.contextPath}/images/icon_del.png' alt='삭제' />";
 				div += "</button>";
 			div += "</div>";
@@ -89,6 +89,7 @@ $(document).ready(function() {
 							div += "<div>";
 								div += "<input class='check-option' type='checkbox' id='answer_"+addCnt+"_0'>";
 								div += "<input type='text' class='input-option' id='example_"+addCnt+"_0' value='옵션'>";
+								div += "<input type='button' class='delete-option' id='delete_"+addCnt+"_0' value='삭제'>";
 							div += "</div>";
 						div += "</div>";
 						
@@ -162,8 +163,23 @@ function addExample(no) {
   HTML += "<div class='examOptionInner'>";
   HTML += "<input type='checkbox' class='check-option' id='answer_"+no+"_"+cnt+"'>";
   HTML += "<input type='text' class='input-option' id='example_"+no+"_"+cnt+"' value='옵션'>";
+	HTML += "<input type='button' class='delete-option' id='delete_"+no+"_"+cnt+"' value='삭제'>";
   HTML += "</div>";
   $("#examOptionDIV_"+no).append(HTML);
+  
+  // 보기 삭제 
+	$(".delete-option").on('click', function(){
+	  console.log($(this).attr("id")+"삭제할 친구입니다.");
+	  $(this).parent().remove();
+	});
+  
+}
+
+function delExample(no){
+  console.log($(this).attr("id")+"삭제할 친구입니다.");
+  console.log("btnDelete_"+no);
+  $("#btnDelete_"+no).parent().parent().slideUp("slow");
+  $("#btnDelete_"+no).parent().parent().remove();
 }
 
 // 문제 유형 항목을 변경할 경우 실행
