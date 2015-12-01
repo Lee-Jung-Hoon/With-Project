@@ -122,12 +122,4 @@ public class MemberController {
 		System.out.println("asdasd"+list.size());
 		return list;
 	}
-	//해당 그룹에 가입한 맴버 LIST를 가져오는  json
-	@RequestMapping("/memberList2.json")
-	@ResponseBody
-	public List<MemberVO> memberList2() throws Exception {
-		List<MemberVO> list = service.memberList2();
-		System.out.println("asdasd"+list.size());
-		return list;
-	}	
 }

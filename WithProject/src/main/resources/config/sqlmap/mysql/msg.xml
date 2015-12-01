@@ -12,22 +12,28 @@
 		<result column="reg_date" property="regDate"/>
 	</resultMap>
 
+	<!-- 메세지를 전송하기 위한 쿼리 -->
 	<insert id="insertMsg" parameterType="msg" >
 		 insert into with_studygroup_msg (group_no, member_no, recv_id, content)
 		 		values ( #{groupNo}, #{memberNo}, #{recvId}, #{content} )                       
 	</insert>
+	
+	<!-- 읽지 않은 메세지 리스트를 출력하는 쿼리 -->
 	<select id="selectList" parameterType="String" resultMap="msg">
-		select group_no, msg_no , recv_id, member_no, content, date_format(reg_date, '%Y-%m-%d')as reg_date  
+		select group_no, msg_no, recv_id, member_no, content, 
+					 date_format(reg_date, '%Y-%m-%d')as reg_date  
 		  from with_studygroup_msg
 		 where recv_id = #{recvId} and msg_check = 0 
 	</select>
-	
+
+	<!-- 메세지 내용을 출력하기 위한 쿼리 -->	
 	<select id="selectMsgInfo" parameterType="int" resultMap="msg">
 		select group_no, msg_no , recv_id, member_no, content, date_format(reg_date, '%Y-%m-%d')as reg_date  
 		  from with_studygroup_msg
 		 where msg_no = #{msgNo} 
 	</select>
 	
+	<!-- 메세지 수신을 체크하는 쿼리 -->
 	<update id="updateMsg" parameterType="msg">
 		update with_studygroup_msg
 		   set msg_check = 1

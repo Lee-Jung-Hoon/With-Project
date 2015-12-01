@@ -8,6 +8,14 @@ public class MsgVO {
     private String content;
     private int msgCheck;
     private String regDate;
+    private String memberName;
+    
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public String getMemberNo() {
 		return memberNo;
 	}

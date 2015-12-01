@@ -15,6 +15,7 @@
 		 #{memberAge}
 		 	);
  </insert>
+ 
  <select id="selectMember" parameterType="member" resultType="member">
  	select 
  		 Member_Name as memberName, 
@@ -28,27 +29,27 @@
    where 
  	 	id = #{id} and password = #{password}
  </select>
+ 
  <select id="checkMember" parameterType="member" resultType="int">
 			select count(*)
 			from t_with_Member
 			where id = #{id}   
  </select>
+ 
  <select id="groupList" parameterType="String" resultType="member">
  			select group_no groupNo
  			  from t_with_joinstudygroup
  			 where member_no = #{memberNo}	 
  </select>
+ 
  <select id="memberList" parameterType="String" resultType="member">
- 			select member_no memberNo
- 			  from t_with_joinstudygroup
+ 			select mem.member_no memberNo, mem.member_name as memberName
+ 			  from t_with_joinstudygroup jo, t_with_member mem
  			 where group_no = #{groupNo}
+ 			   and jo.member_no = mem.member_no
  </select>
- <select id="memberList2" parameterType="String" resultType="member">
- 			select member_no memberNo
- 			  from t_with_joinstudygroup
- 			 where group_no = '1'
- </select>
-  <insert id="insertFbookMember" parameterType="member" >
+ 
+ <insert id="insertFbookMember" parameterType="member" >
  		insert into t_with_Member(member_name, id, password, member_type, member_gender, member_age, member_img)
 		values(
 		 #{memberName},

@@ -22,6 +22,4 @@ public interface MemberService {
 	// Facebook 로그인시 회원정보 불러오기
 	public MemberVO selectFbookMember(MemberVO member) throws Exception;
 
-	public List<MemberVO> memberList2() throws Exception;
-
 }
