@@ -24,16 +24,17 @@
 		</c:forEach>
 		
 		for(var i=0; i<list.length; i++) {
-		  
 		  HTML += "<div style=' padding-left: 20px;'>"+(i+1)+". "+list[i]+"</div>";
 		  var array = item[i].split(",");
 		  for(var j=0; j<array.length; j++) {
 		    var correct = array[j].split(":");
+		    if(correct[0]!="undefined") {
 		    HTML += "<div class='exam_"+i+"_"+j+"' style=' padding-left: 40px;'>"
 		    HTML += "<input class='answer_"+i+"_"+j+"' type='checkbox'>"+correct[0]+"</div>";
 		    HTML += "<input class='correct_"+i+"_"+j+"' type='hidden' value='"+correct[1]+"'></div>";
 		    if(correct[1] == "true")
 		      result.push('answer_'+i+"_"+j);
+		  }
 		  }
 		  
 		  HTML += "<br/>";
