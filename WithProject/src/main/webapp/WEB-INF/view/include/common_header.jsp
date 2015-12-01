@@ -1,9 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<div class="dark-layer"></div>
 	<script>
+	/* 받는사람 체크박스 function */
+	function memberAdd(tag) {
+	  var isSameId = false;
+    var id = tag.attr('id');
+    var txt = tag.next().text();
+    var html = "<em data-id='"+id+"'>"+ txt +"</em>";
+    if (tag.prop('checked') == true) {
+      $('.add-name em').each(function(){
+        if ($(this).attr('data-id') == id) {
+          isSameId = true;
+        } 
+      });
+      if (isSameId == false) {
+        $('.add-name').prepend(html); 
+      }
+    } else {
+      $('.add-name em').each(function(){
+        if ($(this).attr('data-id') == id) {
+          $(this).remove();
+        } 
+      });
+    }
+	}
   $(document).ready(function() {
+    /* 받은 메세지 리스트 클릭 시 */
 	   $('.pin-msg-toggle').on('click',function(){
       if ($(this).hasClass('on')) {
         $(this).removeClass('on').next().removeClass('current');
@@ -16,10 +39,48 @@
     	  $('.pin-content').stop().scrollTop(heightL + (index * height));
       }
   	});
+	   /* 받은 메세지 답장 보내기 클릭 시 */
     $('.msg-send').on('click', function(){
       $('.pin-msg').addClass('off');
-      $('.pin-msg-new').addClass('on');
+      $('.pin-msg-new1').addClass('on');
     });
+    /* 받은 메세지 글쓰기 클릭 시 */
+    $('.pin-msg-write').on('click', function(){
+      $('.pin-msg').addClass('off');
+      $('.pin-msg-new2').addClass('on');
+    });
+    
+    /* 메세지 보내기 받는사람 추가 클릭 시 */
+    $('.pin-msg-add').on('click', function(){
+      $(this).toggleClass('on');
+      $('.pin-add-list').toggleClass('on');
+    });
+    
+    
+    $('.pin-list-group').on('click', function(){
+      $(this).toggleClass('on').parent().toggleClass('current');
+    });
+    
+    /* 받는사람 체크박스 전체 클릭시 */
+    $('.member-all').on('change',function(){
+      if ($(this).prop('checked') == true) {
+        $(this).parent().nextAll().find('input').prop('checked',true);
+      } else {
+        $(this).parent().nextAll().find('input').prop('checked',false);
+      }
+      $(this).parent().nextAll().find('input').each(function(){
+        memberAdd($(this));
+      });
+       
+    });
+		
+    /* 받는사람 각각 클릭시 */
+     $('.list-member').on('change',function(){
+       memberAdd($(this));
+     });
+    
+    
+    
     var d = new Date();
     
     // 상단 핀 내 즐겨찾기 탭 클릭시
@@ -245,6 +306,7 @@
 
     })
   </script>
+  <div class="dark-layer"></div>
 	<header>
 		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<c:choose>
@@ -262,6 +324,7 @@
                <li><button type="button" class='messageLI'>메시지</button></li>
             </ul>
             <div class="pin-content">
+            		<!--  메시지 디폴트 시작 -->
                 <div class="pin-msg">
             		 <p class="title-common">받은 메세지</p>
 	               <ul>
@@ -269,57 +332,140 @@
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>안지원</span><em>2015-11-30 09:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               	<li>
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>김수한무거북이와두루미삼천갑자동방삭</span><em>2015-11-30 11:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               	<li>
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               	<li>
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               	<li>
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               	<li>
 	               		<button type="button" class="pin-msg-toggle eft-light2"><strong>From.</strong><span>케이틀린</span><em>2015-11-30 09:30</em></button>
 	               		<div class="pin-msg-content">
 	               			<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
-	               			<span><button type="button" class="msg-send"><em>답장 보내기</em></button></span>
+	               			<span><button type="button" class="msg-send commonBtn2"><em>답장 보내기</em></button></span>
 	               		</div>
 	               	</li>
 	               </ul>
-	               <button type="button" class="pin-msg-write">글쓰기</button>
+	               <button type="button" class="pin-msg-write commonBtn3">글쓰기</button>
             	</div>
-            	<div class="pin-msg-new">
+            	<!--  메시지 디폴트 끝 -->
+            	
+            	<!-- 답장 보내기 시작 -->
+            	<div class="pin-msg-new pin-msg-new1">
             		<div class="pin-msg-newIn">
-            			<p class="title-common">새로운 메세지</p>
+            			<p class="title-common">답장 보내기</p>
 	           			<div class="pin-msg-newTxt">
-	           				<p>받는사람 : </p>
+	           				<p><strong>받는사람 &nbsp;:</strong><span>안지원</span></p>
 	           				<textarea></textarea>
-	            			<button type="button"></button>
+	           				<div class="pin-msg-btn">
+	           					<button type="button" class="pin-msg-back commonBtn2"><em>취소</em></button>
+	            				<button type="button" class="pin-msg-send commonBtn2"><em>보내기</em></button>
+	           				</div>
 	           			</div>
             		</div>
             	</div>
+            	<!-- 답장 보내기 끝 -->
+            	
+            	<!--  메세지 보내기 시작 -->
+            	<div class="pin-msg-new pin-msg-new2">
+            		<div class="pin-msg-newIn">
+            			<p class="title-common">메세지 보내기</p>
+	           			<div class="pin-msg-newTxt">
+	           				<p><strong>받는사람 &nbsp;:</strong><span class="add-name"></span></p>
+	           				<textarea></textarea>
+	           				<div class="pin-msg-btn">
+	           					<button type="button" class="pin-msg-back commonBtn2"><em>취소</em></button>
+	            				<button type="button" class="pin-msg-send commonBtn2"><em>보내기</em></button>
+	           				</div>
+	           			</div>
+	           			<button type="button" class="pin-msg-add commonBtn3">받는사람 추가</button>
+            		</div>
+            	</div>
+            	<!--  메세지 보내기 끝 -->
+            	
+            	<!-- 받는사람 체크박스 시작 -->
+            	<div class="pin-add-list">
+            		<ul>
+            			<li>
+            				<button type="button" class="pin-list-group">스터디1</button>
+            				<ul>
+            					<li>
+            						<input id="member01_all" type="checkbox" class="member-all" />
+            						<label for="member01_all">스터디1 전체선택</label>
+            					</li>
+            					<li>
+            						<input id="member01_01" type="checkbox" class="list-member" />
+            						<label for="member01_01">수리용</label>
+            					</li>
+            					<li>
+            						<input id="member01_02" type="checkbox" class="list-member" />
+            						<label for="member01_02">경워니</label>
+            					</li>
+            					<li>
+            						<input id="member01_03" type="checkbox" class="list-member" />
+            						<label for="member01_03">포포투우</label>
+            					</li>
+            				</ul>
+            			</li>
+            			<li>
+            				<button type="button" class="pin-list-group">스터디2</button>
+            				<ul>
+            					<li>
+            						<input id="member02_all" type="checkbox" class="member-all" />
+            						<label for="member02_all">스터디2 전체선택</label>
+            					</li>
+            					<li>
+            						<input id="member02_01" type="checkbox" class="list-member" />
+            						<label for="member02_01">케이틀린</label>
+            					</li>
+            					<li>
+            						<input id="member02_02" type="checkbox" class="list-member" />
+            						<label for="member02_02">렉사이</label>
+            					</li>
+            					<li>
+            						<input id="member02_03" type="checkbox" class="list-member" />
+            						<label for="member02_03">신드라</label>
+            					</li>
+            					<li>
+            						<input id="member02_04" type="checkbox" class="list-member" />
+            						<label for="member02_04">이블린</label>
+            					</li>
+            					<li>
+            						<input id="member02_05" type="checkbox" class="list-member" />
+            						<label for="member02_05">수리용</label>
+            					</li>
+            				</ul>
+            			</li>
+            		</ul>
+            	</div>
+            	
+            	<!-- 받는사람 체크박스 끝-->
+            	
             </div>
             </div>
          </div>         
