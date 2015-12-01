@@ -324,6 +324,8 @@ header .main-menu em {
 	font-size:20px;
 	
 }
+/* 공통버튼 스타일 */
+
 .commonBtn {
 	position:relative;
 	border-radius:10px;
@@ -358,6 +360,94 @@ header .main-menu em {
 .commonBtn:active::before {
 	opacity:0;
 }
+.commonBtn2 {
+	position:relative;
+	display:block;
+	width:50px;
+	height:50px;
+	overflow:hidden;
+  border-radius:50%;
+}
+.commonBtn2:hover::before, .commonBtn2:focus::before {
+	width:100%;
+	transition:all 1s;	
+}
+.commonBtn2::before {
+	content:"";
+	position:absolute;
+	left:0;
+	top:0;
+	width:0%;
+	height:100%;
+	
+	transition:height 1s;
+	z-index:2;
+	transition:width 1s;
+}
+.commonBtn2::after {
+	content:"";
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:#CFD8DC;	
+}
+.commonBtn2 em::after {
+	content:"";
+  display:block;
+  width:30px;
+  height:150%;
+  position:absolute;
+  background:#fff;
+  font-weight:bold;
+  opacity:.6;
+  top:-10px;
+  left:-30px;
+  transition:left 1s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  z-index:4;
+}
+.commonBtn2:hover em::after, .commonBtn2:focus em::after {
+	left:80px;
+	transition:left 1s;
+}
+.commonBtn2 em {
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-indent:-5000px;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:70%;
+  border-radius:50%;
+	z-index:3;
+}
+
+.commonBtn3 {
+	position:absolute;
+	top:0;
+	right:5px;
+	width:40px;
+	height:40px;
+	text-indent:-5000px;
+	background-repeat:no-repeat;
+	background-position:10px 7px;
+	background-color:transparent;
+	border-radius:0;
+	background-size:60%;
+	box-sizing:border-box;
+	overflow:hidden;
+	transition:border-radius 1s ease-in-out, background-color 1s ease-in-out, background-image 1s ease-in-out;
+}
+.commonBtn3:hover, .commonBtn3:focus {
+	border-radius:50%;
+	transition:all 1s;
+}
+
 
 .eft-light::after {
 	content:"";
@@ -2467,10 +2557,12 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	font-size:15px;
 	background:#fff;
 	height:auto;
+	float:none;
 	overflow:hidden;
 	transition:height .5s;
 }
 .pin-msg.off {
+	float:left;
 	height:0;
 	transition:height .5s;
 }
@@ -2548,102 +2640,31 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	border-top:1px solid #515d6e;
 }
 .pin-msg-content .msg-send {
-	position:relative;
-	display:block;
-	width:50px;
-	height:50px;
-	overflow:hidden;
-  border-radius:50%;
-}
-.pin-msg-content .msg-send {
-	position:relative;
-	display:block;
 	float:right;
-	width:50px;
-	height:50px;
-	overflow:hidden;
-}
-.pin-msg-content .msg-send:hover::before, .pin-msg-content .msg-send:focus::before {
-	width:100%;
-	transition:all 1s;	
-}
-.pin-msg-content .msg-send::before {
-	content:"";
-	position:absolute;
-	left:0;
-	top:0;
-	width:0%;
-	height:100%;
-	background-color:#F98E33;
-	transition:height 1s;
-	z-index:2;
-	transition:width 1s;
-}
-.pin-msg-content .msg-send::after {
-	content:"";
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-	height:100%;
-	background-color:#CFD8DC;	
-}
-.pin-msg-content .msg-send em::after {
-	content:"";
-  display:block;
-  width:30px;
-  height:150%;
-  position:absolute;
-  background:#fff;
-  font-weight:bold;
-  opacity:.6;
-  top:-10px;
-  left:-30px;
-  transition:left 1s;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  z-index:4;
-}
-.pin-msg-content .msg-send:hover em::after, .pin-msg-content .msg-send:focus em::after {
-	left:80px;
-	transition:left 1s;
 }
 .pin-msg-content .msg-send em {
-	display:block;
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	text-indent:-5000px;
-	background-image:url('../images/icon_mail.png');
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:70%;
-  border-radius:50%;
-	z-index:3;
+	background-image:url('../images/icon_mail.png');	
+}
+
+.pin-msg-content .msg-send::before {
+	background-color:#F98E33;	
 }
 .pin-msg-write {
-	position:absolute;
-	top:0;
-	right:5px;
-	width:40px;
-	height:40px;
-	text-indent:-5000px;
 	background-image:url('../images/icon_write2.png');
-	background-repeat:no-repeat;
-	background-position:10px 7px;
-	background-color:transparent;
-	border-radius:0;
-	background-size:60%;
-	box-sizing:border-box;
-	overflow:hidden;
-	transition:border-radius 1s ease-in-out, background-color 1s ease-in-out, background-image 1s ease-in-out;
 }
-.pin-msg-write:hover {
-	border-radius:50%;
+.pin-msg-write:hover, .pin-msg-write:focus {
 	background-color:#6A55C2;
 	background-image:url('../images/icon_write2_h.png');
-	transition:all 1s;
+}
+.pin-msg-add {
+	background-image:url('../images/icon_add.png');
+}
+.pin-msg-add:hover, .pin-msg-add:focus, .pin-msg-add.on {
+	background-color:#23AE89;
+	background-image:url('../images/icon_add_h.png');
+}
+.pin-msg-add.on {
+	border-radius:50%;
 }
 .pin-msg-new {
 	width:100%;
@@ -2681,16 +2702,177 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	height:203px;
 }
 .pin-msg-newTxt p {
+	width:100%;
+	height:43px;
+	overflow:hidden;
+}
+.pin-msg-newTxt strong {
+	float:left;
+	width:23%;
 	font-size:14px;
 	line-height:18px;
+	font-weight:bold;
+}
+.pin-msg-newTxt span {
+	float:left;
+	width:77%;
+	height:100%;
+	overflow-y:auto;
+	font-size:14px;
+	line-height:20px;
+	font-weight:normal;
 }
 .pin-msg-newTxt textarea {
-	position:absolute;
-	bottom:0;
 	width:100%;
-	height:80%;
+	height:100px;
+	border:1px solid #ddd;
 }
-
+.pin-msg-newTxt button {
+	display:inline-block;
+}
+.pin-msg-newTxt .pin-msg-btn {
+	width:100%;
+	height:50px;
+	margin-top:-10px;
+	padding-right:5px;
+	text-align:right;
+	overflow:hidden;
+}
+.pin-msg-newTxt .pin-msg-back em {
+	background-image:url('../images/icon_back.png');
+	background-size:60%;
+}
+.pin-msg-newTxt .pin-msg-back::before {
+	background-color:#E94B3B;
+}
+.pin-msg-newTxt .pin-msg-send em {
+	background-image:url('../images/icon_send.png');
+}
+.pin-msg-newTxt .pin-msg-send::before {
+	background-color:#F98E33;
+}
+.pin-add-list {
+	position:absolute;
+	right:0;
+	bottom:0;
+	width:150px;
+	height:300px;
+	background:#fff;
+	border:1px solid #515d6e;
+	overflow-y:auto;
+	opacity:0;
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
+	z-index:-1;
+	transition:right 1s, opacity 1s;
+}
+.pin-add-list.on {
+	z-index:0;
+	right:-170px;
+	opacity:1;
+	transition:right 1s, opacity 1.5s ease-in-out;
+}
+.pin-add-list li {
+	line-height:24px;
+	clear:both;
+	overflow:hidden;
+}
+.pin-add-list > ul > li {
+	height:27px;
+	transition:height 2s ease-in-out;
+}
+.pin-add-list .current {
+	height:auto;
+	transition:height 2s ease-in-out;
+}
+.pin-add-list .pin-list-group {
+	position:relative;
+	display:block;
+	width:100%;
+	line-height:26px;
+	font-size:15px;
+	text-align:left;
+	text-indent:5px;
+	font-weight:bold;
+	background:#CFD8DC;
+	color:#fff;
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
+	border-bottom:1px solid #ddd;
+	overflow:hidden;
+	transition:background 1s;
+}
+.pin-add-list .pin-list-group::before, .pin-add-list .pin-list-group::after {
+	content:"";
+	display:block;
+	position:absolute;
+	top:-10px;
+	height:120%;
+	transform:rotate(-20deg);
+	background:#fff;
+	height:200%;
+	opacity:.6;
+	transition:left 1s;
+}
+.pin-add-list .pin-list-group::before {
+	left:-50px;
+	width:30px;
+}
+.pin-add-list .pin-list-group::after {
+	left:-65px;
+	width:10px;
+}
+.pin-add-list .pin-list-group.on, .pin-add-list .pin-list-group:hover, .pin-add-list .pin-list-group:focus {
+	background:#1C7EBB;
+	z-index:2;
+	transition:all 1s;
+}
+.pin-add-list .pin-list-group:hover::before {
+	left:200px;
+	transition:left 1s;
+} 
+.pin-add-list .pin-list-group:hover::after {
+	left:185px;
+	transition:left 1s;
+} 
+.pin-add-list ul ul {
+	position:relative;
+	overflow:hidden;
+	padding:10px 0;
+	opacity:0;
+	transition:opacity 2s;
+}
+.pin-add-list ul ul::before {
+	content:"";
+	display:block;
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background:#fff;
+	transition:left 2s, background 2s;
+}
+.pin-add-list .current ul {
+	opacity:1;
+	transition:opacity 2s;
+}
+.pin-add-list .current ul::before {
+	left:200%;
+	background:transparent;
+	transition:left 2s, background 2s;
+}
+.pin-add-list input {
+	display:inline-block;
+	float:left;
+}
+.pin-add-list label {
+	display:block;
+	float:left;
+	font-size:14px;
+	line-height:1.333;
+}
+.add-name em {
+	padding-right:5px;
+}
 /*sub-page 자료등록*/
 
 .container h3 {
