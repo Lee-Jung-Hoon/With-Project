@@ -183,4 +183,20 @@
 		and 
 			m_type = 2
 	</select>
+	
+	<select id="SelectStudyGroupMoneyBook" parameterType="int" resultType="moneybook">
+		select 	M_NO as mNo, 
+						GROUP_NO as groupNo,
+						MEMBER_NO as memberNo,
+						M_DATE as mDate,
+						M_MEMO as mMemo,
+						M_TYPE as mType,
+						M_MONEY as mMoney,
+						M_LEFT as mLeft,
+						M_RIGHT as mRight,
+						reg_date as regDate
+		  from 	T_WITH_STUDYGROUP_MONEYBOOK 
+		 where  group_no = #{groupNo}
+		 order by m_no desc
+	</select>
 </mapper>

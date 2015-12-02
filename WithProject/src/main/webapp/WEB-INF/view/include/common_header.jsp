@@ -115,7 +115,35 @@
     // 상단 핀 내 마이스터디 탭 클릭시
     $(".mystudyLI").on('click', function() {
       var html = "";
-			$(".pin-content").html("");
+	    html += "<div class='myCreateGroupList'>내가 생성한 스터디그룹</div>"
+      html += "<div class='myJoinGroupList'>내가 가입한 스터디그룹</div>"
+			$(".pin-content").html("").append(html);
+			
+      // 내가 생성한 스터디그룹 출력하는 AJAX
+      $.ajax({
+			  url : "${pageContext.request.contextPath}/studygroup/myCreateGroup.json"
+			})
+			.done(function(response) {
+			  html = "<ul>";
+			  $.each(response, function(index, StudygroupVO) {
+			    html += "<li><a href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+        });
+			  html += "</ul>";
+			  $(".myCreateGroupList").append(html);
+      });
+			
+      // 내가 가입한 스터디그룹 출력하는 AJAX
+      $.ajax({
+			  url : "${pageContext.request.contextPath}/studygroup/myJoinGroup.json"
+			})
+			.done(function(response) {
+			  html = "<ul>";
+			  $.each(response, function(index, StudygroupVO) {
+			    html += "<li><a href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+        });
+			  html += "</ul>";
+			  $(".myJoinGroupList").append(html);
+      });
     })
     
     // 상단 핀 내 메세지 탭 클릭시
@@ -158,7 +186,8 @@
                                   
                                $.each(member, function(no, MemberVO){
                                  if(id != member[no].memberNo)
-                                   list += "<li stlye><input type='checkbox' class='member' id='member"+member[no].memberNo+"' value='쪽지' />멤버"+member[no].memberNo+"</li>";
+                                   // 멤버 이름을 출력하기 위해 바뀜
+                                   list += "<li stlye><input type='checkbox' class='member' id='member"+member[no].memberNo+"' value='쪽지' />"+member[no].memberName+"</li>";
                                    
                                  })
                                  $('#'+data[index].groupNo+' ul').append(list);
