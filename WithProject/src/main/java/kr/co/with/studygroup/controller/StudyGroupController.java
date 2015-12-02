@@ -2,9 +2,13 @@ package kr.co.with.studygroup.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -12,6 +16,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -22,14 +28,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import kr.co.with.studygroup.member.vo.MemberVO;
+import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.service.StudyGroupService;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
 import kr.co.with.studygroup.vo.StudyGroupTagVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
+import kr.co.with.studygroup.vo.StudygroupWorkInfoVO;
+import kr.co.with.util.WithUtil;
 
 @Controller
 @RequestMapping("/studygroup")
@@ -219,8 +232,109 @@ public class StudyGroupController {
 		
 		// 스터디그룹 멤버 정보 출력
 		List<MemberVO> member = service.SelectStudygroupMemeber(groupNo);
-		System.out.println(member.size());
 		mav.addObject("member", member);
+		
+		int totalMoney = 0;
+		// 스터디그룹 가계부 관련 정보 출력
+		List<MoneyBookVO> moneybook = service.SelectStudyGroupMoneyBook(groupNo);
+		for(int i=0; i<moneybook.size(); i++) {
+			if(moneybook.get(i).getmType() == 1){
+				totalMoney -= moneybook.get(i).getmMoney();
+			}
+			else if(moneybook.get(i).getmType() == 2){
+				totalMoney += moneybook.get(i).getmMoney();
+			}
+		}
+		mav.addObject("money", totalMoney);
+		
+		
+		List<StudygroupWorkInfoVO> list = new ArrayList<>();
+			String calUrl = "http://api.saramin.co.kr/job-search?" 
+								+ "keywords=프로그래머" 
+								+ "&sort=pd" 
+								+ "&loc_cd=101000"
+								+ "&count=10" 
+								+ "&output=xml";
+			URL url = new URL(calUrl);
+			InputStream in = url.openStream();
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(in);
+
+			NodeList workInfoList = doc.getElementsByTagName("job");
+			int childLen = workInfoList.getLength();
+
+			for (int index = 0; index < childLen; index++) {
+			StudygroupWorkInfoVO workInfo = new StudygroupWorkInfoVO();
+
+			Node node = workInfoList.item(index);
+			NodeList childList = node.getChildNodes();
+
+			for (int j = 0; j < childList.getLength(); j++) {
+
+				Node cNode = childList.item(j);
+				String cName = cNode.getNodeName();
+				String cValue = cNode.getTextContent();
+				WithUtil util = new WithUtil();
+				if ("#text".equals(cName))
+					continue;
+
+				if ("id".equals(cName)) {
+					workInfo.setId(cValue);
+				} else if ("url".equals(cName)) {
+					workInfo.setUrl(cValue);
+				} else if ("active".equals(cName)) {
+					workInfo.setActive(cValue);
+				} else if ("posting-timestamp".equals(cName)) {
+					workInfo.setPostingTimeStamp(util.timeStamp(cValue));
+				} else if ("opening-timestamp".equals(cName)) {
+					workInfo.setOpeningTimeStamp(util.timeStamp(cValue));
+				} else if ("expiration-timestamp".equals(cName)) {
+					workInfo.setExpirationTimeStamp(util.timeStamp(cValue));
+				} else if ("company".equals(cName)) {
+					NodeList workInfoSecList = cNode.getChildNodes();
+
+					for (int secIndex = 0; secIndex < workInfoSecList.getLength(); secIndex++) {
+						Node comNode = workInfoSecList.item(secIndex);
+						String comName = comNode.getNodeName();
+						String comValue = comNode.getTextContent();
+						if ("name".equals(comName)) {
+							workInfo.setCompany(comValue);
+						}
+					}
+					
+				} else if ("position".equals(cName)) {
+					NodeList workInfoThirdList = cNode.getChildNodes();
+					for (int thirdIndex = 0; thirdIndex < workInfoThirdList.getLength(); thirdIndex++) {
+						Node sNode = workInfoThirdList.item(thirdIndex);
+						String sName = sNode.getNodeName();
+						String sValue = sNode.getTextContent();
+						if ("title".equals(sName)) {
+							workInfo.setTitle(sValue);
+						} else if ("job-type".equals(sName)) {
+							workInfo.setJobType(sValue);
+						} else if ("job-category".equals(sName)) {
+							workInfo.setJobCategory(sValue);
+						} else if ("open-quantity".equals(sName)) {
+							workInfo.setOpenQuantity(sValue);
+						} else if ("experience-level".equals(sName)) {
+							workInfo.setExperienceLevel(sValue);
+						}
+					}
+				} else if ("salary".equals(cName)) {
+					workInfo.setSalary(cValue);
+				}
+			}
+			list.add(workInfo);
+		}
+		mav.addObject("workInfo", list);
 		return mav;
+	}
+	
+	// 스터디그룹 관리자 페이지로 이동
+	@RequestMapping("/StudygroupAdminMain.do")
+	public String StudygroupAdminMain() throws Exception {
+		return "StudygroupAdminMain/StudygroupAdminMain";
 	}
 }

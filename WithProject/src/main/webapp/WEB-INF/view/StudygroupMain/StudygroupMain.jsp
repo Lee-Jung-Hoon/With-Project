@@ -1,164 +1,339 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
+<style type="text/css">
+	.group-title {
+		font-weight: bold;
+	}
+	
+	.active-place {
+		color: #333; 
+		text-shadow: 2px 2px 4px #000000;
+	}
+	
+	.active-place img{
+		height: 20px;
+	}
+	
+	.graph1-4 {
+		overflow: hidden; 
+		margin-bottom: 20px;
+	}
+	
+	.graph1-4 .graph1-4-1{
+		overflow: hidden; 
+		float:left; 
+		width: 23.5%; 
+		height: 200px;
+	}
+	
+	.bg-red {
+		background: #E94B3B;
+	}
+	
+	.bg-blue {
+		background: #1C7EBB;
+	}
+	
+	.bg-yellow {
+		background: #F98E33;
+	}
+		
+	.bg-green {
+		background: #23AE89;
+	}
+	
+	.dash-imgDIV {
+		float: left; 
+		margin: 50px 15px;
+		width: 30%;
+	}
+	
+	.dash-numberDIV {
+		width: 59%;
+    float: left;
+    text-align: center;
+    line-height: 200px;
+    font-size: 70px;
+    color: white;
+	}
+	
+	.gap {
+		 float:left; 
+		 width: 2%; 
+		 height: 200px;
+	}
+	
+	.work-category {
+		display: -webkit-box; 
+		width: 100%; 
+		text-overflow: ellipsis; 
+		overflow: hidden; 
+		-webkit-box-orient: vertical; 
+		word-wrap: break-word; 
+		-webkit-line-clamp: 1;
+	}
+	
+.timeline {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline .li {
+  transition: all 200ms ease-in;
+}
+
+.timeline .timestamp {
+  margin-bottom: 20px;
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 100;
+}
+
+.timeline .status {
+  padding: 0px 40px;
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #D6DCE0;
+  position: relative;
+  transition: all 200ms ease-in;
+}
+.timeline .status h4 {
+  font-weight: 600;
+  margin-top: 20px;
+}
+.timeline .status:before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: -15px;
+  left: 42%;
+  transition: all 200ms ease-in;
+}
+
+.timeline .li.complete .status {
+  border-top: 2px solid #E94B3B;
+}
+.timeline .li.complete .status:before {
+  background-color: #E94B3B;
+  border: none;
+  transition: all 200ms ease-in;
+}
+.timeline .li.complete .status h4 {
+  color: #E94B3B;
+}
+
+@media (min-device-width: 320px) and (max-device-width: 700px) {
+  .timeline {
+    list-style-type: none;
+    display: block;
+  }
+
+  .timeline .li {
+    transition: all 200ms ease-in;
+    display: flex;
+    width: inherit;
+  }
+
+  .timeline .timestamp {
+    width: 100px;
+  }
+
+  .timeline .status:before {
+    left: -8%;
+    top: 30%;
+    transition: all 200ms ease-in;
+  }
+</style>
 <title>스터디 메인 | WITH 스터디</title>
-<%@ include file="/WEB-INF/view/include/common_top.jsp"%>
+<c:import url="/WEB-INF/view/include/common_top.jsp">
+</c:import>
 <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
 <script src="${pageContext.request.contextPath}/js/liquidFillGauge.js" language="JavaScript"></script>
 </head>
 <body class="page-sub">
-	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
+	<c:import url="/WEB-INF/view/include/common_header.jsp">
+	</c:import>
 	<main>
 	<div class="container">
 		<div class='main-title'>
-			<strong style="font-weight: bold;" class='group-title'>${studyGroup.groupName}</strong> 
-			<a style="color: #333; text-shadow: 2px 2px 4px #000000;" href='http://map.daum.net/link/map/${studyGroup.groupActivePlace},${studyGroup.groupActiveLongitude},${studyGroup.groupActiveLatitude}'	target='_blank'> 
-				<img style="height: 20px;" alt=""	src="http://www.iconarchive.com/download/i57835/icons-land/vista-map-markers/Map-Marker-Marker-Outside-Pink.ico">${studyGroup.groupActivePlace}
+			<strong class='group-title'>${studyGroup.groupName}</strong> 
+			<a class="active-place" href='http://map.daum.net/link/map/${studyGroup.groupActivePlace},${studyGroup.groupActiveLongitude},${studyGroup.groupActiveLatitude}'	target='_blank'> 
+				<img alt=""	src="http://www.iconarchive.com/download/i57835/icons-land/vista-map-markers/Map-Marker-Marker-Outside-Pink.ico">${studyGroup.groupActivePlace}
 			</a>
+			
+		<a href='${pageContext.request.contextPath}/studygroup/StudygroupAdminMain.do'>관리자 메인</a>
 		</div>
-
-		<div class='graph1-2'>
-			<div class='graph1-2-1'>
-				<div>스터디그룹 멤버
-					<c:forEach var="member" items="${member}">
-						${member.memberName}
-						<img src='${member.memberImg}' alt=""/>
-					</c:forEach>
+		
+		<div class='graph1-4'>
+			<div class='graph1-4-1 bg-red'>
+				<div class='dash-imgDIV'>
+					<img style="width: 100%;" src="${pageContext.request.contextPath}/images/icon_user.png" alt=""/>
+				</div>
+				<div class='dash-numberDIV'>${fn:length(member)}명</div>
+			</div>
+			<div class='gap'></div>
+			
+			<div class='graph1-4-1 bg-blue'>
+				<div class='dash-imgDIV'>
+					<img style="width: 100%;" src="${pageContext.request.contextPath}/images/icon_dollar.png" alt=""/>
+				</div>
+				<div class='dash-numberDIV' style="font-size: 30px;">${money}원
 				</div>
 			</div>
-			<div class="graph1-2-2">최근 등록 일정</div>
-		</div>
-		<div class='graph1-1'>
-			<svg id="fillgauge1" width="97%" height="250"
-				onclick="gauge1.update(NewValue());"></svg>
-			<svg id="fillgauge2" width="19%" height="200"
-				onclick="gauge2.update(NewValue());"></svg>
-			<svg id="fillgauge3" width="19%" height="200"
-				onclick="gauge3.update(NewValue());"></svg>
-			<svg id="fillgauge4" width="19%" height="200"
-				onclick="gauge4.update(NewValue());"></svg>
-			<svg id="fillgauge5" width="19%" height="200"
-				onclick="gauge5.update(NewValue());"></svg>
-			<svg id="fillgauge6" width="19%" height="200"
-				onclick="gauge6.update(NewValue());"></svg>
-			<script language="JavaScript">
-        var gauge1 = loadLiquidFillGauge("fillgauge1", 55);
-        var config1 = liquidFillGaugeDefaultSettings();
-        config1.circleColor = "#FF7777";
-        config1.textColor = "#FF4444";
-        config1.waveTextColor = "#FFAAAA";
-        config1.waveColor = "#FFDDDD";
-        config1.circleThickness = 0.2;
-        config1.textVertPosition = 0.2;
-        config1.waveAnimateTime = 1000;
-        var gauge2 = loadLiquidFillGauge("fillgauge2", 28, config1);
-        var config2 = liquidFillGaugeDefaultSettings();
-        config2.circleColor = "#D4AB6A";
-        config2.textColor = "#553300";
-        config2.waveTextColor = "#805615";
-        config2.waveColor = "#AA7D39";
-        config2.circleThickness = 0.1;
-        config2.circleFillGap = 0.2;
-        config2.textVertPosition = 0.8;
-        config2.waveAnimateTime = 2000;
-        config2.waveHeight = 0.3;
-        config2.waveCount = 1;
-        var gauge3 = loadLiquidFillGauge("fillgauge3", 60.1, config2);
-        var config3 = liquidFillGaugeDefaultSettings();
-        config3.textVertPosition = 0.8;
-        config3.waveAnimateTime = 5000;
-        config3.waveHeight = 0.15;
-        config3.waveAnimate = false;
-        config3.waveOffset = 0.25;
-        config3.valueCountUp = false;
-        config3.displayPercent = false;
-        var gauge4 = loadLiquidFillGauge("fillgauge4", 50, config3);
-        var config4 = liquidFillGaugeDefaultSettings();
-        config4.circleThickness = 0.15;
-        config4.circleColor = "#808015";
-        config4.textColor = "#555500";
-        config4.waveTextColor = "#FFFFAA";
-        config4.waveColor = "#AAAA39";
-        config4.textVertPosition = 0.8;
-        config4.waveAnimateTime = 1000;
-        config4.waveHeight = 0.05;
-        config4.waveAnimate = true;
-        config4.waveRise = false;
-        config4.waveHeightScaling = false;
-        config4.waveOffset = 0.25;
-        config4.textSize = 0.75;
-        config4.waveCount = 3;
-        var gauge5 = loadLiquidFillGauge("fillgauge5", 60.44, config4);
-        var config5 = liquidFillGaugeDefaultSettings();
-        config5.circleThickness = 0.4;
-        config5.circleColor = "#6DA398";
-        config5.textColor = "#0E5144";
-        config5.waveTextColor = "#6DA398";
-        config5.waveColor = "#246D5F";
-        config5.textVertPosition = 0.52;
-        config5.waveAnimateTime = 5000;
-        config5.waveHeight = 0;
-        config5.waveAnimate = false;
-        config5.waveCount = 2;
-        config5.waveOffset = 0.25;
-        config5.textSize = 1.2;
-        config5.minValue = 30;
-        config5.maxValue = 150
-        config5.displayPercent = false;
-        var gauge6 = loadLiquidFillGauge("fillgauge6", 120, config5);
-
-        function NewValue() {
-          if (Math.random() > .5) {
-            return Math.round(Math.random() * 100);
-          } else {
-            return (Math.random() * 100).toFixed(1);
-          }
-        }
-      </script>
-		</div>
-
-
-
-
-
-
-		<div class='graph1-1' style="overflow: hidden;">
-			<div
-				style="width: 20%; float: left; text-align: center; font-size: 35px;">스터디
-				소개</div>
-			<div style="float: right; width: 80%; font-size: 15px;">
-				스터디는 일상에서 대화하게 되는 다양한 주제에 대해서 그때 쓸 수 있는 표현과 단어를 배우고, 배운 내용들을 활용해 보면서
-				진행됩니다.<br /> 전 한국어를 잘 알아들을 수 있지만, 제가 한국어를 쓰진 않을거에요~ <br /> 여러분이 영어를
-				많이 쓰실 수 있는 환경을 만들고.. 대신 모르는게 있으면 한국어로 얘기하면 알려드릴게요!<br /> <br /> 1.
-				Greetings with class - Tell me something interesting about your
-				week? <br /> 일주일 만에 만나는 우리! 지난 한주는 어땠나요? 영어로 말해봐요~ <br />
-				<br /> 2. Introduction video on topic for lesson - something fun. <br />
-				오늘 다룰 주제에 관련된 비디오를 봅니다. 재미있는 영상자료를 준비할거에요! <br />
-				<br /> 3. Learn something new! Useful English idioms and phrases. <br />
-				새로운 걸 배워야겠죠? 오늘의 주제에 대해 얘기할 땐, 어떤 표현과 어떤 단어를 쓸수 있는지? 미국인들을 일상대화에서 어떤
-				말들을 쓰는지! 진짜 유용하게 쓰이는 표현들만 하나씩 배웁니다. <br />
-				<br /> 4. Practice what we learned.<br /> 오늘 배운 내용으로 같이 대화해봐요~~ 스피킹이
-				느는 가장 좋은 방법은, 말그래도 말을 해보는 것! <br />
-				<br /> 5. Play game, or watch video to help remember our topic.<br />
-				배운 내용들을 review할거에요. 게임을 할 수도 있고, 관련된 영상을 더 볼 수 있겠죠? <br />
-				<br /> 6. Success! <br />
-				<br /> <br /> 이런 분들이 오시면 좋아요 - 교과서식 표현에서 벗어나, 생활 영어 표현을 배우고 싶어요. -
-				문법은 아는데 말이 잘 안나와요~ <br />
-				<br /> 참가자 레벨 - 일상적인 대화가 바로바로 문장으로 안나오는 초급이에요. <br />
+			<div class='gap'></div>
+			
+			<div class='graph1-4-1 bg-yellow'>
+				<div class='dash-imgDIV'>
+					<img style="width: 100%;" src="${pageContext.request.contextPath}/images/icon_smile.png" alt=""/>
+				</div>
+				<div class='dash-numberDIV'>오늘의 스터디그룹 방문자수
+				</div>
+			</div>
+			<div class='gap'></div>
+			
+			<div class='graph1-4-1 bg-green'>
+				<div class='dash-imgDIV'>
+					<img style="width: 100%;" src="${pageContext.request.contextPath}/images/icon_cloud.png" alt=""/>
+				</div>
+				<div class='dash-numberDIV'>자료실 게시글 수
+				</div>
 			</div>
 		</div>
 
 
+		<div class="graph1-1">
+			<div>제목</div>
+			<ul class="timeline" id="timeline" style="color: #758D96;">
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">Abhi Sharma</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>Shift Created</h4>
+					</div>
+				</li>
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">Abhi Sharma</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>Shift Created</h4>
+					</div>
+				</li>
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">Abhi Sharma</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>Shift Created</h4>
+					</div>
+				</li>
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">Abhi Sharma</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>Shift Created</h4>
+					</div>
+				</li>
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">PAM Admin</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>Email Sent</h4>
+					</div>
+				</li>
+				<li class="li complete">
+					<div class="timestamp">
+						<span class="author">Aaron Rodgers</span> <span class="date">11/15/2014<span>
+					</div>
+					<div class="status">
+						<h4>SIC Approval</h4>
+					</div>
+				</li>
+				<li class="li">
+					<div class="timestamp">
+						<span class="author">PAM Admin</span> <span class="date">TBD<span>
+					</div>
+					<div class="status">
+						<h4>Shift Completed</h4>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
 
+		<div class='graph1-1' style="overflow: hidden;">
+			<div style="width: 20%; float: left; text-align: center; font-size: 35px;">스터디 소개</div>
+			<div style="float: right; width: 80%; font-size: 15px;">
+				${studyGroup.groupDetail}				
+			</div>
+		</div>
 
 		<div class='graph1-2'>
 			<div class='graph1-2-1'>최근 과제 게시판 글보기</div>
-			<div class="graph1-2-2">최근 등록 일정</div>
+			<div class="graph1-2-2">스터디 관련 취업정보
+			</div> 
+		</div>
+		
+		<div>
+			<table class="table-common">
+				<colgroup>
+					<col style="width:10%;" />
+					<col style="width:30%" />
+					<col style="width:10%" />
+					<col style="width:10%" />
+					<col style="width:10%" />
+					<col style="width:10%" />
+					<col style="width:10%" />
+					<col style="width:10%" />
+				</colgroup>
+					<thead>
+						<tr>
+							<th>직종</th>
+							<th>내용</th>
+							<th>회사명</th>
+							<th>근무형태</th>
+							<th>시작일</th>
+							<th>마감일</th>
+							<th>신입/경력</th>
+							<th>연봉</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="work" items="${workInfo}">
+						<tr>
+							<td><span class='work-category'>${work.jobCategory}</span></td>
+							<td><a href='${work.url}' target="_black";>${work.title}</a></td>
+							<td>${work.company}</td>
+							<td>${work.jobType}</td>
+							<td>${work.openingTimeStamp}</td>
+							<td>${work.expirationTimeStamp}</td>
+							<td>${work.experienceLevel}</td>
+							<td>${work.salary}</td>
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
+				<div style="text-align: right; text-decoration: underline; margin-top: 10px;">
+					<a href='http://www.saramin.co.kr/zf_user/' target="_black";>채용 공고 더보기</a>
+				</div>
 		</div>
 	</div>
 	</main>

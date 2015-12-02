@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.with.studygroup.dao.StudyGroupDAO;
 import kr.co.with.studygroup.member.vo.MemberVO;
+import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
 import kr.co.with.studygroup.vo.StudyGroupCommentVO;
 import kr.co.with.studygroup.vo.StudyGroupPagingVO;
@@ -109,5 +110,11 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	@Override
 	public List<MemberVO> SelectStudygroupMemeber(int groupNo) throws Exception {
 		return dao.SelectStudygroupMemeber(groupNo);
+	}
+
+	// 스터디그룹 가계부 정보를 출력하기 위한 service
+	@Override
+	public List<MoneyBookVO> SelectStudyGroupMoneyBook(int groupNo) throws Exception {
+		return dao.SelectStudyGroupMoneyBook(groupNo);
 	}
 }

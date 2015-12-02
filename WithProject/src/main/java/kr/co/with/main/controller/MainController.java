@@ -82,4 +82,5 @@ public class MainController {
 	public String MoneybookMain() throws Exception {
 		return "StudyGroupMoneyBook/moneybookMain";
 	}
+	
 }
