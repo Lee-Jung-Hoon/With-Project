@@ -7,21 +7,42 @@ var value = [];
 var freqData =  [];
 var lastDay = [];
 
-$(document).ready(function() {  
+$(document).ready(function() {
+  // 상단 nav
+  $(".moneybook-top a").on('click', function(){
+    $(this).addClass('on').parent().siblings().find('a').removeClass('on');
+  });
+  
+  // 수정 페이지 닫기
+  $('.reg-close').on('click', function(){
+    $('body').removeClass('dark');
+    $('.modifyDIV').hide();
+  })
+
   $(".btnInsert").on('click', function() {
+   
     var html = "";
     html += "<form id='moneybookForm'>";
-    html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>날짜</div>";
+    html += "<div class='moneybook-main moneybook-main1'>";
+    html += "<ul>";
+    
+    html += "<li>";
+    html += "<div class='list-inner'>";
+    html += "<em>날짜</em>";
     html += "<input type='date' name='mDate' class='date'/>";
     html += "</div>";
-    html += "<div class='main-row'>";
-    html += "<div>메모</div>";
+    html += "</li>";
+    
+    html += "<li>";
+    html += "<div class='list-inner'>";
+    html += "<em>메모</em>";
     html += "<input type='text' name='mMemo' id='memo' class='memo' value=''/>";
     html += "</div>";
-    html += "<div class='main-row'>";
-    html += "<div>금액</div>";
+    html += "</li>";
+    
+    html += "<li>";
+    html += "<div class='list-inner'>";
+    html += "<em>금액</em>";
     html += "<input type='number' name='mMoney' class='money' value='0'/>";
     html += "<div class='quick-money'>";
     html += "<div class='quick-menu'>";
@@ -35,8 +56,12 @@ $(document).ready(function() {
     html += "</div>";
     html += "</div>";
     html += "</div>";
-    html += " <div class='main-row-spend'>";
-    html += "<div>지출</div>";
+    html += "</li>";
+    
+    
+    html += "<li>";
+    html += "<div class='list-inner'>";
+    html += "<em>지출</em>";
     html += "<input type='text' class='spend' name='mLeft'/>";
     html += "<h4>자산+</h4>";
     html += "<div>";
@@ -59,9 +84,11 @@ $(document).ready(function() {
     html += "<span data-str='미분류' data-num='3'>미분류</span>";
     html += "</div>";
     html += "</div>";
+    html += "</li>";
    
-    html += "<div class='main-row-import'>";
-    html += "<div>수입</div>";
+    html += "<li>";
+    html += "<div class='list-inner'>";
+    html += "<em>수입</em>";
     html += "<input type='text' class='import' name='mRight'/>";
     html += "<h4>자산-</h4>";
     html += "<div>";
@@ -81,18 +108,29 @@ $(document).ready(function() {
     html += "<span data-str='미분류' data-num='3'>미분류</span>";
     html += "</div>";
     html += "</div>";
-    html += "<div class='main-row'>";
-    html += "<input type='button' class='reg-btn' value='입력' onclick='regMoney();'>";
+    html += "</li>";
+    html += "</ul>";
+    
+    html += "<div class='main-row main-row-insert'>";
+    html += "<button type='button' class='reg-btn commonBtn' onclick='regMoney();'><span>입력</span></button>";
     html += "</div>";
     html += "</div>";
     html += "<input type='hidden' name='mType' id='mType' class='mType'/>"
     html += "</form>";
+    html += "<br />";
     
     html += "<input type='hidden' name='left' class='left'/>"
     html += "<input type='hidden' name='right' class='right'/>"
     html += "<div class='moneybook-main'>";
-    html += "<div class='moneybook-list'>";
+    html += "<div class='list-header list-header2'>";
+    html += "<div><span>기간</span></div>";
+    html += "<div><span>사용자이름</span></div>";
+    html += "<div><span>메모</span></div>";
+    html += "<div><span>금액</span></div>";
+    html += "<div><span>지출</span></div>";
+    html += "<div><span>수입</span></div>";
     html += "</div>";
+    html += "<ul class='moneybook-list'></ul>";
     html += "</div>";
     
     $(".content").html("").append(html);
@@ -140,6 +178,7 @@ $(document).ready(function() {
       $(".right").val(num);
       $(".import").val(str);
     });
+    
   });
 
   // 2번째 메뉴 버튼을 클릭시(거래 내역)
@@ -147,28 +186,24 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작일</div>";
+
+    html += "<div class='main-row-1st'>";
+    html += "<span class='main-row-float'>";
+    html += "<em>시작일</em>";
     html += "<input type='date' name='sDate' class='sDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
-    html += "</div>";
-    
-    html += "<div class='main-row'>";
-    html += "<div>종료일</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
+    html += "<span class='main-row-float'>";
+    html += "<em>종료일</em>";
     html += "<input type='date' name='eDate' class='eDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='btn' value='조회' class='btn'/>";
+    html += "</span>";
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='btn' value='조회' class='btn'/></span>";
+    html += "</span>";
     html += "</div>";
     
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
+    
+    html += "<div class='main-row-2nd'>";
     html += "<select class='year' onchange='changeYear()'>";
     html += "<option>연도별</option>";
     html += "<option>"+(d.getFullYear()-4)+"</option>";
@@ -179,10 +214,6 @@ $(document).ready(function() {
     html += "<option>"+(d.getFullYear()+1)+"</option>";
     html += "<option>"+(d.getFullYear()+2)+"</option>";
     html += "</select>";
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
     html += "<select class='quarter' onchange='changeQuarter()'>";
     html += "<option>분기별</option>";
     html += "<option value='1'>"+(d.getFullYear()-1)+" 1/4</option>";
@@ -193,23 +224,30 @@ $(document).ready(function() {
     html += "<option>"+(d.getFullYear())+" 2/4</option>";
     html += "<option>"+(d.getFullYear())+" 3/4</option>";
     html += "<option>"+(d.getFullYear())+" 4/4</option>";
-    html += "</select>";    
-    html += "</div>";
-
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
+    html += "</select>";
     html += "<select class='month' onchange='changeMonth()'>";
     html += "<option>월별</option>";
     for(var i=1; i<=12; i++)
       html+="<option value='"+i+"'>"+i+"월</option>";
     html += "</select>";
     html += "</div>";
-    
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list'>";
+
+    html += "</div>";
+    html += "<br />";
+    html += "<div class='moneybook-main'>";
+    html += "<div class='list-header'>";
+    html += "<div><span>기간</span></div>";
+    html += "<div><span>사용자이름</span></div>";
+    html += "<div><span>메모</span></div>";
+    html += "<div><span>잔액</span></div>";
+    html += "<div><span>금액</span></div>";
+    html += "<div><span>지출</span></div>";
+    html += "<div><span>수입</span></div>";
+    html += "</div>";
+    html += "<ul class='moneybook-list list-second'></ul>";
     html += "</div>";
     html += "</div>";
-    html += "</div>";
+
     $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
@@ -235,28 +273,27 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작일</div>";
+    
+    html += "<div class='main-row-1st'>";
+    html += "<span class='main-row-float'>";
+    html += "<em>시작일</em>";
     html += "<input type='date' name='sDate' class='sDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
-    html += "</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
     
-    html += "<div class='main-row'>";
-    html += "<div>종료일</div>";
+    html += "<span class='main-row-float'>";
+    html += "<em>종료일</em>";
     html += "<input type='date' name='eDate' class='eDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='btn' value='조회' class='btn'/>";
+    html += "</span>";
+    
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='btn' value='조회' class='btn'/></span>";
+    html += "</span>";
+    
     html += "</div>";
     
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
+
+    html += "<div class='main-row-2nd'>";
     html += "<select class='year' onchange='changeYear()'>";
     html += "<option>연도별</option>";
     html += "<option>"+(d.getFullYear()-4)+"</option>";
@@ -267,10 +304,7 @@ $(document).ready(function() {
     html += "<option>"+(d.getFullYear()+1)+"</option>";
     html += "<option>"+(d.getFullYear()+2)+"</option>";
     html += "</select>";
-    html += "</div>";
 
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
     html += "<select class='quarter' onchange='changeQuarter()'>";
     html += "<option>분기별</option>";
     html += "<option value='1'>"+(d.getFullYear()-1)+" 1/4</option>";
@@ -282,10 +316,7 @@ $(document).ready(function() {
     html += "<option>"+(d.getFullYear())+" 3/4</option>";
     html += "<option>"+(d.getFullYear())+" 4/4</option>";
     html += "</select>";    
-    html += "</div>";
 
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
     html += "<select class='month' onchange='changeMonth()'>";
     html += "<option>월별</option>";
     for(var i=1; i<=12; i++)
@@ -293,11 +324,22 @@ $(document).ready(function() {
     html += "</select>";
     html += "</div>";
     
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list'>";
+    html += "</div>";
+    html += "<br />";
+    html += "<div class='moneybook-main'>";
+    html += "<div class='list-header'>";
+    html += "<div><span>기간</span></div>";
+    html += "<div><span>사용자이름</span></div>";
+    html += "<div><span>메모</span></div>";
+    html += "<div><span>잔액</span></div>";
+    html += "<div><span>금액</span></div>";
+    html += "<div><span>지출</span></div>";
+    html += "<div><span>수입</span></div>";
+    html += "</div>";
+    html += "<ul class='moneybook-list list-second'></ul>";
     html += "</div>";
     html += "</div>";
-    html += "</div>";
+    
     $(".content").html("").append(html);
 
     // date 클래스에 해당 달의 첫번째 날짜를 기본 값으로 설정
@@ -326,29 +368,28 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작</div>";
+    html += "<div class='main-row-1st'>";
+    html += "<span class='main-row-float'>";
+    html += "<em>시작</em>";
     html += "<input type='month' name='sMonth' class='sMonth'/>";
-    html += "</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
 
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
+    
+    html += "<span class='main-row-float'>";
+    html += "<em>종료</em>";
+    html += "<input type='month' name='eMonth' class='eMonth'/>";
+    html += "</span>";
+
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='search' value='조회' class='monthSearch'/></span>";
+    html += "</span>";
+    html += "</div>";
     html += "</div>";
     
-    html += "<div class='main-row'>";
-    html += "<div>종료</div>";
-    html += "<input type='month' name='eMonth' class='eMonth'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='monthSearch'/>";
-    html += "</div>";
-  
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list'>";
-    html += "</div>";
+    html += "<br />";
+    html += "<div class='moneybook-main'>";
+    html += "<div class='moneybook-list list-second'></div>";
     html += "</div>";
     html += "</div>";
     $(".content").html("").append(html);
@@ -367,29 +408,30 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작</div>";
+    html += "<div class='main-row-1st'>";
+    
+    html += "<span class='main-row-float'>";
+    html += "<em>시작</em>";
     html += "<input type='month' name='sMonth' class='sMonth'/>";
-    html += "</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
 
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
+    
+    html += "<span class='main-row-float'>";
+    html += "<em>종료</em>";
+    html += "<input type='month' name='eMonth' class='eMonth'/>";
+    html += "</span>";
+
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='search' value='조회' class='monthSearch'/></span>";
+    html += "</span>";
+  
+    html += "</div>";
     html += "</div>";
     
-    html += "<div class='main-row'>";
-    html += "<div>종료</div>";
-    html += "<input type='month' name='eMonth' class='eMonth'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='monthSearch'/>";
-    html += "</div>";
-  
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list'>";
-    html += "</div>";
+    html += "<br />";
+    html += "<div class='moneybook-main'>";
+    html += "<div class='moneybook-list list-second'></div>";
     html += "</div>";
     html += "</div>";
     $(".content").html("").append(html);
@@ -410,27 +452,27 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작일</div>";
+    html += "<div class='main-row-1st'>";
+    html += "<span class='main-row-float'>";
+    html += "<em>시작일</em>";
     html += "<input type='date' name='sDate' class='sDate'/>";
-    html += "</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
 
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
-    html += "</div>";
     
-    html += "<div class='main-row'>";
-    html += "<div>종료일</div>";
+    html += "<span class='main-row-float'>";
+    html += "<em>종료일</em>";
     html += "<input type='date' name='eDate' class='eDate'/>";
-    html += "</div>";
+    html += "</span>";
 
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='search' value='조회' onclick='spendSearch()' class='spendSearch'/>";
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='search' value='조회' onclick='spendSearch()' class='spendSearch'/></span>";
+    html += "</span>";
     html += "</div>";
-
-    html += "<div style='clear:both; height:20px;'></div>";
+    html += "</div>";
+    html += "<br />";
+    
+    html += "<div class='moneybook-main'>";
     html += "<div class='moneybook-list-graph'>";
     html += "<div id='dashboard'>";
     html += "</div>";
@@ -461,8 +503,7 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row' style='float:right;'>";
-    html += "<br/>";
+    html += "<div class='main-row-3rd'>";
     html += "<select class='year' onchange='yeardChart()'>";
     html += "<option>연도별</option>";
     html += "<option val='"+(d.getFullYear()-4)+"'>"+(d.getFullYear()-4)+"</option>";
@@ -474,10 +515,12 @@ $(document).ready(function() {
     html += "<option val='"+(d.getFullYear()+2)+"'>"+(d.getFullYear()+2)+"</option>";
     html += "</select>";
     html += "</div>";
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list-graph'>";
     html += "</div>";
+    html += "<br />";
+    html += "<div class='moneybook-main'>";
+    html += "<div class='moneybook-list-graph'></div>";
     html += "</div>";
+    
     
     $(".content").html("").append(html);
     
@@ -493,30 +536,27 @@ $(document).ready(function() {
     var html = "";
     var d = new Date();
     html += "<div class='moneybook-main'>";
-    html += "<div class='main-row'>";
-    html += "<div>시작일</div>";
+    html += "<div class='main-row-1st'>";
+    html += "<span class='main-row-float'>";
+    html += "<em>시작일</em>";
     html += "<input type='date' name='sDate' class='sDate'/>";
-    html += "</div>";
-
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<div>~</div>";
-    html += "</div>";
+    html += "<strong>~</strong>";
+    html += "</span>";
     
-    html += "<div class='main-row'>";
-    html += "<div>종료일</div>";
+    html += "<span class='main-row-float'>";
+    html += "<em>종료일</em>";
     html += "<input type='date' name='eDate' class='eDate'/>";
-    html += "</div>";
+    html += "</span>";
 
-    html += "<div class='main-row'>";
-    html += "<br/>";
-    html += "<input type='button' name='search' value='조회' class='btn_search'/>";
-    html += "</div>";
-    
-    html += "<div style='clear:both; height:20px;'></div>";
-    html += "<div class='moneybook-list-graph3'>";
+    html += "<span class='main-row-float'>";
+    html += "<span class='btnCheck commonBtn'><input type='button' name='search' value='조회' class='btn_search'/></span>";
+    html += "</span>";
     html += "</div>";
     html += "</div>";
+    html += "<br />";
+   
+    html += "<div class='moneybook-main'>";
+    html += "<div class='moneybook-list-graph3'></div>";
     html += "</div>";
     $(".content").html("").append(html);
 
@@ -731,19 +771,28 @@ $(document).ready(function() {
       })
       .done(function(data) {
         var html = "";
-        html += "<div style='overflow:hidden; padding-bottom:20px;'>";
-          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+data.mDate+"</div>"
-            html += "<table border='1' style='width:80%;'>";
+        html += "<div class='list-second-inner'>";
+          html += "<p>"+data.mDate+"</p>"
+            html += "<table>";
+               html += "<colgroup>";
+                 html += "<col style='width:20%' />"
+                 html += "<col style='width:30%' />"
+                 html += "<col style='width:50%' />"
+               html += "</colgroup>";
+               html += "<thead>";
+                 html += "<tr>";
+                   html += "<th><div>항목</div></th>";
+                   html += "<th><div>청구금액</div></th>";
+                   html += "<th><div>사용기간</div></th>";
+                 html += "</tr>";
+               html += "</thead>";
+               html += "<tbody>";
                html += "<tr>";
-                 html += "<th style='width:20%;'>항목</th>";
-                 html += "<th style='width:50%;'>청구금액</th>";
-                 html += "<th style='width:30%;'>사용기간</th>";
+                 html += "<td class='total'>총 금액</td>";
+                   html += "<td class='use-money'>"+data.mMoney+"</td>";
+                 html += "<td>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
                html += "</tr>";
-               html += "<tr>";
-                 html += "<td style='font-weight:bold;'>총 금액</td>";
-                   html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
-                 html += "<td style='text-align:center;'>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
-               html += "</tr>";
+               html += "</tbody>";
             html += "</table>";
         html += "</div>";
         $(".moneybook-list").append(html);
@@ -779,19 +828,28 @@ $(document).ready(function() {
       })
       .done(function(data) {
         var html = "";
-        html += "<div style='overflow:hidden; padding-bottom:20px;'>";
-          html += "<div style='float:left; font-size: 40px; width: 20%;'>"+data.mDate+"</div>"
-            html += "<table border='1' style='width:80%;'>";
-               html += "<tr>";
-                 html += "<th style='width:20%;'>항목</th>";
-                 html += "<th style='width:50%;'>사용금액</th>";
-                 html += "<th style='width:30%;'>사용기간</th>";
-               html += "</tr>";
-               html += "<tr>";
-                 html += "<td style='font-weight:bold;'>총 금액</td>";
-                   html += "<td style='text-align:center;'>"+data.mMoney+"</td>";
-                 html += "<td style='text-align:center;'>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
-               html += "</tr>";
+        html += "<div class='list-second-inner'>";
+          html += "<p>"+data.mDate+"</p>"
+            html += "<table>";
+               html += "<colgroup>";
+                 html += "<col style='width:20%' />"
+                 html += "<col style='width:30%' />"
+                 html += "<col style='width:50%' />"
+               html += "</colgroup>";
+               html += "<thead>";
+                 html += "<tr>";
+                   html += "<th><div>항목</div></th>";
+                   html += "<th><div>사용금액</div></th>";
+                   html += "<th><div>사용기간</div></th>";
+                 html += "</tr>";
+               html += "</thead>";
+               html += "<tbody>";
+                 html += "<tr>";
+                   html += "<td class='total'>총 금액</td>";
+                     html += "<td class='use-money'>"+data.mMoney+"</td>";
+                   html += "<td>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
+                 html += "</tr>";
+               html += "</tbody>";
             html += "</table>";
         html += "</div>";
         $(".moneybook-list").append(html);
@@ -807,7 +865,7 @@ $(document).ready(function() {
      .done(function(data) {
       var html = "";
       $.each(data, function(index, MoneybookVO) { 
-        html += "<div id='moneybook_"+data[index].mNo+"' class='moneybook-item'>";
+        html += "<li id='moneybook_"+data[index].mNo+"' class='moneybook-item'>";
         html += "<div class='item-date'><span>"+data[index].mDate+"</span></div>";
         html += "<div class='item_writer'><span>"+data[index].memberNo+"</span></div>";
         html += "<div class='item-memo'><span>"+data[index].mMemo+"</span></div>";
@@ -823,17 +881,12 @@ $(document).ready(function() {
         html += "<div class='item-import'><span>"+data[index].mRight+"</span></div>";
         html += "<div class='item-menu'>";
           html += "<span class='menu-span'>";
-            html += "<button class='btnModify' id='btnModify' onclick='modifyMoneybook("+data[index].mNo+");' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-              html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_modify.png'/> 수정";
-            html += "</button>";
-    
-            html += "<button class='btnDelete' id='btnDelete' onclick='deleteMoneybook("+data[index].mNo+");' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-              html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_delete.png'/> 삭제";
-            html += "</button>";
+            html += "<button class='btnModify commonBtn' id='btnModify' onclick='modifyMoneybook("+data[index].mNo+");'>수정</button>";
+            html += "<button class='btnDelete commonBtn' id='btnDelete' onclick='deleteMoneybook("+data[index].mNo+");'>삭제</button>";
           html +="</span>";
         html += "</div>";
         
-        html += "</div>";
+        html += "</li>";
       })
       $(".moneybook-list").html("").append(html);
       menuShow();
@@ -881,12 +934,12 @@ $(document).ready(function() {
   function menuShow() {
     // 마우스 over시 수정삭제 리모컨 디스플레이 show
     $(".item-menu").on('mouseover', function() {
-      $(this).children().show();
+      $(this).find('span').show();
     });
     
     // 마우스 leave시 수정삭제 리모컨 디스플레이 hide
     $(".item-menu").on('mouseleave', function() {
-      $(this).children().hide();
+      $(this).find('span').hide();
     });
 
   }
@@ -899,7 +952,7 @@ $(document).ready(function() {
     .done(function(data) {
       var html = "";
       $.each(data, function(index, MoneybookVO) { 
-        html += "<div id='moneybook_"+data[index].mNo+"' class='moneybook-item'>";
+        html += "<li id='moneybook_"+data[index].mNo+"' class='moneybook-item'>";
         html += "<div class='item-date'><span>"+data[index].mDate+"</span></div>";
         html += "<div class='item_writer'><span>"+data[index].memberNo+"</span></div>";
         html += "<div class='item-memo'><span>"+data[index].mMemo+"</span></div>";
@@ -908,17 +961,12 @@ $(document).ready(function() {
         html += "<div class='item-import'><span>"+data[index].mRight+"</span></div>";
         html += "<div class='item-menu'>";
           html += "<span class='menu-span'>";
-            html += "<button class='btnModify' id='btnModify' onclick='modifyMoneybook("+data[index].mNo+");' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-              html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_modify.png'/> 수정";
-            html += "</button>";
-    
-            html += "<button class='btnDelete' id='btnDelete' onclick='deleteMoneybook("+data[index].mNo+");' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-              html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_delete.png'/> 삭제";
-            html += "</button>";
+            html += "<button class='btnModify commonBtn' id='btnModify' onclick='modifyMoneybook("+data[index].mNo+");'>수정</button>";
+            html += "<button class='btnDelete commonBtn' id='btnDelete' onclick='deleteMoneybook("+data[index].mNo+");'>삭제</button>";
           html +="</span>";
         html += "</div>";
         
-        html += "</div>";
+        html += "</li>";
       })
       $(".moneybook-list").append(html);
       menuShow();
@@ -944,7 +992,7 @@ $(document).ready(function() {
     })
     .done(function(data) {
       var html = "";
-      html += "<div id='moneybook_"+data.mNo+"' class='moneybook-item'>";
+      html += "<li id='moneybook_"+data.mNo+"' class='moneybook-item'>";
         html += "<div class='item-date'><span>"+data.mDate+"</span></div>";
         html += "<div class='item_writer'><span>"+data.memberNo+"</span></div>";
         html += "<div class='item-memo'><span>"+data.mMemo+"</span></div>";
@@ -953,16 +1001,11 @@ $(document).ready(function() {
         html += "<div class='item-import'><span>"+data.mRight+"</span></div>";
         html += "<div class='item-menu'>";
         html += "<span class='menu-span'>";
-          html += "<button class='btnModify' onclick='modifyMoneybook("+data.mNo+");' id='btnModify' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-            html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_modify.png'/> 수정";
-          html += "</button>";
-  
-          html += "<button class='btnDelete' onclick='deleteMoneybook("+data.mNo+");' id='btnDelete' style='background:#eee; border: 1px solid #ccc; padding: 5px;  border-radius: 5px;'>";
-            html += "<img style=' width: 10px; background: #eee;' alt='' src='/WithProject/images/icon_delete.png'/> 삭제";
-          html += "</button>";
+          html += "<button class='btnModify commonBtn' onclick='modifyMoneybook("+data.mNo+");' id='btnModify'>수정</button>";
+          html += "<button class='btnDelete commonBtn' onclick='deleteMoneybook("+data.mNo+");' id='btnDelete'>삭제</button>";
         html +="</span>";
       html += "</div>";
-      html += "</div>";
+      html += "</li>";
       $(".moneybook-list").prepend(html);
       menuShow();
     })
@@ -974,10 +1017,8 @@ $(document).ready(function() {
         $(window).scrollTop()) + "px");
     $('.modifyDIV').css("left", Math.max(0, (($(window).width() - $('.modifyDIV').outerWidth()) / 2) + 
         $(window).scrollLeft()) + "px");
-    $(".dark-layer").css("z-index", "1");
     $('.modifyDIV').css("z-index", "99999");
-    $(".dark-layer").css("height", "500%");
-    $(document.body).toggleClass( "view" );
+    $('body').toggleClass("dark");
     
     $('.modifyDIV').toggle();
   }
