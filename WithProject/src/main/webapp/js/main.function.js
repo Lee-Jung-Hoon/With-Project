@@ -242,7 +242,6 @@ $(document).ready(function() {
   $('.close-login').on('click', function() {
     $(this).parent().fadeOut('fast');
   });
-
 });
 
 // 댓글 등록
@@ -310,8 +309,8 @@ function ListCallback(response, startPage) {
         + '<span class="img"><img src="/WithProject/images/' + response[index].groupRepImagePath + '" alt="" /></span>'
         + '<span class="txt">' + response[index].groupName + '<br /></span>'
         + '</div>'
-        + '<div class="spine spine-left"><button type="button" data-num='+response[index].groupNo+'>왼쪽</button></div>'
-        + '<div class="spine spine-right"><button type="button">오른쪽</button></div>'
+        + '<div class="spine spine-left"><button type="button" data-num='+response[index].groupNo+'>상세/가입</button></div>'
+        + '<div class="spine spine-right"><button type="button">홈으로</button></div>'
         + '</div></div>';
     $("#container").append(divHTML);
     divHTML ="";
@@ -473,7 +472,8 @@ function ready() {
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-BtnDIV'>";
-    HTML += "<button type='button' class='enterBtn commonBtn'>참가 신청</button><button type='button' class='cancleBtn commonBtn'>참가 수정 및 취소</button>";
+    HTML += "<input type='hidden' name='joinType' id='joinType' class='joinType' value='"+response.groupConfirmType+"'/>"
+    HTML += "<button type='button' onclick='enterGroup("+response.groupNo+");' class='enterBtn commonBtn'>참가 신청</button><button type='button' class='cancleBtn commonBtn'>참가 수정 및 취소</button>";
     HTML += "</div>";
     HTML += "</div>";
     HTML += "<div class='list-studygroupMap'>";
@@ -1053,6 +1053,23 @@ function callbackClose() {
     $('.img-wrap').removeClass('on');
   }, 1000);
 }
+}
+
+// 그룹 참가 신청 버튼 클릭
+function enterGroup(no) {
+  var joinType = $(".joinType").val();
+  $.ajax({
+    url: "/WithProject/joinGroup/selectJoinGroup.json?groupNo="+no
+  })
+  .done(function(response) {
+//    alert(response); 반환 값이 1일 경우 현재 참가중인 그룹
+    if(response=="1"){
+      alert("현재 참가 혹은 참가 신청 중인 스터디그룹입니다.");
+    }
+    else {
+      location.href='/WithProject/joinGroup/redirectJoinForm.do?groupNo='+no+'&joinType='+joinType
+    }
+  })
 }
 
 

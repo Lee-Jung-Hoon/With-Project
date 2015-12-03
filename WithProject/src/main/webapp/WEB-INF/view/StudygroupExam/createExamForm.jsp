@@ -149,7 +149,7 @@ $(document).ready(function() {
         exampleTitle += ",";
       }
     }
-		location.href='/WithProject/exam/createExam.do?examTitle='+$("#examTitle").val()+'&examExplain='+$("#examExplain").val()+'&exampleTitle='+exampleTitle+"&example_answer="+example_answer;
+		location.href='/WithProject/exam/createExam.do?groupNo='+${groupNo}+'&examTitle='+$("#examTitle").val()+'&examExplain='+$("#examExplain").val()+'&exampleTitle='+exampleTitle+"&example_answer="+example_answer;
   });
 	  
 });

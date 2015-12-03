@@ -167,6 +167,7 @@
 </head>
 <body class="page-sub">
 	<c:import url="/WEB-INF/view/include/common_header.jsp">
+		<c:param name="groupNo" value="${studyGroup.groupNo}"></c:param>
 	</c:import>
 	<main>
 	<div class="container">

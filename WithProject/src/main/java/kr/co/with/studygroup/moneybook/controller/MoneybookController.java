@@ -21,6 +21,13 @@ public class MoneybookController {
 	@Autowired
 	private MoneybookService service;
 	
+	// 가계부 메인으로 이동
+	@RequestMapping("/moneybookMain.do")
+	public String MoneybookMain(int groupNo) throws Exception {
+		return "StudyGroupMoneyBook/moneybookMain";
+	}
+	
+	
 	@RequestMapping("/select_moneybook.json")
 	@ResponseBody
 	public List<MoneyBookVO> SelectMoneybookList() throws Exception {

@@ -93,6 +93,11 @@ public class StudyGroupDAO {
 		return session.selectList("with.studygroup.dao.selectMyJoinGroup", memberNo);
 	}
 
+	// 스터디그룹 내가 신청중인 스터디그룹 리스트 출력을 위한 DAO
+	public List<StudyGroupVO> selectMyWatingGroupList(int memberNo) {
+		return session.selectList("with.studygroup.dao.selectMyWatingGroupList", memberNo);
+	}
+
 	// 스터디그룹 메인 내용을 출력하기 위한 DAO
 	public StudyGroupVO SelectStudygroupMain(int groupNo) {
 		return session.selectOne("with.studygroup.dao.SelectStudygroupMain", groupNo);
@@ -106,4 +111,5 @@ public class StudyGroupDAO {
 	public List<MoneyBookVO> SelectStudyGroupMoneyBook(int groupNo) {
 		return session.selectList("with.moneybook.dao.SelectStudyGroupMoneyBook", groupNo);
 	}
+
 }

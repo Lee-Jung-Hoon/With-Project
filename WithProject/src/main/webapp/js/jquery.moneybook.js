@@ -60,7 +60,7 @@ $(document).ready(function() {
     
     
     html += "<li>";
-    html += "<div class='list-inner'>";
+    html += "<div class='list-inner main-row-spend'>";
     html += "<em>지출</em>";
     html += "<input type='text' class='spend' name='mLeft'/>";
     html += "<h4>자산+</h4>";
@@ -87,7 +87,7 @@ $(document).ready(function() {
     html += "</li>";
    
     html += "<li>";
-    html += "<div class='list-inner'>";
+    html += "<div class='list-inner main-row-import'>";
     html += "<em>수입</em>";
     html += "<input type='text' class='import' name='mRight'/>";
     html += "<h4>자산-</h4>";
