@@ -7,10 +7,9 @@ public class ReferenceVO {
 	private String referenceCategori;
 	private String referenceFile;
 	private String referenceDate;
-	private String referencePath;
-	private String referenceRealName;
-	private String referenceOrgFileName;
+	private String referenceCnt;
 	private int memberNo;
+	private String memberName;
 	
 	public int getReferenceNo() {
 		return referenceNo;
@@ -48,37 +47,22 @@ public class ReferenceVO {
 	public void setReferenceDate(String referenceDate) {
 		this.referenceDate = referenceDate;
 	}
-	public String getReferencePath() {
-		return referencePath;
+	public String getReferenceCnt() {
+		return referenceCnt;
 	}
-	public void setReferencePath(String referencePath) {
-		this.referencePath = referencePath;
-	}
-	public String getReferenceRealName() {
-		return referenceRealName;
-	}
-	public void setReferenceRealName(String referenceRealName) {
-		this.referenceRealName = referenceRealName;
-	}
-	public String getReferenceOrgFileName() {
-		return referenceOrgFileName;
-	}
-	public void setReferenceOrgFileName(String referenceOrgFileName) {
-		this.referenceOrgFileName = referenceOrgFileName;
+	public void setReferenceCnt(String referenceCnt) {
+		this.referenceCnt = referenceCnt;
 	}
 	public int getMemberNo() {
 		return memberNo;
-	}
+	}	
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
-	
-	@Override
-	public String toString() {
-		return "ReferenceVO [referenceNo=" + referenceNo + ", groupNo=" + groupNo + ", referenceTitle=" + referenceTitle
-				+ ", referenceCategori=" + referenceCategori + ", referenceFile=" + referenceFile + ", referenceDate="
-				+ referenceDate + ", referencePath=" + referencePath + ", referenceRealName=" + referenceRealName
-				+ ", referenceOrgFileName=" + referenceOrgFileName + ", memberNo=" + memberNo + "]";
+	public String getMemberName() {
+		return memberName;
 	}
-	
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 }
