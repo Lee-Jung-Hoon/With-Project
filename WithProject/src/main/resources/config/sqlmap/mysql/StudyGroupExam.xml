@@ -87,6 +87,7 @@
 		select exam_no, group_no, group_name, exam_title, exam_info, exam_date
 		  from t_with_studygroup_exam
 		 where group_no = #{no}
+		 order by exam_no desc;
 	</select>
 	
 	<select id="selectExampleList" parameterType="int" resultMap="ResultStudygroupexample">

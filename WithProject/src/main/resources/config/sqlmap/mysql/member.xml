@@ -37,9 +37,10 @@
  </select>
  
  <select id="groupList" parameterType="String" resultType="member">
- 			select group_no groupNo
- 			  from t_with_joinstudygroup
- 			 where member_no = #{memberNo}	 
+ 			select js.group_no groupNo, ss.GROUP_NAME groupName
+ 			  from t_with_joinstudygroup js, t_with_studygroup ss
+ 			 where js.member_no = #{memberNo}
+ 			   and js.group_no = ss.GROUP_NO;	 
  </select>
  
  <select id="memberList" parameterType="String" resultType="member">
@@ -47,6 +48,12 @@
  			  from t_with_joinstudygroup jo, t_with_member mem
  			 where group_no = #{groupNo}
  			   and jo.member_no = mem.member_no
+ </select>
+ 
+ <select id="selectMemberNo" parameterType="String" resultType="int">
+ 			select member_no memberNo
+ 			  from t_with_member
+ 			 where member_name = #{memberName}
  </select>
  
  <insert id="insertFbookMember" parameterType="member" >

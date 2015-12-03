@@ -47,4 +47,8 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO selectFbookMember(MemberVO member) {
 		return dao.selectFbookMember(member);
 	}
+
+	public int selectMemberNo(String memberName) throws Exception {
+		return dao.selectMemberNo(memberName);
+	}
 }

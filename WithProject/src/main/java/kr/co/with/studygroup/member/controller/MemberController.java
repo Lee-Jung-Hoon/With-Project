@@ -110,6 +110,7 @@ public class MemberController {
 	@RequestMapping("/groupList.json")
 	@ResponseBody
 	public List<MemberVO> groupList(String memberNo, HttpServletRequest req) throws Exception {
+		System.out.println("멤버번호:"+memberNo);
 		return service.groupList(memberNo);
 	}
 	
@@ -121,5 +122,12 @@ public class MemberController {
 		List<MemberVO> list = service.memberList(groupNo);
 		System.out.println("asdasd"+list.size());
 		return list;
+	}
+	//쪽지 받을 멤버의 번호를 가져오는  json
+	@RequestMapping("/selectMemberNo.json")
+	@ResponseBody
+	public int selectMemberNo(String memberName, HttpServletRequest req) throws Exception {
+		System.out.println(memberName);
+		return service.selectMemberNo(memberName);
 	}
 }
