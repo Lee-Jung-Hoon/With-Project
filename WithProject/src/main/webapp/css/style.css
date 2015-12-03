@@ -85,6 +85,61 @@ input[type="button"] {
 textarea {
 	resize:none;
 }
+body.dark {
+	overflow:hidden;
+}
+body.dark header {
+	z-index:101;
+}
+body.dark aside {
+	z-index:100;
+}
+aside::before, header::before, main::before {
+	content:"";
+	background:#000;
+	opacity:0;
+	transition:all .5s;
+}
+body.dark aside::before, body.dark header::before, body.dark main::before {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	opacity:.7;
+	transition:background .5s, opacity .5s;
+}
+body.dark aside::before {
+	height:100%;
+	z-index:102;
+	margin-top:13px;
+}
+body.dark header::before {
+	height:100%;
+	z-index:103;
+}
+body.dark main {
+	position:relative;
+	z-index:100;
+}
+body.dark main::before {
+	height:500%;
+	z-index:110;
+}
+/*
+body.dark header::before, body.dark main::before {
+	content:"";
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:.5;
+	z-index:1;
+	height:500%;
+	transition:opacity 1s, z-index 1s;
+	background:#000;
+	width:100%;
+}
+*/
 header {
 	width:100%;
 	height:80px;
@@ -235,7 +290,7 @@ header .bookmarkZone .pin-btn {
 	border-radius:0 10px 10px 0;
 	transition:background-color .5s ease;
 }
-header .bookmarkZone .pin-btn.active, header .bookmarkZone .pin-btn:hover, header .bookmarkZone .pin-btn:focus {
+header .bookmarkZone .pin-btn.active, header .bookmarkZone .pin-btn:hover {
 	background-color:#515d6e;
 	transition:background .5s ease;
 }
@@ -288,7 +343,7 @@ header .bookmarkZone .pin-list li > button {
 	font-weight:bold;
 	transition:background .5s ease;
 }
-header .bookmarkZone .pin-list li > button:hover, header .bookmarkZone .pin-list li > button:focus, header .bookmarkZone .pin-list li > button.current {
+header .bookmarkZone .pin-list li > button:hover, header .bookmarkZone .pin-list li > button.current {
 	background:#515d6e;
 	transition:background .5s ease;
 }
@@ -368,7 +423,7 @@ header .main-menu em {
 	overflow:hidden;
   border-radius:50%;
 }
-.commonBtn2:hover::before, .commonBtn2:focus::before {
+.commonBtn2:hover::before {
 	width:100%;
 	transition:all 1s;	
 }
@@ -408,7 +463,7 @@ header .main-menu em {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   z-index:4;
 }
-.commonBtn2:hover em::after, .commonBtn2:focus em::after {
+.commonBtn2:hover em::after {
 	left:80px;
 	transition:left 1s;
 }
@@ -443,7 +498,7 @@ header .main-menu em {
 	overflow:hidden;
 	transition:border-radius 1s ease-in-out, background-color 1s ease-in-out, background-image 1s ease-in-out;
 }
-.commonBtn3:hover, .commonBtn3:focus {
+.commonBtn3:hover {
 	border-radius:50%;
 	transition:all 1s;
 }
@@ -464,7 +519,7 @@ header .main-menu em {
 	transform:rotate(-20deg);
 	transition:left 2s;
 }
-.eft-light:hover::after, .eft-light:focus::after {
+.eft-light:hover::after {
 	left:120%;
 	transition:left 2s;
 }
@@ -483,7 +538,7 @@ header .main-menu em {
 	transform:rotate(-20deg);
 	transition:left 1s;
 }
-.eft-light2:hover::before, .eft-light2:focus::before {
+.eft-light2:hover::before {
 	left:120%;
 	transition:left 1s;
 }
@@ -502,7 +557,7 @@ header .main-menu em {
 	transform:rotate(-20deg);
 	transition:left 1s;
 }
-.eft-light2:hover::after, .eft-light2:focus::after {
+.eft-light2:hover::after {
 	left:115%;
 	transition:left 1s;
 }
@@ -621,7 +676,7 @@ header .main-menu em {
 	color:#000;
 	transition:all .2s ease;
 }
-.list-menu li button:hover, .list-menu li button:focus {
+.list-menu li button:hover {
 	font-weight:bold;
 	color:#0090c0;
 	transition:all .2s ease;
@@ -1079,7 +1134,10 @@ main {
 	padding-bottom:50px;
 }
 .page-sub main {
-
+	-webkit-perspective:1000;
+	 perspective:1000;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	width:100%;
 	padding-left:80px;
 	transition:width 1s;
@@ -1903,10 +1961,7 @@ rect:hover {
 }
 
 #dashboard {
-  border: 1px solid black;
-  border-left-style: none;
-  border-right-style: none;
-  border-top-style: none;
+  
 }
 .list-txt .list-openDIV {
 	overflow:hidden;
@@ -2311,11 +2366,13 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	margin:0 auto;
 }
 .table-common .link-wrap a {
-	display:block;
-	width:100%;
-	text-overflow:ellipsis;
-	overflow:hidden;
-	white-space:nowrap;
+	display:-webkit-box;
+  width:100%;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  -webkit-box-orient:vertical;
+  word-wrap:break-word;
+  -webkit-line-clamp:1;
 }
 
 /* 시험개설 */
@@ -2604,7 +2661,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .pin-msg li:first-child .pin-msg-toggle {
 	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
 }
-.pin-msg .pin-msg-toggle.on, .pin-msg .pin-msg-toggle:hover, .pin-msg .pin-msg-toggle:focus {
+.pin-msg .pin-msg-toggle.on, .pin-msg .pin-msg-toggle:hover {
 	background:#515d6e;
 	color:#fff;
 	transition:background 1.2s, color 1.2s;
@@ -2652,14 +2709,14 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .pin-msg-write {
 	background-image:url('../images/icon_write2.png');
 }
-.pin-msg-write:hover, .pin-msg-write:focus {
+.pin-msg-write:hover {
 	background-color:#6A55C2;
 	background-image:url('../images/icon_write2_h.png');
 }
 .pin-msg-add {
 	background-image:url('../images/icon_add.png');
 }
-.pin-msg-add:hover, .pin-msg-add:focus, .pin-msg-add.on {
+.pin-msg-add:hover, .pin-msg-add.on {
 	background-color:#23AE89;
 	background-image:url('../images/icon_add_h.png');
 }
@@ -2820,7 +2877,7 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	left:-65px;
 	width:10px;
 }
-.pin-add-list .pin-list-group.on, .pin-add-list .pin-list-group:hover, .pin-add-list .pin-list-group:focus {
+.pin-add-list .pin-list-group.on, .pin-add-list .pin-list-group:hover {
 	background:#1C7EBB;
 	z-index:2;
 	transition:all 1s;
