@@ -52,4 +52,8 @@ public class MemberDAO {
 		return session.selectOne("member.dao.memberMapper.selectMemberNo", memberName);
 	}
 
+	public List<MemberVO> nodeMemberList(int groupNo) {
+		return session.selectList("member.dao.memberMapper.nodeMemberList", groupNo);
+	}
+
 }

@@ -24,4 +24,6 @@ public interface MemberService {
 
 	public int selectMemberNo(String memberName) throws Exception;
 
+	public List<MemberVO> nodeMemberList(int groupNo) throws Exception;
+
 }

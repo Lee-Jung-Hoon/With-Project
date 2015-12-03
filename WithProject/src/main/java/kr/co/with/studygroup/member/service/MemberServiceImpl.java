@@ -51,4 +51,10 @@ public class MemberServiceImpl implements MemberService {
 	public int selectMemberNo(String memberName) throws Exception {
 		return dao.selectMemberNo(memberName);
 	}
+
+
+	@Override
+	public List<MemberVO> nodeMemberList(int groupNo) throws Exception {
+		return dao.nodeMemberList(groupNo);
+	}
 }
