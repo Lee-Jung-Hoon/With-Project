@@ -1141,13 +1141,10 @@ main {
 	width:100%;
 	padding-left:80px;
 	transition:width 1s;
+	padding-top:120px;
 }
 .page-main main {
 	padding-top:80px;
-}
-.page-sub main {
-	padding-top:120px;
-	perspective:1200px;
 }
 .container {
 	position:relative;
@@ -2491,14 +2488,14 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 /* 일정 */
 .cal-frame-first {
 	position:absolute;
-	top:50%;
+	top:0;
 	left:50%;
 	background:#fff;
 	border:1px solid #ccc;
   -webkit-box-shadow:0 2px 4px rgba(0,0,0,.2);
 	box-shadow:0 2px 4px rgba(0,0,0,.2);
 	width:350px;
-	margin-top:-200px;
+	margin-top:-238.5px;
 	margin-left:-175px;
 	z-index:99;
 	display:none;

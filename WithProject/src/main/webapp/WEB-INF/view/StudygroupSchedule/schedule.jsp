@@ -44,7 +44,7 @@
             header: {
                 left: 'prev,next',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: 'month,agendaDay'
             },
             defaultDate: today,
             selectable: true,
@@ -107,7 +107,11 @@
     		    	   $('#calendar').fullCalendar('updateEvent',event);
     		    },*/
     		    select: function(start, end) {
-             
+    		      var scroll = $(document).scrollTop();
+              var top = $(window).height() / 2;
+              var newTop = scroll + top;              
+              $('.cal-frame-first').css('top', newTop +'px');
+
 							//var start2=moment(start).format();
               //var end2=moment(end).format();
               $('.date-start').val(moment(start).format().split('T')[0]);
@@ -116,7 +120,8 @@
               //$('.date-end').val(end);
               $('.cal-frame-second').hide();
               $('.cal-frame-first').show(function(){
-                $('.cal-frame-first .cancel').one('click', function(){
+                $('body').addClass('view');
+                  $('.cal-frame-first .cancel').one('click', function(){
             		  frameClose($(this));
             		});
               });
@@ -140,6 +145,7 @@
           		  } 
                 $('.cal-frame-first').hide();
                 $('#calendar').fullCalendar('unselect');
+                frameClose($('.cancel'));
               });
               
               
@@ -268,6 +274,7 @@
 	
 	function frameClose(closeTag) {
 	  closeTag.parent().hide();
+	  $('body').removeClass('view');
  	  $('.cal-frame-first .insert').show();
  	  $('.cal-frame-first .update').hide();
 	} 
@@ -344,31 +351,33 @@
 			</div>
 			 -->
 			
-			<div class="cal-frame-first">
-				<p>일정등록</p>
-				<ul>
-					<li class="title-area"><span>제목 :</span><span><input type="text" class="title" /></span></li>
-					<li class="start-area"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
-					<li class="end-area"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
-					<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" value="#3a87ad" /></span></li>
-					<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" value="#ffffff" /></span></li>
-					<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
-				</ul>
-				<button type="button" class="insert commonBtn">등록</button>
-				<button type="button" class="update commonBtn">수정</button>
-				<button type="button" class="cancel commonBtn">취소</button>
-				<input type="hidden" class="group-no" value="1" />
-			</div>
-			<div class="cal-frame-second">
-				<button type="button" class="del commonBtn">일정삭제</button>
-				<button type="button" class="update commonBtn">일정수정</button>
-				<button type="button" class="close">닫기</button>
-			</div>
+			
 			<!--
 			<div class="banner" style="position:absolute; top:0; right:-160px; width:150px; height:300px; background:red;"></div>
 			  -->
 			
 		</div>
+		
 	</main>
+	<div class="cal-frame-first">
+		<p>일정등록</p>
+		<ul>
+			<li class="title-area"><span>제목 :</span><span><input type="text" class="title" /></span></li>
+			<li class="start-area"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
+			<li class="end-area"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
+			<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" value="#3a87ad" /></span></li>
+			<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" value="#ffffff" /></span></li>
+			<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
+		</ul>
+		<button type="button" class="insert commonBtn">등록</button>
+		<button type="button" class="update commonBtn">수정</button>
+		<button type="button" class="cancel commonBtn">취소</button>
+		<input type="hidden" class="group-no" value="1" />
+	</div>
+	<div class="cal-frame-second">
+		<button type="button" class="del commonBtn">일정삭제</button>
+		<button type="button" class="update commonBtn">일정수정</button>
+		<button type="button" class="close">닫기</button>
+	</div>
 </body>
 </html>
