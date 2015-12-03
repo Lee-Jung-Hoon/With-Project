@@ -34,7 +34,6 @@ $(document).ready(function() {
 			<div id="tcdiv"></div>
 		</div>
 		
-		<button id="switch" style="color: white;">Toggle</button><br/>
 		<div id="panel" style='position:absolute; left: -5000px;'></div>
 		
 		<div id="container" class="img-layer">
