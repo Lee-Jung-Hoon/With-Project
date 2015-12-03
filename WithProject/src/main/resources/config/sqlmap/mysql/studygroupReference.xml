@@ -10,7 +10,10 @@
 			<result column="reference_title" property="referenceTitle"/>
 			<result column="reference_categori" property="referenceCategori"/>
 			<result column="reference_file" property="referenceFile"/>
+			<result column="reference_date" property="referenceDate"/>
+			<result column="reference_cnt" property="referenceCnt"/>
 			<result column="member_no" property="memberNo"/>
+			<result column="member_Name" property="memberName"/>
 		</resultMap>
 		
 		<insert id="insertReference" parameterType="reference">
@@ -22,10 +25,32 @@
 					#{referenceFile},
 					#{memberNo})
 		</insert>
-		<!-- <select id="selectReference" parameterType="groupNumber" resultMap="Reference">
-			select referenceNo, referenceTitle, referenceCategori, referenceFile
-			from  t_with_studygroup_referenceroom
-			where gruopNo = #{groupNumber}
-		</select> -->
 		
+		<select id="selectReference" parameterType="map" resultMap="Reference">
+			select re.reference_No, re.reference_Title, re.reference_Categori, re.reference_cnt,
+							 date_format(re.reference_date, '%Y.%m.%d') as referenceDate,
+							 member.member_name
+			from  t_with_studygroup_referenceroom re, t_with_member member
+			where group_No = #{groupNo}
+					and re.member_no = member.Member_no
+					and reference_Categori = #{referenceCategori}
+		</select>
+		
+		<select id="selectAllReference" parameterType="int" resultMap="Reference">
+			select re.reference_No, re.reference_Title, re.reference_Categori, re.reference_cnt,
+							 date_format(re.reference_date, '%Y.%m.%d') as referenceDate,
+							 member.member_name
+			from  t_with_studygroup_referenceroom re, t_with_member member
+			where group_No = #{groupNo}
+ 				 and re.member_no = member.Member_no
+		</select>
+		
+		<select id="selectRefereneceDetail" parameterType="int" resultMap="Reference">
+			select re.reference_No, re.reference_Title, re.reference_Categori, re.reference_cnt, re.reference_file,
+							 date_format(re.reference_date, '%Y.%m.%d') as referenceDate,
+							 member.member_name
+			from  t_with_studygroup_referenceroom re, t_with_member member
+			where reference_no = #{referenceNo}
+					and re.member_no = member.Member_no
+		</select>
 	</mapper>
