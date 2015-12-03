@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/notice/jquery.notice.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/temp.css" />
 <script>
 	var memberNo = "${no}";
 </script>

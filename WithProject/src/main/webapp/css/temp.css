@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+
+ 
+.list-toggle {
+	width:100%;
+	position:relative;
+	overflow:hidden;
+	height:36px;
+	line-height:36px;
+	padding:0 5px;
+	display:block;
+	font-size:15px;
+	border-top:1px solid #ddd;
+	background:#fff;
+	color:#000;
+	transition:background 1.2s, color 1.2s;
+}
+.list-toggle:hover {
+	background:#515d6e;
+	color:#fff;
+	transition:background 1.2s, color 1.2s;
+}
+ 
+
+.myCreateGroupList, .myJoinGroupList, .myWatingGroupList {
+     font-weight: bold;
+    text-align: center;
+    background: #f4f4f4;
+    line-height: 40px;
+    font-size: 17px;
+        border: 1px solid gray;
+    border-left-style: none;
+    border-right-style: none;
+}
+
