@@ -10,12 +10,14 @@
 <body class="page-sub">
 <%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
-	<div class="container">
-		<h1>시험결과!!</h1>
-		<div><h3>${score} 점</h3></div>
-		<div>${chkNo}/${totalNo} (맞은수/총문제수)</div>
-		<a href="${pageContext.request.contextPath}/exam/examList.do"><input type="button" value="돌아가기" /></a>
-	</div>
+		<div class="container">
+			<h3>시험결과</h3>
+			<div class='exam-result'>
+				<div>${score} 점</div>
+			<p>${chkNo}/${totalNo} (맞은수/총문제수)</p>
+			<a href="${pageContext.request.contextPath}/exam/examList.do" class='btnBack commonBtn'>돌아가기</a>
+			</div>
+		</div>
 	</main>
 </body>
 </html>

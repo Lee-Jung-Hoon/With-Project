@@ -141,36 +141,30 @@
   		        	var memberNo = 1;
                 
                 if ($(this).hasClass('insert')) {
-                  insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt, detail, groupNo, memberNo);          		        
+                  insertCalendar(title, dateStart, dateEnd, colorBar, colorTxt, detail, "${groupNo}", memberNo);          		        
           		  } 
                 $('.cal-frame-first').hide();
                 $('#calendar').fullCalendar('unselect');
                 frameClose($('.cancel'));
               });
               
-              
-              
               //if (title) {
                  // 모멘트로 날짜 형식 변환
                 
               //}
               // 드래그 부분 없어지는 효과
-              
            	}
          });
      	});
-		
-		
-		
-		
    });
 	function insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo) {
-	  	var socket = io.connect("http://192.168.0.6:10001");
+	  var socket = io.connect("http://192.168.0.6:10001");
     	var id = "${no}";
     	$.ajax({
-      	url : "/WithProject/member/memberList2.json",
+      	url : "/WithProject/member/nodeMemberList.json",
       	type: "POST",
       	datatype : "JSON",
+      	data:{groupNo : groupNo},
       	success:function(member, status){
 	        $.each(member, function(no, MemberVO){
 	          console.log("멤버이시구요~"+member[no].memberNo)
@@ -316,6 +310,7 @@
 	
 	//삭제 수정 레이어 일정 삭제 버튼 클릭
 	function deleteCalendar(id, closeTag) {
+	  console.log(id);
     $.ajax({     
       url: "${pageContext.request.contextPath}/calendar/delete_sch.json?no="+ id
     })

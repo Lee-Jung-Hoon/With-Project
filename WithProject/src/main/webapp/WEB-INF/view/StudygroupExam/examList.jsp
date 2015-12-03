@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function() {
 	$(".createExam").on('click', function() {
-	  location.href='${pageContext.request.contextPath}/exam/createExamForm.do?groupNo='+${groupNo};
+	  location.href='${pageContext.request.contextPath}/exam/createExamForm.do?groupNo=${groupNo}'
   });
 });
 </script>
@@ -39,7 +39,7 @@ $(document).ready(function() {
 						<tbody>
 							<c:forEach items="${list}" var="list">
 								<tr>
-									<th><div class="th-border">${list.examNo}</div></th>
+									<td><strong>${list.examNo}</strong></td>
 									<td><div class="link-wrap"><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></div></td>
 									<td>${list.examDate}</td>
 								</tr>
