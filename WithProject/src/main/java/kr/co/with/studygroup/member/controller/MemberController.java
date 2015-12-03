@@ -123,6 +123,15 @@ public class MemberController {
 		System.out.println("asdasd"+list.size());
 		return list;
 	}
+	
+	// 해당 게시판등 게시물 등록시 나를 제외한 그룹맴버들 가져오는 json
+	@RequestMapping("/nodeMemberList.json")
+	@ResponseBody
+	public List<MemberVO> nodeMemberList(int groupNo) throws Exception {
+		
+		return service.nodeMemberList(groupNo);
+	}
+	
 	//쪽지 받을 멤버의 번호를 가져오는  json
 	@RequestMapping("/selectMemberNo.json")
 	@ResponseBody

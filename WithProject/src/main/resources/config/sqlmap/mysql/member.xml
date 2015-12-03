@@ -51,6 +51,12 @@
  			   and jo.member_no = mem.member_no
  </select>
  
+ <select id="nodeMemberList" parameterType="int" resultType="member">
+ 			select member_no memberNo, member_name memberName
+ 			  from t_with_member
+ 			 where group_no = #{groupNo}
+ </select>
+ 
  <select id="selectMemberNo" parameterType="String" resultType="int">
  			select member_no memberNo
  			  from t_with_member

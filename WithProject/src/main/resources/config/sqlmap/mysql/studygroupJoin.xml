@@ -72,8 +72,8 @@
  	</insert>
  	
  	<update id="upJoinGroupPerson" parameterType="joingroup">
- 		update from t_with_studygroup
- 		   set group_nowperson = group_nowperson + 1
+ 		update t_with_studygroup
+ 		   set group_nowperson = (group_nowperson + 1)
  		 where group_no = #{groupNo}
  	</update>
 </mapper>

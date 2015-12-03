@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.with.studygroup.calendar.vo.CalendarVO;
 
@@ -20,8 +21,10 @@ public class CalendarController {
    private kr.co.with.studygroup.calendar.service.CalendarService service;
    
    @RequestMapping("/schedule.do")
-   public String schedule(int groupNo) throws Exception {
-      return "StudygroupSchedule/schedule";
+   public ModelAndView schedule(int groupNo) throws Exception {
+	   ModelAndView mav = new ModelAndView("StudygroupSchedule/schedule");
+	   mav.addObject("groupNo", groupNo);
+      return mav;
    }
    
    
