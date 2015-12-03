@@ -14,7 +14,14 @@ public class MemberVO {
     private String memberImg;
     private String joinDate;
     private String groupNo;
+    private String groupName;
     
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	public String getGroupNo() {
 		return groupNo;
 	}

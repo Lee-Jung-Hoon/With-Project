@@ -48,4 +48,8 @@ public class MemberDAO {
 		return session.selectList("member.dao.memberMapper.memberList2");
 	}
 
+	public int selectMemberNo(String memberName) {
+		return session.selectOne("member.dao.memberMapper.selectMemberNo", memberName);
+	}
+
 }

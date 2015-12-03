@@ -10,6 +10,7 @@
 		<result column="recv_id" property="recvId"/>
 		<result column="content" property="content"/>
 		<result column="reg_date" property="regDate"/>
+		<result column="member_name" property="memberName"/>
 	</resultMap>
 
 	<!-- 메세지를 전송하기 위한 쿼리 -->
@@ -20,10 +21,11 @@
 	
 	<!-- 읽지 않은 메세지 리스트를 출력하는 쿼리 -->
 	<select id="selectList" parameterType="String" resultMap="msg">
-		select group_no, msg_no, recv_id, member_no, content, 
-					 date_format(reg_date, '%Y-%m-%d')as reg_date  
-		  from with_studygroup_msg
-		 where recv_id = #{recvId} and msg_check = 0 
+		  select sm.group_no, sm.msg_no, sm.recv_id, sm.content, sm.member_no, mb.member_name, mb.member_no, date_format(sm.reg_date, '%Y-%m-%d')as reg_date
+		  from with_studygroup_msg sm, t_with_member mb
+		 where sm.recv_id = #{recvId} 
+		   and msg_check = 0
+		   and sm.member_no = mb.member_no; 
 	</select>
 
 	<!-- 메세지 내용을 출력하기 위한 쿼리 -->	
