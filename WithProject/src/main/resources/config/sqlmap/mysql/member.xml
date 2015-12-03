@@ -40,7 +40,8 @@
  			select js.group_no groupNo, ss.GROUP_NAME groupName
  			  from t_with_joinstudygroup js, t_with_studygroup ss
  			 where js.member_no = #{memberNo}
- 			   and js.group_no = ss.GROUP_NO;	 
+ 			   and js.group_no = ss.GROUP_NO
+ 			   and js.member_status != '가입신청'
  </select>
  
  <select id="memberList" parameterType="String" resultType="member">
