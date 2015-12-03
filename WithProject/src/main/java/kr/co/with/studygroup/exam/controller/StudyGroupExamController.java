@@ -92,6 +92,7 @@ public class StudyGroupExamController {
 		mav.addObject("item", sendItemList);
 		return mav;
 	}
+	
 	@RequestMapping("/examResult.do")
 	public ModelAndView ExamResult(StudyGroupExamResultVO result)throws Exception{
 		ModelAndView mav = new ModelAndView("StudygroupExam/examResult");
