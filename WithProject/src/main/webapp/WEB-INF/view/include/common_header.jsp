@@ -98,7 +98,7 @@
           html += "<img src='/WithProject/images/"+response[index].groupRepImagePath+"'/>";
           html += "</div>";
           html += "<div class='bookmark-right'>";
-          html += "<span>"+response[index].groupName+"</span>";
+          html += "<span><a href='#' onclick='mapDetail("+response[index].groupNo+")'>"+response[index].groupName+"</a></span>";
           html += "<span>"+response[index].groupActivePlace+"</span><br/>";
           html += "<span>"+response[index].groupRecruitStartDate+"</span>";
           html += "<span> ~ </span>";
@@ -115,8 +115,9 @@
     // 상단 핀 내 마이스터디 탭 클릭시
     $(".mystudyLI").on('click', function() {
       var html = "";
-	    html += "<div class='myCreateGroupList'>내가 생성한 스터디그룹</div>"
-      html += "<div class='myJoinGroupList'>내가 가입한 스터디그룹</div>"
+	    html += "<div class='myCreateGroupList'>생성한 스터디그룹</div>"
+      html += "<div class='myJoinGroupList'>가입 스터디그룹</div>"
+      html += "<div class='myWatingGroupList'>가입 대기 스터디그룹</div>"
 			$(".pin-content").html("").append(html);
 			
       // 내가 생성한 스터디그룹 출력하는 AJAX
@@ -138,11 +139,26 @@
 			})
 			.done(function(response) {
 			  html = "<ul>";
+			  console.log(response);
 			  $.each(response, function(index, StudygroupVO) {
 			    html += "<li><a href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
         });
 			  html += "</ul>";
 			  $(".myJoinGroupList").append(html);
+      });
+      
+   		// 현재 가입 신청 후 승인 대기중인 스터디그룹 출력하는 AJAX
+      $.ajax({
+			  url : "${pageContext.request.contextPath}/studygroup/myWatingGroupList.json"
+			})
+			.done(function(response) {
+			  html = "<ul>";
+			  console.log(response);
+			  $.each(response, function(index, StudygroupVO) {
+			    html += "<li><a href='#' onclick='mapDetail("+response[index].groupNo+")' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+        });
+			  html += "</ul>";
+			  $(".myWatingGroupList").append(html);
       });
     })
     
@@ -612,8 +628,6 @@
 				<li><button type="button">마감임박순</button></li>
 				<li><button type="button">이름순</button></li>
 			</ul>
-			<p><a href='${pageContext.request.contextPath}/exam/examList.do'>시험테스트</a></p>
-			<p><a href='${pageContext.request.contextPath}/calendar/schedule.do'>일정</a></p>
 		</div>
 	</div>
 	<script>
@@ -621,10 +635,10 @@
 	  document.write("<aside>");
 		  document.write("<h2 class='hide'>주메뉴</h2>");
 				document.write("<ul>");
-					document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do'><span>일정</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do'><span>시험테스트</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/main/moneybookMain.do'><span>가계부</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/main/referenceRoomMain.do'><span>자료실</span></a></li>");
+				document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do?groupNo=${param.groupNo}'><span>일정</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do?groupNo=${param.groupNo}'><span>시험테스트</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/moneybook/moneybookMain.do?groupNo=${param.groupNo}'><span>가계부</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/referenceRoom/referenceList.do'><span>자료실</span></a></li>");
 					document.write("<li><a href='#'><span>공지사항</span></a></li>");
 			document.write("</ul>");
 		document.write("</aside>"); 

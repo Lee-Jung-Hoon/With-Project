@@ -47,5 +47,7 @@ public interface StudyGroupService {
 	public List<MemberVO> SelectStudygroupMemeber(int groupNo)throws Exception;
 
 	public List<MoneyBookVO> SelectStudyGroupMoneyBook(int groupNo) throws Exception;
+
+	public List<StudyGroupVO> selectMyWatingGroupList(int memberNo) throws Exception;
 	
 }

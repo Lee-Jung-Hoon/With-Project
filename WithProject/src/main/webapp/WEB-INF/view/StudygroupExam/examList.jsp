@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function() {
 	$(".createExam").on('click', function() {
-	  location.href='${pageContext.request.contextPath}/main/createExamForm.do';
+	  location.href='${pageContext.request.contextPath}/exam/createExamForm.do?groupNo='+${groupNo};
   });
 });
 </script>

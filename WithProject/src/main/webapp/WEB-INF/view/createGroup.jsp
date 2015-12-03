@@ -14,7 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.MultiFile.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
 </head>
-<body class="page-sub">
+<body class="page-sub page-join">
    <%@ include file="/WEB-INF/view/include/common_header.jsp"%>
    <main>
    <div class="container">

@@ -218,7 +218,17 @@ public class StudyGroupController {
 	public List<StudyGroupVO> MyJoinGroup(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
 		int memberNo = (int) session.getAttribute("no");
+//		System.out.println(memberNo);
 		return service.selectMyJoinGroup(memberNo);
+	}
+	
+	@RequestMapping("/myWatingGroupList.json")
+	@ResponseBody
+	public List<StudyGroupVO> MyWatingGroupList(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		int memberNo = (int) session.getAttribute("no");
+//		System.out.println(memberNo);
+		return service.selectMyWatingGroupList(memberNo);
 	}
 	
 	// 스터디그룹 메인으로 이동

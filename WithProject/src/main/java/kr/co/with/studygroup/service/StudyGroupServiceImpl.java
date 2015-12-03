@@ -100,6 +100,12 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 		return dao.selectMyJoinGroup(memberNo);
 	}
 
+	// 가입 승인을 기다리는 스터디그룹 리스트 출력을 위한 service
+	@Override
+	public List<StudyGroupVO> selectMyWatingGroupList(int memberNo) throws Exception {
+		return dao.selectMyWatingGroupList(memberNo);
+	}
+
 	// 스터디 그룹 메인 내용 출력을 위한 service
 	@Override
 	public StudyGroupVO SelectStudygroupMain(int groupNo) throws Exception {
@@ -117,4 +123,5 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public List<MoneyBookVO> SelectStudyGroupMoneyBook(int groupNo) throws Exception {
 		return dao.SelectStudyGroupMoneyBook(groupNo);
 	}
+
 }

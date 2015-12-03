@@ -20,7 +20,7 @@ public class CalendarController {
    private kr.co.with.studygroup.calendar.service.CalendarService service;
    
    @RequestMapping("/schedule.do")
-   public String schedule() throws Exception {
+   public String schedule(int groupNo) throws Exception {
       return "StudygroupSchedule/schedule";
    }
    

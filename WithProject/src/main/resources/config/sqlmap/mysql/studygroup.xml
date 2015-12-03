@@ -211,7 +211,21 @@
 				gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
   		from t_with_joinstudygroup jo, t_with_studygroup gr
  		 where jo.MEMBER_NO = #{memberNo}
-   		 and jo.GROUP_NO = gr.GROUP_NO;
+   		 and jo.GROUP_NO = gr.GROUP_NO
+   		 and jo.member_status = '회원'
+  </select>
+  
+  <!-- 마이스터디 내 내가 가입 신청중인 스터디그룹 출력을 위한 쿼리 -->
+  <select id="selectMyWatingGroupList" parameterType="int" resultMap="studyGroup">
+  	select 
+				gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
+				gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
+				gr.GROUP_ACTIVEPLACE, gr.group_email, gr.GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
+				gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
+  		from t_with_joinstudygroup jo, t_with_studygroup gr
+ 		 where jo.MEMBER_NO = #{memberNo}
+   		 and jo.GROUP_NO = gr.GROUP_NO
+   		 and jo.member_status = '가입신청'
   </select>
 
 	<!-- 스터디그룹 메인에 스터디그룹 정보를 출력하기 위한 쿼리 -->  

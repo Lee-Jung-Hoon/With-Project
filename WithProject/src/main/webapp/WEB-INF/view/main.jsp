@@ -9,6 +9,14 @@
 <title>WITH 스터디</title>
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 </head>
+<script>
+$(document).ready(function() {
+//   var msg = "${msg}";
+//   if(msg!=null) {
+//     alert(msg);
+//   }
+})
+</script>
 <body class="page-main">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>

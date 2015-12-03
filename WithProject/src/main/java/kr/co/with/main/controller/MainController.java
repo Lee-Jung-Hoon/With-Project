@@ -49,11 +49,6 @@ public class MainController {
 		return "WebRTC";
 	}
 	
-	@RequestMapping("/createExamForm.do")
-	public String CreateExamForm() throws Exception {
-		return "StudygroupExam/createExamForm";
-	}
-	
 	// 스터디 그룹 개설
 	@RequestMapping("/createGroup.do")
 	public String CreateGroup() throws Exception {
@@ -74,13 +69,4 @@ public class MainController {
 	   public String referenceRegiesteForm() throws Exception {
 	      return "StudyGroupReferenceRoom/referenceRegiste";
 	   }
-	   
-	
-	// 테스트
-	// 가계부 테스트
-	@RequestMapping("/moneybookMain.do")
-	public String MoneybookMain() throws Exception {
-		return "StudyGroupMoneyBook/moneybookMain";
-	}
-	
 }
