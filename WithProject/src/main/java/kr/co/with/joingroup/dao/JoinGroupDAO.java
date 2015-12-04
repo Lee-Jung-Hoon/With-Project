@@ -36,4 +36,9 @@ public class JoinGroupDAO {
 		}
 		session.insert("with.studygroupJoin.dao.insertJoinGroupInfo", join);
 	}
+
+	// 스터디그룹 가입 승인 처리
+	public void acceptMember(JoinGroupVO join) {
+		session.update("with.studygroupJoin.dao.acceptMember", join);
+	}
 }

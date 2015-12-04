@@ -97,7 +97,15 @@ TermCloud.prototype.draw = function(data, options) {
   }
   html.push('</div>');
     
-    this.container.innerHTML = html.join('');
+  this.container.innerHTML = html.join('');
+
+  // 태그 클릭 시 동작하는 function
+  $(".term-cloud-link").on('click', function() {
+    var data = $(this).attr("data-str");
+    $("#keyword").val(data);
+    $('.searchIcon').trigger('click');
+    return false;
+  });
     
   
   

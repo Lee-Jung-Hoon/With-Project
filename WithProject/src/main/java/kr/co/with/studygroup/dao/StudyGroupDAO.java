@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.with.joingroup.vo.JoinGroupVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
@@ -112,8 +113,12 @@ public class StudyGroupDAO {
 		return session.selectList("with.moneybook.dao.SelectStudyGroupMoneyBook", groupNo);
 	}
 
+	// 스터디그룹 대기중인 멤버출력을 위한 DAO
+	public List<JoinGroupVO> selectJoinWatingMember(int groupNo) {
+		return session.selectList("with.studygroup.dao.selectJoinWatingMember", groupNo);
+	}
+
 	public List<MemberVO> GroupMemberList(int groupNo) {
 		return session.selectList("member.dao.memberMapper.GroupMemberList", groupNo);
 	}
-
 }

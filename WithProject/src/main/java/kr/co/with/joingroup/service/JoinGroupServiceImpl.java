@@ -37,4 +37,10 @@ public class JoinGroupServiceImpl implements JoinGroupService {
 	public void insertJoinGroupInfo(JoinGroupVO join) throws Exception {
 		dao.insertJoinGroupInfo(join);
 	}
+
+	// 스터디그룹 가입 승인
+	@Override
+	public void acceptMember(JoinGroupVO join) throws Exception {
+		dao.acceptMember(join);
+	}
 }

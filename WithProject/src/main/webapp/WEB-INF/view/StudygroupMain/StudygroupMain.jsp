@@ -177,7 +177,7 @@
 				<img alt=""	src="http://www.iconarchive.com/download/i57835/icons-land/vista-map-markers/Map-Marker-Marker-Outside-Pink.ico">${studyGroup.groupActivePlace}
 			</a>
 			
-		<a href='${pageContext.request.contextPath}/studygroup/StudygroupAdminMain.do'>관리자 메인</a>
+		<a href='${pageContext.request.contextPath}/studygroup/StudygroupAdminMain.do?groupNo=${studyGroup.groupNo}'>관리자 메인</a>
 		</div>
 		
 		<div class='graph1-4'>

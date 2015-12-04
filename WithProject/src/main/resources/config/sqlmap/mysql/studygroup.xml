@@ -1,156 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
 <mapper namespace="with.studygroup.dao">
 
-	<resultMap type="studygroup" id="studyGroup">
-		<result column="group_no" property="groupNo"/>
-		<result column="group_name" property="groupName"/>
-		<result column="group_detail" property="groupDetail"/>
-		<result column="group_maxperson" property="groupMaxPerson"/>
-		<result column="group_nowperson" property="groupNowPerson"/>
-		<result column="GROUP_ACTIVELONGITUDE" property="groupActiveLongitude"/>
-		<result column="GROUP_ACTIVELATITUDE" property="groupActiveLatitude"/>
-		<result column="GROUP_ACTIVEPLACE" property="groupActivePlace"/>
-		<result column="group_email" property="groupEmail"/>
-		<result column="GROUP_TEL" property="groupTel"/>
-		<result column="GROUP_CONFIRMTYPE" property="groupConfirmType"/>
-		<result column="GROUP_REPIMAGEPATH" property="groupRepImagePath"/>
-		<result column="GROUP_RECRUITSTARTDATE" property="groupRecruitStartDate"/>
-		<result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
-		<result column="GROUP_REGDATE" property="groupRegDate"/>
-		<result column="MEMBER_NO" property="groupRecruitEndDate"/>
-		<result column="GROUP_TAG" property="groupTag"/>
-		<result column="member_name" property="memberName"/>
-		<result column="group_StartDate" property="groupStartDate"/>
-		<result column="group_StartTime" property="groupStartTime"/>
-		<result column="group_EndDate" property="groupEndDate"/>
-		<result column="group_EndTime" property="groupEndTime"/>
-	</resultMap>
+   <resultMap type="studygroup" id="studyGroup">
+      <result column="group_no" property="groupNo"/>
+      <result column="group_name" property="groupName"/>
+      <result column="group_detail" property="groupDetail"/>
+      <result column="group_maxperson" property="groupMaxPerson"/>
+      <result column="group_nowperson" property="groupNowPerson"/>
+      <result column="GROUP_ACTIVELONGITUDE" property="groupActiveLongitude"/>
+      <result column="GROUP_ACTIVELATITUDE" property="groupActiveLatitude"/>
+      <result column="GROUP_ACTIVEPLACE" property="groupActivePlace"/>
+      <result column="group_email" property="groupEmail"/>
+      <result column="GROUP_TEL" property="groupTel"/>
+      <result column="GROUP_CONFIRMTYPE" property="groupConfirmType"/>
+      <result column="GROUP_REPIMAGEPATH" property="groupRepImagePath"/>
+      <result column="GROUP_RECRUITSTARTDATE" property="groupRecruitStartDate"/>
+      <result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
+      <result column="GROUP_REGDATE" property="groupRegDate"/>
+      <result column="MEMBER_NO" property="groupRecruitEndDate"/>
+      <result column="GROUP_TAG" property="groupTag"/>
+      <result column="member_name" property="memberName"/>
+      <result column="group_StartDate" property="groupStartDate"/>
+      <result column="group_StartTime" property="groupStartTime"/>
+      <result column="group_EndDate" property="groupEndDate"/>
+      <result column="group_EndTime" property="groupEndTime"/>
+   </resultMap>
 
-	<!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
-	<select id="studyList" parameterType="studygrouppaging" resultMap="studyGroup">
-		select 
-			group_no, group_name, group_detail, group_maxperson, 
-			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
-			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
-		from t_with_studygroup
-		where group_name like CONCAT('%', #{search}, '%') 
-		  or group_detail like CONCAT('%', #{search}, '%')
-		  or group_tag like CONCAT('%', #{search}, '%') 
-		  or group_activeplace like CONCAT('%', #{search}, '%') 
-		limit #{startPage}, #{endPage}
-	</select>
-	
-	<!-- 	스터디그룹 개설을 위한 쿼리문 -->
-	<insert id="insertStudyGroup" parameterType="studygroup">
-		insert into t_with_studygroup(
-			group_name, group_detail, group_maxperson, group_tag,
-			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
-			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO, 
-			group_StartDate, group_StartTime, group_EndDate, group_EndTime
-		)
-		values(
-			#{groupName}, #{groupDetail}, #{groupMaxPerson}, #{groupTag},
-			'0', #{groupActiveLongitude}, #{groupActiveLatitude},
-			#{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
-			#{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, #{memberNo},
-			#{groupStartDate}, #{groupStartTime}, #{groupEndDate}, #{groupEndTime}
-		)
-	</insert>
-	
-	
-<!-- 		<result column="group_StartDate" property="groupStartDate"/> -->
-<!-- 		<result column="group_StartTime" property="groupStartTime"/> -->
-<!-- 		<result column="group_EndDate" property="groupEndDate"/> -->
-<!-- 		<result column="group_EndTime" property="groupEndTime"/> -->
-	
-	<!-- 	가장 최근 증가값 가져오기 위한 쿼리문-->
-	<select id="selectAutoIncrement" resultType="int">
-		select max(group_no) from t_with_studygroup;
-	</select>
-	
-	
-	<!-- 	스터디그룹 이름 가져오기 위한 쿼리문 -->
-	<select id="studyName" parameterType="int" resultType="String">
-		select 
-			group_name 
-		from 
-			t_with_studygroup
-		where group_no = #{no};
-	</select>
-	
-<!-- 		스터디그룹 태그를 입력하기 위한 쿼리문 -->
-	<insert id="insertStudyGroupTag" parameterType="String">
-		insert into T_WITH_STUDYGROUP_TAG( TAG_NAME )
-		                           values( #{tagName} )
-	</insert>
-	<update id="updateTagCount" parameterType="String">
-		update T_WITH_STUDYGROUP_TAG
-		   set tag_cnt = (tag_cnt + 1)
-		 where tag_name = #{tagName} 
-	</update>
-	
-	<select id="selectTagList" resultType="studygrouptag">
-		select tag_cnt as tagCnt, tag_name as tagName  
+   <!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
+   <select id="studyList" parameterType="studygrouppaging" resultMap="studyGroup">
+      select 
+         group_no, group_name, group_detail, group_maxperson, 
+         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+         GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+         GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
+      from t_with_studygroup
+      where group_name like CONCAT('%', #{search}, '%') 
+        or group_detail like CONCAT('%', #{search}, '%')
+        or group_tag like CONCAT('%', #{search}, '%') 
+        or group_activeplace like CONCAT('%', #{search}, '%') 
+      limit #{startPage}, #{endPage}
+   </select>
+   
+   <!--    스터디그룹 개설을 위한 쿼리문 -->
+   <insert id="insertStudyGroup" parameterType="studygroup">
+      insert into t_with_studygroup(
+         group_name, group_detail, group_maxperson, group_tag,
+         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+         GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+         GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO, 
+         group_StartDate, group_StartTime, group_EndDate, group_EndTime
+      )
+      values(
+         #{groupName}, #{groupDetail}, #{groupMaxPerson}, #{groupTag},
+         '0', #{groupActiveLongitude}, #{groupActiveLatitude},
+         #{groupActivePlace}, #{groupEmail}, #{groupTel}, #{groupConfirmType},
+         #{groupRepImagePath}, #{groupRecruitStartDate}, #{groupRecruitEndDate}, #{memberNo},
+         #{groupStartDate}, #{groupStartTime}, #{groupEndDate}, #{groupEndTime}
+      )
+   </insert>
+   
+   
+<!--       <result column="group_StartDate" property="groupStartDate"/> -->
+<!--       <result column="group_StartTime" property="groupStartTime"/> -->
+<!--       <result column="group_EndDate" property="groupEndDate"/> -->
+<!--       <result column="group_EndTime" property="groupEndTime"/> -->
+   
+   <!--    가장 최근 증가값 가져오기 위한 쿼리문-->
+   <select id="selectAutoIncrement" resultType="int">
+      select max(group_no) from t_with_studygroup;
+   </select>
+   
+   
+   <!--    스터디그룹 이름 가져오기 위한 쿼리문 -->
+   <select id="studyName" parameterType="int" resultType="String">
+      select 
+         group_name 
+      from 
+         t_with_studygroup
+      where group_no = #{no};
+   </select>
+   
+<!--       스터디그룹 태그를 입력하기 위한 쿼리문 -->
+   <insert id="insertStudyGroupTag" parameterType="String">
+      insert into T_WITH_STUDYGROUP_TAG( TAG_NAME )
+                                 values( #{tagName} )
+   </insert>
+   <update id="updateTagCount" parameterType="String">
+      update T_WITH_STUDYGROUP_TAG
+         set tag_cnt = (tag_cnt + 1)
+       where tag_name = #{tagName} 
+   </update>
+   
+   <select id="selectTagList" resultType="studygrouptag">
+      select tag_cnt as tagCnt, tag_name as tagName  
       from t_with_studygroup_tag
      order by tag_cnt desc
      limit 0, 17
-		 
-	</select>
-	<!-- 태그테이블의 특정 태그수 를 가져오기 위한 쿼리문  -->
-	<select id="nameCheck" parameterType="String" resultType="int">
-		select count(tag_name)
-		  from t_with_studygroup_tag
-		 where tag_name = #{tagName}
-	</select>
-		
-	<!-- 스터디그룹 상세 정보 출력을 위한 쿼리문 -->
-	<select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">
-	select 	gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
-			gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
-			gr.GROUP_ACTIVEPLACE, gr.group_email, GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
-			gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO, member.member_name,
-			gr.group_StartDate, gr.group_StartTime, gr.group_EndDate, gr.group_EndTime
-		from t_with_studygroup gr, t_with_member member
-		where group_no = #{no}
+       
+   </select>
+   <!-- 태그테이블의 특정 태그수 를 가져오기 위한 쿼리문  -->
+   <select id="nameCheck" parameterType="String" resultType="int">
+      select count(tag_name)
+        from t_with_studygroup_tag
+       where tag_name = #{tagName}
+   </select>
+      
+   <!-- 스터디그룹 상세 정보 출력을 위한 쿼리문 -->
+   <select id="selectGruopDetail" parameterType="int" resultMap="studyGroup">
+   select    gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
+         gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
+         gr.GROUP_ACTIVEPLACE, gr.group_email, GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
+         gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO, member.member_name,
+         gr.group_StartDate, gr.group_StartTime, gr.group_EndDate, gr.group_EndTime
+      from t_with_studygroup gr, t_with_member member
+      where group_no = #{no}
           and gr.member_no = member.member_no
-	</select>
-	
-	<!-- 	스터디그룹 상세 댓글 작성을 위한 쿼리문  -->
-	<insert id="insertGroupComment" parameterType="studygroupcomment">
-		insert into T_WITH_STUDYGROUP_COMMENT(
-			member_no,
-			group_no, 
-			comment_content
-		)
-		values(
-			#{memberNo},
-			#{groupNo},
-			#{commentContent}
-		)
-	</insert>
-	
-	<select id="selectCommentList" parameterType="int" resultType="studygroupcomment">
-		select 
-			com.MEMBER_NO as memberNo, 
-			mem.member_name as memberName,
-			com.GROUP_NO as groupNo, 
-			com.COMMENT_NO as commentNo, 
-			com.COMMENT_CONTENT as commentContent, 
-			date_format(com.REG_DATE, '%Y-%m-%d %H:%i') as regDate
-		from 
-			T_WITH_STUDYGROUP_COMMENT com, T_WITH_MEMBER MEM
-		where 
-			com.group_no = #{groupNo} 
-		  and
-		 	com.MEMBER_NO = mem.MEMBER_NO 
-	</select>
-	
-	<!-- 스터디그룹 즐겨찾기 중복을 확인하기 위한 쿼리문  -->
+   </select>
+   
+   <!--    스터디그룹 상세 댓글 작성을 위한 쿼리문  -->
+   <insert id="insertGroupComment" parameterType="studygroupcomment">
+      insert into T_WITH_STUDYGROUP_COMMENT(
+         member_no,
+         group_no, 
+         comment_content
+      )
+      values(
+         #{memberNo},
+         #{groupNo},
+         #{commentContent}
+      )
+   </insert>
+   
+   <select id="selectCommentList" parameterType="int" resultType="studygroupcomment">
+      select 
+         com.MEMBER_NO as memberNo, 
+         mem.member_name as memberName,
+         com.GROUP_NO as groupNo, 
+         com.COMMENT_NO as commentNo, 
+         com.COMMENT_CONTENT as commentContent, 
+         date_format(com.REG_DATE, '%Y-%m-%d %H:%i') as regDate
+      from 
+         T_WITH_STUDYGROUP_COMMENT com, T_WITH_MEMBER MEM
+      where 
+         com.group_no = #{groupNo} 
+        and
+          com.MEMBER_NO = mem.MEMBER_NO 
+   </select>
+   
+   <!-- 스터디그룹 즐겨찾기 중복을 확인하기 위한 쿼리문  -->
    <select id="selectOverlapBookmark" parameterType="studygroupbookmark" resultType="int">
       select count(*)
       from t_with_member_bookmark
@@ -159,21 +159,21 @@
         and
         member_no = #{memberNo}
    </select>
-	
-	<!-- 스터디그룹 즐겨찾기 등록을 위한 쿼리문 -->
-	<insert id="insertBookmark" parameterType="studygroupbookmark">
-		insert into t_with_member_bookmark (
-			member_no,
-			group_no
-		)
-		values(
-			#{memberNo},
-			#{groupNo}
-		)
-	</insert>
-	
-	<select id="selectMarker" resultMap="studyGroup">
-    	select 
+   
+   <!-- 스터디그룹 즐겨찾기 등록을 위한 쿼리문 -->
+   <insert id="insertBookmark" parameterType="studygroupbookmark">
+      insert into t_with_member_bookmark (
+         member_no,
+         group_no
+      )
+      values(
+         #{memberNo},
+         #{groupNo}
+      )
+   </insert>
+   
+   <select id="selectMarker" resultMap="studyGroup">
+       select 
          group_no, group_name, group_detail, group_activelongitude, group_activelatitude,
          group_activeplace, group_email, group_tel, group_repimagepath, group_regdate
       from t_with_studygroup
@@ -181,74 +181,89 @@
   
   <!-- 즐겨찾기 한 그룹들을 출력하기 위한 쿼리 -->
   <select id="selectGroupBookmarkList" parameterType="int" resultType="studygroup">
-			select sg.GROUP_NO as groupNo,
-						 sg.GROUP_NAME as groupName, 
-						 sg.GROUP_ACTIVEPLACE as groupActivePlace, 
-						 sg.GROUP_REPIMAGEPATH as groupRepImagePath, 
-						 sg.GROUP_RECRUITSTARTDATE as groupRecruitStartDate, 
-						 sg.GROUP_RECRUITENDDATE as groupRecruitEndDate
-				from t_with_member_bookmark bk, t_with_studygroup sg
-			 where bk.bookmark_no = sg.GROUP_NO
-  			 and bk.member_no = #{groupNo};
+         select sg.GROUP_NO as groupNo,
+                   sg.GROUP_NAME as groupName, 
+                   sg.GROUP_ACTIVEPLACE as groupActivePlace, 
+                   sg.GROUP_REPIMAGEPATH as groupRepImagePath, 
+                   sg.GROUP_RECRUITSTARTDATE as groupRecruitStartDate, 
+                   sg.GROUP_RECRUITENDDATE as groupRecruitEndDate
+            from t_with_member_bookmark bk, t_with_studygroup sg
+          where bk.bookmark_no = sg.GROUP_NO
+            and bk.member_no = #{groupNo};
   </select> 
   
   <!-- 마이스터디 내 내가 개설한 스터디그룹 출력을 위한 쿼리 -->
   <select id="selectMyCreateGroup" parameterType="int" resultMap="studyGroup">
-  	select 
-			group_no, group_name, group_detail, group_maxperson, 
-			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
-			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
-		from t_with_studygroup
-		where member_no = #{memberNo}
+     select 
+         group_no, group_name, group_detail, group_maxperson, 
+         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+         GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+         GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
+      from t_with_studygroup
+      where member_no = #{memberNo}
   </select>
   
   <!-- 마이스터디 내 내가 가입한 스터디그룹 출력을 위한 쿼리 -->
   <select id="selectMyJoinGroup" parameterType="int" resultMap="studyGroup">
-  	select 
-				gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
-				gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
-				gr.GROUP_ACTIVEPLACE, gr.group_email, gr.GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
-				gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
-  		from t_with_joinstudygroup jo, t_with_studygroup gr
- 		 where jo.MEMBER_NO = #{memberNo}
-   		 and jo.GROUP_NO = gr.GROUP_NO
-   		 and jo.member_status = '회원'
+     select 
+            gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
+            gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
+            gr.GROUP_ACTIVEPLACE, gr.group_email, gr.GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
+            gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
+        from t_with_joinstudygroup jo, t_with_studygroup gr
+        where jo.MEMBER_NO = #{memberNo}
+          and jo.GROUP_NO = gr.GROUP_NO
+          and jo.member_status = '회원'
   </select>
   
   <!-- 마이스터디 내 내가 가입 신청중인 스터디그룹 출력을 위한 쿼리 -->
   <select id="selectMyWatingGroupList" parameterType="int" resultMap="studyGroup">
-  	select 
-				gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
-				gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
-				gr.GROUP_ACTIVEPLACE, gr.group_email, gr.GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
-				gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
-  		from t_with_joinstudygroup jo, t_with_studygroup gr
- 		 where jo.MEMBER_NO = #{memberNo}
-   		 and jo.GROUP_NO = gr.GROUP_NO
-   		 and jo.member_status = '가입신청'
+     select 
+            gr.group_no, gr.group_name, gr.group_detail, gr.group_maxperson, 
+            gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
+            gr.GROUP_ACTIVEPLACE, gr.group_email, gr.GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
+            gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO
+        from t_with_joinstudygroup jo, t_with_studygroup gr
+        where jo.MEMBER_NO = #{memberNo}
+          and jo.GROUP_NO = gr.GROUP_NO
+          and jo.member_status = '가입신청'
   </select>
 
-	<!-- 스터디그룹 메인에 스터디그룹 정보를 출력하기 위한 쿼리 -->  
+   <!-- 스터디그룹 메인에 스터디그룹 정보를 출력하기 위한 쿼리 -->  
   <select id="SelectStudygroupMain" parameterType="int" resultMap="studyGroup">
-  	select group_no, group_name, group_detail, group_maxperson, 
-			group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
-			GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
-			GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
-			group_StartDate, group_StartTime, group_EndDate, group_EndTime
-		from t_with_studygroup
-		where group_no = #{groupNo}
+     select group_no, group_name, group_detail, group_maxperson, 
+         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+         GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
+         GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
+         group_StartDate, group_StartTime, group_EndDate, group_EndTime
+      from t_with_studygroup
+      where group_no = #{groupNo}
   </select>
   
   <!-- 스터디그룹 멤버 정보를 출력하기 위한 쿼리 -->
   <select id="SelectStudygroupMemeber" parameterType="int" resultType="member"> 
-  	select mem.Member_no as memberNo,
-  				 mem.member_name as memberName,
-  				 mem.Member_Grade as memberGrade,
-  				 mem.Member_Img as MemberImg
-  	  from t_with_joinstudygroup jg, t_with_member mem
- 		 where jg.MEMBER_NO = mem.MEMBER_NO
-   		 and jg.GROUP_NO = #{groupNo}
-   		 and mem.Member_Status = '회원'
+     select mem.Member_no as memberNo,
+               mem.member_name as memberName,
+               mem.Member_Grade as memberGrade,
+               mem.Member_Img as MemberImg
+       from t_with_joinstudygroup jg, t_with_member mem
+        where jg.MEMBER_NO = mem.MEMBER_NO
+          and jg.GROUP_NO = #{groupNo}
+          and mem.Member_Status = '회원'
+  </select>
+  
+   <!-- 스터디그룹 가입 신청 중인 회원을 출력 -->
+  <select id="selectJoinWatingMember" parameterType="int" resultType="joingroup">
+     select mem.Member_no as memberNo,
+               mem.member_name as memberName,
+               jg.group_comment as groupComment,
+               jg.member_tel as memberTel,
+               mem.id as id,
+               jg.group_JoinDate as groupJoinDate
+       from t_with_joinstudygroup jg, t_with_member mem
+        where jg.MEMBER_NO = mem.MEMBER_NO
+          and jg.GROUP_NO = #{groupNo}
+          and jg.Member_Status = '가입신청'
+       order by jg.join_no ASC
   </select>
 </mapper>

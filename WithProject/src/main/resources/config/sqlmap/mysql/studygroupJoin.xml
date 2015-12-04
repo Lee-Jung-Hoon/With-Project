@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
  <mapper namespace="with.studygroupJoin.dao">
- 	<select id="SelectJoinGroup" parameterType="joingroup" resultType="int">
- 		select count(*)
- 		  from T_WITH_JOINSTUDYGROUP
- 		 where GROUP_NO = #{groupNo}
- 		   and MEMBER_NO = #{memberNo}
- 	</select>
- 	
- 	<select id="selectMemberInfo" parameterType="int" resultType="member">
- 		SELECT 
-			Member_no as memberNo,
-    	member_name as memberName,
-    	Id as id,
-    	Member_Type as memberType,
-    	Member_Gender as memberGender,
-    	Member_Age as memberAge,
-    	Member_Status as memberStatus,
-    	Member_Img as memberImg,
-    	Join_Date as joinDate
-		FROM t_with_member
-		where member_no = #{memberNo}
- 	</select>
- 	
- 	<select id="selectStudygroupInfo" parameterType="int" resultType="studygroup">
- 		select 	
- 			gr.group_no as groupNo, 
- 			gr.group_name as groupName, 
- 			gr.group_detail as groupDetail, 
- 			gr.group_maxperson as groupMaxPerson, 
-			gr.group_nowperson as groupNowPerson, 
-			gr.GROUP_ACTIVELONGITUDE as groupActiveLongitude, 
-			gr.GROUP_ACTIVELATITUDE as groupActiveLatitude,
-			gr.GROUP_ACTIVEPLACE as groupActivePlace,  
-			gr.group_email as groupEmail, 
-			GROUP_TEL as groupTel, 
-			gr.GROUP_CONFIRMTYPE as groupConfirmType, 
-			gr.GROUP_REPIMAGEPATH as groupRepImagePath, 
-			gr.GROUP_RECRUITSTARTDATE as groupRecruitStartDate,  
-			gr.GROUP_RECRUITENDDATE as groupRecruitEndDate,
-			gr.MEMBER_NO as memberNo, 
-			member.member_name as memberName,
-			gr.group_StartDate as groupStartDate, 
-			gr.group_StartTime as groupStartTime, 
-			gr.group_EndDate as groupEndDate, 
-			gr.group_EndTime as groupEndTime
-		from t_with_studygroup gr, t_with_member member
-		where group_no = #{groupNo}
+    <select id="SelectJoinGroup" parameterType="joingroup" resultType="int">
+       select count(*)
+         from T_WITH_JOINSTUDYGROUP
+        where GROUP_NO = #{groupNo}
+          and MEMBER_NO = #{memberNo}
+    </select>
+    
+    <select id="selectMemberInfo" parameterType="int" resultType="member">
+       SELECT 
+         Member_no as memberNo,
+       member_name as memberName,
+       Id as id,
+       Member_Type as memberType,
+       Member_Gender as memberGender,
+       Member_Age as memberAge,
+       Member_Status as memberStatus,
+       Member_Img as memberImg,
+       Join_Date as joinDate
+      FROM t_with_member
+      where member_no = #{memberNo}
+    </select>
+    
+    <select id="selectStudygroupInfo" parameterType="int" resultType="studygroup">
+       select    
+          gr.group_no as groupNo, 
+          gr.group_name as groupName, 
+          gr.group_detail as groupDetail, 
+          gr.group_maxperson as groupMaxPerson, 
+         gr.group_nowperson as groupNowPerson, 
+         gr.GROUP_ACTIVELONGITUDE as groupActiveLongitude, 
+         gr.GROUP_ACTIVELATITUDE as groupActiveLatitude,
+         gr.GROUP_ACTIVEPLACE as groupActivePlace,  
+         gr.group_email as groupEmail, 
+         GROUP_TEL as groupTel, 
+         gr.GROUP_CONFIRMTYPE as groupConfirmType, 
+         gr.GROUP_REPIMAGEPATH as groupRepImagePath, 
+         gr.GROUP_RECRUITSTARTDATE as groupRecruitStartDate,  
+         gr.GROUP_RECRUITENDDATE as groupRecruitEndDate,
+         gr.MEMBER_NO as memberNo, 
+         member.member_name as memberName,
+         gr.group_StartDate as groupStartDate, 
+         gr.group_StartTime as groupStartTime, 
+         gr.group_EndDate as groupEndDate, 
+         gr.group_EndTime as groupEndTime
+      from t_with_studygroup gr, t_with_member member
+      where group_no = #{groupNo}
           and gr.member_no = member.member_no
- 	</select>
- 	
- 	<insert id="insertJoinGroupInfo" parameterType="joingroup">
- 		insert into T_WITH_JOINSTUDYGROUP (
- 			MEMBER_NO,
- 			GROUP_NO,
- 			GROUP_GRADE,
- 			MEMBER_STATUS,
- 			GROUP_COMMENT,
- 			MEMBER_TEL
- 			)
- 		values(
- 			#{memberNo},
- 			#{groupNo},
- 			'일반',
- 			#{memberStatus},
- 			#{groupComment},
- 			#{memberTel}
- 			)
- 	</insert>
- 	
- 	<update id="upJoinGroupPerson" parameterType="joingroup">
- 		update t_with_studygroup
- 		   set group_nowperson = (group_nowperson + 1)
- 		 where group_no = #{groupNo}
- 	</update>
+    </select>
+    
+    <insert id="insertJoinGroupInfo" parameterType="joingroup">
+       insert into T_WITH_JOINSTUDYGROUP (
+          MEMBER_NO,
+          GROUP_NO,
+          GROUP_GRADE,
+          MEMBER_STATUS,
+          GROUP_COMMENT,
+          MEMBER_TEL
+          )
+       values(
+          #{memberNo},
+          #{groupNo},
+          '일반',
+          #{memberStatus},
+          #{groupComment},
+          #{memberTel}
+          )
+    </insert>
+    
+    <update id="upJoinGroupPerson" parameterType="joingroup">
+       update t_with_studygroup
+          set group_nowperson = (group_nowperson + 1)
+        where group_no = #{groupNo}
+    </update>
+    
+   <!--  가입 승인 처리를 위한 쿼리 -->
+    <update id="acceptMember" parameterType="joingroup">
+       update T_WITH_JOINSTUDYGROUP
+          set MEMBER_STATUS = '회원'
+        where group_no = #{groupNo}
+          and member_no = #{memberNo}
+    </update>
 </mapper>
