@@ -80,34 +80,22 @@
      });
       
       /* 받은 메세지 답장 보내기 클릭 시 */
-       $('.msg-send').on('click', function(){
+      $('.msg-send').on('click', function(){
          var txt = $(this).parents('.current').prev().find('span').text();
          var groupNo = $(this).parent().prev().val();
          $('.pin-msg').addClass('off');
          $('.pin-msg-new1').addClass('on');
          $('.pin-msg-newTxt span').text(txt);
-         $.ajax({
-           url : "/WithProject/member/selectMemberNo.json",
-           type: "POST",
-           datatype: "json",
-           data: {memberName : txt},
-           success: function(data, status){
-             console.log(data+"님");
-//                  $.ajax({
-//                    url : "/WithProject/msg/sendMsg.do",
-//                    data: {
-//                      recvId : data, 
-//                      memberNo: "no", 
-//                      content: $('.pin-msg-newTxt textarea').val(),
-//                      groupNo : 1
-//                           },
-//                    success: function(){
-//                      $(".messageLI").click();
-//                    }
-//                  })
-           }
-         })
-       });
+         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvGroupNo' value='"+groupNo+"' />");
+         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvMemberNo' value='"+groupNo+"' />");
+      });
+      $('#recvMsg').on('click', function(){
+        var content = $(this).parent().prev().val();
+        var groupNo = $(this).parent().prev().prev().find('#recvGroupNo').val();
+        var recvId = $(this).parent().prev().prev().find('#recvMemberNo').val();
+        socket.emit("msg", {recvId: recvId , sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
+        $(".messageLI").click();
+      })
   }
    
     /* 받은 메세지 리스트 클릭 시 */
@@ -263,7 +251,7 @@
    messageListHTML += "<textarea></textarea>"
    messageListHTML += "<div class='pin-msg-btn'>"
    messageListHTML += "<button type='button' class='pin-msg-back commonBtn2'><em>취소</em></button>"
-   messageListHTML += "<button type='button' class='pin-msg-send commonBtn2'><em>보내기</em></button>"
+   messageListHTML += "<button type='button' id='recvMsg' class='pin-msg-send commonBtn2'><em>보내기</em></button>"
    messageListHTML += "</div>"
    messageListHTML += "</div>"
    messageListHTML += "</div>"
@@ -306,6 +294,7 @@
          msgListHTML += "<div class='pin-msg-content'>";
          msgListHTML += "<p>"+data[index].content+"</p>";
          msgListHTML += "<input type='hidden' value='"+data[index].groupNo+"'>";
+         msgListHTML += "<input type='hidden' value='"+data[index].memberNo+"'>";
          msgListHTML += "<span><button type='button' class='msg-send commonBtn2'><em>답장 보내기</em></button></span>";
          msgListHTML += "</div>";
          msgListHTML += "</li>";
@@ -364,6 +353,7 @@
   </script>
   <div class="dark-layer"></div>
 	<header>
+		<input type="hidden" name="groupNo" value="${studyGroup.groupNo}" />
 		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<c:choose>
     <c:when test="${!empty id}" >

@@ -117,19 +117,20 @@ $(document).ready(function() {
 	
 	
 	$(".submitBtn").on('click', function () {
-	  console.log("여기는 들어오시구요~~");
-    var id = "${no}";
-    $.ajax({
-      url : "/WithProject/member/memberList2.json",
-      type: "POST",
-      datatype : "JSON",
-      success:function(member, status){
+	  var socket = io.connect("http://192.168.0.6:10001");
+  	var id = "${no}";
+  	$.ajax({
+    	url : "/WithProject/member/nodeMemberList.json",
+    	type: "POST",
+    	datatype : "JSON",
+    	data:{groupNo : groupNo},
+    	success:function(member, status){
         $.each(member, function(no, MemberVO){
           console.log("멤버이시구요~"+member[no].memberNo)
     			socket.emit("alarm", {sendId : member[no].memberNo});
           });
         }
-      })
+      });
 	  var exampleTitle = "";
 	  var example_answer = "";
     for(var i=0; i<addCnt; i++) {

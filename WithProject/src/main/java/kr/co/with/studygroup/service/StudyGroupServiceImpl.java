@@ -124,4 +124,10 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 		return dao.SelectStudyGroupMoneyBook(groupNo);
 	}
 
+	@Override
+	public List<MemberVO> GroupMemberList(int groupNo) throws Exception {
+		return dao.GroupMemberList(groupNo);
+	}
+
+
 }

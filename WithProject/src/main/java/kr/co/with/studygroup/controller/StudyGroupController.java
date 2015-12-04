@@ -97,6 +97,8 @@ public class StudyGroupController {
 		// 업로드한 파일명을 DB에 저장하기 위한 구문
 		studyGroup.setGroupRepImagePath(fileName);
 		
+		HttpSession session = req.getSession();
+		studyGroup.setMemberNo((int)session.getAttribute("no"));
 
 		// 그룹 정보를 DB에 저장한 후 태그 저장을 위해 auto_increment 값을 가지고옴
 		studyGroup.setGroupTag(tag);
@@ -346,5 +348,12 @@ public class StudyGroupController {
 	@RequestMapping("/StudygroupAdminMain.do")
 	public String StudygroupAdminMain() throws Exception {
 		return "StudygroupAdminMain/StudygroupAdminMain";
+	}
+//	
+	// 스터디그룹 대쉬 그래프를 위한 메소드
+	@RequestMapping("/groupMemberList.json")
+	@ResponseBody
+	public List<MemberVO> groupMemberList(int groupNo) throws Exception {
+		return service.GroupMemberList(groupNo);
 	}
 }

@@ -112,4 +112,8 @@ public class StudyGroupDAO {
 		return session.selectList("with.moneybook.dao.SelectStudyGroupMoneyBook", groupNo);
 	}
 
+	public List<MemberVO> GroupMemberList(int groupNo) {
+		return session.selectList("member.dao.memberMapper.GroupMemberList", groupNo);
+	}
+
 }
