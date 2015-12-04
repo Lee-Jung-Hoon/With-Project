@@ -87,4 +87,12 @@
  	 	 t_with_Member
    where id = #{id}
  </select>
+ 
+ <select id="GroupMemberList" parameterType="int" resultType="member">
+ 	select mem.Member_Gender as memberGender,
+	   mem.Member_Age as memberAge
+from t_with_member mem, t_with_joinstudygroup jo
+where mem.member_no = jo.member_no
+  and jo.GROUP_NO = #{groupNo}
+ </select>
 </mapper>
