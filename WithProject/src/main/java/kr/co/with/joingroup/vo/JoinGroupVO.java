@@ -2,7 +2,7 @@ package kr.co.with.joingroup.vo;
 
 public class JoinGroupVO {
 	private int joinNo;
-	private int MemberNo;
+	private int memberNo;
 	private int groupNo;
 	private String groupGrade;
 	private String groupComment;
@@ -11,6 +11,17 @@ public class JoinGroupVO {
 	private String memberStatus;
 	private String id;
 	private String groupName;
+	private String memberName;
+
+	
+	
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 
 	public String getMemberStatus() {
 		return memberStatus;
@@ -46,11 +57,11 @@ public class JoinGroupVO {
 	}
 
 	public int getMemberNo() {
-		return MemberNo;
+		return memberNo;
 	}
 
 	public void setMemberNo(int memberNo) {
-		MemberNo = memberNo;
+		this.memberNo = memberNo;
 	}
 
 	public int getGroupNo() {

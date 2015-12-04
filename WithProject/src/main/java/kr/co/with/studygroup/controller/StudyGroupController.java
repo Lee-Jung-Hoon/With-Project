@@ -33,6 +33,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import kr.co.with.joingroup.vo.JoinGroupVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.service.StudyGroupService;
@@ -346,8 +347,13 @@ public class StudyGroupController {
 	
 	// 스터디그룹 관리자 페이지로 이동
 	@RequestMapping("/StudygroupAdminMain.do")
-	public String StudygroupAdminMain() throws Exception {
-		return "StudygroupAdminMain/StudygroupAdminMain";
+	public ModelAndView StudygroupAdminMain(int groupNo) throws Exception {
+		ModelAndView mav = new ModelAndView("StudygroupAdminMain/StudygroupAdminMain");
+		mav.addObject("groupNo", groupNo);
+		List<JoinGroupVO> member = service.selectJoinWatingMember(groupNo);
+		mav.addObject("member", member);
+		mav.addObject("memberLength", member.size());
+		return mav;
 	}
 //	
 	// 스터디그룹 대쉬 그래프를 위한 메소드

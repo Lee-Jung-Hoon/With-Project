@@ -13,5 +13,7 @@ public interface JoinGroupService {
 	public StudyGroupVO selectStudygroupInfo(int groupNo) throws Exception;
 
 	public void insertJoinGroupInfo(JoinGroupVO join) throws Exception;
+
+	public void acceptMember(JoinGroupVO join) throws Exception;
 	
 }

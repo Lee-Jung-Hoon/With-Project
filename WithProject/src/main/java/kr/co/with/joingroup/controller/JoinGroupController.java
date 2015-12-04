@@ -84,4 +84,17 @@ public class JoinGroupController {
 		return mav;
 	}
 	
+	// 가입 승인 메서드
+	@RequestMapping("/acceptMember.json")
+	@ResponseBody
+	public String acceptMember(int groupNo, int[] member) throws Exception {
+		for(int i=0; i<member.length; i++)  {
+			JoinGroupVO join = new JoinGroupVO();
+			join.setGroupNo(groupNo);
+			join.setMemberNo(member[i]);
+			service.acceptMember(join);
+		}
+		return "가입 승인 완료";		
+	}
+	
 }
