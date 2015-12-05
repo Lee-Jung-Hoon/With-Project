@@ -13,7 +13,19 @@
 			//isInsert = false;
 	//memberNo = 1;
 	var isDR = false;
+	var isAllDay = true;
 	$(document).ready(function() {
+	  $('.sort-area input').on('change', function(){
+	    if ($(this).val() == 1) {
+	      isAllDay = false;
+	      $('.time-area').show();
+	    } else {
+	      isAllDay = true;
+				$('.time-area input').val("00:00");
+	      $('.time-area').hide();
+	    }
+	  });
+	  
 		btnInsert = $('.btn-calendar-insert');
 		btnCancel = $('.btn-calendar-cancel');
 		groupNo = $('.group-no').val();
@@ -129,13 +141,18 @@
               $('.color-txt').val("#ffffff")
               $('.title').val("");
               $('.calendar-detail').val("");
-              $('.cal-frame-first').one('click','button', function(){
+              $('.cal-frame-first .commonBtn').one('click',function(){
                 
                 var title = $('.title').val();
                 var colorBar = $('.color-bar').val();
                 var colorTxt = $('.color-txt').val();
-                var dateStart = $('.date-start').val();
+                var dateStart = $('.date-start').val(); 
                 var dateEnd = $('.date-end').val();
+                if (isAllDay == false) {
+                  dateStart += "T" + $('.time1').val() +":00";
+                  dateEnd += "T" + $('.time2').val() +":00";
+                  console.log(111);
+                }
                 var detail = $('.calendar-detail').val();
                 var groupNo = 1;
   		        	var memberNo = 1;
@@ -218,7 +235,7 @@
 	 		color = $('.color-bar').val();
 	 		textColor = $('.color-txt').val();
 	 		detail = $('.calendar-detail').val();
-	 		console.log(detail);
+	 		
 		}
 		start = moment(start).format("YYYY-MM-DD");
 	  end = moment(end).format("YYYY-MM-DD");
@@ -233,18 +250,7 @@
       } else {
        
         $('#calendar').fullCalendar( 'removeEvents', id );
-/*
- 
- id: entry.id, 
- title: entry.title, 
- start: entry.startDate, 
- end:entry.endDate ,
- color:entry.color, 
- textColor:entry.textColor, 
- detail:entry.calendarDetail, 
- groupNo:entry.groupNo, 
- memberNo:entry.memberNo
- */
+        
         $('#calendar').fullCalendar( 'renderEvent', {
           id : id,
           title: title,
@@ -268,6 +274,7 @@
 	
 	function frameClose(closeTag) {
 	  closeTag.parent().hide();
+	  $('#all_day').click();
 	  $('body').removeClass('view');
  	  $('.cal-frame-first .insert').show();
  	  $('.cal-frame-first .update').hide();
@@ -316,6 +323,7 @@
     })
     .done(function () {   
       $('#calendar').fullCalendar('removeEvents', id);
+      
       frameClose(closeTag);
     });
   }
@@ -360,6 +368,18 @@
 			<li class="title-area"><span>제목 :</span><span><input type="text" class="title" /></span></li>
 			<li class="start-area"><span>시작일 :</span><span><input type="date" class="date-start" /></span></li>
 			<li class="end-area"><span>완료일 :</span><span><input type="date" class="date-end" /></span></li>
+			<li class="sort-area">
+				<span>시간 :</span>
+				<span><input type="radio" id="all_day" name="sort" value="0" checked /><label for="all_day">종일</label><input type="radio" id="choice_day" name="sort" value="1" /><label for="choice_day">시간선택</label></span>
+			</li>
+			<li class="time-area time-area1">
+				<span>시작시간 : </span>
+				<span><input type="time" class="time1" value="00:00" /></span>
+			</li>
+			<li class="time-area time-area2">
+				<span>종료시간 : </span>
+				<span><input type="time" class="time2" value="00:00" /></span>
+			</li>
 			<li class="color-area"><span>이벤트색 :</span><span><input type="color" class="color-bar" value="#3a87ad" /></span></li>
 			<li class="txtColor-area"><span>글자색 :</span><span><input type="color" class="color-txt" value="#ffffff" /></span></li>
 			<li class="detail-area"><span>상세글 :</span><span><textarea cols="30" rows="10" class="calendar-detail"></textarea></span></li>
