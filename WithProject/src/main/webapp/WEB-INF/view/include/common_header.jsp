@@ -519,26 +519,17 @@
     </c:when>
     </c:choose>
 		<div class="login-area">
+		<form action="${pageContext.request.contextPath}/member/login.do" method="post">
+		<c:choose>
+    	<c:when test="${empty id}" >
 		<div class="login-sort login">
-			<form action="${pageContext.request.contextPath}/member/login.do" method="post">
 				<dl class="list maki">
-				
-					<c:choose>
-               <c:when test="${empty id}" >
-               <dt>
-                  <button id="facebook-login-btn" type="button" class="toggle" >LOGIN</button>
-               </dt>
-               </c:when>
-               <c:otherwise>
-               <dt>
-                     <button type="button" id="facebook-logout-btn" class="toggle" 
-                                        onclick='location.href="${pageContext.request.contextPath}/member/logout.do"; FB.logout()'>LOGOUT</button>
-               </dt>
-               </c:otherwise>
-               </c:choose>
-                <dd class="fb-login">
-                  <em><a href="#" onclick="FB.login();">페이스 북 로그인</a></em>
-               </dd>
+          <dt>
+             <button id="facebook-login-btn" type="button" class="toggle" >LOGIN</button>
+          </dt>
+           <dd class="fb-login">
+             <em><a href="#" onclick="FB.login();">페이스 북 로그인</a></em>
+          </dd>
 					<dd class="input-login">
 						<em><input type="text" name="id" id="id" placeholder="ID" /></em>
 					</dd>
@@ -549,8 +540,17 @@
 						<em><input type="submit" value="로그인"  /></em>
 					</dd>
 				</dl>
-			</form>
 		</div>
+		</c:when>
+    <c:otherwise>
+    <div class="login-sort logout">
+    	<button type="button" id="facebook-logout-btn" class="btn-logout" onclick='location.href="${pageContext.request.contextPath}/member/logout.do"; FB.logout()'>LOGOUT</button>
+		</div>               
+    </c:otherwise>
+    </c:choose>
+		</form>
+		<c:choose>
+      <c:when test="${empty id}" >
 			<div class="login-sort join">
 			<form action="${pageContext.request.contextPath}/member/join.do" method="post">
 				<dl class="list maki">
@@ -584,6 +584,8 @@
 				</dl>
 			</form>
 		</div>
+		</c:when>
+		</c:choose>
 	</div>
 	<script>
 			if ($('body').hasClass('page-main')) {
