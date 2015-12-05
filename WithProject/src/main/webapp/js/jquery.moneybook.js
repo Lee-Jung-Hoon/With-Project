@@ -818,6 +818,7 @@ $(document).ready(function() {
       lastDay = new Date(year, month + 1, 0);
       lastDayWithSlashes = (lastDay.getFullYear()) + "-" + (lastDay.getMonth()) + "-" + (lastDay.getDate());
       
+      
       if(month == 0) {
         year = year-1;
         month = 12;
@@ -827,6 +828,9 @@ $(document).ready(function() {
         url : "/WithProject/moneybook/select_MoneyList.json?date="+year+"-"+month
       })
       .done(function(data) {
+        console.log("년 : "+year);
+        console.log("월 : "+month);
+
         var html = "";
         html += "<div class='list-second-inner'>";
           html += "<p>"+data.mDate+"</p>"
@@ -847,7 +851,7 @@ $(document).ready(function() {
                  html += "<tr>";
                    html += "<td class='total'>총 금액</td>";
                      html += "<td class='use-money'>"+data.mMoney+"</td>";
-                   html += "<td>"+year+"-"+month+"-"+01+"~"+lastDayWithSlashes+"</td>";
+                   html += "<td>"+year+"-"+month+"-01 ~ "+lastDayWithSlashes+"</td>";
                  html += "</tr>";
                html += "</tbody>";
             html += "</table>";
