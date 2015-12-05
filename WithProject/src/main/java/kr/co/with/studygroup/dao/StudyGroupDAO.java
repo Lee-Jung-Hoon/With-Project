@@ -121,4 +121,9 @@ public class StudyGroupDAO {
 	public List<MemberVO> GroupMemberList(int groupNo) {
 		return session.selectList("member.dao.memberMapper.GroupMemberList", groupNo);
 	}
+
+	// 스터디그룹 생성 후 가입 정보 입력
+	public void insertJoinGroupInfo(StudyGroupVO studyGroup) {
+		session.insert("with.studygroup.dao.insertJoinGroupInfo", studyGroup);
+	}
 }
