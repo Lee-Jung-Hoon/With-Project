@@ -321,7 +321,7 @@
 						<c:forEach var="work" items="${workInfo}">
 						<tr>
 							<td><span class='work-category'>${work.jobCategory}</span></td>
-							<td><a href='${work.url}' target="_black";>${work.title}</a></td>
+							<td><a href='${work.url}' target="_blank">${work.title}</a></td>
 							<td>${work.company}</td>
 							<td>${work.jobType}</td>
 							<td>${work.openingTimeStamp}</td>
