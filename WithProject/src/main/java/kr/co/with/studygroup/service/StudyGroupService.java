@@ -54,5 +54,7 @@ public interface StudyGroupService {
    public List<MemberVO> GroupMemberList(int groupNo) throws Exception;
    
    public List<JoinGroupVO> selectJoinWatingMember(int groupNo) throws Exception;
+
+public void insertJoinGroupInfo(StudyGroupVO studyGroup) throws Exception;
    
 }

@@ -25,24 +25,33 @@ public class StudyGroupExamController {
 	
 	@Autowired
 	private StudyGroupExamService service;
+	
+	@RequestMapping("/createExamForm.do")
+	public ModelAndView CreateExamForm(int groupNo) throws Exception {
+		ModelAndView mav = new ModelAndView("StudygroupExam/createExamForm");
+		mav.addObject("groupNo", groupNo);
+		return mav;
+	}
 
-	// 시험 만들기 폼 테스트
+	// 시험 리스트
 	@RequestMapping("/examList.do")
-	public ModelAndView ExamList() throws Exception {
+	public ModelAndView ExamList(int groupNo) throws Exception {
 		ModelAndView mav = new ModelAndView("StudygroupExam/examList");
-		List<StudyGroupExamVO> list = service.selectExamList(1);
+		List<StudyGroupExamVO> list = service.selectExamList(groupNo);
+		mav.addObject("groupNo", groupNo);
 		mav.addObject("list", list);
 		return mav;
 	}
 	
 	@RequestMapping("/createExam.do")
-	public String CreateExam(String examTitle, String examExplain, String exampleTitle, String example_answer) throws Exception {
+	public String CreateExam(int groupNo, String examTitle, String examExplain, String exampleTitle, String example_answer) throws Exception {
 		StudyGroupExamVO exam = new StudyGroupExamVO();
 		// 시험 제목
 		exam.setExamTitle(examTitle);
 		// 시험 설명
 		exam.setExamInfo(examExplain);
-
+		exam.setGroupNo(groupNo);
+		
 		// 시험 정보 및 제목을 DB에 입력
 		int ExamNo = service.insertExamInfo(exam);
 		
@@ -66,7 +75,7 @@ public class StudyGroupExamController {
 				service.insertExmpleItem(item);
 			}
 		}
-		return "redirect:/exam/examList.do";
+		return "redirect:/exam/examList.do?groupNo="+groupNo;
 	}
 	
 	@RequestMapping("/examResolve.do")

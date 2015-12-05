@@ -127,6 +127,8 @@ public class StudyGroupController {
 			service.insertStudygroupTag(tagName);
 			}
 		}
+		
+		service.insertJoinGroupInfo(studyGroup);
 		return mav;
 	}
 
