@@ -3,137 +3,139 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<script>
 
-  console.log("클릭이벤트");
-  socket = io.connect("http://192.168.0.6:10001");
-  
-    /* 메시지 보내기 버튼 클릭시*/
-  function sendMsg(){
-    $('.pin-msg-send').on('click', function(){
-      var content = $(this).parent().prev().val();
-      console.log("내용"+content);
-          var array = [];
-      $(this).parent().prev().prev().find('.add-name em').each(function(){
-        array.push($(this).attr("data-id"));
-        console.log("체크된 숫자"+ array);
-      });
-      
-      $.each(array, function(i, value){
-        var arrayId = array[i];
-        var gNo = array[i].split("member")[1];
-        var groupNo = gNo.split("_")[0];
-        var recvId = gNo.split("_")[1];
-        console.log(memberNo+"받는사람"+groupNo+"그룹번호");
-//         $.post("/WithProject/msg/sendMsg.do", {recvId: recvId, memberNo : "${no}", content : content, groupNo : groupNo}, 
-//             function(){ $(".messageLI").click(); });
-        socket.emit("msg", {recvId: recvId, sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
-          $(".messageLI").click();
-        });
-      })
-  }
-  
-  
-  // 그룹 리스트 클릭시 function
-  function slideGroupList() {
-    $('.pin-list-group').on('click', function(){
-      $(this).toggleClass('on').parent().toggleClass('current');
-    });
-  }
-  
-   /* 받는사람 체크박스 function */
-   function memberAdd(tag) {
-     var isSameId = false;
-    var id = tag.attr('id');
-    var txt = tag.next().text();
-    var html = "<em data-id='"+id+"'>"+ txt +"</em>";
-    
-    if (tag.prop('checked') == true) {
-      $('.add-name em').each(function(){
-        if ($(this).attr('data-id') == id) {
-          isSameId = true;
-        } 
-      });
-      if (isSameId == false) {
-        $('.add-name').prepend(html); 
-      }
-    } else {
-      $('.add-name em').each(function(){
-        if ($(this).attr('data-id') == id) {
-          $(this).remove();
-        } 
-      });
-    }
-   }
-   
-   // 메세지 답장 및 읽기 관련
-   function msgMain() {
-      $('.pin-msg-toggle').on('click',function(){
-      if ($(this).hasClass('on')) {
-        $(this).removeClass('on').next().removeClass('current');
-      } else {
-        var index = $(this).parent().index();
-        console.log(index);
-        var heightL = $('.pin-msg > p').height();
-         var height = $('.pin-msg li').height();
-         $(this).addClass('on').next().addClass('current').parent().siblings().find('.pin-msg-toggle').removeClass('on').next().removeClass('current');
-         $('.pin-content').stop().scrollTop(heightL + (index * height));
-      }
-     });
-      
-      /* 받은 메세지 답장 보내기 클릭 시 */
-      $('.msg-send').on('click', function(){
-         var txt = $(this).parents('.current').prev().find('span').text();
-         var groupNo = $(this).parent().prev().val();
-         $('.pin-msg').addClass('off');
-         $('.pin-msg-new1').addClass('on');
-         $('.pin-msg-newTxt span').text(txt);
-         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvGroupNo' value='"+groupNo+"' />");
-         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvMemberNo' value='"+groupNo+"' />");
-      });
-      $('#recvMsg').on('click', function(){
-        var content = $(this).parent().prev().val();
-        var groupNo = $(this).parent().prev().prev().find('#recvGroupNo').val();
-        var recvId = $(this).parent().prev().prev().find('#recvMemberNo').val();
-        socket.emit("msg", {recvId: recvId , sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
-        $(".messageLI").click();
-      })
-  }
-   
-    /* 받은 메세지 리스트 클릭 시 */
-    function clickAction() {         
-          /* 받은 메세지 글쓰기 클릭 시 */
-          $('.pin-msg-write').on('click', function(){
-            $('.pin-msg').addClass('off');
-            $('.pin-msg-new2').addClass('on');
-          });
-          
-          /* 메세지 보내기 받는사람 추가 클릭 시 */
-          $('.pin-msg-add').on('click', function(){
-            $(this).toggleClass('on');
-            $('.pin-add-list').toggleClass('on');
-          });
-          
-          /* 받는사람 체크박스 전체 클릭시 */
-          $('.member-all').on('change',function(){
-            if ($(this).prop('checked') == true) {
-              $(this).parent().nextAll().find('input').prop('checked',true);
-            } else {
-              $(this).parent().nextAll().find('input').prop('checked',false);
-            }
-            $(this).parent().nextAll().find('input').each(function(){
-              memberAdd($(this));
-            });
-          });
-            
-          /* 받는사람 각각 클릭시 */
-           $('.list-member').on('change', function(){
-             memberAdd($(this));
-           });
-          
-          /* 뒤로가기 버튼 클릭시 */
-           $('.pin-msg-back').on('click',function(){
-             $(".messageLI").click();
-           });
-    };
+	 console.log("클릭이벤트");
+	  socket = io.connect("http://192.168.0.6:10001");
+	  
+	    /* 메시지 보내기 버튼 클릭시*/
+	  function sendMsg(){
+	    $('.pin-msg-send').on('click', function(){
+	      var content = $(this).parent().prev().val();
+	      var recvName = $(this).parent().prev().prev().find('em').text();
+	      console.log("내용"+content+"받는놈"+recvName);
+	          var array = [];
+	      $(this).parent().prev().prev().find('.add-name em').each(function(){
+	        array.push($(this).attr("data-id"));
+	        console.log("체크된 숫자"+ array);
+	      });
+	      
+	      $.each(array, function(i, value){
+	        var arrayId = array[i];
+	        var gNo = array[i].split("member")[1];
+	        var groupNo = gNo.split("_")[0];
+	        var recvId = gNo.split("_")[1];
+	        console.log(memberNo+"받는사람"+groupNo+"그룹번호");
+	        socket.emit("msg", {recvName: recvName, recvId: recvId, sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
+	          $(".messageLI").click();
+	        });
+	      })
+	  }
+	  
+	  
+	  // 그룹 리스트 클릭시 function
+	  function slideGroupList() {
+	    $('.pin-list-group').on('click', function(){
+	      $(this).toggleClass('on').parent().toggleClass('current');
+	    });
+	  }
+	  
+	   /* 받는사람 체크박스 function */
+	   function memberAdd(tag) {
+	     var isSameId = false;
+	    var id = tag.attr('id');
+	    var txt = tag.next().text();
+	    var html = "<em data-id='"+id+"'>"+ txt +"</em>";
+	    
+	    if (tag.prop('checked') == true) {
+	      $('.add-name em').each(function(){
+	        if ($(this).attr('data-id') == id) {
+	          isSameId = true;
+	        } 
+	      });
+	      if (isSameId == false) {
+	        $('.add-name').prepend(html); 
+	      }
+	    } else {
+	      $('.add-name em').each(function(){
+	        if ($(this).attr('data-id') == id) {
+	          $(this).remove();
+	        } 
+	      });
+	    }
+	   }
+	   
+	   // 메세지 답장 및 읽기 관련
+	   function msgMain() {
+	      $('.pin-msg-toggle').on('click',function(){
+	      if ($(this).hasClass('on')) {
+	        $(this).removeClass('on').next().removeClass('current');
+	      } else {
+	        var msgNo = $(this).next().find('#msgNum').val();
+	        var index = $(this).parent().index();
+	        $.post("/WithProject/msg/updateMsg.do", { msgNo : msgNo });
+	        console.log(index);
+	        var heightL = $('.pin-msg > p').height();
+	         var height = $('.pin-msg li').height();
+	         $(this).addClass('on').next().addClass('current').parent().siblings().find('.pin-msg-toggle').removeClass('on').next().removeClass('current');
+	         $('.pin-content').stop().scrollTop(heightL + (index * height));
+	      }
+	     });
+	      /* 받은 메세지 답장 보내기 클릭 시 */
+	      $('.msg-send').on('click', function(){
+	         var txt = $(this).parents('.current').prev().find('span').text();
+	         var groupNo = $(this).parent().prev().val();
+	         
+	         $('.pin-msg').addClass('off');
+	         $('.pin-msg-new1').addClass('on');
+	         $('.pin-msg-newTxt span').text(txt);
+	         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvGroupNo' value='"+groupNo+"' />");
+	         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvMemberNo' value='"+groupNo+"' />");
+	      });
+	      $('#recvMsg').on('click', function(){
+	        var content = $(this).parent().prev().val();
+	        var groupNo = $(this).parent().prev().prev().find('#recvGroupNo').val();
+	        var recvId = $(this).parent().prev().prev().find('#recvMemberNo').val();
+	        var recvName = $(this).parent().prev().prev().find('em').text();
+	        socket.emit("msg", {recvName: recvName, recvId: recvId , sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
+	        $(".messageLI").click();
+	      })
+	  }
+	   
+	    /* 받은 메세지 리스트 클릭 시 */
+	    function clickAction() {         
+	          /* 받은 메세지 글쓰기 클릭 시 */
+	          $('.pin-msg-write').on('click', function(){
+	            $('.pin-msg').addClass('off');
+	            $('.pin-msg-new2').addClass('on');
+	          });
+	          
+	          /* 메세지 보내기 받는사람 추가 클릭 시 */
+	          $('.pin-msg-add').on('click', function(){
+	            $(this).toggleClass('on');
+	            $('.pin-add-list').toggleClass('on');
+	          });
+	          
+	          /* 받는사람 체크박스 전체 클릭시 */
+	          $('.member-all').on('change',function(){
+	            if ($(this).prop('checked') == true) {
+	              $(this).parent().nextAll().find('input').prop('checked',true);
+	            } else {
+	              $(this).parent().nextAll().find('input').prop('checked',false);
+	            }
+	            $(this).parent().nextAll().find('input').each(function(){
+	              memberAdd($(this));
+	            });
+	          });
+	            
+	          /* 받는사람 각각 클릭시 */
+	           $('.list-member').on('change', function(){
+	             memberAdd($(this));
+	           });
+	          
+	          /* 뒤로가기 버튼 클릭시 */
+	           $('.pin-msg-back').on('click',function(){
+	             $(".messageLI").click();
+	           });
+	    };
 
     $(document).ready(function() {
     
@@ -145,10 +147,21 @@
       socket.emit("setMemberNo", id);
       
       
-        socket.on("msg", function(data){
-        $.noticeAdd({"text": "<div id='div"+data.cntId+"'>"+data.sendId+" 님에게 메시지가 도착했습니다. <button class='detail'>보기</ button></div>"+data.date});
+      socket.on("msg", function(data){
+        $.noticeAdd({"text": "<div id='div"+data.cntId+"'>"+data.recvName+" 님에게 메시지 도착. </div>"+data.date});
         console.log(data.sendMsg);
-      })
+      	})
+      	
+      	
+      	socket.on("alarm", function(data){
+        console.log("시험등록 진짜 들어왔니~~?" );
+        $.noticeAdd({"text": "<div>"+data.sendName+"님이 시험을 등록. </div>"});
+        })
+                  
+        socket.on("scheduleAlarm", function(data){
+        console.log("일정등록 진짜 들어왔니~~?" );
+        $.noticeAdd({"text": "<div>"+data.sendName+"님이 일정을 등록. </div>"});
+        })
     
     var d = new Date();
     
@@ -295,6 +308,7 @@
          msgListHTML += "<p>"+data[index].content+"</p>";
          msgListHTML += "<input type='hidden' value='"+data[index].groupNo+"'>";
          msgListHTML += "<input type='hidden' value='"+data[index].memberNo+"'>";
+         msgListHTML += "<input type='hidden' id='msgNum' value='"+data[index].msgNo+"'>";
          msgListHTML += "<span><button type='button' class='msg-send commonBtn2'><em>답장 보내기</em></button></span>";
          msgListHTML += "</div>";
          msgListHTML += "</li>";
@@ -353,7 +367,7 @@
   </script>
   <div class="dark-layer"></div>
 	<header>
-		<input type="hidden" name="groupNo" value="${studyGroup.groupNo}" />
+		<input type="hidden" name="groupNo" value="${groupNo}" />
 		<h1><a href="${pageContext.request.contextPath}/main/main.do"><span>WITH</span><em>★</em></a></h1>
 		<c:choose>
     <c:when test="${!empty id}" >
@@ -638,9 +652,9 @@
 	  document.write("<aside>");
 		  document.write("<h2 class='hide'>주메뉴</h2>");
 				document.write("<ul>");
-				document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do?groupNo=${param.groupNo}'><span>일정</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do?groupNo=${param.groupNo}'><span>시험테스트</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/moneybook/moneybookMain.do?groupNo=${param.groupNo}'><span>가계부</span></a></li>");
+				document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do?groupNo=${groupNo}'><span>일정</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do?groupNo=${groupNo}'><span>시험테스트</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/moneybook/moneybookMain.do?groupNo=${groupNo}'><span>가계부</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/referenceRoom/referenceList.do'><span>자료실</span></a></li>");
 					document.write("<li><a href='#'><span>공지사항</span></a></li>");
 			document.write("</ul>");

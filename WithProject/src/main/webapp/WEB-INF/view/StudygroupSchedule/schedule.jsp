@@ -176,19 +176,20 @@
    });
 	function insertCalendar(title, start, end, colorBar, colorTxt, detail, groupNo, memberNo) {
 	  var socket = io.connect("http://192.168.0.6:10001");
-    	var id = "${no}";
-    	$.ajax({
-      	url : "/WithProject/member/nodeMemberList.json",
-      	type: "POST",
-      	datatype : "JSON",
-      	data:{groupNo : groupNo},
-      	success:function(member, status){
-	        $.each(member, function(no, MemberVO){
+  	var id = "${no}";
+  	var name = "${name}"
+  	$.ajax({
+    	url : "/WithProject/member/nodeMemberList.json",
+    	type: "POST",
+    	datatype : "JSON",
+    	data:{groupNo : groupNo},
+    	success:function(member, status){
+        $.each(member, function(no, MemberVO){
 	          console.log("멤버이시구요~"+member[no].memberNo)
-	    			socket.emit("scheduleAlarm", {sendId : member[no].memberNo});
-	          });
-	        }
-	      });
+	    			socket.emit("scheduleAlarm", {sendName: name , recvId : member[no].memberNo});
+         });
+       }
+     });
 
 	    $.ajax({
          url: "${pageContext.request.contextPath}/calendar/regist_sch.json",

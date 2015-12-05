@@ -117,17 +117,21 @@ $(document).ready(function() {
 	
 	
 	$(".submitBtn").on('click', function () {
+	 
 	  var socket = io.connect("http://192.168.0.6:10001");
   	var id = "${no}";
+  	var name = "${name}";
+  	var groupNo = ${groupNo};
+  	console.log(groupNo+"그룹엔오");
   	$.ajax({
     	url : "/WithProject/member/nodeMemberList.json",
     	type: "POST",
     	datatype : "JSON",
-    	data:{groupNo : groupNo},
+    	data:{groupNo : 15},
     	success:function(member, status){
         $.each(member, function(no, MemberVO){
           console.log("멤버이시구요~"+member[no].memberNo)
-    			socket.emit("alarm", {sendId : member[no].memberNo});
+    			socket.emit("alarm", {sendName: name , recvId : member[no].memberNo});
           });
         }
       });
