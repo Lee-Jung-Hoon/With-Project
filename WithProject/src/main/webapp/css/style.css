@@ -255,6 +255,7 @@ header .bookmarkZone-left {
 header .bookmarkZone .bookmarkZone-left span {
 	display:inline-block;
 	vertical-align:top;
+	margin:2px;
 }
 header .bookmarkZone .img {
 	display:inline-block;
@@ -1901,6 +1902,7 @@ main {
 	clear:both;
 	overflow:hidden;
 	display:inline-block;
+	padding-bottom:5px;
 }
 .list-txt .list-BtnDIV button {
 	width:150px;
@@ -1923,7 +1925,7 @@ path:hover {
 	opacity:0.9; 
 }
 rect:hover {
-	fill:blue; 
+	fill:#6A55C2; 
 }
 .axis {
 	font:10px sans-serif;
@@ -2518,6 +2520,12 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .cal-frame-first input, .cal-frame-first textarea {
 	border:1px solid #ddd;
 }
+.cal-frame-first input[type="radio"], .cal-frame-first input[type="time"], .cal-frame-first label {
+	vertical-align:middle;
+}
+.cal-frame-first label {
+	padding-right:10px;
+}
 .cal-frame-first input[type="text"], .cal-frame-first input[type="date"] {
 	line-height:24px;
 	height:24px;
@@ -2601,7 +2609,9 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	background:url('/WithProject/images/icon_close_cal.png') no-repeat center;
 	background-size:15px 15px;
 }	
-
+.time-area {
+	display:none;
+}
 /* 상단 핀 메세지 */
 .pin-content .title-common {
 	font-weight:bold;
@@ -3157,4 +3167,11 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 	line-height:50px;
 	background:#E94B3B;
 	text-align:center;
+}
+.table-studyGroup th {
+	vertical-align:middle;
+	color:#fff;
+	font-weight:bold;
+	height:30px;
+	font-size:15px;
 }
