@@ -333,7 +333,7 @@
 					</tbody>
 				</table>
 				<div style="text-align: right; text-decoration: underline; margin-top: 10px;">
-					<a href='http://www.saramin.co.kr/zf_user/' target="_black";>채용 공고 더보기</a>
+					<a href='http://www.saramin.co.kr/zf_user/' target="_blank">채용 공고 더보기</a>
 				</div>
 		</div>
 	</div>
