@@ -165,84 +165,92 @@
     
     var d = new Date();
     
-    // 상단 핀 내 즐겨찾기 탭 클릭시
-    $(".bookmarkLI").on('click', function() {
-      var html = "";
-     	html += "<div id='bookmarkList' style='font-size: 20px; line-height:30px; height:auto;'>";
-      $.ajax({
-        url: "${pageContext.request.contextPath}/studygroup/groupBookmarkList.json"
-      })
-      .done(function(response) {
-        $.each(response, function(index, StudygroupVO) {
-          console.log(response[index]);
-          html += "<li class='bookmark_content bookmark_"+response[index].groupNo+"'>";
-          html += "<div class='bookmark-left'>";
-          html += "<img src='/WithProject/images/"+response[index].groupRepImagePath+"'/>";
-          html += "</div>";
-          html += "<div class='bookmark-right'>";
-          html += "<span><a href='#' onclick='mapDetail("+response[index].groupNo+")'>"+response[index].groupName+"</a></span>";
-          html += "<span>"+response[index].groupActivePlace+"</span><br/>";
-          html += "<span>"+response[index].groupRecruitStartDate+"</span>";
-          html += "<span> ~ </span>";
-          html += "<span>"+response[index].groupRecruitEndDate+"</span>";
-          html += "</div>"
-          html += "</li>";
+   // 상단 핀 내 즐겨찾기 탭 클릭시
+      $(".bookmarkLI").on('click', function() {
+        var html = "";
+       	html += "<div id='bookmarkList'>";
+       	html += "<p class='title-common'>내가 즐겨찾기한 스터디</p>";
+       	html += "<ul>";
+        $.ajax({
+          url: "${pageContext.request.contextPath}/studygroup/groupBookmarkList.json"
+        })
+        .done(function(response) {
+          $.each(response, function(index, StudygroupVO) {
+            console.log(response[index]);
+            html += "<li class='bookmark_content bookmark_"+response[index].groupNo+"'>";
+            html += "<div class='bookmark-left'>";
+            html += "<img src='/WithProject/images/"+response[index].groupRepImagePath+"'/>";
+            html += "</div>";
+            html += "<div class='bookmark-right'>";
+            html += "<button onclick='mapDetail("+response[index].groupNo+")'>"+response[index].groupName+"</button>";
+            html += "<em>"+response[index].groupActivePlace+"</em>";
+            html += "<span>"+response[index].groupRecruitStartDate+"<strong>~</strong>" + response[index].groupRecruitEndDate + "</span>";
+            html += "</div>"
+            html += "</li>";
+          });
+          html += "</ul>";
+        	html += "</div>";
+  				$(".pin-content").html("").append(html);
         });
-      	html += "</div>";
-				$(".pin-content").html("").append(html);
+        
       });
-      
-    })
     
-    // 상단 핀 내 마이스터디 탭 클릭시
-    $(".mystudyLI").on('click', function() {
-      var html = "";
-	    html += "<div class='myCreateGroupList'>생성한 스터디그룹</div>"
-      html += "<div class='myJoinGroupList'>가입 스터디그룹</div>"
-      html += "<div class='myWatingGroupList'>가입 대기 스터디그룹</div>"
-			$(".pin-content").html("").append(html);
-			
-      // 내가 생성한 스터디그룹 출력하는 AJAX
-      $.ajax({
-			  url : "${pageContext.request.contextPath}/studygroup/myCreateGroup.json"
-			})
-			.done(function(response) {
-			  html = "<ul class='mystudyUL'>";
-			  $.each(response, function(index, StudygroupVO) {
-			    html += "<li><a class='list-toggle eft-light2' href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+      // 상단 핀 내 마이스터디 탭 클릭시
+      $(".mystudyLI").on('click', function() {
+        var html = "";
+        html += "<div class='myCreateGroupListWrap'>";
+        html += "<div class='myCreateGroupList'>";
+  	    html += "<p class='title-common'>생성한 스터디그룹</p>";
+  	    html += "</div>";
+  	    html += "<div class='myJoinGroupList'>";
+  	    html += "<p class='title-common'>가입 스터디그룹</p>";
+  	    html += "</div>";
+  	    html += "<div class='myWatingGroupList'>";
+  	    html += "<p class='title-common'>가입 대기 스터디그룹</p>";
+        html += "</div>";
+  			$(".pin-content").html("").append(html);
+  			
+        // 내가 생성한 스터디그룹 출력하는 AJAX
+        $.ajax({
+  			  url : "${pageContext.request.contextPath}/studygroup/myCreateGroup.json"
+  			})
+  			.done(function(response) {
+  			  html = "<ul class='mystudyUL'>";
+  			  $.each(response, function(index, StudygroupVO) {
+  			    html += "<li><a class='list-toggle eft-light2' href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"'>"+response[index].groupName+"</a></li>";
+          });
+  			  html += "</ul>";
+  			  $(".myCreateGroupList").append(html);
         });
-			  html += "</ul>";
-			  $(".myCreateGroupList").append(html);
-      });
-			
-      // 내가 가입한 스터디그룹 출력하는 AJAX
-      $.ajax({
-			  url : "${pageContext.request.contextPath}/studygroup/myJoinGroup.json"
-			})
-			.done(function(response) {
-			  html = "<ul class='mystudyUL'>";
-			  console.log(response);
-			  $.each(response, function(index, StudygroupVO) {
-			    html += "<li><a class='list-toggle eft-light2' href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+  			
+        // 내가 가입한 스터디그룹 출력하는 AJAX
+        $.ajax({
+  			  url : "${pageContext.request.contextPath}/studygroup/myJoinGroup.json"
+  			})
+  			.done(function(response) {
+  			  html = "<ul class='mystudyUL'>";
+  			  console.log(response);
+  			  $.each(response, function(index, StudygroupVO) {
+  			    html += "<li><a class='list-toggle eft-light2' href='${pageContext.request.contextPath}/studygroup/StudygroupMain.do?groupNo="+response[index].groupNo+"'>"+response[index].groupName+"</a></li>";
+          });
+  			  html += "</ul>";
+  			  $(".myJoinGroupList").append(html);
         });
-			  html += "</ul>";
-			  $(".myJoinGroupList").append(html);
-      });
-      
-   		// 현재 가입 신청 후 승인 대기중인 스터디그룹 출력하는 AJAX
-      $.ajax({
-			  url : "${pageContext.request.contextPath}/studygroup/myWatingGroupList.json"
-			})
-			.done(function(response) {
-			  html = "<ul class='mystudyUL'>";
-			  console.log(response);
-			  $.each(response, function(index, StudygroupVO) {
-			    html += "<li><a class='list-toggle eft-light2' href='#' onclick='mapDetail("+response[index].groupNo+")' style='font-size:15px;'>"+response[index].groupName+"</a></li>";
+        
+     		// 현재 가입 신청 후 승인 대기중인 스터디그룹 출력하는 AJAX
+        $.ajax({
+  			  url : "${pageContext.request.contextPath}/studygroup/myWatingGroupList.json"
+  			})
+  			.done(function(response) {
+  			  html = "<ul class='mystudyUL'>";
+  			  console.log(response);
+  			  $.each(response, function(index, StudygroupVO) {
+  			    html += "<li><a class='list-toggle eft-light2' href='#' onclick='mapDetail("+response[index].groupNo+")'>"+response[index].groupName+"</a></li>";
+          });
+  			  html += "</ul>";
+  			  $(".myWatingGroupList").append(html);
         });
-			  html += "</ul>";
-			  $(".myWatingGroupList").append(html);
       });
-    })
     
     
     // 상단 핀 내 메세지 탭 클릭시
