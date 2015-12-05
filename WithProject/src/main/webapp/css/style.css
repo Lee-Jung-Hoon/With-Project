@@ -241,7 +241,7 @@ header .bookmarkZone {
   color:#000;
   font-size:30px;
   text-align:left;
-  margin-top:-25px;
+  margin-top:-23px;
   border-radius:10px;
   z-index:1;
 }
@@ -381,6 +381,10 @@ header .main-menu em {
 	font-size:20px;
 	
 }
+.page-sub .bookmarkZone {
+	right:200px;	
+}
+
 /* 공통버튼 스타일 */
 
 .commonBtn {
@@ -1042,6 +1046,12 @@ aside li:hover span {
 .toggle:hover {
     
 
+}
+.btn-map1 {
+	background:#23AE89;
+}
+.btn-map2 {
+	background:#1C7EBB;
 }
 
 /* No CSS 3D support warning */
@@ -1915,6 +1925,23 @@ main {
     width:39%;
     height:350px;
 }
+.list-txt .btn-map-spot {
+	
+}
+.list-txt .btn-map-spot p {
+	font-weight:bold;
+	font-size:14px;
+}
+.list-txt .btn-map-set {
+	margin-top:3px;
+}
+.list-txt .btn-map-set a {
+	font-size:13px;
+	display:inline-block;
+	padding:0 5px;
+	line-height:30px;
+	margin-right:3px;
+}
 
 .list-txt .list-BtnDIV {
 	clear:both;
@@ -1990,10 +2017,13 @@ rect:hover {
   border-right-style:none;
   border-top-style:none;
 }
-
+.list-txt .list-openDivWrap {
+	overflow:hidden;
+	padding:20px 0;
+}
 .list-txt .list-openImgDIV {
-	float:left;
-/*    width: 250px; */
+		display:table-cell;
+		vertical-align:middle;
 		width:15%;
 }
 
@@ -2001,11 +2031,15 @@ rect:hover {
    width: 100%;
 }
 
-.list-txt .list-openUl{   
+.list-txt .list-openUl {
+	display:table-cell;
+	vertical-align:middle;
 	width:85%;
 	font-size: 15px;
-	float: left;
-	padding-left: 10px;
+	padding-left:10px;
+}
+.list-txt .list-openUl li {
+	line-height:24px;
 }
 
 .list-txt .list-detailDIV {
@@ -2958,6 +2992,78 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 .add-name em {
 	padding-right:5px;
+}
+#bookmarkList ul {
+	background:#fefefe;
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);
+}
+.bookmark_content {
+	display:table;
+	width:100%;
+	padding:10px;
+	border-bottom:1px solid #ddd;
+	font-size:15px;
+	line-height:20px;
+	overflow:hidden;
+}
+.bookmark_content .bookmark-left {
+	display:table-cell;
+	width:30%;
+	vertical-align:middle;
+	margin-right:5px;
+}
+.bookmark_content .bookmark-left img {
+	width:100%;
+}
+.bookmark_content .bookmark-right {
+	display:table-cell;
+	vertical-align:middle;
+}
+.bookmark_content button {
+	font-weight:bold;
+	font-size:15px;
+}
+.bookmark_content em, .bookmark_content span {
+	display:block;
+}
+.bookmark_content strong {
+	padding:0 5px;
+}
+.bookmark_content span {
+	color:#999;	
+	font-size:14px;
+}
+.list-toggle {
+	width:100%;
+	position:relative;
+	overflow:hidden;
+	height:36px;
+	line-height:36px;
+	padding:0 5px;
+	display:block;
+	font-size:15px;
+	border-top:1px solid #ddd;
+	background:#fff;
+	color:#000;
+	transition:background 1.2s, color 1.2s;
+}
+.list-toggle:hover {
+	background:#515d6e;
+	color:#fff;
+	transition:background 1.2s, color 1.2s;
+}
+.myCreateGroupListWrap .mystudyUL {
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.15);	
+}
+.myCreateGroupListWrap .mystudyUL a {
+	text-align:center;
+	font-weight:bold;
+}
+.myCreateGroupListWrap > div {
+	border-top:1px solid #ddd;
+}
+.myCreateGroupListWrap > div:first-child {
+	border:0;
 }
 /*sub-page 자료등록*/
 

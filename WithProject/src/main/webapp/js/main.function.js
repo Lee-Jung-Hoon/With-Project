@@ -488,18 +488,20 @@ function ready() {
     HTML += " </div>";
     HTML += " </div>";
     HTML += " <div class='list-openDIV'>";
-    HTML += "  <div style='margin-bottom: 20px;'>";
+    HTML += "  <div>";
     HTML += "  <h4>스터디그룹 개설자 정보</h4>";
     HTML += " <label>*본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
     HTML += " </div>";
+    HTML += " <div class='list-openDivWrap'>";
     HTML += " <div class='list-openImgDIV'>";
     HTML += " <img class='list-openImg' src='/WithProject/images/sample.jpg'>";
     HTML += "</div>";
     HTML += "<div class='list-openUl'>";
-    HTML += "  <ul style='padding-top: 50px;'>";
-    HTML += "   <li style='padding-bottom: 20px;'>" + response.memberName + "</li>";
-    HTML += "  <li style='padding-bottom: 20px;'>"+response.groupEmail+" - "+response.groupTel+"</li>";
+    HTML += "  <ul>";
+    HTML += "   <li>" + response.memberName + "</li>";
+    HTML += "  <li>"+response.groupEmail+" - "+response.groupTel+"</li>";
     HTML += " </ul>";
+    HTML += " </div>";
     HTML += " </div>";
     HTML += " </div>";
     HTML += "<div class='list-detailDIV'>";
@@ -590,9 +592,13 @@ function ready() {
 
     marker.setMap(map);
 
-    var iwContent = "<div style='padding:5px;'>"+response.groupActivePlace+"<br>";
-      iwContent +="<a href='http://map.daum.net/link/map/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' style='color:blue' target='_blank'>큰지도보기</a>";
-      iwContent +="<a href='http://map.daum.net/link/to/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' style='color:blue' target='_blank'>길찾기</a></div>";
+    var iwContent = "<div class='btn-map-spot'>";
+      iwContent +="<p>"+response.groupActivePlace+"</p>"; 
+      iwContent +="<div class='btn-map-set'>"; 
+      iwContent +="<a href='http://map.daum.net/link/map/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' class='btn-map1 commonBtn' target='_blank'>큰지도보기</a>";
+      iwContent +="<a href='http://map.daum.net/link/to/"+response.groupActivePlace+","+response.groupActiveLatitude+","+response.groupActiveLongitude+"' class='btn-map2 commonBtn' target='_blank'>길찾기</a>";
+      iwContent +="</div>";
+      iwContent +="</div>";
     iwPosition = new daum.maps.LatLng(response.groupActiveLatitude, response.groupActiveLongitude);
 
  
@@ -1035,7 +1041,7 @@ function mapDetail(no) {
   commentList(no);
   HTML += "</div>";
   $(".list-content").html('').append(HTML);
-
+  
   
   var mapContainer = document.getElementById('map'),
   mapOption = {
@@ -1073,7 +1079,6 @@ function mapDetail(no) {
   var scroll = $(window).scrollTop();
   //var boxTop = parseInt($('.box').css('top'));
   $('.box').addClass('open', callbackOpen).css('top',30 + scroll + 'px');
-  return false;
 });
 
 $('.box .btn-close').on('click', function() {
