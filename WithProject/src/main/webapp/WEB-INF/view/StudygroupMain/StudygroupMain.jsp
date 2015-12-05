@@ -294,7 +294,7 @@
 		</div>
 		
 		<div>
-			<table class="table-common">
+			<table class="table-common table-studyGroup">
 				<colgroup>
 					<col style="width:10%;" />
 					<col style="width:30%" />
