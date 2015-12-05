@@ -188,8 +188,8 @@
                    sg.GROUP_RECRUITSTARTDATE as groupRecruitStartDate, 
                    sg.GROUP_RECRUITENDDATE as groupRecruitEndDate
             from t_with_member_bookmark bk, t_with_studygroup sg
-          where bk.bookmark_no = sg.GROUP_NO
-            and bk.member_no = #{groupNo};
+          where bk.GROUP_NO = sg.GROUP_NO
+            and bk.member_no = #{memberNo};
   </select> 
   
   <!-- 마이스터디 내 내가 개설한 스터디그룹 출력을 위한 쿼리 -->
@@ -266,4 +266,23 @@
           and jg.Member_Status = '가입신청'
        order by jg.join_no ASC
   </select>
+  
+  <insert id="insertJoinGroupInfo" parameterType="studygroup">
+      insert into t_with_joinstudygroup (
+      	member_no,
+      	group_no,
+      	group_grade,
+      	Member_Status,
+      	group_comment,
+      	member_tel
+      )
+      values(
+      	#{memberNo},
+      	#{groupNo},
+      	'관리자',      	
+      	'회원',
+      	#{groupTel}
+      )
+      
+  </insert>
 </mapper>
