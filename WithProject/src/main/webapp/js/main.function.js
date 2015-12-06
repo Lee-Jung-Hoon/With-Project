@@ -149,16 +149,24 @@ $(document).ready(function() {
           // 생성된 마커를 배열에 추가
           markers.push(marker);
           
-          var iwContent = "<div style='padding:5px;'><input type='button' class='mapDetail' value='"+groupName+"' onclick='mapDetail("+groupNo+");'/></div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          var iwContent = "<div style='padding:5px;'><a href='#' class='mapDetail' onclick='mapDetail("+groupNo+");'/>"+groupName+"</a></div>",
+          iwRemoveable = true; 
+          // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+          // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
          
           // 인포윈도우를 생성합니다
           var infowindow = new daum.maps.InfoWindow({
             position : position, 
-            content : iwContent 
+            content : iwContent,
+            removable : iwRemoveable
+          });
+          
+          // 마커에 클릭이벤트를 등록합니다
+          daum.maps.event.addListener(marker, 'click', function() {
+                // 마커 위에 인포윈도우를 표시합니다
+                infowindow.open(map, marker);  
           });
         
-          // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-          infowindow.open(map, marker);
           
           infowindows.push(infowindow);
         }
@@ -264,7 +272,11 @@ function commentList(no) {
     var comment = "";
     $.each(response, function(index, value) {
       comment += "<li class='comment_content comment_"+response[index].commentNo+"'>";
-      comment += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' />";
+      if(response[index].commentImg==null)
+        comment += "<img style='width:50px; height:50px;' src='/WithProject/images/01.jpg' />";
+      else {
+        comment += "<img style='width:50px; height:50px;' src='"+response[index].commentImg+"' />";
+      }
       comment += "<div class='comment_conR'>";
       comment += "<span><em>" + response[index].memberName + "</em><strong>" + response[index].regDate + "</strong></span>";
       comment += "<span>" + response[index].commentContent + "</span>";
@@ -494,7 +506,7 @@ function ready() {
     HTML += " </div>";
     HTML += " <div class='list-openDivWrap'>";
     HTML += " <div class='list-openImgDIV'>";
-    HTML += " <img class='list-openImg' src='/WithProject/images/sample.jpg'>";
+    HTML += " <img class='list-openImg' src='"+response.memberImage+"'>";
     HTML += "</div>";
     HTML += "<div class='list-openUl'>";
     HTML += "  <ul>";
@@ -512,7 +524,12 @@ function ready() {
     HTML += "<div class='list-detailDIV' style='border-bottom-style: none;'>";
     HTML += "<h4>스터디그룹 댓글</h4>";
     HTML += "<div class='list-detail'>";
-    HTML += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='margin-right:20px;' width='50' height='50'>";
+    console.log(userImagePath);
+    if(userImagePath=="")
+      HTML += "<img src='/WithProject/images/01.jpg' style='margin-right:20px;' width='50' height='50'>";
+    else {
+      HTML += "<img src='"+userImagePath+"' style='margin-right:20px;' width='50' height='50'>";
+    }
     HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
     HTML += "<button type='button' class='commonBtn' onclick='regComment("+no+")'>내용입력</button>";
     HTML += "</div>";
@@ -670,7 +687,7 @@ function dashboard(id, fData) {
     hGDim.w = 500 - hGDim.l - hGDim.r, hGDim.h = 300 - hGDim.t - hGDim.b;
 
     //create svg for histogram.
-    var hGsvg = d3.select(id).append("svg").attr("width",
+    var hGsvg = d3.select(id).html("").append("svg").attr("width",
         hGDim.w + hGDim.l + hGDim.r)
         .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g").attr(
             "transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
@@ -1012,7 +1029,7 @@ function mapDetail(no) {
   HTML += " <label>*본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
   HTML += " </div>";
   HTML += " <div class='list-openImgDIV'>";
-  HTML += " <img class='list-openImg' src='/WithProject/images/sample.jpg'>";
+  HTML += " <img class='list-openImg' src='"+response1.memberImage+"'>";
   HTML += "</div>";
   HTML += "<div class='list-openUl'>";
   HTML += "  <ul style='padding-top: 50px;'>";
@@ -1029,7 +1046,13 @@ function mapDetail(no) {
   HTML += "<div class='list-detailDIV' style='border-bottom-style: none;'>";
   HTML += "<h4>스터디그룹 댓글</h4>";
   HTML += "<div class='list-detail'>";
-  HTML += "<img src='http://static.onoffmix.com/images2/default/userPhoto_50.gif' style='margin-right:20px;' width='50' height='50'>";
+  console.log(userImagePath);
+  if(userImagePath=="")
+    HTML += "<img src='/WithProject/images/01.jpg' style='margin-right:20px;' width='50' height='50'>";
+  else {
+    HTML += "<img src='"+userImagePath+"' style='margin-right:20px;' width='50' height='50'>";
+  }
+  
   HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
   HTML += "<button type='button' class='commonBtn' onclick='regComment("+no+")'>내용입력</button>";
   HTML += "</div>";
@@ -1100,6 +1123,7 @@ function callbackClose() {
     $('.img-wrap').removeClass('on');
   }, 1000);
 }
+return false;
 }
 
 // 그룹 참가 신청 버튼 클릭

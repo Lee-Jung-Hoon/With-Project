@@ -27,6 +27,7 @@
       <result column="group_StartTime" property="groupStartTime"/>
       <result column="group_EndDate" property="groupEndDate"/>
       <result column="group_EndTime" property="groupEndTime"/>
+      <result column="Member_Img" property="memberImage"/>
    </resultMap>
 
    <!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
@@ -114,7 +115,7 @@
          gr.group_nowperson, gr.GROUP_ACTIVELONGITUDE, gr.GROUP_ACTIVELATITUDE,
          gr.GROUP_ACTIVEPLACE, gr.group_email, GROUP_TEL, gr.GROUP_CONFIRMTYPE, 
          gr.GROUP_REPIMAGEPATH, gr.GROUP_RECRUITSTARTDATE, gr.GROUP_RECRUITENDDATE, gr.MEMBER_NO, member.member_name,
-         gr.group_StartDate, gr.group_StartTime, gr.group_EndDate, gr.group_EndTime
+         gr.group_StartDate, gr.group_StartTime, gr.group_EndDate, gr.group_EndTime, member.Member_Img
       from t_with_studygroup gr, t_with_member member
       where group_no = #{no}
           and gr.member_no = member.member_no
@@ -140,7 +141,9 @@
          mem.member_name as memberName,
          com.GROUP_NO as groupNo, 
          com.COMMENT_NO as commentNo, 
+         com.COMMENT_NO as commentNo, 
          com.COMMENT_CONTENT as commentContent, 
+         mem.Member_Img as commentImg,
          date_format(com.REG_DATE, '%Y-%m-%d %H:%i') as regDate
       from 
          T_WITH_STUDYGROUP_COMMENT com, T_WITH_MEMBER MEM
