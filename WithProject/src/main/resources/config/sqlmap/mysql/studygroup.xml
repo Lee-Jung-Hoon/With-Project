@@ -232,7 +232,7 @@
    <!-- 스터디그룹 메인에 스터디그룹 정보를 출력하기 위한 쿼리 -->  
   <select id="SelectStudygroupMain" parameterType="int" resultMap="studyGroup">
      select group_no, group_name, group_detail, group_maxperson, 
-         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE,
+         group_nowperson, GROUP_ACTIVELONGITUDE, GROUP_ACTIVELATITUDE, group_tag,
          GROUP_ACTIVEPLACE, group_email, GROUP_TEL, GROUP_CONFIRMTYPE, 
          GROUP_REPIMAGEPATH, GROUP_RECRUITSTARTDATE, GROUP_RECRUITENDDATE, MEMBER_NO
          group_StartDate, group_StartTime, group_EndDate, group_EndTime
