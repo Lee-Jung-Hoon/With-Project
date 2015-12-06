@@ -79,6 +79,7 @@ $(document).ready(function(){
   });
   $('.pin-btn').on('click', function(){
     $(this).toggleClass('active').next().toggle();
+    $(".bookmarkLI").trigger("click");
   });
   $('.pin-list button').on('click', function(){
     $(this).addClass('current').parent().siblings().find('button').removeClass('current');
