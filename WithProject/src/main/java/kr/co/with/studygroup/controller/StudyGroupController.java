@@ -264,12 +264,7 @@ public class StudyGroupController {
 		
 		
 		List<StudygroupWorkInfoVO> list = new ArrayList<>();
-			String calUrl = "http://api.saramin.co.kr/job-search?" 
-								+ "keywords=프로그래머" 
-								+ "&sort=pd" 
-								+ "&loc_cd=101000"
-								+ "&count=10" 
-								+ "&output=xml";
+			String calUrl = "http://api.saramin.co.kr/job-search?keywords="+studyGroup.getGroupTag().split(",")[0]+"&sort=pd&loc_cd=101000&count=10&output=xml";
 			URL url = new URL(calUrl);
 			InputStream in = url.openStream();
 
