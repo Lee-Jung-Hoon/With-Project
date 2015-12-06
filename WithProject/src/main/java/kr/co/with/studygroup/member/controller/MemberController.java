@@ -59,6 +59,7 @@ public class MemberController {
 		}
 		else{
 			MemberVO loginVO = service.selectMember(member);
+			session.setAttribute("image", loginVO.getMemberImg());
 			session.setAttribute("id", loginVO.getId());
 			session.setAttribute("grade", loginVO.getMemberGrade());
 			session.setAttribute("name", loginVO.getMemberName());

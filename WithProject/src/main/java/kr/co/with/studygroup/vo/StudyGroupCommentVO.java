@@ -1,14 +1,25 @@
 package kr.co.with.studygroup.vo;
 
+/**
+ * @author JungHoon
+ *
+ */
 public class StudyGroupCommentVO {
 	private int memberNo;
 	private String memberName;
 	private int groupNo;
 	private int commentNo;
 	private String commentContent;
+	private String commentImg;
 	private String regDate;
-	
-	
+
+	public String getCommentImg() {
+		return commentImg;
+	}
+
+	public void setCommentImg(String commentImg) {
+		this.commentImg = commentImg;
+	}
 
 	public String getMemberName() {
 		return memberName;

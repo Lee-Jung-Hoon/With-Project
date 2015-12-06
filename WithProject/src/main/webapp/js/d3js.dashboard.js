@@ -12,7 +12,7 @@
         hGDim.h = 300 - hGDim.t - hGDim.b;
             
         //create svg for histogram.
-        var hGsvg = d3.select(id).append("svg")
+        var hGsvg = d3.select(id).html("").append("svg")
             .attr("width", hGDim.w + hGDim.l + hGDim.r)
             .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
             .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");

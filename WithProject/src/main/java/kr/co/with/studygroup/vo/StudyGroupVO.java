@@ -21,6 +21,15 @@ public class StudyGroupVO {
 	private String groupStartTime;
 	private String groupEndDate;
 	private String groupEndTime;
+	private String memberImage;
+
+	public String getMemberImage() {
+		return memberImage;
+	}
+
+	public void setMemberImage(String memberImage) {
+		this.memberImage = memberImage;
+	}
 
 	public String getGroupStartDate() {
 		return groupStartDate;

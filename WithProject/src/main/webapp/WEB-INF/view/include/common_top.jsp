@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/notice/jquery.notice.css" />
 <script>
 	var memberNo = "${no}";
+	var userImagePath = "${image}";
 </script>
 <script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script>
