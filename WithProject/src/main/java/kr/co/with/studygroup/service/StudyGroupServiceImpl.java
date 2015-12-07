@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.studygroup.calendar.vo.CalendarVO;
 import kr.co.with.studygroup.dao.StudyGroupDAO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
@@ -147,4 +148,12 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) throws Exception {
 		dao.insertQrcodeImagePath(qrCodeMake);
 	}
+
+	@Override
+	public List<CalendarVO> selectCalendar(int groupNo) throws Exception {
+		return dao.selectCalendar(groupNo);
+	}
+
+	
+	
 }

@@ -3,6 +3,7 @@ package kr.co.with.studygroup.service;
 import java.util.List;
 
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.studygroup.calendar.vo.CalendarVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
@@ -58,5 +59,7 @@ public interface StudyGroupService {
 public void insertJoinGroupInfo(StudyGroupVO studyGroup) throws Exception;
 
 public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) throws Exception;
+
+public List<CalendarVO> selectCalendar(int groupNo) throws Exception;
    
 }

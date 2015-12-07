@@ -34,6 +34,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.studygroup.calendar.vo.CalendarVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.service.StudyGroupService;
@@ -251,6 +252,9 @@ public class StudyGroupController {
 	@RequestMapping("/StudygroupMain.do")
 	public ModelAndView StudygroupMain(int groupNo, HttpServletRequest req) throws Exception {
 		ModelAndView mav = new ModelAndView("StudygroupMain/StudygroupMain");
+		List<CalendarVO> calendar = service.selectCalendar(groupNo);
+		
+		mav.addObject("calendar", calendar);
 		mav.addObject("groupNo", groupNo);
 		// 스터디그룹 상세 정보 출력
 		StudyGroupVO studyGroup = service.SelectStudygroupMain(groupNo);

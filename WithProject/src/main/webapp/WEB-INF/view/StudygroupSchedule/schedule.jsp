@@ -92,7 +92,7 @@
 							  update(calEvent);
 							});
 							$('.cal-frame-second').hide();
-							$('.cal-frame-second').css({'top':jsEvent.pageY - top +'px','left':jsEvent.pageX - left +'px'}).show().find('.no').val(id);
+							$('.cal-frame-second').css({'top':jsEvent.pageY - top + 100 +'px','left':jsEvent.pageX - left +'px'}).show().find('.no').val(id);
 							
               //alert('Event: ' + calEvent.detail);
               //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
