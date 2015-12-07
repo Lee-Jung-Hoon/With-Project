@@ -49,7 +49,7 @@ public class ConvertWord {
 	@ResponseBody
 	@RequestMapping("/convertFile.json")
 	public String convert(MultipartFile file) throws Throwable {
-		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\reference\\";
+		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images";
 		File dir = new File(path);
 		if (!dir.exists()) {
 			dir.mkdirs();

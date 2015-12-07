@@ -20,33 +20,8 @@ $(document).ready(function() {
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 		<main>
 			<div class="container">
-				<h3 class="title">최근 시험지</h3>
-				<div class="ExamListDIV">
-					<button type="button" class="createExam commonBtn" id="createExam">시험 등록</button>
-					<table class="table-common">
-						<colgroup>
-							<col style="width:15%" />
-							<col style="width:65%" />
-							<col style="width:20%" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th><div class="th-border">시험 번호</div></th>
-								<th><div class="th-border">시험 제목</div></th>
-								<th><div class="th-border">시험 일시</div></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${list}" var="list">
-								<tr>
-									<td><strong>${list.examNo}</strong></td>
-									<td><div class="link-wrap"><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></div></td>
-									<td>${list.examDate}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+				<h3 class="title">출석 체크</h3>
+				<img src="/WithProject/images/qrcode_73.png" alt="qrcode">
 			</div>
 		</main>
 </body>
