@@ -39,6 +39,6 @@ public class QRcodeMaker {
         } catch (Exception e) {
             e.printStackTrace();
         }  
-        return "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images\\qrcode_"+groupNo+".png";
+        return "qrcode_"+groupNo+".png";
 }
 }

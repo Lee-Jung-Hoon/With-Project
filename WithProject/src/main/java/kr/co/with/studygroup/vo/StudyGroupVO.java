@@ -227,7 +227,13 @@ public class StudyGroupVO {
 				+ ", groupActivePlace=" + groupActivePlace + ", groupEmail=" + groupEmail + ", groupTel=" + groupTel
 				+ ", groupConfirmType=" + groupConfirmType + ", groupRepImagePath=" + groupRepImagePath
 				+ ", groupRecruitStartDate=" + groupRecruitStartDate + ", groupRecruitEndDate=" + groupRecruitEndDate
-				+ ", groupRegDate=" + groupRegDate + "]";
+				+ ", groupRegDate=" + groupRegDate + ", memberName=" + memberName + ", groupStartDate=" + groupStartDate
+				+ ", groupStartTime=" + groupStartTime + ", groupEndDate=" + groupEndDate + ", groupEndTime="
+				+ groupEndTime + ", memberImage=" + memberImage + ", groupQrcodeImage=" + groupQrcodeImage
+				+ ", memberNo=" + memberNo + ", groupTag=" + groupTag + "]";
 	}
+
+
+	
 
 }

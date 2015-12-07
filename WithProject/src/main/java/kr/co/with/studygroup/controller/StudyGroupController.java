@@ -75,6 +75,8 @@ public class StudyGroupController {
 			HttpServletRequest req
 //			@RequestParam("photo") ArrayList<MultipartFile> files
 			) throws Exception {
+		
+		System.out.println(studyGroup.toString());
 		ModelAndView mav = new ModelAndView("redirect:/main/main.do");
 		Calendar cal = Calendar.getInstance(); // 날짜 객체를 불러옴
 		String yStr = "" + (cal.get(Calendar.YEAR)); // 년도
@@ -115,7 +117,9 @@ public class StudyGroupController {
 //		}
 
 		QRcodeMaker qrcode = new QRcodeMaker();
-		studyGroup.setGroupQrcodeImage(qrcode.QrCodeMake(groupNo));
+		String imagePath = qrcode.QrCodeMake(groupNo);
+		System.out.println(imagePath);
+		studyGroup.setGroupQrcodeImage(imagePath);
 		service.insertQrcodeImagePath(studyGroup);
 		
 		
