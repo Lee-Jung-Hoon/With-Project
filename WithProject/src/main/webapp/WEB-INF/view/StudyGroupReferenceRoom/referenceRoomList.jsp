@@ -55,20 +55,7 @@ $(document).ready(function() {
 			}
 </script>
 <style>
-		html,
-		body {
-		  position: relative;
-		  min-height: 100%;
-		  height: 100%;
-		}
-		html {
-		  position: relative;
-		  overflow-x: hidden;
-		  margin: 16px;
-		  padding: 0;
-		  min-height: 100%;
-		  font-size: 62.5%;
-		}
+
 		.shadow-z-1 {
 		  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
 		  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
