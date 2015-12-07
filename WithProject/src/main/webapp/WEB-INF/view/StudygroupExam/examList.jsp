@@ -40,7 +40,7 @@ $(document).ready(function() {
 							<c:forEach items="${list}" var="list">
 								<tr>
 									<td><strong>${list.examNo}</strong></td>
-									<td><div class="link-wrap"><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}">${list.examTitle}</a></div></td>
+									<td><div class="link-wrap"><a href="${pageContext.request.contextPath}/exam/examResolve.do?no=${list.examNo}&title=${list.examTitle}&info=${list.examInfo}&groupNo=${groupNo}">${list.examTitle}</a></div></td>
 									<td>${list.examDate}</td>
 								</tr>
 							</c:forEach>

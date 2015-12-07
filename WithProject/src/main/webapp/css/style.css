@@ -3290,7 +3290,6 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .ExamDIV .exam-test {
 	margin:10px 0;
 	padding:10px 0;
-	border-top:1px dashed #4195f5;
 	border-bottom:1px dashed #4195f5;
 }
 .ExamDIV li {
@@ -3346,38 +3345,38 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 .graph1-4 .graph1-4-1{
 	overflow: hidden; 
 	float:left; 
-	width: 23.5%; 
-	height: 200px;
+	width:23.5%; 
+	height:200px;
 }
 
 .bg-red {
-	background: #E94B3B;
+	background:#E94B3B;
 }
 
 .bg-blue {
-	background: #1C7EBB;
+	background:#1C7EBB;
 }
 
 .bg-yellow {
-	background: #F98E33;
+	background:#F98E33;
 }
 	
 .bg-green {
-	background: #23AE89;
+	background:#23AE89;
 }
 
 .dash-imgDIV {
-	float: left; 
-	margin: 50px 15px;
-	width: 30%;
+	float:left; 
+	margin:50px 15px;
+	width:30%;
 }
 
 .dash-numberDIV {
-	width: 59%;
-   float: left;
-   text-align: center;
-   line-height: 200px;
-   font-size: 70px;
+	width:59%;
+   float:left;
+   text-align:center;
+   line-height:200px;
+   font-size:70px;
    color: white;
 }
 
@@ -3475,3 +3474,4 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
   top: 30%;
   transition: all 200ms ease-in;
 }
+
