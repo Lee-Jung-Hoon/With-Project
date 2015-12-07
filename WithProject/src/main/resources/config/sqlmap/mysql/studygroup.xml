@@ -292,8 +292,8 @@
   </insert>
   
   
-  <update id="insertQrcodeImagePath" parameterType="string">
-      update T_WITH_STUDYGROUP_GROUP
+  <update id="insertQrcodeImagePath" parameterType="studygroup">
+      update T_WITH_STUDYGROUP
 			   set group_qrcode_image = #{groupQrcodeImage}
 			 where group_no = #{groupNo}      
   </update>
