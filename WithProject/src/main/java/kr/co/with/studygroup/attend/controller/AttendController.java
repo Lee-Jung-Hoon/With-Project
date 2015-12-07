@@ -3,6 +3,7 @@ package kr.co.with.studygroup.attend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 //import kr.co.with.studygroup.attend.service.AttendService;
@@ -19,5 +20,11 @@ public class AttendController {
 		ModelAndView mav = new ModelAndView("StudygroupAttend/attendMain");
 		mav.addObject("groupNo", groupNo);
 		return mav;
+	}
+	
+	@RequestMapping("/attendCheck.json")
+	@ResponseBody
+	public String AttendCheck(int groupNo, int memberNo) throws Exception {
+		return "출석 성공적";
 	}
 }
