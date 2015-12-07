@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.studygroup.calendar.vo.CalendarVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.moneybook.vo.MoneyBookVO;
 import kr.co.with.studygroup.vo.StudyGroupBookmarkVO;
@@ -130,5 +131,9 @@ public class StudyGroupDAO {
 	// 스터디그룹 qr코드 이미지 경로 입력.
 	public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) {
 		session.update("with.studygroup.dao.insertQrcodeImagePath", qrCodeMake);
+	}
+
+	public List<CalendarVO> selectCalendar(int groupNo) {
+		return session.selectList("with.calendar.dao.listCalendar" , groupNo);
 	}
 }

@@ -57,4 +57,12 @@
    	select max(id)
    	  from t_with_studygroup_calendar
    </select>
+   
+   <select id="listCalendar" parameterType="int" resultMap="calResult">
+   	select title, start_date from t_with_studygroup_calendar 
+   	where group_no = #{groupNo}
+   	order by id DESC 
+   	limit 0, 5
+   </select>
+   
 </mapper>
