@@ -14,6 +14,11 @@ public class MainController {
 		return "main";
 	}
 	
+	@RequestMapping("/mMain.do")
+	public String Mmain() throws Exception {
+		return "mobileMain";
+	}
+	
 	// 테스트
 	// 다중마커 맵 테스트
 	@RequestMapping("/map.do")
