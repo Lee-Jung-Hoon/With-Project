@@ -322,7 +322,7 @@ function ListCallback(response, startPage) {
         + '<span class="txt">' + response[index].groupName + '<br /></span>'
         + '</div>'
         + '<div class="spine spine-left"><button type="button" data-num='+response[index].groupNo+'>상세<br />/<br />가입</button></div>'
-        + '<div class="spine spine-right"><button type="button">홈으로</button></div>'
+        + '<div class="spine spine-right"><button type="button" data-num='+response[index].groupNo+'>홈으로</button></div>'
         + '</div></div>';
     $("#container").append(divHTML);
     divHTML ="";
