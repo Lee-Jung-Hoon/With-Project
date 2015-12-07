@@ -27,14 +27,16 @@ $(document).ready(function() {
   });  
 	
 
+  /*
 	<c:forEach items="${list}" var="list">
 		var html = "";
 		html += "<tr class='tr_${list.memberNo}'>"
-		html += "<td>${list.memberName}</td>"
+		html += "<th>${list.memberName}</th>"
 		html += "</tr>"
 		$(".listTable").append(html);
 		trList("${list.memberNo}");					
 	</c:forEach>
+	*/
 });
 
 function trList(memberNo) {
@@ -43,6 +45,7 @@ function trList(memberNo) {
   })
   .done(function(response) {
     $.each(response, function(index, AttendVO) {
+      /*
 	    var html ="";
 	    console.log(response);
 	    if(response[index].check==true)
@@ -50,6 +53,7 @@ function trList(memberNo) {
 	   	else
 	   		html += "<td>X</td>";
 	   	$(".tr_"+memberNo).append(html);
+	   	*/
     })
     
   })
@@ -117,18 +121,18 @@ a {
 }
 
 .modal {
-   visibility: hidden;
+   visibility:hidden;
 }
 
 .modal__contents {
-    background: white;
-    width: 26rem;
-    position: absolute;
-    left: 50%;
-    margin-left: -16rem;
-    top: 6rem;
-    min-height: 20rem;
-    z-index: 99999;
+    background:white;
+    width:26rem;
+    position:absolute;
+    left:50%;
+    margin-left:-16rem;
+    top:6rem;
+    min-height:20rem;
+    z-index:99999;
 }
 
 .modal__contents h1 {
@@ -194,6 +198,41 @@ body.hidden {
 body.hidden header {
 	z-index:0;
 }
+.listTableWrap {
+	width:80%;
+	margin:0 auto;
+}
+.listTableWrap p {
+	width:80%;
+	margin:0 auto 20px;
+	font-weight:bold;
+	font-size:16px;
+}
+.listTable {
+	width:80%;
+	margin:0 auto;
+	border-left:1px solid #ddd;
+	border-bottom:1px solid #ddd;
+}
+.listTable th, .listTable td {
+	text-align:center;
+	border-top:1px solid #ddd;
+	border-right:1px solid #ddd;
+	height:50px;
+	vertical-align:middle;
+	font-size:20px;
+}
+.listTable th {
+	font-weight:bold;
+}
+.listTable th div {
+	border:1px solid #fff;
+	background:#515d6e;
+	color:#fff;
+	height:100%;
+	line-height:48px;
+}
+
 </style>
 </head>
 <body class="page-sub">
@@ -215,17 +254,69 @@ body.hidden header {
               </div>
            </div>
            <div class="dib tc">
-              <button type="button" class="btn">출석 입력!!</button>
+              <button type="button" class="btn commonBtn">출석 입력!!</button>
            </div>
         </div>
-        <div>
-        	<div>
-        		<h4>최근 출석일 출석 현황</h4>
-        			<table class="listTable">
-        			</table>
-        	</div>
-        </div>
      </div>
+     <div class="listTableWrap">
+      		<p>최근 출석일 출석 현황</p>
+     			<table class="listTable">
+     				<colgroup>
+     					<col style="width:30%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     					<col style="width:7%" />
+     				</colgroup>
+     				<tbody>
+     					<tr>
+     						<th><div>안지원</div></th>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>     						
+     					</tr>
+     					<tr>
+     						<th><div>윤경원</div></th>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>
+     						<td>X</td>     						
+     					</tr>
+     					<tr>
+     						<th><div>이용수</div></th>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     						<td>O</td>
+     					</tr>
+     				</tbody>
+     			</table>
+       	</div>
   	</div>
 			
 	   </div>
