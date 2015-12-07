@@ -10,7 +10,7 @@
 	  function sendMsg(){
 	    $('.pin-msg-send').on('click', function(){
 	      var content = $(this).parent().prev().val();
-	      var recvName = $(this).parent().prev().prev().find('em').text();
+	      var recvName = "${name}"
 	      console.log("내용"+content+"받는놈"+recvName);
 	          var array = [];
 	      $(this).parent().prev().prev().find('.add-name em').each(function(){
@@ -72,7 +72,7 @@
 	        var msgNo = $(this).next().find('#msgNum').val();
 	        var index = $(this).parent().index();
 	        $.post("/WithProject/msg/updateMsg.do", { msgNo : msgNo });
-	        console.log(index);
+	        //console.log(index);
 	        var heightL = $('.pin-msg > p').height();
 	         var height = $('.pin-msg li').height();
 	         $(this).addClass('on').next().addClass('current').parent().siblings().find('.pin-msg-toggle').removeClass('on').next().removeClass('current');
@@ -83,20 +83,21 @@
 	      $('.msg-send').on('click', function(){
 	         var txt = $(this).parents('.current').prev().find('span').text();
 	         var groupNo = $(this).parent().prev().val();
-	         console.log(txt+groupNo+"내용과 번호")
+	         var recvId = $(this).parent().prev().prev().val();
+	         console.log(txt+groupNo+"내용과 번호");
 	         
 	         $('.pin-msg').addClass('off');
 	         $('.pin-msg-new1').addClass('on');
 	         $('.pin-msg-newTxt span').text(txt);
 	         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvGroupNo' value='"+groupNo+"' />");
-	         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvMemberNo' value='"+groupNo+"' />");
+	         $('.pin-msg-newTxt span').append("<input type='hidden' id='recvMemberNo' value='"+recvId+"' />");
 	      });
 	      $('#recvMsg').on('click', function(){
 	        var content = $(this).parent().prev().val();
 	        var groupNo = $(this).parent().prev().prev().find('#recvGroupNo').val();
 	        var recvId = $(this).parent().prev().prev().find('#recvMemberNo').val();
-	        var recvName = $(this).parent().prev().prev().find('span').text();
-	        console.log(content+"내용"+groupNo+"번호"+recvName+"이름");
+	        var recvName = "${name}";
+	        console.log(content+"내용"+groupNo+"번호"+recvName+"이름"+recvId+"상대번호");
 	        socket.emit("msg", {recvName: recvName, recvId: recvId , sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
 	        $(".messageLI").click();
 	      })
@@ -165,7 +166,7 @@
         $.noticeAdd({"text": "<div>"+data.sendName+"님이 일정을 등록. </div>"});
         })
         
-        socket.on("inAlarm", function(data){
+        socket.on("onAlarm", function(data){
         console.log("그룹가입 진짜 들어왔니~~?" );
         $.noticeAdd({"text": "<div>"+data.sendName+"님이 스터디그룹에 가입하셨습니다. </div>"});
         })
@@ -676,7 +677,7 @@
 					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do?groupNo=${groupNo}'><span>시험테스트</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/moneybook/moneybookMain.do?groupNo=${groupNo}'><span>가계부</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/referenceRoom/referenceList.do?groupNo=${groupNo}'><span>자료실</span></a></li>");
-					document.write("<li><a href='#'><span>공지사항</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/attend/attendMain.do?groupNo=${groupNo}'><span>출석체크</span></a></li>");
 			document.write("</ul>");
 		document.write("</aside>"); 
 	}
