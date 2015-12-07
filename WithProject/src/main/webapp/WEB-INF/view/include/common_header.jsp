@@ -675,7 +675,7 @@
 				document.write("<li><a href='${pageContext.request.contextPath}/calendar/schedule.do?groupNo=${groupNo}'><span>일정</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/exam/examList.do?groupNo=${groupNo}'><span>시험테스트</span></a></li>");
 					document.write("<li><a href='${pageContext.request.contextPath}/moneybook/moneybookMain.do?groupNo=${groupNo}'><span>가계부</span></a></li>");
-					document.write("<li><a href='${pageContext.request.contextPath}/referenceRoom/referenceList.do'><span>자료실</span></a></li>");
+					document.write("<li><a href='${pageContext.request.contextPath}/referenceRoom/referenceList.do?groupNo=${groupNo}'><span>자료실</span></a></li>");
 					document.write("<li><a href='#'><span>공지사항</span></a></li>");
 			document.write("</ul>");
 		document.write("</aside>"); 
