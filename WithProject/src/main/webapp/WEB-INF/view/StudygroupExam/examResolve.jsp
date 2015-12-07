@@ -11,6 +11,8 @@
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
 	$(document).ready(function () {
+	  var locationNum = location.href.split("groupNo=")[1];
+	  $('.btn-return').attr('href','${pageContext.request.contextPath}/exam/examList.do?groupNo='+locationNum);
   	var list = new Array(); 
   	var item = new Array(); 
   	var HTML = "";
@@ -51,23 +53,28 @@
 		
 		
 		$("#sendExample").on('click',function(){
-		  HTML = "";
 		  for(var j=0; j<result.length; j++){
 		 		if($("."+result[j]).is(":checked")){
 		 	  	cnt++;
 		 		}
 		  }
-		 console.log("채점표 : "+ cnt+"/"+result.length)
+		 //console.log("채점표 : "+ cnt+"/"+result.length)
 		 
 	   var examScore = Math.round(100/result.length)*cnt;
 	   var examTotalNo = result.length;
 	   var examChkNo = cnt;
+	   var HTML = "<div id='examResult' class='examResult'>";
+		  HTML += "<p>채점표 : "+ cnt+"/"+result.length+"</p>";
+		  HTML += "<p class='score'>점수 : <span>"+Math.round((100/result.length)*cnt)+"</span>점</p>";
+		  HTML += "</div>";
+	   
+	   $(".ExamDIV").append(HTML);
 	  
-		HTML += "<input type='hidden' name='examScore' value='"+examScore+"'></div>";
-		HTML += "<input type='hidden' name='examTotalNo' value='"+examTotalNo+"'></div>";
-		HTML += "<input type='hidden' name='examChkNo' value='"+examChkNo+"'></div>";
-	  cnt=0;
-		$(".ExamDIV").append(HTML);
+// 		HTML += "<input type='hidden' name='examScore' value='"+examScore+"'></div>";
+// 		HTML += "<input type='hidden' name='examTotalNo' value='"+examTotalNo+"'></div>";
+// 		HTML += "<input type='hidden' name='examChkNo' value='"+examChkNo+"'></div>";
+// 	  cnt=0;
+// 		$(".ExamDIV").append(HTML);
 	
 		})
 	
@@ -75,20 +82,50 @@
   });
 	
 </script>
+<style>
+.examResult {
+	position:absolute;
+	bottom:0;
+	right:20px;
+	padding:10px 20px 10px;
+}
+.examResult p {
+	font-size:18px;
+	line-height:24px;
+	font-weight:bold;
+}
+.examResult .score {
+	font-size:23px;
+	padding:5px 0;
+}
+.examResult .score span {
+	color:#E94B3B;
+}
+.btn-return {
+	background:#E94B3B;
+	width:100px;
+  height:50px;
+  display:inline-block;
+  position:absolute;
+  bottom:10px;
+  left:130px;
+  text-align:center;
+  line-height:50px;
+}
+</style>
 </head>
 <body class="page-sub">
 	<%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
 		<div class="container">
 			<h3>시험 제출</h3>
-			<form action="${pageContext.request.contextPath}/exam/examResult.do" method="POST">
 				<div class="ExamDIV">
 					<h4>${title}</h4>
 					<p>${info}</p>
 					<input type="hidden" name="examNo" value="${examNo}" />
-					<span class='btnSubmit commonBtn'><input type='submit' value='시험지 제출' class='sendExample' id='sendExample' /></span>
+					<button type='button' class="btnSubmit commonBtn sendExample" id='sendExample'>시험지 제출</button>
+					<a href="#" class="commonBtn btn-return">돌아가기</a>
 				</div>
-			</form>
 		</div>
 	</main>
 </body>
