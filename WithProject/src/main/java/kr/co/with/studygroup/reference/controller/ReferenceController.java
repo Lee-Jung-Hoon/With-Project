@@ -69,7 +69,9 @@ public class ReferenceController {
 	public ModelAndView refereceDatail(@RequestParam("referenceNo") int referenceNo) throws Exception{
 		ModelAndView mav = new ModelAndView("/StudyGroupReferenceRoom/referenceDetail");
 		ReferenceVO vo = service.selectReferenceDetail(referenceNo);
+		
 		mav.addObject("referenceVO", vo);
+		
 		return mav;
 	}
 }
