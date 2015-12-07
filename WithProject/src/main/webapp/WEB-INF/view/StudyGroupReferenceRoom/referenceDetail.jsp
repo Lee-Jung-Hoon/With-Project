@@ -16,8 +16,8 @@
 
 	.container .detail-form {
 		width:100%;
-		border: 3px solid black;
-		padding: 20px;
+		border:1px solid #ddd;
+		padding:20px;
 	}
 	.container .detail-title {
 	   font-size:30px;
@@ -36,10 +36,9 @@
 	
 	.container .detailInfo-form {
 		width:100%;
-		border: 3px solid black;
-		padding: 20px;
+		border:1px solid #ddd;
+		padding:20px;
 	}
-	
 	
 </style>
 </head>
