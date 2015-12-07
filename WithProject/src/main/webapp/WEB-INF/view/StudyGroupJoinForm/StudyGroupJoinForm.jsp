@@ -130,14 +130,14 @@
 </style>
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
-// 현재 모집 인원 상태 바 관련
-function progress() {
+$(document).ready(function () {
   var now = "${group.groupNowPerson}";
   var max = "${group.groupMaxPerson}";
+  var stand = "${stand}";
   $(".progress").css("width", Number((100/max)*now)+"%");
-  var html = "<div>* 총 모집인원 : "+max+"명 | 현재참여자 "+now+"명 | 대기 0명</div>";
+  var html = "<div>* 총 모집인원 : "+max+"명 | 현재참여자 "+now+"명 | 대기 "+stand+"명</div>";
   $(".join-person-progress").append(html);
-}
+});
 function inAlarm(groupNo, joinType){
   var socket = io.connect("http://192.168.0.6:10001");
   var groupNo = groupNo;

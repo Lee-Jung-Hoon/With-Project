@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.with.joingroup.service.JoinGroupService;
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.joingroup.vo.StandGroupVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 import kr.co.with.util.MailUtil;
@@ -49,6 +50,8 @@ public class JoinGroupController {
 		StudyGroupVO group = service.selectStudygroupInfo(groupNo);
 		mav.addObject("group", group);
 		mav.addObject("joinType", joinType);
+		int stand = service.selectStandMemberInfo(groupNo);
+		mav.addObject("stand", stand);
 		return mav;
 	}
 	
@@ -66,19 +69,21 @@ public class JoinGroupController {
 		join.setMemberNo(memberNo);
 		join.setId(id);
 		
-		if(joinType.equals("선착순")) {
-			join.setMemberStatus("회원");
-			mav.addObject("msg", "그룹에 가입한 것을 축하합니다.");
-		}
-		else {
-			join.setMemberStatus("가입신청");
-			mav.addObject("msg", "그룹 참가 신청이 완료되었습니다.");
-		}
-		service.insertJoinGroupInfo(join);
-
-		
 		MemberVO member = service.selectMemberInfo(memberNo);
 		StudyGroupVO group = service.selectStudygroupInfo(groupNo);
+		if(group.getGroupMaxPerson()>group.getGroupNowPerson()) {
+			if(joinType.equals("선착순")) {
+				join.setMemberStatus("회원");
+			}
+			else {
+				join.setMemberStatus("가입신청");
+			}
+			service.insertJoinGroupInfo(join);
+		}
+		else {
+			service.insertWatingGroup(join);
+		}
+			
 		MailUtil sendMail = new MailUtil();
 	    sendMail.SendMailForReserve(member, group, join, joinType);	
 		return mav;

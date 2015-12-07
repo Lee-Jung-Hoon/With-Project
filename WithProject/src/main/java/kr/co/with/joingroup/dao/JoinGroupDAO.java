@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.joingroup.vo.StandGroupVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 
@@ -40,5 +41,15 @@ public class JoinGroupDAO {
 	// 스터디그룹 가입 승인 처리
 	public void acceptMember(JoinGroupVO join) {
 		session.update("with.studygroupJoin.dao.acceptMember", join);
+	}
+
+	// 스터디 대기자 등록
+	public void insertWatingGroup(JoinGroupVO join) {
+		session.insert("with.studygroupJoin.dao.insertWatingGroup", join);
+	}
+
+	// 스터디 대기자 현황 출력
+	public int selectStandMemberInfo(int groupNo) {
+		return session.selectOne("with.studygroupJoin.dao.selectStandMemberInfo", groupNo);
 	}
 }
