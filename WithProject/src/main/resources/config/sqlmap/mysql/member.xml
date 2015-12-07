@@ -97,6 +97,13 @@ where mem.member_no = jo.member_no
   and jo.GROUP_NO = #{groupNo}
  </select>
  
+  <select id="selectGroupMember" parameterType="int" resultType="String">
+ 			select st.member_no memberNo, mb.member_name memberName
+ 			  from t_with_studygroup st, t_with_member mb
+ 			 where group_no = #{groupNo}
+ 			   and st.member_no = mb.member_no
+ </select>
+ 
  <select id="selectMemberNoMobile"  parameterType="member" resultType="int">
  	select 
  		 Member_no

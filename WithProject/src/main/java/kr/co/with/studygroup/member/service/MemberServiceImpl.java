@@ -61,4 +61,10 @@ public class MemberServiceImpl implements MemberService {
 	public int selectMobileLogin(MemberVO member) throws Exception {
 		return dao.selectMobileLogin(member);
 	}
+
+
+	@Override
+	public String selectGroupMember(int groupNo) throws Exception {
+		return dao.selectGroupMember(groupNo);
+	}
 }

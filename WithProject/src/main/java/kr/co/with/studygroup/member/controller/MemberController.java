@@ -151,4 +151,13 @@ public class MemberController {
 		System.out.println(memberName);
 		return service.selectMemberNo(memberName);
 	}
+	
+	//쪽지 받을 멤버의 번호를 가져오는  json
+	@RequestMapping("/groupMaster.json")
+	@ResponseBody
+	public String selectGroupMember(int groupNo) throws Exception {
+		System.out.println("그룹 번호"+ groupNo);
+		return service.selectGroupMember(groupNo);
+	}
+	
 }
