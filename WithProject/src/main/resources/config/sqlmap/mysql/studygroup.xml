@@ -20,7 +20,7 @@
       <result column="GROUP_RECRUITSTARTDATE" property="groupRecruitStartDate"/>
       <result column="GROUP_RECRUITENDDATE" property="groupRecruitEndDate"/>
       <result column="GROUP_REGDATE" property="groupRegDate"/>
-      <result column="MEMBER_NO" property="groupRecruitEndDate"/>
+      <result column="group_RecruitEndDate" property="groupRecruitEndDate"/>
       <result column="GROUP_TAG" property="groupTag"/>
       <result column="member_name" property="memberName"/>
       <result column="group_StartDate" property="groupStartDate"/>

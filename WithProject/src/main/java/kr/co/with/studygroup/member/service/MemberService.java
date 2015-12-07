@@ -26,4 +26,6 @@ public interface MemberService {
 
 	public List<MemberVO> nodeMemberList(int groupNo) throws Exception;
 
+	public int selectMobileLogin(MemberVO member) throws Exception;
+
 }

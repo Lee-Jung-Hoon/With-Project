@@ -1,5 +1,6 @@
 package kr.co.with.studygroup.member.controller;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,6 +106,16 @@ public class MemberController {
 			session.setAttribute("no", loginVO.getMemberNo());
 			return loginVO;
 		}
+	}
+	
+	@RequestMapping("/mobileLogin.json")
+	@ResponseBody
+	public int MobileLogin(String userId, String userPw) throws Exception {
+		MemberVO member = new MemberVO();
+		member.setId(userId);
+		member.setPassword(userPw);
+		int memberNo = service.selectMobileLogin(member);
+		return memberNo;
 	}
 		
 	// 로그인한 회원이 가입한 그룹리스트를 가져오는 json
