@@ -17,6 +17,7 @@ public class AttendController {
 	@RequestMapping("/attendMain.do")
 	public ModelAndView AttendMain(int groupNo) throws Exception {
 		ModelAndView mav = new ModelAndView("StudygroupAttend/attendMain");
+		mav.addObject("groupNo", groupNo);
 		return mav;
 	}
 }
