@@ -56,5 +56,7 @@ public interface StudyGroupService {
    public List<JoinGroupVO> selectJoinWatingMember(int groupNo) throws Exception;
 
 public void insertJoinGroupInfo(StudyGroupVO studyGroup) throws Exception;
+
+public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) throws Exception;
    
 }

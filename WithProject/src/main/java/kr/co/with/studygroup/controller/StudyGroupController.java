@@ -43,6 +43,7 @@ import kr.co.with.studygroup.vo.StudyGroupPagingVO;
 import kr.co.with.studygroup.vo.StudyGroupTagVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 import kr.co.with.studygroup.vo.StudygroupWorkInfoVO;
+import kr.co.with.util.QRcodeMaker;
 import kr.co.with.util.WithUtil;
 
 @Controller
@@ -112,6 +113,11 @@ public class StudyGroupController {
 //			MultipartFile file = files.get(i);
 //			FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(uploadPath + "/" + fName));
 //		}
+
+		QRcodeMaker qrcode = new QRcodeMaker();
+		studyGroup.setGroupQrcodeImage(qrcode.QrCodeMake(groupNo));
+		service.insertQrcodeImagePath(studyGroup);
+		
 		
 		// 한 줄로 입력 받은 태그를 따로따로 구분함
 		String tags[] = tag.split(",");
