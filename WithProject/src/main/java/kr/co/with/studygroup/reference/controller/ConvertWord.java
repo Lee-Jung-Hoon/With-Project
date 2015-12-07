@@ -49,11 +49,7 @@ public class ConvertWord {
 	@ResponseBody
 	@RequestMapping("/convertFile.json")
 	public String convert(MultipartFile file) throws Throwable {
-
-		
-		
-		System.out.println("파일 이름 어떻게 넘어오니"+file);
-		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\reference";
+		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\reference\\";
 		File dir = new File(path);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -76,13 +72,13 @@ public class ConvertWord {
 		// 프로젝트에 다운로드 된 파일을 html태그명으로 바꾸어주는 코드 POI
 		 InputStream input = new FileInputStream (path + "/" + realFile);
 	        HWPFDocument wordDocument = new HWPFDocument (input);
+
 	        WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter (DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument() );
 	        wordToHtmlConverter.setPicturesManager (new PicturesManager() {
 	            public String savePicture (byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
 	                return suggestedName;
 	            }
 	        });
-	        
 	        wordToHtmlConverter.processDocument (wordDocument);
 	        List<?> pics = wordDocument.getPicturesTable().getAllPictures();
 	        if (pics != null) {
@@ -95,6 +91,26 @@ public class ConvertWord {
 	                }
 	            }
 	        }
+	        
+	        
+//	        wordToHtmlConverter.setPicturesManager (new PicturesManager() {
+//	            public String savePicture (byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
+//	                return suggestedName;
+//	            }
+//	        });
+//	        
+//	        wordToHtmlConverter.processDocument (wordDocument);
+//	        List<?> pics = wordDocument.getPicturesTable().getAllPictures();
+//	        if (pics != null) {
+//	            for (int i = 0; i <pics.size(); i++) {
+//	                Picture pic = (Picture) pics.get (i);
+//	                try {
+//	                    pic.writeImageContent (new FileOutputStream (path + pic.suggestFullFileName() ) );
+//	                } catch (FileNotFoundException e) {
+//	                    e.printStackTrace();
+//	                }
+//	            }
+//	        }
 	        
 	        Document htmlDocument = wordToHtmlConverter.getDocument();
 	        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -110,6 +126,8 @@ public class ConvertWord {
 	        outStream.close();
 	        
 	        String content = new String (outStream.toByteArray() );
+	        UUID uuid = UUID.randomUUID();
+	        writeFile(content, path + uuid+".html", "gbk");
 	        
 	        return content;
 	}

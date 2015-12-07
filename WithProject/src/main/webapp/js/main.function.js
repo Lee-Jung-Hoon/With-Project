@@ -508,7 +508,12 @@ function ready() {
     HTML += " </div>";
     HTML += " <div class='list-openDivWrap'>";
     HTML += " <div class='list-openImgDIV'>";
-    HTML += " <img class='list-openImg' src='"+response.memberImage+"'>";
+    if(response.memberImage==null) {
+      HTML += " <img class='list-openImg' src='/WithProject/images/01.jpg'>";
+    }
+    else {
+      HTML += " <img class='list-openImg' src='"+response.memberImage+"'>";
+    }
     HTML += "</div>";
     HTML += "<div class='list-openUl'>";
     HTML += "  <ul>";
@@ -982,6 +987,7 @@ function mapDetail(no) {
         url : "/WithProject/studygroup/groupDetail.json?groupNo="+no,
         dataType : "json"
       }).done(function(response1) {
+        console.log(response1);
   var HTML = "";
   HTML += "<div class='list-txt'>";
   HTML += "<div class='list-infoTop'>";
@@ -1022,8 +1028,13 @@ function mapDetail(no) {
   HTML += "  <h4>스터디그룹 개설자 정보</h4>";
   HTML += " <label>*본 모임의 개설자로 문의사항은 전화 또는 메일로 문의해 주세요.</label>";
   HTML += " </div>";
-  HTML += " <div class='list-openImgDIV'>";
-  HTML += " <img class='list-openImg' src='"+response1.memberImage+"'>";
+  HTML += " <div class='list-openImgDIV'>"; 
+  if(response1.memberImage==null) {
+    HTML += " <img class='list-openImg' src='/WithProject/images/01.jpg'>";
+  }
+  else {
+    HTML += " <img class='list-openImg' src='"+response1.memberImage+"'>";
+  }
   HTML += "</div>";
   HTML += "<div class='list-openUl'>";
   HTML += "  <ul style='padding-top: 50px;'>";
