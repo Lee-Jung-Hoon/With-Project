@@ -103,8 +103,9 @@ public class StudyGroupController {
 
 		// 그룹 정보를 DB에 저장한 후 태그 저장을 위해 auto_increment 값을 가지고옴
 		studyGroup.setGroupTag(tag);
-		service.insertStudyGroup(studyGroup);
+		int groupNo = service.insertStudyGroup(studyGroup);
 		
+		studyGroup.setGroupNo(groupNo);
 		// 다중 파일 저장
 //		for(int i=0; i<files.size(); i++) {
 //			String fName = UUID.randomUUID().toString() + ".jpg";
@@ -123,7 +124,7 @@ public class StudyGroupController {
 			int cnt = service.nameCheck(tagName);
 			if(cnt != 0){
 				service.updateTagCount(tagName);
-			}else{
+			} else{
 			service.insertStudygroupTag(tagName);
 			}
 		}

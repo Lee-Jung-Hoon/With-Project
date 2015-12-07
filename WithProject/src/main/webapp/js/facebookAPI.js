@@ -2,7 +2,7 @@
       // 페이스북에서 불러올수 있는 API Key값과 실행문
      window.fbAsyncInit = function() {
       FB.init({
-        appId      : '913474612022887', // 앱 ID
+        appId      : '170413329972908', // 앱 ID
         status     : true,          // 로그인 상태를 확인
         cookie     : false,          // 쿠키허용
         xfbml      : true           // parse XFBML

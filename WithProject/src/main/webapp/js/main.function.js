@@ -433,6 +433,7 @@ function ready() {
           url : "/WithProject/studygroup/groupDetail.json?groupNo="+no,
           dataType : "json"
         }).done(function(response) {
+          console.log(response);
     var HTML = "";
 //    HTML += "<div class='roll-btn-wrap'>";
 //    HTML += "<button type='button' class='roll-btn roll-btn-left'>";
@@ -477,7 +478,8 @@ function ready() {
     HTML += "</span>";
     HTML += "<div class='list-infoUl'>";
     HTML += "<ul>";
-    HTML += "<li style='padding-bottom: 10px;'>그룹 활동 기간 : </li>";
+    
+    HTML += "<li style='padding-bottom: 10px;'>그룹 활동 기간 : "+ response.groupStartDate +" ~ " + response.groupEndDate + "</li>";
     HTML += "<li style='padding-bottom: 10px;'>그룹원 모집 기간 : " + response.groupRecruitStartDate + " ~ " + response.groupRecruitEndDate + "</li>";
     HTML += "<li style='padding-bottom: 10px;'>주 모임 장소 : " + response.groupActivePlace + "</li>";
     HTML += "</ul>";
@@ -993,7 +995,8 @@ function mapDetail(no) {
   HTML += "</span>";
   HTML += "<div class='list-infoUl'>";
   HTML += "<ul>";
-  HTML += "<li style='padding-bottom: 10px;'>그룹 활동 기간 : </li>";
+  
+  HTML += "<li style='padding-bottom: 10px;'>그룹 활동 기간 : "+ response1.groupStartDate +" ~ " + response1.groupEndDate + "</li>";
   HTML += "<li style='padding-bottom: 10px;'>그룹원 모집 기간 : " + response1.groupRecruitStartDate + " ~ " + response1.groupRecruitEndDate + "</li>";
   HTML += "<li style='padding-bottom: 10px;'>주 모임 장소 : " + response1.groupActivePlace + "</li>";
   HTML += "</ul>";
@@ -1012,15 +1015,6 @@ function mapDetail(no) {
   HTML += "<div style='margin-top: 20px;'>";
   HTML += "<h4>스터디그룹 회원 분포</h4>";
   HTML += " <div id='dashboard' style='text-align: center;'>";
-  HTML += " <script>";
-  HTML += "  var freqData=[{State:'10대',freq:{male:1319, female:249}}";
-  HTML += " ,{State:'20대',freq:{male:412, female:674}}";
-  HTML += "    ,{State:'30대',freq:{male:2149, female:418}}";
-  HTML += "   ,{State:'40대',freq:{male:1152, female:1862}}";
-  HTML += "    ,{State:'50대',freq:{male:1152, female:1862}}";
-  HTML += "    ];";
-  HTML += "   dashboard('#dashboard',freqData);";
-  HTML += " </script>";
   HTML += " </div>";
   HTML += " </div>";
   HTML += " <div class='list-openDIV'>";
@@ -1033,7 +1027,7 @@ function mapDetail(no) {
   HTML += "</div>";
   HTML += "<div class='list-openUl'>";
   HTML += "  <ul style='padding-top: 50px;'>";
-  HTML += "   <li style='padding-bottom: 20px;'>이름</li>";
+  HTML += "   <li>" + response1.memberName + "</li>";
   HTML += "  <li style='padding-bottom: 20px;'>"+response1.groupEmail+" - "+response1.groupTel+"</li>";
   HTML += " </ul>";
   HTML += " </div>";
@@ -1052,14 +1046,65 @@ function mapDetail(no) {
   else {
     HTML += "<img src='"+userImagePath+"' style='margin-right:20px;' width='50' height='50'>";
   }
-  
   HTML += "<textarea  rows='3' cols='125' class='comment' name='comment' placeholder='댓글을 입력해 보세요.'></textarea>";
   HTML += "<button type='button' class='commonBtn' onclick='regComment("+no+")'>내용입력</button>";
   HTML += "</div>";
   HTML += "</div>";
   
+  var freqData = [];
+
+  var male_10=0;
+  var male_20=0;
+  var male_30=0;
+  var male_40=0;
+  var male_50=0;
+  var female_10=0;
+  var female_20=0;
+  var female_30=0;
+  var female_40=0;
+  var female_50=0;
+  
   HTML += "<ul class='commentList'>";
   HTML += "</ul>";
+  
+  $.ajax({
+    url: "/WithProject/studygroup/groupMemberList.json?groupNo="+no
+  })
+  .done(function(response) {
+    $.each(response, function(index, MemberVO) {
+      console.log(response[index].memberGender);
+      console.log(response[index].memberAge/10);
+      if(response[index].memberGender=="남성" && Math.floor(response[index].memberAge/10)==1) 
+        male_10 += 1;
+      else if(response[index].memberGender=="여성" && Math.floor(response[index].memberAge/10)==1) 
+        female_10 += 1;
+      else if(response[index].memberGender=="남성" && Math.floor(response[index].memberAge/10)==2)
+        male_20 += 1;
+      else if(response[index].memberGender=="여성" && Math.floor(response[index].memberAge/10)==2) 
+        female_20 += 1;
+      else if(response[index].memberGender=="남성" && Math.floor(response[index].memberAge/10)==3) 
+        male_30 += 1;
+      else if(response[index].memberGender=="여성" && Math.floor(response[index].memberAge/10)==3) 
+        female_30 += 1;
+      else if(response[index].memberGender=="남성" && Math.floor(response[index].memberAge/10)==4) 
+        male_40 += 1;
+      else if(response[index].memberGender=="여성" && Math.floor(response[index].memberAge/10)==4) 
+        female_40 += 1;
+      else if(response[index].memberGender=="남성" && Math.floor(response[index].memberAge/10)==5) 
+        male_50 += 1;
+      else if(response[index].memberGender=="여성" && Math.floor(response[index].memberAge/10)==5) 
+        female_50 += 1;
+    });
+    
+    freqData.push({State:'10대',freq:{male:Number(male_10), female:Number(female_10)}});
+    freqData.push({State:'20대',freq:{male:Number(male_20), female:Number(female_20)}});
+    freqData.push({State:'30대',freq:{male:Number(male_30), female:Number(female_30)}});
+    freqData.push({State:'40대',freq:{male:Number(male_40), female:Number(female_40)}});
+    freqData.push({State:'50대 이상',freq:{male:Number(male_50), female:Number(female_50)}});
+    dashboard('#dashboard',freqData);
+  });
+  
+  
   
   commentList(no);
   HTML += "</div>";

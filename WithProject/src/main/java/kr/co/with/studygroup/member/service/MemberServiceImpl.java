@@ -52,9 +52,13 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberNo(memberName);
 	}
 
-
 	@Override
 	public List<MemberVO> nodeMemberList(int groupNo) throws Exception {
 		return dao.nodeMemberList(groupNo);
+	}
+
+	@Override
+	public int selectMobileLogin(MemberVO member) throws Exception {
+		return dao.selectMobileLogin(member);
 	}
 }

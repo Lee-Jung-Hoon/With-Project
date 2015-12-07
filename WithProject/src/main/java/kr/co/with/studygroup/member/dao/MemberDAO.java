@@ -56,4 +56,7 @@ public class MemberDAO {
 		return session.selectList("member.dao.memberMapper.nodeMemberList", groupNo);
 	}
 
+	public int selectMobileLogin(MemberVO member) {
+		return session.selectOne("member.dao.memberMapper.selectMemberNoMobile", member);
+	}
 }

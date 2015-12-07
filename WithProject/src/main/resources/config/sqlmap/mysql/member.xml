@@ -96,4 +96,13 @@ from t_with_member mem, t_with_joinstudygroup jo
 where mem.member_no = jo.member_no
   and jo.GROUP_NO = #{groupNo}
  </select>
+ 
+ <select id="selectMemberNoMobile"  parameterType="member" resultType="int">
+ 	select 
+ 		 Member_no
+ 	  from 
+ 	 	 t_with_Member
+   where 
+ 	 	id = #{id} and password = #{password}
+ </select>
 </mapper>
