@@ -83,6 +83,7 @@
 	      $('.msg-send').on('click', function(){
 	         var txt = $(this).parents('.current').prev().find('span').text();
 	         var groupNo = $(this).parent().prev().val();
+	         console.log(txt+groupNo+"내용과 번호")
 	         
 	         $('.pin-msg').addClass('off');
 	         $('.pin-msg-new1').addClass('on');
@@ -94,7 +95,8 @@
 	        var content = $(this).parent().prev().val();
 	        var groupNo = $(this).parent().prev().prev().find('#recvGroupNo').val();
 	        var recvId = $(this).parent().prev().prev().find('#recvMemberNo').val();
-	        var recvName = $(this).parent().prev().prev().find('em').text();
+	        var recvName = $(this).parent().prev().prev().find('span').text();
+	        console.log(content+"내용"+groupNo+"번호"+recvName+"이름");
 	        socket.emit("msg", {recvName: recvName, recvId: recvId , sendId : "${no}", sendMsg : content, groupNo : groupNo, date: new Date().toUTCString()});
 	        $(".messageLI").click();
 	      })
@@ -157,10 +159,20 @@
         console.log("시험등록 진짜 들어왔니~~?" );
         $.noticeAdd({"text": "<div>"+data.sendName+"님이 시험을 등록. </div>"});
         })
-                  
+               
         socket.on("scheduleAlarm", function(data){
         console.log("일정등록 진짜 들어왔니~~?" );
         $.noticeAdd({"text": "<div>"+data.sendName+"님이 일정을 등록. </div>"});
+        })
+        
+        socket.on("inAlarm", function(data){
+        console.log("그룹가입 진짜 들어왔니~~?" );
+        $.noticeAdd({"text": "<div>"+data.sendName+"님이 스터디그룹에 가입하셨습니다. </div>"});
+        })
+        
+        socket.on("checkAlarm", function(data){
+        console.log("그룹가입 진짜 들어왔니~~?" );
+        $.noticeAdd({"text": "<div>"+data.sendName+"님이 스터디그룹 가입 신청을 하였습니다. </div>"});
         })
     
     var d = new Date();

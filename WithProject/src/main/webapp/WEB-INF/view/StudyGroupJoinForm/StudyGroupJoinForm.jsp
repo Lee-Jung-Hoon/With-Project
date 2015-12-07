@@ -130,24 +130,6 @@
 </style>
 <%@ include file="/WEB-INF/view/include/common_top.jsp"%>
 <script>
-$(document).ready(function() {
-  progress();
-	// 취소 버튼 클릭시
-  $(".btn-cancle").on('click', function() {
-    location.href='/WithProject/main/main.do';
-  });
-	
-	// 참가 신청 버튼 클릭시
-	$(".btn-join").on('click', function() {
-	  $.ajax({
-	    url: "/WithProject/joinGroup/joinGroup.json"
-	  })
-	  .done(function() {
-      alert("!!!");
-    })
-  });
-	
-});
 // 현재 모집 인원 상태 바 관련
 function progress() {
   var now = "${group.groupNowPerson}";
@@ -156,6 +138,26 @@ function progress() {
   var html = "<div>* 총 모집인원 : "+max+"명 | 현재참여자 "+now+"명 | 대기 0명</div>";
   $(".join-person-progress").append(html);
 }
+function inAlarm(groupNo, joinType){
+  var socket = io.connect("http://192.168.0.6:10001");
+  var groupNo = groupNo;
+  var joinType = joinType;
+	var id = "${no}";
+	var name = "${name}"
+  alert(groupNo+"룹번호  조인타입"+joinType);
+	$.ajax({
+  	url : "/WithProject/member/groupMaster.json",
+  	type: "POST",
+  	datatype : "JSON",
+  	data:{groupNo : groupNo},
+  	success:function(member, status){
+      $.each(member, function(no, MemberVO){
+    			socket.emit("inAlarm", {recvId: memberVO[no].memberNo, sendName: name, joinType: joinType});
+       });
+				$("#inAlarm").submit();
+     }
+   });
+}
 
 </script>
 </head>
@@ -163,7 +165,7 @@ function progress() {
 <%@ include file="/WEB-INF/view/include/common_header.jsp"%>
 	<main>
 		<div class='container'>
-		<form action="/WithProject/joinGroup/joinGroup.do" method="post">
+		<form action="/WithProject/joinGroup/joinGroup.do" id="inAlarm" onsubmit="inAlarm('${group.groupNo}','${joinType}')" method="post">
 			<h3 class="title">스터디그룹 가입 신청</h3>
 			<div class="input">
 				<h4>참여 스터디그룹</h4>
@@ -225,8 +227,8 @@ function progress() {
 						</div>
 					</div>
 				</div>
-				<input type="hidden" name="groupNo" value="${group.groupNo}">
-				<input type="hidden" name="memberNo" value="${member.memberNo}">
+				<input type="hidden" name="groupNo" id="groupNo" value="${group.groupNo}">
+				<input type="hidden" name="memberNo" id="memberNo" value="${member.memberNo}">
       </div>
       <div class="btnDIV" >
       	<input type="submit" style="padding: 10px;" value="참가 신청"  class='btn-join'>

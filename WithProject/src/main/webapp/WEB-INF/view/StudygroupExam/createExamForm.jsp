@@ -117,17 +117,17 @@ $(document).ready(function() {
 	
 	
 	$(".submitBtn").on('click', function () {
-	 
 	  var socket = io.connect("http://192.168.0.6:10001");
   	var id = "${no}";
   	var name = "${name}";
   	var groupNo = ${groupNo};
+	 	alert("좀 ㅅㅂ 되세요"+groupNo);
   	console.log(groupNo+"그룹엔오");
   	$.ajax({
     	url : "/WithProject/member/nodeMemberList.json",
     	type: "POST",
     	datatype : "JSON",
-    	data:{groupNo : 15},
+    	data:{groupNo : groupNo},
     	success:function(member, status){
         $.each(member, function(no, MemberVO){
           console.log("멤버이시구요~"+member[no].memberNo)
@@ -135,6 +135,7 @@ $(document).ready(function() {
           });
         }
       });
+  	
 	  var exampleTitle = "";
 	  var example_answer = "";
     for(var i=0; i<addCnt; i++) {

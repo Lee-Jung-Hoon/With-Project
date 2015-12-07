@@ -28,4 +28,6 @@ public interface MemberService {
 
 	public int selectMobileLogin(MemberVO member) throws Exception;
 
+	public String selectGroupMember(int groupNo) throws Exception;
+
 }
