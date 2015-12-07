@@ -82,13 +82,14 @@ $(document).ready(function() {
 		.table > thead > tr > td,
 		.table > tbody > tr > td,
 		.table > tfoot > tr > td {
-		  text-align: left;
+		  text-align: center;
 		  padding: 1.6rem;
 		  vertical-align: top;
 		  border-top: 0;
 		  -webkit-transition: all 0.3s ease;
 		  -o-transition: all 0.3s ease;
 		  transition: all 0.3s ease;
+		  
 		}
 		
 		
@@ -208,7 +209,6 @@ $(document).ready(function() {
 										<label for="name2" class="name" data-str="2">TITLE</label> <!-- 이미지&amp;그래픽 -->
 										<label for="name3" class="name" data-str="3">WRITER</label> <!-- 문서자료 -->
 										<label for="name4" 	class="name" data-str="4">DATE</label> <!-- 동영상 -->
-										<label for="name5" 	class="name" data-str="5">▼</label>
 								</div>
 							</tr>
 			      </thead>

@@ -49,7 +49,7 @@ public class ConvertWord {
 	@ResponseBody
 	@RequestMapping("/convertFile.json")
 	public String convert(MultipartFile file) throws Throwable {
-		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images";
+		String path = "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images\\";
 		File dir = new File(path);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -128,6 +128,7 @@ public class ConvertWord {
 	        String content = new String (outStream.toByteArray() );
 	        UUID uuid = UUID.randomUUID();
 	        writeFile(content, path + uuid+".html", "gbk");
+	        
 	        
 	        return content;
 	}
