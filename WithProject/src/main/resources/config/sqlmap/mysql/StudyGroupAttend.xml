@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="with.studygroupAttend.dao">
+	<insert id="insertAttend" parameterType="attend">
+	    insert into t_with_studygroup_attend(
+	    	member_no,
+	    	group_no,
+	    	ck
+	    )
+	    values(
+	    	#{memberNo},
+	    	#{groupNo},
+	    	1
+	    )
+	</insert>
+	
+	<select id="selectMemberList" parameterType="int" resultType="member">
+	    select
+	    	jo.member_no as memberNo,
+	    	mem.member_name as memberName
+	   	from
+	   		t_with_joinstudygroup jo, t_with_member mem
+	   	where 
+	   		jo.group_no = #{groupNo}
+	   	and
+	   		mem.member_no = jo.member_no 	   	
+	</select>
+	
+	<select id="selectAttendList" parameterType="attend" resultType="attend">
+	    select 
+	    		 ck,
+	    		 reg_date as regDate
+	      from
+	      	 t_with_studygroup_attend
+	     where
+					 group_no = #{groupNo}
+				 and
+				   member_no = #{memberNo}
+			 order by reg_date ASC
+	</select>
+</mapper>

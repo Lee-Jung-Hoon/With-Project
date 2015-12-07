@@ -84,4 +84,28 @@
         where group_no = #{groupNo}
           and member_no = #{memberNo}
     </update>
+    
+    <insert id="insertWatingGroup" parameterType="joingroup">
+				insert into T_WITH_STANDSTUDYGROUP(
+				  MEMBER_NO,
+          GROUP_NO,
+          GROUP_COMMENT,
+          MEMBER_TEL
+          )
+       values(
+          #{memberNo},
+          #{groupNo},
+          #{groupComment},
+          #{memberTel}
+          )
+    </insert>
+    
+    <select id="selectStandMemberInfo" parameterType="int" resultType="int">
+				select
+					count(STAND_NO)
+			  from
+			  	T_WITH_STANDSTUDYGROUP
+			  where group_no = #{groupNo}
+			    
+    </select>
 </mapper>

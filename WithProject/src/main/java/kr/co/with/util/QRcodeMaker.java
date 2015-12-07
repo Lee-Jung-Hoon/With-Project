@@ -21,7 +21,7 @@ public class QRcodeMaker {
                 file.mkdirs();
             }
             // 코드인식시 링크걸 URL주소
-            String codeurl = new String(("http://with.ze.am/attend/attendCheck.json?groupNo="+groupNo).getBytes("UTF-8"), "ISO-8859-1");
+            String codeurl = new String(("http://121.166.177.87:3000/WithProject/attend/attendCheck.json?groupNo="+groupNo).getBytes("UTF-8"), "ISO-8859-1");
             // 큐알코드 바코드 생상값
             int qrcodeColor =   0xFF2e4e96;
             // 큐알코드 배경색상값

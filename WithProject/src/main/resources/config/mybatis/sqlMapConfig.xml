@@ -20,6 +20,8 @@
 		<typeAlias type="kr.co.with.studygroup.exam.vo.StudyGroupExamResultVO" alias="studygroupexamresult" />
 		<typeAlias type="kr.co.with.studygroup.reference.vo.ReferenceVO" alias="reference" />
 		<typeAlias type="kr.co.with.joingroup.vo.JoinGroupVO" alias="joingroup" />
+		<typeAlias type="kr.co.with.joingroup.vo.StandGroupVO" alias="standgroup" />
+		<typeAlias type="kr.co.with.studygroup.attend.vo.AttendVO" alias="attend"/>
 	</typeAliases>
 </configuration>
 

@@ -11,7 +11,6 @@
 <script>
 $(document).ready(function() {
   var modal = $('.modal');
-
   $( ".btn" ).on( "click", function() {
     $( modal ).toggleClass('modal--show');
     $('body').toggleClass('hidden');
@@ -26,7 +25,35 @@ $(document).ready(function() {
     $( modal ).toggleClass('modal--show');
     $('body').toggleClass('hidden');
   });  
+	
+
+	<c:forEach items="${list}" var="list">
+		var html = "";
+		html += "<tr class='tr_${list.memberNo}'>"
+		html += "<td>${list.memberName}</td>"
+		html += "</tr>"
+		$(".listTable").append(html);
+		trList("${list.memberNo}");					
+	</c:forEach>
 });
+
+function trList(memberNo) {
+  $.ajax({
+    url : "${pageContext.request.contextPath}/attend/attendList.json?memberNo="+memberNo+"&groupNo=${groupNo}"
+  })
+  .done(function(response) {
+    $.each(response, function(index, AttendVO) {
+	    var html ="";
+	    console.log(response);
+	    if(response[index].check==true)
+	   		html += "<td>O</td>";
+	   	else
+	   		html += "<td>X</td>";
+	   	$(".tr_"+memberNo).append(html);
+    })
+    
+  })
+}
 </script>
 <style>
 * {
@@ -94,20 +121,20 @@ a {
 }
 
 .modal__contents {
-   background:white;
-   width:32rem;
-   position:absolute;
-   left:50%;
-   margin-left:-16rem;
-   top:6rem;
-   min-height:32rem;
-   z-index:99999;
+    background: white;
+    width: 26rem;
+    position: absolute;
+    left: 50%;
+    margin-left: -16rem;
+    top: 6rem;
+    min-height: 20rem;
+    z-index: 99999;
 }
 
 .modal__contents h1 {
    margin: 0;
    padding: 0;
-   line-height: 32rem;
+   line-height: 4rem;
    text-align: center;
    display: block;
 }
@@ -181,16 +208,23 @@ body.hidden header {
               <div class="overlay"></div>
               <div class="modal__contents modal--transition">
                  <a class="modal__close" href="#">X</a>
-                 <h1>Resize the window, dawg</h1>
+                 <h1>출석 QR Code</h1>
+                 <div style='    width: 60%;    text-align: center;    margin: 0 auto 0;'>
+	                 <img src='${pageContext.request.contextPath}/images/qrcode_${groupNo}.png' alt="qrcode"/>
+                 </div>
               </div>
            </div>
-
            <div class="dib tc">
-              <button type="button" class="btn">Show Modal</button>
+              <button type="button" class="btn">출석 입력!!</button>
            </div>
-
         </div>
-        <div>그래프 나올 자리</div>
+        <div>
+        	<div>
+        		<h4>최근 출석일 출석 현황</h4>
+        			<table class="listTable">
+        			</table>
+        	</div>
+        </div>
      </div>
   	</div>
 			

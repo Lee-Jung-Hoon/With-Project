@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.with.joingroup.dao.JoinGroupDAO;
 import kr.co.with.joingroup.vo.JoinGroupVO;
+import kr.co.with.joingroup.vo.StandGroupVO;
 import kr.co.with.studygroup.member.vo.MemberVO;
 import kr.co.with.studygroup.vo.StudyGroupVO;
 
@@ -42,5 +43,17 @@ public class JoinGroupServiceImpl implements JoinGroupService {
 	@Override
 	public void acceptMember(JoinGroupVO join) throws Exception {
 		dao.acceptMember(join);
+	}
+
+	// 스터디그룹 대기자 등록
+	@Override
+	public void insertWatingGroup(JoinGroupVO join) throws Exception {
+		dao.insertWatingGroup(join);
+	}
+	
+	// 대기자 현황을 출력하기 위한 service
+	@Override
+	public int selectStandMemberInfo(int groupNo) throws Exception {
+		return dao.selectStandMemberInfo(groupNo);
 	}
 }
