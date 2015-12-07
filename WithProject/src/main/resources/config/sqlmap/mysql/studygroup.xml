@@ -28,6 +28,7 @@
       <result column="group_EndDate" property="groupEndDate"/>
       <result column="group_EndTime" property="groupEndTime"/>
       <result column="Member_Img" property="memberImage"/>
+      <result column="group_qrcode_image" property="groupQrcodeImage"/>
    </resultMap>
 
    <!-- 스터디그룹 리스트 출력을 위한 쿼리문 -->
@@ -289,4 +290,11 @@
       )
       
   </insert>
+  
+  
+  <update id="insertQrcodeImagePath" parameterType="string">
+      update T_WITH_STUDYGROUP_GROUP
+			   set group_qrcode_image = #{groupQrcodeImage}
+			 where group_no = #{groupNo}      
+  </update>
 </mapper>

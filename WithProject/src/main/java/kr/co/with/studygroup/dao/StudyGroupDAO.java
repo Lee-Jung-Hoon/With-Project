@@ -126,4 +126,9 @@ public class StudyGroupDAO {
 	public void insertJoinGroupInfo(StudyGroupVO studyGroup) {
 		session.insert("with.studygroup.dao.insertJoinGroupInfo", studyGroup);
 	}
+
+	// 스터디그룹 qr코드 이미지 경로 입력
+	public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) {
+		session.update("with.studygroup.dao.insertQrcodeImagePath", qrCodeMake);
+	}
 }

@@ -12,7 +12,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class QRcodeMaker {
-	public void QrCodeMake (int groupNo) {
+	public String QrCodeMake (int groupNo) {
         try {
             File file = null;
             // 큐알이미지를 저장할 디렉토리 지정
@@ -38,6 +38,7 @@ public class QRcodeMaker {
              
         } catch (Exception e) {
             e.printStackTrace();
-        }   
+        }  
+        return "C:\\java73\\tomcat-work\\wtpwebapps\\WithProject\\images\\qrcode_"+groupNo+".png";
 }
 }

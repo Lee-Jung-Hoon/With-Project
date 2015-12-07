@@ -22,6 +22,15 @@ public class StudyGroupVO {
 	private String groupEndDate;
 	private String groupEndTime;
 	private String memberImage;
+	private String groupQrcodeImage;
+
+	public String getGroupQrcodeImage() {
+		return groupQrcodeImage;
+	}
+
+	public void setGroupQrcodeImage(String groupQrcodeImage) {
+		this.groupQrcodeImage = groupQrcodeImage;
+	}
 
 	public String getMemberImage() {
 		return memberImage;

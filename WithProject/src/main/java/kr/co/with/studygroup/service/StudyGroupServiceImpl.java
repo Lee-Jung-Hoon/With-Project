@@ -141,4 +141,10 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 	public void insertJoinGroupInfo(StudyGroupVO studyGroup) throws Exception {
 		dao.insertJoinGroupInfo(studyGroup);
 	}
+
+	// 스터디그룹 qr코드 생성 후 이미지 경로 설정
+	@Override
+	public void insertQrcodeImagePath(StudyGroupVO qrCodeMake) throws Exception {
+		dao.insertQrcodeImagePath(qrCodeMake);
+	}
 }
