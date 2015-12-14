@@ -31,4 +31,14 @@ public class AttendServiceImpl implements AttendService{
 		return dao.selectAttendList(attend);
 	}
 
+	@Override
+	public void attendMapping(int groupNo) throws Exception {
+		dao.attendMapping(groupNo);
+	}
+
+
+	@Override
+	public List<AttendVO> selectAttendDateList(int groupNo) throws Exception {
+		return dao.selectAttendDateList(groupNo);
+	}
 }

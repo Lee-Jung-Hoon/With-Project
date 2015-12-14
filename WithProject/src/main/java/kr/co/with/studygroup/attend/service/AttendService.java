@@ -13,4 +13,8 @@ public interface AttendService {
 
 	public List<AttendVO> selectAttendList(AttendVO attned) throws Exception;
 
+	public void attendMapping(int groupNo) throws Exception;
+
+	public List<AttendVO> selectAttendDateList(int groupNo) throws Exception;
+
 }
