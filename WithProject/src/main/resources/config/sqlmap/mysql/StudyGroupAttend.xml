@@ -3,18 +3,13 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="with.studygroupAttend.dao">
-	<insert id="insertAttend" parameterType="attend">
-	    insert into t_with_studygroup_attend(
-	    	member_no,
-	    	group_no,
-	    	ck
-	    )
-	    values(
-	    	#{memberNo},
-	    	#{groupNo},
-	    	1
-	    )
-	</insert>
+	<update id="insertAttend" parameterType="attend">
+	    update t_with_studygroup_attend
+	       set ck = 1
+	     where member_no = #{memberNo}
+	       and group_no = #{groupNo}
+	       and date_format(reg_date, '%Y-%m-%d') = #{regDate}
+	</update>
 	
 	<select id="selectMemberList" parameterType="int" resultType="member">
 	    select
@@ -39,5 +34,34 @@
 				 and
 				   member_no = #{memberNo}
 			 order by reg_date ASC
+	</select>
+	
+	<insert id="attendMapping" parameterType="attend">
+	    insert into t_with_studygroup_attend (
+	    	member_no,
+	    	group_no,
+	    	ck
+	    )
+	    values(
+	    	#{memberNo},
+	    	#{groupNo},
+	    	0
+	    )
+	</insert>
+	
+	<select id="selectTodayAttend" parameterType="attend" resultType="int">
+	    select count(member_no)
+			  from t_with_studygroup_attend
+	     where group_no = #{groupNo}
+	       and member_no = #{memberNo}
+	       and date_format(reg_date, '%Y-%m-%d') = #{regDate};
+	</select>
+	
+	<select id="selectAttendDateList" parameterType="int" resultType="attend">
+	    select date_format(reg_date, '%m-%d') as regDate
+			  from t_with_studygroup_attend
+			 where group_no = #{groupNo}
+			 order by attend_no DESC
+			 limit 0, 10 
 	</select>
 </mapper>

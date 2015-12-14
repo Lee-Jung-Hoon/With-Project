@@ -14,6 +14,9 @@ $(document).ready(function() {
   $( ".btn" ).on( "click", function() {
     $( modal ).toggleClass('modal--show');
     $('body').toggleClass('hidden');
+    $.ajax({
+      url: "${pageContext.request.contextPath}/attend/attendMapping.json?groupNo=${groupNo}"
+    })
   });
 
   $( ".overlay" ).on( "click", function() {
@@ -25,18 +28,41 @@ $(document).ready(function() {
     $( modal ).toggleClass('modal--show');
     $('body').toggleClass('hidden');
   });  
-	
 
-  /*
-	<c:forEach items="${list}" var="list">
+// 		<tr>
+// 			<th>이름</th>
+// 			<th>1</th>
+// 			<th>2</th>
+// 			<th>3</th>
+// 			<th>4</th>
+// 			<th>5</th>
+// 			<th>6</th>
+// 			<th>7</th>
+// 			<th>8</th>
+// 			<th>9</th>
+// 			<th>10</th>
+// 		</tr>
+
+ <c:forEach items="${list}" var="list">
 		var html = "";
 		html += "<tr class='tr_${list.memberNo}'>"
-		html += "<th>${list.memberName}</th>"
+		html += "<th><div>${list.memberName}</div></th>"
 		html += "</tr>"
-		$(".listTable").append(html);
+		$(".tbody").append(html);
 		trList("${list.memberNo}");					
 	</c:forEach>
-	*/
+	
+
+	var html = "";
+	html += "<tr>"
+	html += "<th>이름</th>"
+	 <c:forEach items="${dateList}" var="dateList">
+			html += "<th>${dateList.regDate}</th>"
+	</c:forEach>
+	html += "</tr>"
+	$(".thead").append(html);
+		
+	
 });
 
 function trList(memberNo) {
@@ -45,7 +71,7 @@ function trList(memberNo) {
   })
   .done(function(response) {
     $.each(response, function(index, AttendVO) {
-      /*
+      
 	    var html ="";
 	    console.log(response);
 	    if(response[index].check==true)
@@ -53,7 +79,7 @@ function trList(memberNo) {
 	   	else
 	   		html += "<td>X</td>";
 	   	$(".tr_"+memberNo).append(html);
-	   	*/
+	   	
     })
     
   })
@@ -274,46 +300,9 @@ body.hidden header {
      					<col style="width:7%" />
      					<col style="width:7%" />
      				</colgroup>
-     				<tbody>
-     					<tr>
-     						<th><div>안지원</div></th>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>     						
-     					</tr>
-     					<tr>
-     						<th><div>윤경원</div></th>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>
-     						<td>X</td>     						
-     					</tr>
-     					<tr>
-     						<th><div>이용수</div></th>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     						<td>O</td>
-     					</tr>
+     				<thead class='thead'>
+     				</thead>
+     				<tbody class="tbody">
      				</tbody>
      			</table>
        	</div>
