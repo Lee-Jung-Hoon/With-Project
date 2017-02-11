@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵핑될 DAO 인터페이스의 Full name 을 줍니다. -->
+<mapper namespace="bbs">
+	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다. -->
+	<select id="selectBbsList" resultType="bbsVO">
+		SELECT ITEM_ID,
+			TITLE,
+			USER_ID,
+			USER_NAME,
+			MAP_ID,
+			LEVEL1,
+			LEVEL2,
+			LEVEL3,
+			LEVEL4,
+			CONTENT,
+			RGST_DATE,
+			LAST_UPDT,
+			STATUS,
+			OPN_CNT,
+			RCMD_CNT,
+			READ_CNT,
+			CSTM_FIELD1,
+			CSTM_FIELD2,
+			CSTM_FIELD3,
+			CSTM_DATE1,
+			CSTM_DATE2
+		FROM BBS_ITEM
+		ORDER BY ITEM_ID DESC
+	</select>
+</mapper>
+
