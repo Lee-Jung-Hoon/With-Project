@@ -13,7 +13,7 @@ import com.merit.pps.bbs.service.BbsUserService;
 import com.merit.pps.bbs.vo.BbsVo;
 
 @Controller
-@RequestMapping(value = "bbs")
+@RequestMapping(value = "/bbs")
 public class BbsUserController {
 	@Resource(name = "bbsUserService")
 	private BbsUserService bbsUserService;
